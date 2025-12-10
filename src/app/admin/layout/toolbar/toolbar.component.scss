@@ -1,0 +1,142 @@
+.admin-toolbar {
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 222px;
+  display: flex;
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+  margin-top: 60px;
+  z-index: 999;
+  position: relative;
+  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+
+}
+
+.admin-toolbar button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  // background-color: #3498db;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+}
+
+.admin-toolbar button:hover {
+  background-color: #2980b9;
+}
+
+.toolbar-buttons {
+  display: flex;
+}
+
+.show-buttons {
+  display: none;
+}
+
+.custom-create-btn {
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+}
+
+.btn-custom-print {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.btn-custom-update {
+  background-color: #FF5722;
+  color: white;
+  border: none;
+}
+
+.btn-custom-copy {
+  background-color: #6c5ce7;
+  /* tím đẹp */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom-copy:hover {
+  background-color: #5a4bcf;
+  cursor: pointer;
+}
+
+
+@media (max-width: 470px) {
+  .admin-toolbar {
+    margin-left: 0px;
+    padding: 10px;
+  }
+
+  .admin-toolbar button {
+    padding: 8px 18px;
+  }
+
+  .toolbar-buttons {
+    position: fixed;
+    bottom: 126px;
+    right: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .toolbar-buttons button i {
+    font-size: 1.2rem;
+    margin-left: 4px;
+  }
+
+  .toolbar-buttons button span {
+    display: none;
+  }
+
+  .toolbar-buttons button {
+    width: 150px;
+  }
+
+  .show-buttons {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10000;
+    margin-bottom: 70px;
+    display: block;
+    margin-right: 10px;
+  }
+
+  .show-buttons:hover {
+    background-color: #2980b9;
+  }
+
+  .show-buttons i {
+    font-size: 1.4rem;
+  }
+
+  .toolbar-buttons.show {
+    display: flex;
+  }
+
+  .toolbar-buttons button {
+    width: 50px;
+    height: 50px;
+    font-size: 10px;
+    padding: 5px;
+    line-height: 12px;
+  }
+
+  .toolbar-title {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+  }
+}

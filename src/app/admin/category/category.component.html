@@ -1,0 +1,11 @@
+<app-layout [text]="'Loại code'" [count]="count" (showPupAdd)="click($event)"
+    [tabTemplates]="{categoryAdd,categoryList}">
+</app-layout>
+<ng-template #categoryAdd>
+    <app-category-add [showcategory_add]="showcategory_add" [category]="newcategory" [data]="data"
+        (closeCategoryAdd)="close()" (newData)="newData($event)"></app-category-add>
+</ng-template>
+<ng-template #categoryList>
+    <app-category-list [category]="category" [category_id]="category_id"
+        (categoryclick)="selectCategory($event)"></app-category-list>
+</ng-template>

@@ -1,0 +1,20 @@
+<div class="custom-offcanvas" [class.show]="showoNotification">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Thông báo</h5>
+    <button class="close-btn" (click)="close()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="container-fluid p-3">
+    <div *ngFor="let n of notifications" class="notification-item">
+      <img [src]="n.avatar" class="avatar" alt="user" />
+      <div class="content">
+        <p class="username">{{ n.username }}</p>
+        <p class="message">{{ n.message }}</p>
+        <span class="time">{{ n.time }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="custom-backdrop" [class.show]="showoNotification" (click)="close()"></div>

@@ -1,0 +1,74 @@
+.btn-outline-black {
+    border-color: #dee2e6;
+}
+
+.btn-outline-black:hover {
+    background-color: #dee2e6;
+    color: white;
+    border-color: #dee2e6;
+}
+
+
+app-category-icon {
+    z-index: 1950 !important;
+}
+
+.furniture-list {
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    width: 100%;
+    max-height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.furniture-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.furniture-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.furniture-list::-webkit-scrollbar-thumb:hover {
+    background-color: #dee2e6;
+}
+
+.tenant-tag {
+    position: relative;
+    display: inline-block;
+    background-color: #e9ecef;
+    border-radius: 12px;
+    padding: 5px 5px;
+    margin: 3px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.input-box {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    min-width: 100px;
+}
+
+.offcanvas-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem;
+    background: white;
+    text-align: right;
+    left: 0;
+    z-index: 1060 !important;
+}

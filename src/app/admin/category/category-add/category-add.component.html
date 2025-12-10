@@ -1,0 +1,27 @@
+<app-form [headerDiv]="tables" [text]="text" [showoffcanvas]="showcategory_add" (closePupAdd)="close()"
+    [tabTemplates]="{category: categoryContent, setting: setting}">
+</app-form>
+<ng-template #categoryContent>
+    <div class="mb-3">
+        <label for="code" class="form-label small">Mã loại code</label>
+        <input type="text" id="code" name="code" class="form-control form-control-sm" [(ngModel)]="category.code"
+            readonly />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label small">Tên </label>
+        <input type="text" id="name" name="name" class="form-control form-control-sm" [(ngModel)]="category.name"
+            (input)="onNameChange()" required="" />
+    </div>
+    <div class="mb-3">
+        <label for="slug" class="form-label small">Đường dẫn</label>
+        <input type="text" id="slug" name="slug" class="form-control form-control-sm" [(ngModel)]="category.slug"
+            readonly />
+    </div>
+    <div class="offcanvas-footer">
+        <button type="button" class="btn btn-primary px-4" (click)="save()">
+            <i class="fa fa-save"></i>
+            Lưu
+        </button>
+    </div>
+</ng-template>
+<ng-template #setting></ng-template>

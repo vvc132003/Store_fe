@@ -1,0 +1,26 @@
+<div class="custom-offcanvas" [class.show]="showoffcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">{{text}}</h5>
+        <button class="close-btn" (click)="close()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div class="container-fluid p-3 ">
+        <div class="offcanvas-body">
+            <div class="row">
+                <div [ngClass]="{'col-md-4 border-end': isLargeScreen, '': !isLargeScreen}">
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let table of headerDiv" class="list-group-item list-group-item-action small"
+                            [class.active]="selectedTab === table.tab" (click)="selectTab(table.tab)">
+                            <i class="bi" [ngClass]="table.icon + ' me-2'"></i> {{ table.label }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="content" [ngClass]="{'col-md-8': isLargeScreen, '': !isLargeScreen}">
+                    <div *ngIf="tabTemplates[selectedTab]" [ngTemplateOutlet]="tabTemplates[selectedTab]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="custom-backdrop" [class.show]="showoffcanvas"></div>

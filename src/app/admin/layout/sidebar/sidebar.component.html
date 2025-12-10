@@ -1,0 +1,17 @@
+<nav class="sidebar">
+  <ul class="sidebar-menu">
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="[item.route, item.funId]" routerLinkActive="active" (click)="toggleSubMenu(item)">
+        <p>{{ item.icon }}</p>
+        <span class="label">{{ item.label }}</span>
+        <i *ngIf="item.subMenu" class="bi" [ngClass]="item.isOpen ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </a>
+
+      <ul class="sub-menu mobile" [class.open]="item.isOpen">
+        <li *ngFor="let sub of item.subMenu; let i = index" class="circle-item">
+          <a [routerLink]="sub.route">{{ sub.label }}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,29 @@
+<header class="admin-header">
+    <div class="left-section">
+        <div class="logo">
+            <i class="bi bi-shop"></i> Logo
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="icon-wrapper" (click)="showoNotificationt()">
+            <i class="bi bi-bell"></i>
+            <span class="badge">3</span>
+        </div>
+        <div class="icon-wrapper">
+            <i class="bi bi-chat-dots"></i>
+            <span class="badge">5</span>
+        </div>
+        <select class="lang-select" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
+            <option value="vi">🇻🇳</option>
+            <option value="en">🇺🇸</option>
+        </select>
+        <div class="user-info">
+            <img src="https://channel.mediacdn.vn/428462621602512896/2023/9/29/photo-1-16959618865181612964329.jpg"
+                class="avatar" alt="admin">
+            <span>Admin</span>
+        </div>
+    </div>
+</header>
+
+<app-notification [showoNotification]="showoNotification" (closePupAdd)="closeNotification()">
+</app-notification>

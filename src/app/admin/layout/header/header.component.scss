@@ -1,0 +1,84 @@
+.admin-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  // background-color: #1F2937;
+  color: #000;
+  display: flex;
+  padding: 0 20px;
+  z-index: 1000;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    font-size: 22px;
+    color: #ffd369;
+  }
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-wrapper {
+  position: relative;
+  cursor: pointer;
+
+  i {
+    font-size: 20px;
+  }
+
+  .badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background: #ff4d4f;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 10px;
+  }
+}
+
+.lang-select {
+  background: rgba(255, 255, 255, 0.2);
+  color: #000;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  outline: none;
+
+  option {
+    color: black;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid #ffffff55;
+    object-fit: cover;
+  }
+}

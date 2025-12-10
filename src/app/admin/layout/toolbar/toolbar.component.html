@@ -1,0 +1,16 @@
+<div class="admin-toolbar">
+  <div class="toolbar-title">
+    <strong>{{ text }} </strong> <span *ngIf="count > 0">| {{ count }}</span> <span *ngIf="tableName">| {{ tableName
+      }}</span>
+  </div>
+  <div class="toolbar-buttons" [class.show]="showButtons">
+    <button *ngFor="let button of buttonNone" class="btn" [ngClass]="getButtonClass(button.type) + ' ' + button.class"
+      [ngStyle]="{ display: button.display }" (click)="button.action()">
+      <i class="me-1 fa" [class]="button.icon"></i>
+      <span>{{ button.label }}</span>
+    </button>
+  </div>
+  <button class="show-buttons btn btn-primary" (click)="toggleButtons()">
+    <i class="fas fa-caret-up"></i>
+  </button>
+</div>

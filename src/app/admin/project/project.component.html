@@ -1,0 +1,11 @@
+<app-layout [text]="'Mã nguồn'" (showPupAdd)="click($event)" [tabTemplates]="{projectAdd,projectList}">
+</app-layout>
+<ng-template #projectAdd>
+    <app-project-add [showcproject_add]="showproject_add" (closeProjectAdd)="close()"
+        (newData)="newData($event)" [data]="data" [project]="newproject"></app-project-add>
+</ng-template>
+<ng-template #projectList>
+    <app-project-list [project_list]="project_list" [project_id]="project_id" (projectclick)="selectpRroject($event)"></app-project-list>
+    <!-- <app-category-list [category]="category" [category_id]="category_id"
+        (categoryclick)="selectCategory($event)"></app-category-list> -->
+</ng-template>
