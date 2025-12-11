@@ -1,0 +1,383 @@
+/* HEADER */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    background: linear-gradient(to right, #38bdf8, #34d399);
+    padding: 12px 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 3px 10px;
+    border-radius: 999px;
+    // box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ICON FACEBOOK & PHONE */
+.search-box a {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.search-box a:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+/* SELECT */
+.search-box select {
+    border: none;
+    outline: none;
+    padding: 10px 10px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* INPUT */
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 10px 12px;
+    border-radius: 999px;
+    width: 220px;
+    background: #f9fafb;
+    font-size: 14px;
+}
+
+/* BUTTON SEARCH */
+.search-box button {
+    background: linear-gradient(135deg, #ec4899, #6366f1);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.45);
+}
+
+
+/* Nút Đăng nhập */
+.auth a:first-child {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: 0.25s;
+}
+
+.auth a:first-child:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Nút Đăng ký (nổi bật) */
+.auth a:last-child {
+    background: white;
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 5px 18px;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transition: 0.3s;
+}
+
+.auth a:last-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+
+
+/* MENU */
+.menu {
+    background: white;
+    padding: 15px 90px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-left,
+.menu-right {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+/* ITEM CÓ DROPDOWN */
+.menu-item {
+    position: relative;
+}
+
+.menu span,
+.menu-item>span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+
+}
+
+.has-arrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.has-arrow .arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* Khi hover vào menu item thì mũi tên xoay */
+.menu-item:hover .has-arrow .arrow {
+    transform: rotate(180deg);
+}
+
+
+.dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* SUBMENU */
+.dropdown {
+    position: absolute;
+    top: 130%;
+    left: 0;
+    min-width: 180px;
+    background: white;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s;
+    z-index: 999;
+}
+
+/* LINK TRONG DROPDOWN */
+.dropdown a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #374151;
+    transition: 0.2s;
+}
+
+.dropdown a:hover {
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    color: white;
+}
+
+/* HOVER THÌ HIỆN MENU */
+.menu-item:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* HOVER TEXT MENU */
+.menu span:hover {
+    color: #4f46e5;
+}
+
+/* Mặc định ẩn icon mobile */
+.mobile-menu,
+.mob-toggler {
+    display: none;
+}
+
+/* Search box trên desktop luôn hiện */
+.search-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* ==== MOBILE MODE (<470px) ==== */
+@media (max-width: 470px) {
+
+    /* Hiện 2 nút mobile */
+
+    .navbar {
+        position: fixed;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+
+
+    .mobile-menu {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+        position: absolute;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+    }
+
+    .mob-toggler {
+        display: block;
+        font-size: 25px;
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+    }
+
+    /* Ẩn search-box trên mobile */
+    .search-box {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        color: #666666;
+        padding: 15px;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        gap: 12px;
+        z-index: 999;
+        border-radius: 0px;
+    }
+
+    .search-box a,
+    .auth {
+        display: none !important;
+    }
+
+    .search-box.showSearch-mobile {
+        display: flex;
+    }
+
+    .search-box select,
+    .search-box input {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        color: #666666;
+    }
+
+    .search-box button {
+        width: 15%;
+        border-radius: 8px;
+    }
+
+    .menu {
+        position: fixed;
+        top: 60px;
+        left: -270px;
+        width: 230px;
+        height: 100vh;
+        background: #ffffff;
+        color: #666666;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+        padding: 16px;
+        z-index: 10000;
+        transition: left 0.3s ease-in-out;
+        flex-direction: column;
+        display: flex;
+        gap: 12px;
+        justify-content: flex-start;
+
+    }
+
+    .menu-left,
+    .menu-right {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 90%;
+    }
+
+    .menu-left span,
+    .menu-right span,
+    .menu-item>span {
+        width: 100%;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .menu-item {
+        width: 100%;
+    }
+
+    .has-arrow {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        position: relative;
+    }
+
+    .has-arrow .arrow {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        font-size: 12px;
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown {
+        top: 90%;
+    }
+
+    .menu.showMenu-mobile {
+        left: 0 !important;
+        margin-bottom: 100px !important;
+    }
+
+}

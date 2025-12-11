@@ -1,0 +1,73 @@
+<nav class="navbar">
+    <a class="mobile-menu" (click)="toggleMobileMenu()">
+        <i class="fas fa-ellipsis-v"></i>
+    </a>
+    <div class="logo"> &lt;/&gt; MUABANCODE</div>
+
+    <div class="search-box" [ngClass]="{ 'showSearch-mobile': showSearchMobile }">
+        <a href="">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <select>
+            <option>Danh mục</option>
+            <option>PHP</option>
+            <option>NodeJS</option>
+            <option>C#</option>
+        </select>
+        <input type="text" placeholder="Tìm kiếm source code">
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="auth d-flex">
+        <a href="#">Đăng nhập</a>
+        <a href="#">Đăng ký</a>
+    </div>
+    <a class="mob-toggler" (click)="toggleMobileSearch()">
+        <i class="fas fa-bars f-25"></i>
+    </a>
+</nav>
+
+<!-- MENU -->
+<nav class="menu" [ngClass]="{ 'showMenu-mobile': showMenuOpenMobile }">
+
+    <!-- CỤM BÊN TRÁI -->
+    <div class="menu-left">
+        <span><i class="fa-solid fa-house"></i> Trang chủ</span>
+
+        <div class="menu-item">
+            <span class="has-arrow">
+                <i class="fa-solid fa-list"></i> Danh mục
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </span>
+            <div class="dropdown">
+                <a href="#">PHP</a>
+                <a href="#">NodeJS</a>
+                <a href="#">C#</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <span class="has-arrow">
+                <i class="fa-solid fa-newspaper"></i> Bài viết
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </span>
+            <div class="dropdown">
+                <a href="#">Tin công nghệ</a>
+                <a href="#">Thủ thuật</a>
+            </div>
+        </div>
+
+        <span><i class="fa-solid fa-graduation-cap"></i> Dịch vụ đồ án</span>
+        <span><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</span>
+    </div>
+
+    <!-- CỤM BÊN PHẢI -->
+    <div class="menu-right">
+        <span><i class="fa-solid fa-wallet"></i> Nạp tiền</span>
+        <span><i class="fa-solid fa-cloud-arrow-up"></i> Tải lên</span>
+    </div>
+
+</nav>
