@@ -1,78 +1,120 @@
 <div class="main">
+    <div class="header">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="#">Php & Mysql</a></li>
+                <li><a href="#">NodeJS</a></li>
+                <li><a href="#">C#</a></li>
+                <li><a href="#">Java</a></li>
+                <li><a href="#">Python</a></li>
+                <li><a href="#">C & C++</a></li>
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="#">Template</a></li>
+                <li><a href="#">Khác</a></li>
+            </ul>
+        </aside>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <ul>
-            <li><a href="#">Php & Mysql</a></li>
-            <li><a href="#">NodeJS</a></li>
-            <li><a href="#">C#</a></li>
-            <li><a href="#">Java</a></li>
-            <li><a href="#">Python</a></li>
-            <li><a href="#">C & C++</a></li>
-            <li><a href="#">JavaScript</a></li>
-            <li><a href="#">WordPress</a></li>
-            <li><a href="#">Mobile</a></li>
-            <li><a href="#">Unity</a></li>
-            <li><a href="#">Template</a></li>
-            <li><a href="#">Khác</a></li>
-        </ul>
-    </aside>
-
-    <!-- BANNER SLIDESHOW -->
-    <section class="banner">
-        <div class="slides">
-            <div class="slide active">
-                <img src="https://via.placeholder.com/900x300?text=Banner+1" alt="Banner 1">
-                <div class="slide-text">
-                    <h1>Dịch vụ thiết kế website</h1>
-                    <p>Uy tín - Giá hợp lý</p>
-                    <a href="#" class="btn">Xem chi tiết</a>
+        <!-- BANNER SLIDESHOW -->
+        <section class="banner">
+            <div class="slides">
+                <div class="slide" *ngFor="let item of slides; let i = index" [class.active]="i === currentIndex">
+                    <img [src]="item" alt="Banner {{ i + 1 }}">
                 </div>
             </div>
-            <div class="slide">
-                <img src="https://via.placeholder.com/900x300?text=Banner+2" alt="Banner 2">
-                <div class="slide-text">
-                    <h1>Giao diện hiện đại</h1>
-                    <p>Chuẩn SEO - Thân thiện người dùng</p>
-                    <a href="#" class="btn">Xem chi tiết</a>
+            <div class="dots">
+                <div *ngFor="let dot of slides; let i = index" [class.active]="i === currentIndex"
+                    (click)="goToSlide(i)">
                 </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+<div class="features">
+    <div class="features-header">
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+            <div class="content">
+                <h3>Thu nhập tự động</h3>
+                <p>Bạn có code hãy upload ngay</p>
             </div>
         </div>
-        <div class="dots"></div>
-    </section>
-
-    <!-- ACTIVITY -->
-    <aside class="activity">
-        <h3>Hoạt động gần đây</h3>
-        <ul>
-            <li>rotto do đã mua source code game Unity</li>
-            <li>Kiên Vũ Văn vừa có thêm 10.000đ</li>
-            <li>Đình Thành vừa có thêm tiền</li>
-        </ul>
-    </aside>
-
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-headset"></i></div>
+            <div class="content">
+                <h3>Hỗ trợ 24/7</h3>
+                <p>Tư vấn & hỗ trợ mọi lúc</p>
+            </div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-code"></i></div>
+            <div class="content">
+                <h3>Mã nguồn đa dạng</h3>
+                <p>Kho code phong phú, liên tục cập nhật</p>
+            </div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-bolt"></i></div>
+            <div class="content">
+                <h3>Giao dịch nhanh</h3>
+                <p>Nạp & rút tiền chỉ trong vài giây</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- FEATURES -->
-<div class="features">
-    <div class="feature-box">
-        <div class="icon">💰</div>
-        <h3>Thu nhập tự động</h3>
-        <p>Bạn có code hãy upload ngay</p>
+<div class="top-source-title">
+    <h4><strong>TOP SOURCE CODE MỚI NHẤT</strong></h4>
+</div>
+
+<div class="product-grid">
+
+    <div class="product-list">
+
+        <div class="product-card" *ngFor="let item of products">
+
+            <div class="thumb">
+                <img [src]="item.image" alt="" />
+            </div>
+
+            <div class="thumb-actions">
+                <button>Xem chi tiết</button>
+                <button>Lưu code</button>
+            </div>
+
+            <div class="tag">
+                <i class="fas fa-code"></i> {{ item.category }}
+            </div>
+
+            <h3 class="title">
+                {{ item.title }}
+            </h3>
+
+            <div class="price">
+                {{ item.price | number }} đ
+            </div>
+
+            <div class="rating">
+                <i class="fas fa-star" *ngFor="let r of [1,2,3,4,5]"></i>
+                <span>{{ item.review }} đánh giá</span>
+            </div>
+
+            <div class="bottom-row">
+                <div class="seller">
+                    <img [src]="item.avatar" />
+                    <span>{{ item.seller }}</span>
+                </div>
+
+                <div class="actions">
+                    <i class="fas fa-bookmark"></i>
+                    <i class="fas fa-download"></i>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
-    <div class="feature-box">
-        <div class="icon">💬</div>
-        <h3>Hỗ trợ 24/7</h3>
-        <p>Tư vấn & hỗ trợ mọi lúc</p>
-    </div>
-    <div class="feature-box">
-        <div class="icon">💻</div>
-        <h3>Mã nguồn đa dạng</h3>
-        <p>Kho code phong phú, liên tục cập nhật</p>
-    </div>
-    <div class="feature-box">
-        <div class="icon">⚡</div>
-        <h3>Giao dịch nhanh</h3>
-        <p>Nạp & rút tiền chỉ trong vài giây</p>
-    </div>
+
 </div>

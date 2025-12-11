@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     color: white;
+
 }
 
 
@@ -128,10 +129,13 @@
     border-bottom: 1px solid #ddd;
     display: flex;
     gap: 20px;
-    position: relative;
-    display: flex;
+    position: fixed;
     align-items: center;
     justify-content: space-between;
+    top: 73px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
 }
 
 .menu-left,
@@ -249,7 +253,7 @@
         align-items: center;
         justify-content: center;
     }
-    
+
 
 
     .mobile-menu {
