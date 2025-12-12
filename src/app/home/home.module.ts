@@ -7,6 +7,9 @@ import { LayoutHomeComponent } from './layout-home/layout-home.component';
 import { NavbarComponent } from './layout-home/navbar/navbar.component';
 import { HeaderComponent } from './layout-home/header/header.component';
 import { IndexComponent } from './index/index.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { PageHeaderComponent } from './core_home/page-header/page-header.component';
+import { PageRightComponent } from './core_home/page-right/page-right.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { IndexComponent } from './index/index.component';
     LayoutHomeComponent,
     NavbarComponent,
     HeaderComponent,
-    IndexComponent
+    IndexComponent,
+    ProjectDetailComponent,
+    PageHeaderComponent,
+    PageRightComponent
   ],
   imports: [
     CommonModule,

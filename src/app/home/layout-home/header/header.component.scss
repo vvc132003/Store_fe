@@ -225,7 +225,7 @@ a {
     gap: 10px;
     transition: 0.2s ease;
     position: relative;
-    cursor: pointer;
+    // cursor: pointer;
 
     &:hover {
         transform: translateY(-4px);
@@ -266,6 +266,7 @@ a {
         opacity: 0;
         pointer-events: none;
         transition: 0.3s ease;
+
         button {
             background: #ffffffdd;
             padding: 6px 12px;
@@ -309,6 +310,7 @@ a {
 
     .rating {
         display: flex;
+        align-items: center;
         gap: 3px;
         font-size: 14px;
         color: #f7c600;

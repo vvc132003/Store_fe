@@ -12,18 +12,18 @@
             <i class="fa-solid fa-phone"></i>
         </a>
         <select>
-            <option>Danh mục</option>
-            <option>PHP</option>
-            <option>NodeJS</option>
-            <option>C#</option>
+            <option value="">Danh mục</option>
+            <option *ngFor="let item of category_list" [value]="item.id">
+                {{ item.name }}
+            </option>
         </select>
         <input type="text" placeholder="Tìm kiếm source code">
         <button><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
     <div class="auth d-flex">
-        <a href="#">Đăng nhập</a>
-        <a href="#">Đăng ký</a>
+        <a [routerLink]="['/']">Đăng nhập</a>
+        <a [routerLink]="['/']">Đăng ký</a>
     </div>
     <a class="mob-toggler" (click)="toggleMobileSearch()">
         <i class="fas fa-bars f-25"></i>
@@ -34,40 +34,62 @@
 <nav class="menu" [ngClass]="{ 'showMenu-mobile': showMenuOpenMobile }">
 
     <!-- CỤM BÊN TRÁI -->
-    <div class="menu-left">
-        <span><i class="fa-solid fa-house"></i> Trang chủ</span>
+    <ul class="menu-left">
+        <li>
+            <a [routerLink]="['/']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fa-solid fa-house"></i> Trang chủ
+            </a>
+        </li>
 
-        <div class="menu-item">
-            <span class="has-arrow">
+        <li class="menu-item">
+            <a class="has-arrow">
                 <i class="fa-solid fa-list"></i> Danh mục
                 <i class="fa-solid fa-chevron-down arrow"></i>
-            </span>
-            <div class="dropdown">
-                <a href="#">PHP</a>
-                <a href="#">NodeJS</a>
-                <a href="#">C#</a>
-            </div>
-        </div>
+            </a>
+            <ul class="dropdown">
+                <li><a [routerLink]="['']">PHP</a></li>
+                <li><a [routerLink]="['']">NodeJS</a></li>
+                <li><a [routerLink]="['']">C#</a></li>
+            </ul>
+        </li>
 
-        <div class="menu-item">
-            <span class="has-arrow">
+        <li class="menu-item">
+            <a class="has-arrow">
                 <i class="fa-solid fa-newspaper"></i> Bài viết
                 <i class="fa-solid fa-chevron-down arrow"></i>
-            </span>
-            <div class="dropdown">
-                <a href="#">Tin công nghệ</a>
-                <a href="#">Thủ thuật</a>
-            </div>
-        </div>
+            </a>
+            <ul class="dropdown">
+                <li><a [routerLink]="['']">Tin công nghệ</a></li>
+                <li><a [routerLink]="['']">Thủ thuật</a></li>
+            </ul>
+        </li>
 
-        <span><i class="fa-solid fa-graduation-cap"></i> Dịch vụ đồ án</span>
-        <span><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</span>
-    </div>
+        <li>
+            <a [routerLink]="['/dich-vu-do-an']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fa-solid fa-graduation-cap"></i> Dịch vụ đồ án
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/tim-kiem']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+            </a>
+        </li>
+    </ul>
+
 
     <!-- CỤM BÊN PHẢI -->
-    <div class="menu-right">
-        <span><i class="fa-solid fa-wallet"></i> Nạp tiền</span>
-        <span><i class="fa-solid fa-cloud-arrow-up"></i> Tải lên</span>
-    </div>
+    <ul class="menu-right">
+        <li>
+            <a [routerLink]="['/nap-tien']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fa-solid fa-wallet"></i> Nạp tiền
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/tai-len']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Tải lên
+            </a>
+        </li>
+    </ul>
+
 
 </nav>

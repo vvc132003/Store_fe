@@ -1,4 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +9,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+
 
   slides = [
     "https://giaodichcode.com/assets/images/bannerv2/POP-UP-CODE_LARGE-2.jpg",
@@ -66,17 +71,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
       seller: "Cao Chí Phát"
     }
   ];
-
+  @Input() category_list: any[] = [];
+  project_list: any[] = [];
   currentIndex = 0;
   prevIndex = 0;
   intervalId: any;
+  constructor(private _category: CategoryService, private _project: ProjectService) {
+
+  }
+  private subscription = new Subscription();
+
 
   ngOnInit() {
     this.startAutoSlide();
+    this.loadProject_list();
+  }
+
+  loadProject_list(){
+    this.subscription.add(
+      this._project.getProject_list().subscribe((data:any)=>{
+        this.project_list=data;
+        console.log(data)
+      })
+    )
   }
 
   ngOnDestroy() {
     clearInterval(this.intervalId);
+    this.subscription.unsubscribe();
   }
 
   startAutoSlide() {

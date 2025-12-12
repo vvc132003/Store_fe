@@ -1,1 +1,2 @@
-<app-layout-home></app-layout-home>
+<app-layout-home (categoryChange)="category_list = $event"></app-layout-home>
+<app-header [category_list]="category_list"></app-header>
