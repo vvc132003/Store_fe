@@ -15,7 +15,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),  
   ],
   providers: [],
   bootstrap: [AppComponent]

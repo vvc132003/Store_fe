@@ -1,2 +1,120 @@
 <app-layout-home></app-layout-home>
-<app-page-header></app-page-header>
+<app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
+    [breadcrumb_title]="breadcrumb_title"></app-page-header>
+
+<div class="project-detail-page" *ngIf="project">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9 left-side">
+                <div class="row left-side-card">
+                    <h1 class="title mobile">{{ project.title }}</h1>
+                    <div class="col-5">
+                        <div class="preview-box">
+                            <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
+                        </div>
+
+                        <div class="thumb-list">
+                            <img [src]="project.thumbnailUrl" alt="">
+                            <img [src]="project.thumbnailUrl" alt="">
+                            <img [src]="project.thumbnailUrl" alt="">
+                        </div>
+                        <div class="demo-btn-container">
+                            <button class="demo-btn"><i class="fa fa-desktop"></i> Xem Live Demo</button>
+                        </div>
+
+                    </div>
+                    <div class="col-7">
+                        <h1 class="title desktop">{{ project.title }}</h1>
+
+                        <div class="meta">
+                            <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
+                        </div>
+
+                        <div class="price">
+                            <span class="money">{{ project.price | number }} đ</span>
+                            <div class="icons">
+                                <div class="icon-item">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="count">0</span>
+                                </div>
+                                <div class="icon-item">
+                                    <i class="fa fa-download"></i>
+                                    <span class="count">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-line">Thể loại: Website</div>
+                        <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
+                                }}</span>
+                        </div>
+
+                        <!-- <div class="free-guide">Hướng dẫn nhận xu tải miễn phí: <a class="view-now">Xem ngay</a></div> -->
+
+                        <div class="report-box">
+                            <a href="#"><i class="fa fa-exclamation-triangle"></i> Báo vi phạm bản quyền</a>
+                            <a href="#"><i class="fa fa-bug"></i> Báo code bị lỗi</a>
+                        </div>
+
+                        <button class="download-btn">⬇ DOWNLOAD</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row left-side-card">
+                    <div class="nav-tabs">
+                        <ul class="nav">
+                            <li class="nav-item" [class.active]="activeTab === 0">
+                                <a class="nav-link" (click)="selectTab(0)">Mô tả</a>
+                            </li>
+                            <li class="nav-item" [class.active]="activeTab === 1">
+                                <a class="nav-link" (click)="selectTab(1)">Hướng dẫn cài đặt</a>
+                            </li>
+                            <li class="nav-item" [class.active]="activeTab === 2">
+                                <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab content, sử dụng ngClass để điều khiển hiển thị nội dung -->
+                        <div class="tab-content">
+                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 0}">
+                                <div [innerHTML]="project.description | linebreaks"></div>
+                            </div>
+                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
+                                Nội dung của Tab 2
+                            </div>
+                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
+                                <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-3 right-side">
+                <div class=" row right-side-card">
+                    <h3 class="card-title">🔥 Code mới nhất</h3>
+                    <!-- <div class="product" *ngFor="let item of newProducts">
+                    <img [src]="item.thumbnailUrl">
+                    <div class="info">
+                        <h4>{{ item.title }}</h4>
+                        <div class="cat">{{ item.categoryName }}</div>
+                        <div class="price">{{ item.price | number }} đ</div>
+                    </div>
+                </div>
+
+                <h3 class="card-title mt-4">⭐ Sản phẩm đề xuất</h3>
+
+                <div class="product" *ngFor="let item of suggestProducts">
+                    <img [src]="item.thumbnailUrl">
+                    <div class="info">
+                        <h4>{{ item.title }}</h4>
+                        <div class="cat">{{ item.categoryName }}</div>
+                        <div class="price">{{ item.price | number }} đ</div>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

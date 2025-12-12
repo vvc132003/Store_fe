@@ -18,6 +18,10 @@ export class ProjectService {
     getProject_list(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     }
+    
+    getProjectBySlug(slug: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
+    }
 
     // Phương thức POST
     postData(data: any): Observable<any> {

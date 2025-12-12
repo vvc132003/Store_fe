@@ -1,0 +1,405 @@
+.project-detail-page {
+  padding: 0px 90px;
+  margin-top: -120px;
+}
+
+.container {
+  display: flex;
+  gap: 15px;
+  /* Khoảng cách giữa các cột */
+  flex-wrap: wrap;
+  /* Cho phép các cột tự động xuống dòng khi cần thiết */
+}
+
+.left-side {
+  flex: 1;
+  /* Cột này chiếm phần còn lại của không gian */
+}
+
+.left-side-card {
+  padding: 20px 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2.94px .06px #041a3729;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.right-side {
+  flex: 0 0 25%;
+  margin-left: 22px;
+}
+
+.right-side-card {
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2.94px .06px #041a3729;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-side-card::before,
+.right-side-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #4e8cff, #664eff);
+}
+
+
+
+
+/* IMAGE PREVIEW */
+.preview-box {
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #e6e6e6;
+  margin-bottom: 15px;
+
+  .main-preview {
+    width: 100%;
+    display: block;
+  }
+}
+
+.thumb-list {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  width: 40%;
+
+  img {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    object-fit: cover;
+    transition: 0.25s;
+
+    &:hover {
+      border-color: #4d77ff;
+      transform: scale(1.03);
+    }
+  }
+}
+
+.left-side .demo-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.demo-btn {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #ff4d6b;
+  border: 1px solid transparent;
+  padding: .375rem .95rem;
+  font-size: .875rem;
+  border-radius: 2px;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* TEXT CONTENT */
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.meta {
+  margin-bottom: 15px;
+  color: #9f9f9f !important;
+  font-size: 14px;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.price {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .money {
+    color: #d5101c;
+    flex: 1;
+    font-size: 20.5px;
+    font-weight: 600;
+  }
+
+  .icons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .icon-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Khoảng cách giữa icon và số lượng */
+  }
+
+  .icon-item i {
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .icon-item i:hover {
+    transform: scale(1.1);
+  }
+
+  .count {
+    font-size: 14px;
+    color: #777;
+  }
+}
+
+.info-line {
+  margin-bottom: 10px;
+  font-size: 14px;
+
+
+  .category {
+    color: #3a7bff;
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.free-guide {
+  margin-top: 12px;
+
+  .view-now {
+    color: #0099ff;
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.report-box a {
+  color: #e55353;
+  font-size: 14px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  align-items: center;
+  list-style: none;
+  text-decoration: none;
+
+}
+
+.report-box i {
+  margin-right: 1px;
+  font-size: 16px;
+}
+
+/* DOWNLOAD BUTTON */
+.download-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 16px 0;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #c72cf6, #6151ff);
+  color: #fff;
+}
+
+
+/* Nav Tabs Styles */
+.nav-tabs {
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: start;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background-color: #4d77ff;
+  /* Khi hover */
+}
+
+.nav-item.active .nav-link {
+  color: #fff;
+  background-color: #4d77ff;
+  /* Màu nền cho tab active */
+  border-color: #4d77ff;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  /* Hiển thị content của tab active */
+}
+
+.tab-pane h4 {
+  margin-top: 0;
+}
+
+
+/* 🔥 RIGHT SIDEBAR */
+
+
+.card-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  border-left: 4px solid #4d77ff;
+  padding-left: 8px;
+}
+
+.product {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    transform: translateX(4px);
+  }
+
+  img {
+    width: 70px;
+    height: 55px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  h4 {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+  }
+
+  .cat {
+    font-size: 12px;
+    color: #4d77ff;
+  }
+
+  .price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e60023;
+  }
+}
+
+.mobile {
+  display: none;
+}
+
+
+@media (max-width: 470px) {
+
+  .project-detail-page {
+    padding: 70px 10px;
+    margin-bottom: -45px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+
+  .title {
+    font-size: 20px;
+  }
+
+  .left-side-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .left-side-card .col-5,
+  .left-side-card .col-7 {
+    width: 100%;
+  }
+
+  .thumb-list {
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+
+  .icons {
+    margin-top: 10px;
+  }
+
+  .report-box {
+    margin-top: 15px;
+  }
+
+  .demo-btn-container {
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+
+  .download-btn {
+    margin-top: 20px;
+  }
+
+  .right-side {
+    flex: 0 0 100%;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .tab-content img {
+    width: 100%;
+  }
+}

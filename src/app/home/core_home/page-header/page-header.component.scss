@@ -18,7 +18,7 @@
   gap: 8px;
   padding: 0;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   color: #6b7280;
   /* màu xám nhạt */
 }
@@ -30,10 +30,10 @@
 
 .breadcrumb-item+.breadcrumb-item::before {
   content: "/";
-  margin: 0 12px;
+  margin: 0 10px;
   color: #9ca3af;
   /* màu xám vừa */
-  font-size: 18px;
+  font-size: 14px;
   user-select: none;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .breadcrumb-item.active {
-  color: #374151;
+  color: #666666;
   /* màu xám đậm */
   user-select: none;
   cursor: default;
@@ -71,13 +71,7 @@
     margin-bottom: -45px;
   }
 
-  .breadcrumb-list {
-    gap: 6px;
-    font-size: 14px;
-  }
-
-  .breadcrumb-item+.breadcrumb-item::before {
-    margin: 0 8px;
-    font-size: 16px;
+  .breadcrumb-item.active {
+    display: none;
   }
 }

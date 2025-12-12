@@ -60,6 +60,8 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     )
   }
 
+  //#region  event
+
   save(): void {
     if (this.action === 'add') {
       this.saveProject();
@@ -126,6 +128,20 @@ export class ProjectAddComponent implements OnChanges, OnInit {
       };
       reader.readAsDataURL(file); // Đọc file dưới dạng Data URL
     }
+  }
+
+  toSlug(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9 ]/g, '')
+      .replace(/\s+/g, '-');
+  }
+
+  onNameChange() {
+    this.project.slug = this.toSlug(this.project.title);
   }
 
   removeSelectedZip() {

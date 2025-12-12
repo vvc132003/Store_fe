@@ -4,7 +4,7 @@
 <ng-template #categoryContent>
     <div class="mb-3">
         <label for="code" class="form-label small">Tên dự án</label>
-        <input type="text" id="title" name="title" class="form-control form-control-sm" [(ngModel)]="project.title" />
+        <input type="text" id="title" name="title" class="form-control form-control-sm" (input)="onNameChange()"  [(ngModel)]="project.title" />
     </div>
     <!-- Chọn file ZIP -->
     <div class="mb-3">

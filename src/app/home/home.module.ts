@@ -10,6 +10,7 @@ import { IndexComponent } from './index/index.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { PageHeaderComponent } from './core_home/page-header/page-header.component';
 import { PageRightComponent } from './core_home/page-right/page-right.component';
+import { LineBreaksPipe } from '../services/linebreaks.pipe';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PageRightComponent } from './core_home/page-right/page-right.component'
     IndexComponent,
     ProjectDetailComponent,
     PageHeaderComponent,
-    PageRightComponent
+    PageRightComponent,
+    LineBreaksPipe
   ],
   imports: [
     CommonModule,
