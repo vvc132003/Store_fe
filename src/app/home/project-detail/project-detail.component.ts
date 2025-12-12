@@ -10,6 +10,27 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./project-detail.component.scss']
 })
 export class ProjectDetailComponent implements OnDestroy, OnInit {
+
+   cars = [
+    {
+      imgSrc: 'http://192.168.1.6/uploads/a3.png',
+      title: 'Website bán xe ô tô giới thiệu dịch vụ xe ô tô | Đại lý phân phối xe ô tô xe máy dịch vụ sử',
+      price: '900.000 đ',
+      views: 23,
+      category: 'Khác',
+      rating: 5
+    },
+    {
+      imgSrc: 'http://192.168.1.6/uploads/a2.jpg',
+      title: 'Xe ô tô nhập khẩu mới giá tốt',
+      price: '1.200.000 đ',
+      views: 18,
+      category: 'Khác',
+      rating: 5
+    },
+    // Thêm các đối tượng xe khác nếu cần
+  ];
+
   project: any = {};
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";

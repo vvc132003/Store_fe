@@ -31,7 +31,7 @@
 }
 
 .right-side-card {
-  padding: 10px 20px;
+  padding: 20px 10px;
   border-radius: 5px;
   box-shadow: 0 1px 2.94px .06px #041a3729;
   background: white;
@@ -60,11 +60,27 @@
   border: 1px solid #e6e6e6;
   margin-bottom: 15px;
 
-  .main-preview {
-    width: 100%;
-    display: block;
-  }
 }
+
+.tab-pane {
+  width: 100%;
+  padding: 10px;
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Preview ảnh */
+.main-preview {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+
+}
+
 
 .thumb-list {
   display: flex;
@@ -255,6 +271,7 @@
   border: 2px solid transparent;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -291,47 +308,76 @@
 /* 🔥 RIGHT SIDEBAR */
 
 
-.card-title {
-  font-size: 18px;
-  font-weight: 800;
-  margin-bottom: 12px;
-  border-left: 4px solid #4d77ff;
-  padding-left: 8px;
-}
+.right-side-card {
 
-.product {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    transform: translateX(4px);
+  .card-header {
+    position: relative;
+    // padding: 5px 5px;
+    margin-bottom: 0;
+    background-color: transparent;
   }
 
-  img {
-    width: 70px;
-    height: 55px;
-    border-radius: 6px;
-    object-fit: cover;
+  .card-header:first-child {
+    border-radius: 5px 5px 0 0;
   }
 
-  h4 {
-    font-size: 14px;
-    margin: 0 0 5px 0;
+  .car-item {
+    border-top: 3px solid #ddd;
+    padding-top: 20px;
   }
 
-  .cat {
-    font-size: 12px;
-    color: #4d77ff;
+  .car-item:first-child {
+    border-top: none;
   }
 
-  .price {
-    font-size: 14px;
+
+  .hot-code {
+    // border-bottom: 1px solid #dddddd !important;
+  }
+
+  .hot-code h4 {
+    font-size: 20px !important;
+  }
+
+  .col-7 a {
+    text-decoration: none;
+    color: #212529 !important;
+  }
+
+  h3 {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    height: 52px;
+    /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
+    font-family: inherit;
+    color: inherit;
+    -webkit-line-clamp: 3;
+    /* Giới hạn nội dung thành 3 dòng */
+    -webkit-box-orient: vertical;
+    line-height: 17px;
+    /* Điều chỉnh theo kích thước dòng của bạn */
     font-weight: 700;
-    color: #e60023;
+    /* Làm đậm tiêu đề */
+  }
+
+  .code-price {
+    color: #d5101c;
+  }
+
+  .color-view {
+    color: #9f9f9f !important;
+  }
+
+  .col-12 a {
+    color: #4099ff;
+    text-decoration: none;
+  }
+
+  .fa-star,
+  .fa-star-half-alt {
+    color: #f8c125;
   }
 }
 

@@ -4,7 +4,8 @@
 <ng-template #categoryContent>
     <div class="mb-3">
         <label for="code" class="form-label small">Tên dự án</label>
-        <input type="text" id="title" name="title" class="form-control form-control-sm" (input)="onNameChange()"  [(ngModel)]="project.title" />
+        <input type="text" id="title" name="title" class="form-control form-control-sm" (input)="onNameChange()"
+            [(ngModel)]="project.title" />
     </div>
     <!-- Chọn file ZIP -->
     <div class="mb-3">
@@ -21,11 +22,29 @@
             <button type="button" class="remove-file" (click)="removeSelectedZip()">✖</button>
         </div>
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
         <label for="description" class="form-label small">Mô tả</label>
         <textarea id="description" name="description" class="form-control form-control-sm"
             [(ngModel)]="project.description" rows="3"></textarea>
+    </div> -->
+
+
+    <div class="mb-3">
+        <label class="form-label small">Mô tả</label>
+        <div class="toolbar">
+            <button (click)="exec('bold')">B</button>
+            <button (click)="exec('italic')"><i>I</i></button>
+            <button (click)="exec('underline')"><u>U</u></button>
+
+            <input type="color" (change)="changeColor($event)" title="Chọn màu">
+            <button (click)="exec('fontSize', 5)">Big</button>
+
+            <!-- <input type="file" (change)="insertImage($event)"> -->
+        </div>
+        <div class="editor" contenteditable="true" (input)="onInput($event)" [innerHTML]="project.description">
+        </div>
     </div>
+
     <div class="mb-3">
         <label for="category" class="form-label small">Danh mục</label>
         <select id="category" name="category" class="form-control form-control-sm" [(ngModel)]="project.categoryId">

@@ -16,6 +16,8 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   action: string = "";
   category: any[] = [];
 
+
+
   @Output() closeProjectAdd = new EventEmitter<void>();
   text: string = "";
   tables = [
@@ -153,5 +155,30 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     this.closeProjectAdd.emit();
   }
 
+  //#region  css màu cho mô tả
+  onInput(event: any) {
+    this.project.description = event.target.innerHTML;
+  }
+  exec(command: string, value?: any) {
+    document.execCommand(command, false, value);
+  }
+  
+  changeColor(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input) return;
+
+    this.exec('foreColor', input.value);
+  }
+
+  insertImage(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.execCommand('insertImage', false, reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  }
 
 }

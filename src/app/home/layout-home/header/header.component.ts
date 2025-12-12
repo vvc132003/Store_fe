@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this._project.getProject_list().subscribe((data:any)=>{
         this.project_list=data;
-        console.log(data)
+        // console.log(data)
       })
     )
   }
