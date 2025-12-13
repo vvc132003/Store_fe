@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -7,12 +7,15 @@ import { TagsService } from 'src/app/services/tags.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements AfterViewInit, OnInit, OnDestroy {
+export class FormComponent implements AfterViewInit, OnInit, OnDestroy, OnChanges {
   @Input() headerDiv?: any;
   // @Input() categoryContent: TemplateRef<any[]> | null = null;
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
   // @Input() extraContent: TemplateRef<any> | null = null;
   @Input() text: string = "";
+  @Input() selectedTags_Ids: any[] = []
+  @Output() selectedTagsClick = new EventEmitter<void>();
+
   // @ViewChild('contentContainer', { read: ViewContainerRef }) contentContainer!: ViewContainerRef;
   // @ViewChild('extraContainer', { read: ViewContainerRef }) extraContainer!: ViewContainerRef;
 
@@ -47,6 +50,19 @@ export class FormComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedTags_Ids']) {
+      if (!this.selectedTags_Ids || this.selectedTags_Ids.length === 0) {
+        this.selectedTags = [];
+        return;
+      }
+      this.selectedTags = this.tags.filter(tag =>
+        this.selectedTags_Ids.includes(tag.id)
+      );
+    }
+  }
+
 
   //#region  event
   selectedTab: string = 'category';
@@ -83,6 +99,7 @@ export class FormComponent implements AfterViewInit, OnInit, OnDestroy {
     const exists = this.selectedTags.find(t => t.id === tag.id);
     if (!exists) {
       this.selectedTags.push(tag);
+      this.selectedTagsClick.emit(tag);
     }
     this.showTagList = false;
   }

@@ -107,9 +107,15 @@
             <div class="col-12 col-lg-3 right-side">
                 <div class="row right-side-card">
                     <div class="card-header hot-code p-t-15 p-b-0">
-                        <h4 class="text-danger mb-2 h4">
+                        <h4 class="search-title text-danger mb-2">
                             <i class="fas fa-search"></i> Tìm kiếm cùng chủ đề
                         </h4>
+                        <a class="tag-link" *ngFor="let tag of project.tags" [routerLink]="['/tags-source-code', tag.slug]">
+                            <div class="tag-item" [ngStyle]="{ background: tag.color }">
+                                <i style="margin-right: 10px;" [class]="tag.icon"></i>
+                                {{ tag.name }}
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <br>

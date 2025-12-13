@@ -16,6 +16,7 @@
   /* Cột này chiếm phần còn lại của không gian */
 }
 
+
 .left-side-card {
   padding: 20px 15px;
   border-radius: 5px;
@@ -37,6 +38,16 @@
   background: white;
   position: relative;
   overflow: hidden;
+
+  .tag-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 14px;
+    color: #fff;
+    font-size: 12px;
+    margin-right: 6px;
+  }
 }
 
 .left-side-card::before,
@@ -330,6 +341,10 @@
     border-top: none;
   }
 
+  .search-title {
+    border-bottom: 3px solid #ddd;
+    padding-bottom: 8px;
+  }
 
   .hot-code {
     // border-bottom: 1px solid #dddddd !important;

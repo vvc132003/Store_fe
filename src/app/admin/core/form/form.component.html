@@ -19,7 +19,9 @@
             </div>
         </div>
         <div class="tag-dropdown" *ngIf="showTagList">
-            <div class="tag-item" *ngFor="let tag of tags" [ngStyle]="{ 'background': tag.color }" (click)="selectTag(tag)">
+            <div class="tag-item" *ngFor="let tag of tags" [ngStyle]="{ 'background': tag.color }"
+                (click)="selectTag(tag)">
+                <i style="margin-right: 10px;" [class]="tag.icon"></i>
                 {{ tag.name }}
             </div>
         </div>

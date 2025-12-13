@@ -1,5 +1,5 @@
-<app-form [headerDiv]="tables" [text]="text" [showoffcanvas]="showcproject_add" (closePupAdd)="close()"
-    [tabTemplates]="{category: categoryContent, setting: setting}">
+<app-form [headerDiv]="tables" [text]="text" [selectedTags_Ids]="this.project.tagIds" (selectedTagsClick)="selectTag($event)" [showoffcanvas]="showcproject_add"
+    (closePupAdd)="close()" [tabTemplates]="{category: categoryContent, setting: setting}">
 </app-form>
 <ng-template #categoryContent>
     <div class="mb-3">
@@ -41,7 +41,8 @@
 
             <!-- <input type="file" (change)="insertImage($event)"> -->
         </div>
-        <div class="editor" contenteditable="true" (input)="onInput($event)" [innerHTML]="project.description | linebreaks">
+        <div class="editor" contenteditable="true" (input)="onInput($event)"
+            [innerHTML]="project.description | linebreaks">
         </div>
     </div>
 
@@ -81,7 +82,7 @@
         </div>
 
         <!-- Preview nhiều ảnh -->
-        <div class="d-flex flex-wrap mt-2" *ngIf="previewImages.length">
+        <div class="d-flex flex-wrap mt-2" *ngIf="previewImages">
             <img *ngFor="let img of previewImages" [src]="img" class="img-thumbnail me-2 mb-2" style="height: 100px;">
         </div>
     </div>

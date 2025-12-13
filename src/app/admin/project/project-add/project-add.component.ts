@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     { label: 'Thông tin thêm', icon: 'bi-gear', tab: 'setting' }
   ];
   private subscription = new Subscription();
-  constructor(private _category: CategoryService, private _project: ProjectService) { }
+  constructor(private _category: CategoryService, private _project: ProjectService, private _notification: NotificationService) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,6 +38,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     if (changes['project'] && changes['project'].currentValue) {
       this.project = { ...changes['project'].currentValue };
       this.previewImg = this.project.thumbnailUrl;
+      this.previewImages = this.project.images;
       if (this.project.zipPath) {
         this.selectedFile_zip = this.project.zipPath.split('/').pop(); // chỉ lấy tên file
       }      // console.log(this.category);
@@ -85,13 +87,14 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     }
 
 
-    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl,this.imageFiles).subscribe(res => {
+    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
       this.project.zipPath = res.fileUrl;
       this.project.thumbnailUrl = res.thumbnailUrl;
-        this.project.images = res.imageUrls;
+      this.project.images = res.imageUrls;
       this._project.postData(this.project).subscribe(data => {
         this.close();
         this.newData.emit(data);
+        this._notification.showSuccess('1003');
       });
     });
   }
@@ -105,6 +108,15 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     // })
   }
 
+  selectedTags: any[] = [];
+
+  selectTag(tag: any) {
+    const exists = this.selectedTags.find(t => t.id === tag.id);
+    if (!exists) {
+      this.selectedTags.push(tag);
+      this.project.tagIds = this.selectedTags.map(t => t.id);
+    }
+  }
 
   selectedFile_zip: File | null = null;
 

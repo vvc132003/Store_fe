@@ -31,8 +31,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
   loadProject() {
     this.subscription.add(
       this._project.getData().subscribe((data: any) => {
-        this.project_list = data;
-        // console.log(data);
+        this.project_list = data.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.project_id = data[0];
       })
     )

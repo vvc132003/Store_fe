@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-category-add',
@@ -22,14 +23,14 @@ export class CategoryAddComponent implements OnChanges {
     // { label: 'Cài đặt', icon: 'bi-gear', tab: 'setting' }
   ];
 
-  constructor(private _category: CategoryService) { }
+  constructor(private _category: CategoryService, private _notification: NotificationService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
       this.data = { ...changes['data'].currentValue };
       this.text = this.data.text;
       this.action = this.data.action;
     }
-     if (changes['category'] && changes['category'].currentValue) {
+    if (changes['category'] && changes['category'].currentValue) {
       this.category = { ...changes['category'].currentValue };
       // console.log(this.category);
     }
@@ -77,6 +78,7 @@ export class CategoryAddComponent implements OnChanges {
       // console.log(data);
       this.close();
       this.newData.emit(data);
+      this._notification.showSuccess('1001');
     })
   }
   updateCategory() {
@@ -85,6 +87,8 @@ export class CategoryAddComponent implements OnChanges {
       // console.log(data);
       this.close();
       this.newData.emit(data);
+      this._notification.showSuccess('1002');
+
     })
   }
 

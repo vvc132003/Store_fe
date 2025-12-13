@@ -10,7 +10,7 @@ import { IndexComponent } from './index/index.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { PageHeaderComponent } from './core_home/page-header/page-header.component';
 import { PageRightComponent } from './core_home/page-right/page-right.component';
-import { LineBreaksPipe } from '../services/linebreaks.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -23,11 +23,11 @@ import { LineBreaksPipe } from '../services/linebreaks.pipe';
     ProjectDetailComponent,
     PageHeaderComponent,
     PageRightComponent,
-    LineBreaksPipe
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    SharedModule
   ]
 })
 export class HomeModule { }

@@ -52,7 +52,10 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   loadProject_list() {
     this.subscription.add(
       this._project.getProject_list().subscribe((data: any[]) => {
-        this.project_list = data.slice(0, 5);
+        this.project_list = data.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        ).slice(0, 5);
       })
     );
   }
@@ -61,7 +64,6 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     const slug = this.route.snapshot.paramMap.get('slug');
     this.subscription.add(
       this._project.getProjectBySlug(slug!).subscribe((data: any) => {
-        // console.log(data);
         this.project = data;
         this.breadcrumb_title = data.title;
         this.breadcrumb_categoryname = data.categoryName;

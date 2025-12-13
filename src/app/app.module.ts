@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +17,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),  
+    BsDatepickerModule.forRoot(),
+    ToastrModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
