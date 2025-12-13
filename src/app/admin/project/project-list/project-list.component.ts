@@ -48,7 +48,6 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
       this.pagedData = [];
       return;
     }
-
     this.filteredData = [...this.project_list];
     this.currentPage = 1;
     this.updatePagedData();
@@ -69,6 +68,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
       // this.bearService.delete(id).subscribe(...)
     }
   }
+  
   goToPage(page: number) {
     if (page < 1) return;
     const totalPages = Math.ceil(this.project_list.length / this.pageSize);
@@ -83,6 +83,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   currentPage = 1;
   pageSize = 6; // mỗi trang 10 item
   pagedData: any[] = [];
+
   updatePagedData() {
     this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
 

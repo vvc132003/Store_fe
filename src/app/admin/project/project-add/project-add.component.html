@@ -41,7 +41,7 @@
 
             <!-- <input type="file" (change)="insertImage($event)"> -->
         </div>
-        <div class="editor" contenteditable="true" (input)="onInput($event)" [innerHTML]="project.description">
+        <div class="editor" contenteditable="true" (input)="onInput($event)" [innerHTML]="project.description | linebreaks">
         </div>
     </div>
 
@@ -69,7 +69,22 @@
         </div>
         <img *ngIf="previewImg" [src]="previewImg" alt="Thumbnail" class="img-fluid mt-1" style="max-height: 120px;">
     </div>
+    <!-- NHIỀU ẢNH -->
+    <div class="mb-3">
+        <div class="custom-file">
+            <input type="file" id="images" name="images" class="form-control form-control-sm" multiple
+                (change)="onFileSelected_images($event)" #imagesInput style="display: none" accept="image/*" />
 
+            <a href="javascript:void(0)" class="custom-file-link" (click)="imagesInput.click()">
+                Chọn nhiều ảnh
+            </a>
+        </div>
+
+        <!-- Preview nhiều ảnh -->
+        <div class="d-flex flex-wrap mt-2" *ngIf="previewImages.length">
+            <img *ngFor="let img of previewImages" [src]="img" class="img-thumbnail me-2 mb-2" style="height: 100px;">
+        </div>
+    </div>
 
     <div class="offcanvas-footer">
         <button type="button" class="btn btn-primary px-4" (click)="save()">

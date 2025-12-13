@@ -10,9 +10,119 @@
     max-width: 800px;
     border-left: 1px solid #dee2e6;
     transform: translateX(0);
-
 }
 
+/* Wrapper */
+.tag-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button Thẻ + */
+.tag-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #f88920;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 10px;
+}
+
+.tag-btn:hover {
+  background: #f97316;
+}
+
+/* Selected tags */
+.selected-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-left: 8px;
+}
+
+.selected-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.selected-tag .remove {
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.selected-tag .remove:hover {
+  opacity: 1;
+}
+
+/* Dropdown */
+.tag-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 180px;
+  max-height: 220px; /* 👈 nếu nhiều tag thì scroll */
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 6px;
+}
+
+/* Tag item */
+.tag-item {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.tag-item:last-child {
+  margin-bottom: 0;
+}
+
+.tag-item:hover {
+  opacity: 0.85;
+}
+
+/* Scrollbar đẹp */
+.tag-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tag-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tag-dropdown::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 6px;
+}
+
+.tag-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+
+//////
 .content {
     max-height: 520px;
     overflow-y: auto;

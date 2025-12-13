@@ -59,7 +59,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this.newproject = {};
         this.data = {
           action: 'add',
-          text: 'Thêm loại code'
+          text: 'Thêm mã nguồn'
         };
         break;
       case '102':
@@ -67,7 +67,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this.newproject = this.project_list.find(dr => dr.id == this.project_id.id);
         this.data = {
           action: 'update',
-          text: 'Cập nhật loại code'
+          text: 'Cập nhật mã nguồn'
         };
         break;
       case '103':

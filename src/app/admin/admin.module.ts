@@ -21,6 +21,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ProjectAddComponent } from './project/project-add/project-add.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
+import { LineBreaksPipe } from '../services/linebreaks.pipe';
 
 
 @NgModule({
@@ -41,13 +42,14 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
     ProjectAddComponent,
     ProjectListComponent,
     ProjectDetailComponent,
+    LineBreaksPipe
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     RouterModule,
     FormsModule,
-    BsDatepickerModule
+    BsDatepickerModule,
   ]
 })
 export class AdminModule { }

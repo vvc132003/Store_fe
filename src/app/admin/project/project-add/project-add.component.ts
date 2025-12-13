@@ -85,9 +85,10 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     }
 
 
-    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl).subscribe(res => {
+    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl,this.imageFiles).subscribe(res => {
       this.project.zipPath = res.fileUrl;
       this.project.thumbnailUrl = res.thumbnailUrl;
+        this.project.images = res.imageUrls;
       this._project.postData(this.project).subscribe(data => {
         this.close();
         this.newData.emit(data);
@@ -116,6 +117,8 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   }
   selectedFile_img: File | null = null;
   previewImg: string | null = null;
+  previewImages: string[] = [];
+  imageFiles: File[] = [];
 
 
   onFileSelected_img(event: any): void {
@@ -129,6 +132,25 @@ export class ProjectAddComponent implements OnChanges, OnInit {
         this.previewImg = reader.result as string; // <-- gán trực tiếp
       };
       reader.readAsDataURL(file); // Đọc file dưới dạng Data URL
+    }
+  }
+
+  // Nhiều ảnh
+  onFileSelected_images(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.imageFiles = Array.from(input.files);
+      console.log(this.imageFiles);
+      this.previewImages = [];
+
+      this.imageFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.previewImages.push(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      });
     }
   }
 
@@ -162,7 +184,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   exec(command: string, value?: any) {
     document.execCommand(command, false, value);
   }
-  
+
   changeColor(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input) return;

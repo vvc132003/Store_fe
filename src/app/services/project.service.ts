@@ -18,7 +18,7 @@ export class ProjectService {
     getProject_list(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     }
-    
+
     getProjectBySlug(slug: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
     }
@@ -28,13 +28,17 @@ export class ProjectService {
         return this.http.post<any>(this.apiUrl, data);
     }
 
-    uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string): Observable<any> {
+    uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string, imageFiles: File[]): Observable<any> {
         const formData = new FormData();
         formData.append('zipFile', file_zip);
         formData.append('thumbnailUrl', file_img);
         formData.append('fileName_zip', fileName_zip);
         formData.append('fileName_thumnai', fileName_thumnai);
-
+        if (imageFiles && imageFiles.length > 0) {
+            imageFiles.forEach(file => {
+                formData.append('images', file);
+            });
+        }
 
         return this.http.post<any>(`${this.apiUrl}/UploadZip`, formData);
     }

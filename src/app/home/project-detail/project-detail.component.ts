@@ -11,7 +11,7 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class ProjectDetailComponent implements OnDestroy, OnInit {
 
-   cars = [
+  cars = [
     {
       imgSrc: 'http://192.168.1.6/uploads/a3.png',
       title: 'Website bán xe ô tô giới thiệu dịch vụ xe ô tô | Đại lý phân phối xe ô tô xe máy dịch vụ sử',
@@ -30,7 +30,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     },
     // Thêm các đối tượng xe khác nếu cần
   ];
-
+  project_list: any[] = [];
   project: any = {};
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";
@@ -41,8 +41,20 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   selectTab(index: number) {
     this.activeTab = index;
   }
+
+
+  //#region  load dữ liệu
   ngOnInit(): void {
     this.loadProject_detail();
+    this.loadProject_list();
+  }
+
+  loadProject_list() {
+    this.subscription.add(
+      this._project.getProject_list().subscribe((data: any[]) => {
+        this.project_list = data.slice(0, 5);
+      })
+    );
   }
 
   loadProject_detail() {

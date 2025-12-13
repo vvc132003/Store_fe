@@ -67,7 +67,7 @@
 
     <div class="product-list">
 
-        <div class="product-card" *ngFor="let item of project_list">
+        <div class="product-card" *ngFor="let item of pagedData">
 
             <div class="thumb">
                 <img [src]="item.thumbnailUrl" alt="" />
@@ -110,4 +110,17 @@
 
     </div>
 
+</div>
+
+<div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+    <button *ngFor="let p of visiblePages"
+          (click)="isNumber(p) ? goToPage(p) : null"
+          [class.active]="p === currentPage"
+          [disabled]="p === '…'">
+    {{ p }}
+  </button>
+
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
 </div>

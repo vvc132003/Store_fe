@@ -5,7 +5,27 @@
             <i class="bi bi-x-lg"></i>
         </button>
     </div>
-    <div class="container-fluid p-3 ">
+
+    <div class="tag-wrapper" *ngIf="showTags">
+        <div class="d-flex">
+            <button class="tag-btn add-tag" (click)="toggleTagList()">
+                Thẻ +
+            </button>
+            <div class="selected-tags">
+                <span class="selected-tag" *ngFor="let tag of selectedTags" [ngStyle]="{ 'background': tag.color }">
+                    {{ tag.name }}
+                    <i class="remove" (click)="removeTag(tag)">×</i>
+                </span>
+            </div>
+        </div>
+        <div class="tag-dropdown" *ngIf="showTagList">
+            <div class="tag-item" *ngFor="let tag of tags" [ngStyle]="{ 'background': tag.color }" (click)="selectTag(tag)">
+                {{ tag.name }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid ">
         <div class="offcanvas-body">
             <div class="row">
                 <div [ngClass]="{'col-md-4 border-end': isLargeScreen, '': !isLargeScreen}">
