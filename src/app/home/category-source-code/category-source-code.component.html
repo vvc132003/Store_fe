@@ -1,5 +1,5 @@
 <app-layout-home></app-layout-home>
-<app-page-header [breadcrumb_categoryname]="categoryname"></app-page-header>
+<app-page-header [breadcrumb_categoryname]="'Danh mục'" [breadcrumb_title]="categoryname"></app-page-header>
 
 <div class="project-detail-page">
     <div class="container">
@@ -58,39 +58,51 @@
 
                     <div class="sort-buttons">
                         <span class="sort-label">Sắp xếp</span>
-                        <button class="btn btn-primary btn-sm">Mới nhất</button>
-                        <button class="btn btn-primary btn-sm">Tải nhiều</button>
+                        <button class="btn btn-primary btn-sm" (click)="sortNewest()">Mới nhất</button>
+                        <button class="btn btn-primary btn-sm" (click)="sortMostDownload()">Tải nhiều</button>
 
-                        <div class="dropdown d-inline-block">
+                        <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownTheoTen"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Theo tên
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownTheoTen">
-                                <li><a class="dropdown-item" href="#">A → Z</a></li>
-                                <li><a class="dropdown-item" href="#">Z → A</a></li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortNameAsc()">A → Z</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortNameDesc()">Z → A</a>
+                                </li>
                             </ul>
                         </div>
 
-                        <div class="dropdown d-inline-block">
+                        <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownLuotXem"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Lượt xem
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownLuotXem">
-                                <li><a class="dropdown-item" href="#">Tăng dần</a></li>
-                                <li><a class="dropdown-item" href="#">Giảm dần</a></li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortViewAsc()">Tăng dần</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortViewDesc()">Giảm dần</a>
+                                </li>
                             </ul>
                         </div>
 
-                        <div class="dropdown d-inline-block">
+                        <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownTheoGia"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Theo giá
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownTheoGia">
-                                <li><a class="dropdown-item" href="#">Thấp → Cao</a></li>
-                                <li><a class="dropdown-item" href="#">Cao → Thấp</a></li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortPriceAsc()">Thấp → Cao</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" (click)="sortPriceDesc()">Cao → Thấp</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -98,7 +110,7 @@
                 <br>
                 <div class=" product-grid">
                     <div class="product-list">
-                        <div class="product-card" *ngFor="let item of project_by_categoryslug">
+                        <div class="product-card" *ngFor="let item of pagedData">
                             <div class="thumb">
                                 <img [src]="item.thumbnailUrl" alt="" />
                             </div>
@@ -138,6 +150,16 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="pagination" *ngIf="totalPages > 1">
+                    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+                    <button *ngFor="let p of visiblePages" (click)="isNumber(p) ? goToPage(p) : null"
+                        [class.active]="p === currentPage" [disabled]="p === '…'">
+                        {{ p }}
+                    </button>
+
+                    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
                 </div>
             </div>
         </div>

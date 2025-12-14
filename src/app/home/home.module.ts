@@ -12,6 +12,8 @@ import { PageHeaderComponent } from './core_home/page-header/page-header.compone
 import { PageRightComponent } from './core_home/page-right/page-right.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategorySourceCodeComponent } from './category-source-code/category-source-code.component';
+import { PagesLoginComponent } from './pages-login/pages-login.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { CategorySourceCodeComponent } from './category-source-code/category-sou
     PageHeaderComponent,
     PageRightComponent,
     CategorySourceCodeComponent,
+    PagesLoginComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

@@ -20,7 +20,7 @@
     box-shadow: 0 1px 2.94px .06px #041a3729;
     background: white;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .right-side {
@@ -102,7 +102,8 @@
     border-top: 3px solid #ddd;
     padding: 20px 20px;
     margin-bottom: -19px;
-    button{
+
+    button {
         background: #2ed8b6 !important;
         border: 1px solid #2ed8b6 !important;
         font-weight: 500;
@@ -478,6 +479,66 @@
     }
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled):not(.active) {
+    background-color: #f0f0f0;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination button:disabled:hover {
+    background-color: #fff;
+}
+
+.pagination button:focus {
+    outline: none;
+}
+
+.pagination button:disabled {
+    pointer-events: none;
+}
+
+.pagination button+button {
+    margin-left: 0px;
+}
+
+/* Dấu … */
+.pagination button[disabled] {
+    cursor: default;
+    background-color: transparent;
+    border: none;
+    color: #999;
+}
+
 @media (max-width: 470px) {
 
     .project-detail-page {
@@ -540,5 +601,20 @@
 
     .tab-content img {
         width: 100%;
+    }
+
+     .product-grid {
+        padding: 0px 0px;
+
+        &::before {
+            left: 16px;
+            /* khớp với padding-left mới */
+            width: calc(100% - 32px);
+            /* 2 * padding */
+        }
+    }
+
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
