@@ -45,7 +45,15 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
   //#region  load dữ liệu
   ngOnInit(): void {
-    this.loadProject_detail();
+    // this.loadProject_detail();
+    this.subscription.add(
+      this.route.paramMap.subscribe(params => {
+        const slug = params.get('slug');
+        if (slug) {
+          this.loadProject_detail(slug);
+        }
+      })
+    );
     this.loadProject_list();
   }
 
@@ -60,8 +68,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     );
   }
 
-  loadProject_detail() {
-    const slug = this.route.snapshot.paramMap.get('slug');
+  loadProject_detail(slug: string) {
+    // const slug = this.route.snapshot.paramMap.get('slug');
     this.subscription.add(
       this._project.getProjectBySlug(slug!).subscribe((data: any) => {
         this.project = data;

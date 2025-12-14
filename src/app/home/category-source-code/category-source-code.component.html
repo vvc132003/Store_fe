@@ -1,0 +1,145 @@
+<app-layout-home></app-layout-home>
+<app-page-header [breadcrumb_categoryname]="categoryname"></app-page-header>
+
+<div class="project-detail-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-3 right-side">
+                <div class=" right-side-card">
+                    <div class="card-header hot-code p-t-15 p-b-0">
+                        <h4 class="text-danger mb-2 h4">
+                            <i class="fab fa-hotjar"></i> Code mới nhất
+                        </h4>
+                    </div>
+                    <div *ngFor="let car of project_latest" class="car-item mb-3">
+                        <div class="row justify-content-between">
+                            <div class="col-5">
+                                <a href=""><img [src]="car.thumbnailUrl" width="100" height="60" alt=""></a>
+                            </div>
+                            <div class="col-7">
+                                <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
+                                <div class="code-price d-flex justify-content-between">
+                                    <strong>{{ car.price | number }} đ</strong>
+                                    <span class="color-view">
+                                        {{ car.views || 0 }} <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between">
+                                <div class="">
+                                    <a class="f-13 text"
+                                        href="https://giaodichcode.com/danh-muc-source-code?category=khac"
+                                        title="Danh mục Khác">
+                                        <i class="fas fa-code"></i>
+                                        <span class="fw-bold">{{ car.categoryName }}</span>
+                                    </a>
+                                </div>
+                                <div class="m1">
+                                    <span class="dt" *ngFor="let star of [].constructor(5); let i = index">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 left-side">
+                <div class=" left-side-card ">
+                    <div class="card-header hot-code p-t-15 p-b-0">
+                        <h4 class="mb-2 h4 d-flex align-items-center gap-2">
+                            <i class="fas fa-code"></i>
+                            <span>{{ categoryname }}</span>
+                            <span class="text-muted" style="font-size: 14px;">({{count}} source code)</span>
+                        </h4>
+                    </div>
+
+                    <div class="sort-buttons">
+                        <span class="sort-label">Sắp xếp</span>
+                        <button class="btn btn-primary btn-sm">Mới nhất</button>
+                        <button class="btn btn-primary btn-sm">Tải nhiều</button>
+
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownTheoTen"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Theo tên
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownTheoTen">
+                                <li><a class="dropdown-item" href="#">A → Z</a></li>
+                                <li><a class="dropdown-item" href="#">Z → A</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownLuotXem"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Lượt xem
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownLuotXem">
+                                <li><a class="dropdown-item" href="#">Tăng dần</a></li>
+                                <li><a class="dropdown-item" href="#">Giảm dần</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownTheoGia"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Theo giá
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownTheoGia">
+                                <li><a class="dropdown-item" href="#">Thấp → Cao</a></li>
+                                <li><a class="dropdown-item" href="#">Cao → Thấp</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class=" product-grid">
+                    <div class="product-list">
+                        <div class="product-card" *ngFor="let item of project_by_categoryslug">
+                            <div class="thumb">
+                                <img [src]="item.thumbnailUrl" alt="" />
+                            </div>
+
+                            <div class="thumb-actions">
+                                <button>Xem chi tiết</button>
+                                <button>Lưu code</button>
+                            </div>
+
+                            <div class="tag">
+                                <i class="fas fa-code"></i> {{ item.categoryName }}
+                            </div>
+
+                            <h3 class="title">
+                                <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
+                            </h3>
+
+                            <div class="price">
+                                {{ item.price | number }} đ
+                            </div>
+
+                            <div class="rating">
+                                <i class="fas fa-star" *ngFor="let r of [1,2,3,4,5]"></i>
+                                <span>1 đánh giá</span>
+                            </div>
+
+                            <div class="bottom-row">
+                                <div class="seller">
+                                    <img [src]="item.avatar" />
+                                    <span>{{ item.seller }}</span>
+                                </div>
+
+                                <div class="actions">
+                                    <i class="fas fa-bookmark"></i>
+                                    <i class="fas fa-download"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

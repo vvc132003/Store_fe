@@ -19,8 +19,16 @@ export class ProjectService {
         return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     }
 
+     getProject_latest(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/project-latest`);
+    }
+
     getProjectBySlug(slug: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
+    }
+
+     getProjectByCategorySlug(slug: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-by-category-slug/${slug}`);
     }
 
     // Phương thức POST

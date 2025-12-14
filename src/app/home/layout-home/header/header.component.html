@@ -4,7 +4,9 @@
         <aside class="sidebar">
             <ul>
                 <li *ngFor="let item of category_list">
-                    <a [routerLink]="['/home', item.id]">{{ item.name }}</a>
+                    <a [routerLink]="['/danh-muc-source-code']" [queryParams]="{ category: item.slug }">
+                        {{ item.name }}
+                    </a>
                 </li>
                 <li><a href="#">Khác</a></li>
             </ul>
@@ -115,12 +117,10 @@
 <div class="pagination" *ngIf="totalPages > 1">
     <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
 
-    <button *ngFor="let p of visiblePages"
-          (click)="isNumber(p) ? goToPage(p) : null"
-          [class.active]="p === currentPage"
-          [disabled]="p === '…'">
-    {{ p }}
-  </button>
+    <button *ngFor="let p of visiblePages" (click)="isNumber(p) ? goToPage(p) : null" [class.active]="p === currentPage"
+        [disabled]="p === '…'">
+        {{ p }}
+    </button>
 
     <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
 </div>

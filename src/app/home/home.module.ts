@@ -11,6 +11,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { PageHeaderComponent } from './core_home/page-header/page-header.component';
 import { PageRightComponent } from './core_home/page-right/page-right.component';
 import { SharedModule } from '../shared/shared.module';
+import { CategorySourceCodeComponent } from './category-source-code/category-source-code.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     ProjectDetailComponent,
     PageHeaderComponent,
     PageRightComponent,
+    CategorySourceCodeComponent,
   ],
   imports: [
     CommonModule,

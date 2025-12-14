@@ -47,9 +47,11 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="dropdown">
-                <li><a [routerLink]="['']">PHP</a></li>
-                <li><a [routerLink]="['']">NodeJS</a></li>
-                <li><a [routerLink]="['']">C#</a></li>
+                <li *ngFor="let item of category_list">
+                    <a [routerLink]="['/danh-muc-source-code']" [queryParams]="{ category: item.slug }">
+                        {{ item.name }}
+                    </a>
+                </li>
             </ul>
         </li>
 
@@ -65,7 +67,8 @@
         </li>
 
         <li>
-            <a [routerLink]="['/dich-vu-do-an']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            <a [routerLink]="['/dich-vu-do-an']" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: true }">
                 <i class="fa-solid fa-graduation-cap"></i> Dịch vụ đồ án
             </a>
         </li>

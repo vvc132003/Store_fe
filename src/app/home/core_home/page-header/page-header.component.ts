@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class PageHeaderComponent {
   @Input() breadcrumb_title: string = "";
   @Input() breadcrumb_categoryname: string = "";
-
+  onbreadcrumb_title: boolean = true;
 }

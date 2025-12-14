@@ -131,7 +131,7 @@
                                 <a href=""><img [src]="car.thumbnailUrl" width="100" height="60" alt=""></a>
                             </div>
                             <div class="col-7">
-                                <h3><a href="">{{ car.title }}</a></h3>
+                                <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
                                 <div class="code-price d-flex justify-content-between">
                                     <strong>{{ car.price | number }} đ</strong>
                                     <span class="color-view">
