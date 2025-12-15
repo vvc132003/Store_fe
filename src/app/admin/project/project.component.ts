@@ -36,6 +36,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
         this.project_id = data[0];
+        this.count = this.project_list.length;
+
       })
     )
   }

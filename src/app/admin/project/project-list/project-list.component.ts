@@ -49,7 +49,9 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
       return;
     }
     this.filteredData = [...this.project_list];
-    this.currentPage = 1;
+    if (changes['project_list'] && changes['project_list'].firstChange) {
+      this.currentPage = 1;
+    }
     this.updatePagedData();
   }
   ngOnDestroy(): void {
@@ -68,7 +70,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
       // this.bearService.delete(id).subscribe(...)
     }
   }
-  
+
   goToPage(page: number) {
     if (page < 1) return;
     const totalPages = Math.ceil(this.project_list.length / this.pageSize);

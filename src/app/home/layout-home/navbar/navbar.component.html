@@ -2,7 +2,7 @@
     <a class="mobile-menu" (click)="toggleMobileMenu()">
         <i class="fas fa-ellipsis-v"></i>
     </a>
-    <div class="logo"> &lt;/&gt; MUABANCODE</div>
+    <div class="logo" [routerLink]="['/']"> &lt;/&gt; MUABANCODE</div>
 
     <div class="search-box" [ngClass]="{ 'showSearch-mobile': showSearchMobile }">
         <a href="">
@@ -21,10 +21,21 @@
         <button><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
-    <div class="auth d-flex">
-        <a [routerLink]="['/dang-nhap']">Đăng nhập</a>
-        <a [routerLink]="['/dang-ky']">Đăng ký</a>
-    </div>
+   <div class="auth">
+    <!-- Chưa login -->
+    <ng-container *ngIf="!user">
+        <a [routerLink]="['/dang-nhap']" class="login-btn">Đăng nhập</a>
+        <a [routerLink]="['/dang-ky']" class="register-btn">Đăng ký</a>
+    </ng-container>
+
+    <!-- Đã login -->
+    <ng-container *ngIf="user">
+        <span class="user-name">Xin chào, {{ user }}</span>
+        <a (click)="logout()" class="register-btn">Đăng xuất</a>
+    </ng-container>
+</div>
+
+
     <a class="mob-toggler" (click)="toggleMobileSearch()">
         <i class="fas fa-bars f-25"></i>
     </a>

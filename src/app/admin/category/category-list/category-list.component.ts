@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-category-list',
@@ -104,9 +104,16 @@ export class CategoryListComponent implements OnInit {
   }
 
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (!Array.isArray(this.category)) {
+      this.filteredData = [];
+      this.pagedData = [];
+      return;
+    }
     this.filteredData = [...this.category];
-
+    if (changes['category'] && changes['category'].firstChange) {
+      this.currentPage = 1;
+    }
     this.updatePagedData();
   }
   // onSearch() {

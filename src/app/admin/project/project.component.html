@@ -1,4 +1,4 @@
-<app-layout [text]="'Mã nguồn'" (showPupAdd)="click($event)" [tabTemplates]="{projectAdd,projectList}">
+<app-layout [text]="'Mã nguồn'" [count]="count" (showPupAdd)="click($event)" [tabTemplates]="{projectAdd,projectList}">
 </app-layout>
 <ng-template #projectAdd>
     <app-project-add [showcproject_add]="showproject_add" (closeProjectAdd)="close()"

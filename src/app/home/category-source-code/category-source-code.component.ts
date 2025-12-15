@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 3;
+  pageSize = 4;
   pagedData: any[] = [];
 
 
@@ -33,9 +33,13 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
       const category = params.get('category');
       if (category) {
         this.loadSourceCodeByCategory(category);
+      } else {
+        this.loadProject_latest(); // hoặc load dữ liệu mặc định
       }
+
     });
   }
+
 
   loadProject_latest() {
     this.subscription.add(
@@ -54,7 +58,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
         this.project_by_categoryslug = data;
         this.filteredData = [...this.project_by_categoryslug];
         this.currentPage = 1;
-        this.categoryname = data[0].categoryName;
+        this.categoryname = data[0]?.categoryName;
         this.count = data.length;
         this.updatePagedData();
         // console.log(data)
