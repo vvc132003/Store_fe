@@ -56,7 +56,11 @@ export class NotificationService {
                 toast.style.fontWeight = "bold";
                 toast.style.padding = "10px";
                 toast.style.borderRadius = "8px";
-            }
+                // toast.style.zIndex ="10000"
+            },
+            // customClass: {
+            //     popup: 'my-swal-toast' 
+            // }
         });
     }
 

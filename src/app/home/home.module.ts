@@ -12,8 +12,9 @@ import { PageHeaderComponent } from './core_home/page-header/page-header.compone
 import { PageRightComponent } from './core_home/page-right/page-right.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategorySourceCodeComponent } from './category-source-code/category-source-code.component';
-import { PagesLoginComponent } from './pages-login/pages-login.component';
+import { PagesLoginComponent } from './pages/pages-login/pages-login.component';
 import { FormsModule } from '@angular/forms';
+import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { FormsModule } from '@angular/forms';
     PageRightComponent,
     CategorySourceCodeComponent,
     PagesLoginComponent,
+    PagesRegisterComponent,
   ],
   imports: [
     CommonModule,

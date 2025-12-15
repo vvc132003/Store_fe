@@ -1,0 +1,39 @@
+<div class="login-bg">
+    <div class="login-card">
+
+        <h2 class="title">Đăng ký</h2>
+        <a class="site-link"></a>
+
+        <input type="text" placeholder="Họ và tên" [(ngModel)]="user_register.fullName" name="fullName" required />
+        <input type="email" placeholder="Email" [(ngModel)]="user_register.email" name="email" required />
+
+        <input type="password" placeholder="Mật khẩu" [(ngModel)]="user_register.password" name="password" required />
+        <input type="password" placeholder="Nhập lại mật khẩu" [(ngModel)]="confirmPassword" name="confirmPassword"
+            required />
+        <div class="links">
+            <a routerLink="/">Trang chủ</a>
+            <a routerLink="/forgot-password">Quên mật khẩu</a>
+        </div>
+
+        <button class="btn-login" (click)="register()">
+            Đăng ký
+        </button>
+
+        <div class="divider">Hoặc đăng nhập với</div>
+
+        <div class="social">
+            <button class="google">
+                <i class="fab fa-google"></i> Google
+            </button>
+            <button class="facebook">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </button>
+        </div>
+
+        <p class="register">
+            Đã có tài khoản?
+            <a routerLink="/dang-nhap">Đăng nhập</a>
+        </p>
+
+    </div>
+</div>
