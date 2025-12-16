@@ -92,10 +92,114 @@
 
 /* Container auth */
 .auth {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.icon-wrapper {
+    position: relative;
+    cursor: pointer;
+
+    i {
+        font-size: 20px;
+    }
+
+    .badge {
+        position: absolute;
+        top: -4px;
+        right: -6px;
+        background: #ff4d4f;
+        color: white;
+        border-radius: 50%;
+        padding: 1px 5px;
+        font-size: 10px;
+    }
+}
+
+/* Avatar */
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Dropdown */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown-menud {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 240px;
+    background: #fff;
+    color: #000;
+    border-radius: 10px;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 99999;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.user-dropdown.open .dropdown-menud {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+// * User info */ 
+.user-info {
+    background: #409eff;
+    color: #fff;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.coin {
+    font-size: 12px;
+}
+
+/* Menu list */
+.dropdown-menud ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #666666;
+}
+
+.dropdown-menud li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+
+.dropdown-menud li:hover {
+    background: #f5f5f5;
+}
+
+.logout {
+    color: red;
+    border-top: 1px solid #eee;
 }
 
 /* Nút Đăng nhập */
@@ -156,7 +260,7 @@
     top: 73px;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .menu-left,

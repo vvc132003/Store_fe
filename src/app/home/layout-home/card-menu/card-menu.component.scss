@@ -1,0 +1,77 @@
+/* Style menu list */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px;
+  border-bottom: 1px solid #ddd;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-list li:hover {
+  background-color: #f0f4ff;
+  border-radius: 6px;
+}
+
+/* Icon styles */
+.menu-list .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+}
+
+.menu-list li.active-link,
+.menu-list li.active-link:hover {
+  background-color: #4e8cff;
+  color: white;
+  border-radius: 6px;
+}
+
+.menu-list li.active-link .icon {
+  filter: brightness(1.3);
+}
+
+/* Colors for icons */
+.blue {
+  background: #4e8cff;
+}
+.red {
+  background: #ff4c4c;
+}
+
+.pink {
+  background: #ff7f7f;
+}
+
+.purple {
+  background: #a15aff;
+}
+
+.green-saved {
+    background: #3dd598; 
+}
+
+.blue-question {
+  background: #5599ff;
+}
+
+.red-logout {
+    background: #ff5959;
+}
+.orange {
+  background: #ffbb58;
+}
+

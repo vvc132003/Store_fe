@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -10,6 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
 export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   @Output() categoryChange = new EventEmitter<any[]>();
+  @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
 
   category_list: any[] = [];
 
@@ -25,7 +26,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this._category.getData().subscribe((data: any) => {
         this.category_list = data;
-        this.categoryChange.emit(this.category_list); 
+        this.categoryChange.emit(this.category_list);
         // console.log(data);
       })
     )

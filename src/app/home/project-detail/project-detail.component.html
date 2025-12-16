@@ -1,159 +1,163 @@
-<app-layout-home></app-layout-home>
-<app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
-    [breadcrumb_title]="breadcrumb_title"></app-page-header>
+<app-layout-home [tabTemplates]="{detail}"></app-layout-home>
+<ng-template #detail>
 
-<div class="project-detail-page" *ngIf="project">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-9 left-side">
-                <div class="row left-side-card">
-                    <h1 class="title mobile">{{ project.title }}</h1>
-                    <div class="col-5">
-                        <div class="preview-box">
-                            <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
-                        </div>
+    <app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
+        [breadcrumb_title]="breadcrumb_title"></app-page-header>
 
-                        <div class="thumb-list">
-                            <img [src]="project.thumbnailUrl" alt="">
-                            <img [src]="project.thumbnailUrl" alt="">
-                            <img [src]="project.thumbnailUrl" alt="">
-                        </div>
-                        <div class="demo-btn-container">
-                            <button class="demo-btn"><i class="fa fa-desktop"></i> Xem Live Demo</button>
-                        </div>
-
-                    </div>
-                    <div class="col-7">
-                        <h1 class="title desktop">{{ project.title }}</h1>
-
-                        <div class="meta">
-                            <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
-                        </div>
-
-                        <div class="price">
-                            <span class="money">{{ project.price | number }} đ</span>
-                            <div class="icons">
-                                <div class="icon-item">
-                                    <i class="fa fa-eye"></i>
-                                    <span class="count">0</span>
-                                </div>
-                                <div class="icon-item">
-                                    <i class="fa fa-download"></i>
-                                    <span class="count">0</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-line">Thể loại: Website</div>
-                        <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
-                                }}</span>
-                        </div>
-
-                        <!-- <div class="free-guide">Hướng dẫn nhận xu tải miễn phí: <a class="view-now">Xem ngay</a></div> -->
-
-                        <div class="report-box">
-                            <a href="#"><i class="fa fa-exclamation-triangle"></i> Báo vi phạm bản quyền</a>
-                            <a href="#"><i class="fa fa-bug"></i> Báo code bị lỗi</a>
-                        </div>
-
-                        <button class="download-btn">⬇ DOWNLOAD</button>
-                    </div>
-                </div>
-                <br>
-                <div class="row left-side-card">
-                    <div class="nav-tabs">
-                        <ul class="nav">
-                            <li class="nav-item" [class.active]="activeTab === 0">
-                                <a class="nav-link" (click)="selectTab(0)">Mô tả</a>
-                            </li>
-                            <li class="nav-item" [class.active]="activeTab === 1">
-                                <a class="nav-link" (click)="selectTab(1)">Hướng dẫn cài đặt</a>
-                            </li>
-                            <li class="nav-item" [class.active]="activeTab === 2">
-                                <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo</a>
-                            </li>
-                        </ul>
-
-                        <!-- Tab content, sử dụng ngClass để điều khiển hiển thị nội dung -->
-                        <div class="tab-content">
-                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 0}">
-                                <div class="top-source-title">
-                                    <h4><strong>MÔ TẢ</strong></h4>
-                                </div>
-                                <hr>
-                                <br>
-                                <div [innerHTML]="project.description | linebreaks"></div>
-                            </div>
-                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
-                                Nội dung của Tab 2
-                            </div>
-                            <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
-                                <div class="top-source-title">
-                                    <h4><strong>HÌNH ẢNH DEMO</strong></h4>
-                                </div>
-                                <hr>
-                                <br>
+    <div class="project-detail-page" *ngIf="project">
+        <div class="container-fuild">
+            <div class="row">
+                <div class="col-12 col-lg-9 left-side">
+                    <div class="row left-side-card">
+                        <h1 class="title mobile">{{ project.title }}</h1>
+                        <div class="col-5">
+                            <div class="preview-box">
                                 <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
-                                <div class="image-gallery" *ngIf="project.images?.length">
-                                    <img *ngFor="let img of project.images" [src]="img" [alt]="project.title"
-                                        class="main-preview">
-                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-            <div class="col-12 col-lg-3 right-side">
-                <div class="row right-side-card">
-                    <div class="card-header hot-code p-t-15 p-b-0">
-                        <h4 class="search-title text-danger mb-2">
-                            <i class="fas fa-search"></i> Tìm kiếm cùng chủ đề
-                        </h4>
-                        <a class="tag-link" *ngFor="let tag of project.tags" [routerLink]="['/tags-source-code', tag.slug]">
-                            <div class="tag-item" [ngStyle]="{ background: tag.color }">
-                                <i style="margin-right: 10px;" [class]="tag.icon"></i>
-                                {{ tag.name }}
+                            <div class="thumb-list">
+                                <img [src]="project.thumbnailUrl" alt="">
+                                <img [src]="project.thumbnailUrl" alt="">
+                                <img [src]="project.thumbnailUrl" alt="">
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <br>
-                <div class="row right-side-card">
-                    <div class="card-header hot-code p-t-15 p-b-0">
-                        <h4 class="text-danger mb-2 h4">
-                            <i class="fab fa-hotjar"></i> Code mới nhất
-                        </h4>
-                    </div>
-                    <div *ngFor="let car of project_list" class="car-item mb-3">
-                        <div class="row justify-content-between">
-                            <div class="col-5">
-                                <a href=""><img [src]="car.thumbnailUrl" width="100" height="60" alt=""></a>
+                            <div class="demo-btn-container">
+                                <button class="demo-btn"><i class="fa fa-desktop"></i> Xem Live Demo</button>
                             </div>
-                            <div class="col-7">
-                                <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
-                                <div class="code-price d-flex justify-content-between">
-                                    <strong>{{ car.price | number }} đ</strong>
-                                    <span class="color-view">
-                                        {{ car.views || 0 }} <i class="fas fa-eye"></i>
-                                    </span>
+
+                        </div>
+                        <div class="col-7">
+                            <h1 class="title desktop">{{ project.title }}</h1>
+
+                            <div class="meta">
+                                <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
+                            </div>
+
+                            <div class="price">
+                                <span class="money">{{ project.price | number }} đ</span>
+                                <div class="icons">
+                                    <div class="icon-item">
+                                        <i class="fa fa-eye"></i>
+                                        <span class="count">0</span>
+                                    </div>
+                                    <div class="icon-item">
+                                        <i class="fa fa-download"></i>
+                                        <span class="count">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-line">Thể loại: Website</div>
+                            <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
+                                    }}</span>
+                            </div>
+
+                            <!-- <div class="free-guide">Hướng dẫn nhận xu tải miễn phí: <a class="view-now">Xem ngay</a></div> -->
+
+                            <div class="report-box">
+                                <a href="#"><i class="fa fa-exclamation-triangle"></i> Báo vi phạm bản quyền</a>
+                                <a href="#"><i class="fa fa-bug"></i> Báo code bị lỗi</a>
+                            </div>
+
+                            <button class="download-btn">⬇ DOWNLOAD</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row left-side-card">
+                        <div class="nav-tabs">
+                            <ul class="nav">
+                                <li class="nav-item" [class.active]="activeTab === 0">
+                                    <a class="nav-link" (click)="selectTab(0)">Mô tả</a>
+                                </li>
+                                <li class="nav-item" [class.active]="activeTab === 1">
+                                    <a class="nav-link" (click)="selectTab(1)">Hướng dẫn cài đặt</a>
+                                </li>
+                                <li class="nav-item" [class.active]="activeTab === 2">
+                                    <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab content, sử dụng ngClass để điều khiển hiển thị nội dung -->
+                            <div class="tab-content">
+                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 0}">
+                                    <div class="top-source-title">
+                                        <h4><strong>MÔ TẢ</strong></h4>
+                                    </div>
+                                    <hr>
+                                    <br>
+                                    <div [innerHTML]="project.description | linebreaks"></div>
+                                </div>
+                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
+                                    Nội dung của Tab 2
+                                </div>
+                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
+                                    <div class="top-source-title">
+                                        <h4><strong>HÌNH ẢNH DEMO</strong></h4>
+                                    </div>
+                                    <hr>
+                                    <br>
+                                    <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
+                                    <div class="image-gallery" *ngIf="project.images?.length">
+                                        <img *ngFor="let img of project.images" [src]="img" [alt]="project.title"
+                                            class="main-preview">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <div class="">
-                                    <a class="f-13 text"
-                                        href="https://giaodichcode.com/danh-muc-source-code?category=khac"
-                                        title="Danh mục Khác">
-                                        <i class="fas fa-code"></i>
-                                        <span class="fw-bold">{{ car.categoryName }}</span>
-                                    </a>
+
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 right-side">
+                    <div class="row right-side-card">
+                        <div class="card-header hot-code p-t-15 p-b-0">
+                            <h4 class="search-title text-danger mb-2">
+                                <i class="fas fa-search"></i> Tìm kiếm cùng chủ đề
+                            </h4>
+                            <a class="tag-link" *ngFor="let tag of project.tags"
+                                [routerLink]="['/tags-source-code', tag.slug]">
+                                <div class="tag-item" [ngStyle]="{ background: tag.color }">
+                                    <i style="margin-right: 10px;" [class]="tag.icon"></i>
+                                    {{ tag.name }}
                                 </div>
-                                <div class="m1">
-                                    <span class="dt" *ngFor="let star of [].constructor(5); let i = index">
-                                        <i class="fas fa-star"></i>
-                                    </span>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row right-side-card">
+                        <div class="card-header hot-code p-t-15 p-b-0">
+                            <h4 class="text-danger mb-2 h4">
+                                <i class="fab fa-hotjar"></i> Code mới nhất
+                            </h4>
+                        </div>
+                        <div *ngFor="let car of project_list" class="car-item mb-3">
+                            <div class="row justify-content-between">
+                                <div class="col-5">
+                                    <a href=""><img [src]="car.thumbnailUrl" width="100" height="60" alt=""></a>
+                                </div>
+                                <div class="col-7">
+                                    <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
+                                    <div class="code-price d-flex justify-content-between">
+                                        <strong>{{ car.price | number }} đ</strong>
+                                        <span class="color-view">
+                                            {{ car.views || 0 }} <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <div class="">
+                                        <a class="f-13 text"
+                                            href="https://giaodichcode.com/danh-muc-source-code?category=khac"
+                                            title="Danh mục Khác">
+                                            <i class="fas fa-code"></i>
+                                            <span class="fw-bold">{{ car.categoryName }}</span>
+                                        </a>
+                                    </div>
+                                    <div class="m1">
+                                        <span class="dt" *ngFor="let star of [].constructor(5); let i = index">
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,4 +166,4 @@
             </div>
         </div>
     </div>
-</div>
+</ng-template>

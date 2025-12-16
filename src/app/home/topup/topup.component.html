@@ -1,0 +1,83 @@
+<app-layout-home [tabTemplates]="{topup}"></app-layout-home>
+<ng-template #topup>
+    <div class="project-detail-page">
+        <div class="container-fuild">
+            <div class="row">
+                <div class="col-12 col-lg-3 right-side">
+                    <div class="right-side-card">
+                        <app-card-menu></app-card-menu>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 left-side">
+                    <div class="left-side-card">
+                        <!-- <div class="modal-header">
+                        <h2>Nạp tiền vào tài khoản</h2>
+                        <div class="user-info">Chính Võ Văn (vvc132003@gmail.com)</div>
+                        <button class="close-btn" aria-label="Đóng" (click)="close()">×</button>
+                    </div> -->
+
+                        <div class="tabs">
+                            <div class="tab" [class.active]="activeTab === 1" (click)="activeTab = 1">
+                                1 - Ví điện tử - QR code
+                            </div>
+                            <div class="tab" [class.active]="activeTab === 2" (click)="activeTab = 2">
+                                2 - Chuyển khoản
+                            </div>
+                            <div class="tab" [class.active]="activeTab === 3" (click)="activeTab = 3">
+                                3 - Thanh toán qua thẻ ATM
+                            </div>
+                        </div>
+
+                        <div class="content" *ngIf="activeTab === 1">
+                            <div class="qr-container">
+                                <div class="qr-box">
+                                    <div class="logo">
+                                        <img src="http://192.168.1.6/uploads/logo.jpg" alt="MoMo logo" />
+                                    </div>
+                                    <img src="http://192.168.1.6/uploads/qr.png" alt="QR MoMo" />
+                                    <div class="name">Vo Van Chinh</div>
+                                </div>
+                                <div class="qr-box">
+                                    <div class="logo">
+                                        <img src="https://upload.wikimedia.org/wikipedia/vi/8/8e/Viettel_Money_Logo.svg"
+                                            alt="Viettel Money logo" width="60" />
+                                    </div>
+                                    <img src="assets/viettel-qr.png" alt="QR Viettel Money" />
+                                    <div class="name">Vo Van Chinh</div>
+                                </div>
+                            </div>
+
+                            <div class="instructions">
+                                <p>
+                                    (Trong đó bạn nhập nội dung <strong>GD1378</strong> để xác định tài khoản
+                                    của bạn, Hệ thống sẽ cộng tiền vào tài khoản này cho bạn)
+                                </p>
+                                <ul>
+                                    <li>
+                                        Nội dung chuyển khoản của bạn phải nhập đúng là <strong>GD1378</strong>,
+                                        sau khi xác nhận hệ thống sẽ cộng tiền cho bạn.
+                                    </li>
+                                    <li>
+                                        Trường hợp sau 30 phút chưa thấy cộng tiền chụp lại giao dịch gọi qua
+                                        <a href="#">hotline</a>.
+                                    </li>
+                                    <li>
+                                        Mọi hướng dẫn chi tiết liên hệ qua <a href="#">hotline</a>.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="content" *ngIf="activeTab === 2">
+                            <p>Phần nội dung chuyển khoản ở đây (Bạn có thể thêm)</p>
+                        </div>
+
+                        <div class="content" *ngIf="activeTab === 3">
+                            <p>Phần nội dung thanh toán qua thẻ ATM ở đây (Bạn có thể thêm)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

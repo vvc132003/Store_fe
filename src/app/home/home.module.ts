@@ -15,6 +15,9 @@ import { CategorySourceCodeComponent } from './category-source-code/category-sou
 import { PagesLoginComponent } from './pages/pages-login/pages-login.component';
 import { FormsModule } from '@angular/forms';
 import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
+import { DashboardsComponent } from './dashboards/dashboards.component';
+import { TopupComponent } from './topup/topup.component';
+import { CardMenuComponent } from './layout-home/card-menu/card-menu.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -31,6 +34,9 @@ import { PagesRegisterComponent } from './pages/pages-register/pages-register.co
     CategorySourceCodeComponent,
     PagesLoginComponent,
     PagesRegisterComponent,
+    DashboardsComponent,
+    TopupComponent,
+    CardMenuComponent,
     // SessionWarningComponent,
   ],
   imports: [

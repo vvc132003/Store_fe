@@ -1,14 +1,12 @@
 .project-detail-page {
-  padding: 0px 90px;
+  padding: 0px 102px;
   margin-top: -120px;
 }
 
 .container {
   display: flex;
   gap: 15px;
-  /* Khoảng cách giữa các cột */
   flex-wrap: wrap;
-  /* Cho phép các cột tự động xuống dòng khi cần thiết */
 }
 
 .left-side {
@@ -426,6 +424,9 @@
     align-items: center;
   }
 
+  .left-side,.right-side {
+    padding: 0px 24px;
+  }
 
   .left-side-card .col-5,
   .left-side-card .col-7 {

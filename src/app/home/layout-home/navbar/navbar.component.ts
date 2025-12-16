@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private cookieService: CookieService, private router: Router) { }
+  constructor(private cookieService: CookieService, private elRef: ElementRef, private router: Router) { }
 
   @Input() category_list: any[] = [];
   user: any = null;
@@ -51,6 +51,21 @@ export class NavbarComponent implements OnInit {
   toggleMobileMenu() {
     this.showMenuOpenMobile = !this.showMenuOpenMobile;
   }
+  isMenuOpen = false;
+
+  toggleMenu(event: MouseEvent) {
+    event.stopPropagation(); // ⛔ chặn bubble
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.isMenuOpen = false;
+    }
+  }
+
+
 
 
 }
