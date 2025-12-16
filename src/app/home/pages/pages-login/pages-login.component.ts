@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class PagesLoginComponent implements OnInit, OnDestroy {
 
   user_login: any = {};
+  showSessionWarning: boolean = false;
   constructor(private titleService: Title, private cookieService: CookieService,
     private _user: UserService, private router: Router, private _notification: NotificationService) { }
   private subscription = new Subscription();
@@ -49,9 +50,24 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
         } else {
           this.router.navigate(['/']);
         }
+        this.loadSoket(payload);
         this._notification.showSuccess('1005');
       })
     )
 
   }
+
+  loadSoket(data: any) {
+    this._user.removeToken().subscribe(() => {
+      this.cookieService.delete('access_token', '/');
+      this._user.show();
+      this.router.navigate(['/dang-nhap']);
+      // this.showSessionWarning = true;
+    });
+    this.subscription.add(
+      this._user.startConnection1(data.nameid).subscribe((data: any) => {
+      })
+    )
+  }
+
 }

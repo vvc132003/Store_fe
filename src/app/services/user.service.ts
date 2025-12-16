@@ -4,14 +4,35 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import * as signalR from '@microsoft/signalr';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
     private apiUrl = API_URLS.api + '/Users';
+    private hubUrl = API_URLS.hub;
+    private hubConnection1: signalR.HubConnection;
+
     constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+        this.hubConnection1 = new signalR.HubConnectionBuilder()
+            .withUrl(this.hubUrl)
+            .configureLogging(signalR.LogLevel.Error)
+            .build();
     }
+
+
+    private _showWarning$ = new BehaviorSubject<boolean>(false);
+    showWarning$ = this._showWarning$.asObservable();
+
+    show() {
+        this._showWarning$.next(true);
+    }
+
+    hide() {
+        this._showWarning$.next(false);
+    }
+
     // Phương thức GET
     getData(): Observable<any> {
         return this.http.get<any[]>(this.apiUrl);
@@ -44,6 +65,9 @@ export class UserService {
     ////AuthService 
 
     private logoutTimeout: any;
+
+
+
 
 
     setToken(token: string) {
@@ -79,5 +103,44 @@ export class UserService {
     // getToken(): string {
     //     return this.cookieService.get('access_token');
     // }
+
+
+
+
+    /// mở kết nối đến websoket
+    startConnection1(nameid: string): Observable<void> {
+        return new Observable<void>((observer) => {
+            this.hubConnection1
+                .start()
+                .then(() => {
+                    this.hubConnection1.invoke('JoinGropsLogin', nameid);
+                    observer.next();
+                    observer.complete();
+                })
+                .catch((error) => {
+                    // console.error('Error connecting to SignalR hub:', error);
+                    observer.error(error);
+                });
+        });
+    }
+
+    /// ngắt kết nối websoket 
+    stopConnection1(): void {
+        if (this.hubConnection1) {
+            this.hubConnection1.off("RemoveToken");
+            this.hubConnection1.stop();
+        }
+    }
+    /// lắng nghe sự kiện từ server
+    removeToken(): Observable<void> {
+        return new Observable(observer => {
+            this.hubConnection1.on('RemoveToken', () => {
+                // console.log("ddd");
+                observer.next();
+            });
+        });
+    }
+
+
 
 }
