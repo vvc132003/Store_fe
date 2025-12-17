@@ -1,6 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -31,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pageSize = 5;
   pagedData: any[] = [];
 
-  constructor(private _category: CategoryService, private _project: ProjectService) {
+  constructor(private _category: CategoryService, private _notification: NotificationService, private cookieService: CookieService, private _project: ProjectService, private _favorite: FavoriteService) {
 
   }
   private subscription = new Subscription();
@@ -43,8 +46,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   loadProject_list() {
+    const token = this.cookieService.get('access_token');
+    const payload = this.parseJwt(token);
+    // console.log(payload);
     this.subscription.add(
-      this._project.getProject_list().subscribe((data: any) => {
+      this._project.getProject_list(payload?.nameid).subscribe((data: any) => {
         this.project_list = data.sort(
           (a: any, b: any) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -54,7 +60,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.updatePagedData();
       })
     )
+
   }
+
+
+  //#region  event
 
   goToPage(page: number) {
     if (page < 1) return;
@@ -140,4 +150,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.prevIndex = this.currentIndex;
     this.currentIndex = index;
   }
+
+  private parseJwt(token: string): any {
+    if (!token) return null; 
+    const payload = token.split('.')[1];
+    const decoded = atob(payload);
+    const utf8 = decodeURIComponent(
+      decoded
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(utf8);
+  }
+
+  bookmark(projectId: string): void {
+    const token = this.cookieService.get('access_token');
+    if (token) {
+      const payload = this.parseJwt(token);
+      const datapost = {
+        userId: payload.nameid,
+        projectId: projectId
+      }
+      this.subscription.add(
+        this._favorite.postData(datapost).subscribe((data: any) => {
+          if (data) {
+            const isFavorite = this.pagedData.find(f => f.id === projectId);
+            isFavorite.isFavorite = true;
+            this._notification.showSuccess("1006");
+          } else {
+            this._notification.showWarning("1007");
+          }
+        })
+      )
+    }
+
+
+  }
+
 }

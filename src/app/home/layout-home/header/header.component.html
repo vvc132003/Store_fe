@@ -105,7 +105,10 @@
                 </div>
 
                 <div class="actions">
-                    <i class="fas fa-bookmark"></i>
+                    <i (click)="bookmark(item.id)"
+                        [ngClass]="{'fas fa-bookmark': true, 'text-warning': item.isFavorite}"
+                        [ngStyle]="{'color': item.isFavorite ? 'yellow' : 'gray'}">
+                    </i>
                     <i class="fas fa-download"></i>
                 </div>
             </div>

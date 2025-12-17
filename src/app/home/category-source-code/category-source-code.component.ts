@@ -1,7 +1,10 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -23,7 +26,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   pagedData: any[] = [];
 
 
-  constructor(private _project: ProjectService, private titleService: Title, private route: ActivatedRoute) { }
+  constructor(private _project: ProjectService, private _notification: NotificationService, private cookieService: CookieService, private _favorite: FavoriteService, private titleService: Title, private route: ActivatedRoute) { }
   private subscription = new Subscription();
 
   ngOnInit(): void {
@@ -54,8 +57,10 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   categoryname: string = "";
   count: number = 0;
   loadSourceCodeByCategory(category: string) {
+    const token = this.cookieService.get('access_token');
+    const payload = this.parseJwt(token);
     this.subscription.add(
-      this._project.getProjectByCategorySlug(category).subscribe((data: any) => {
+      this._project.getProjectByCategorySlug(category, payload?.nameid).subscribe((data: any) => {
         this.project_by_categoryslug = data;
         this.filteredData = [...this.project_by_categoryslug];
         this.currentPage = 1;
@@ -67,6 +72,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
     )
   }
 
+  //#region  event
   goToPage(page: number) {
     if (page < 1) return;
     const totalPages = Math.ceil(this.project_by_categoryslug.length / this.pageSize);
@@ -195,4 +201,53 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  private parseJwt(token: string): any {
+    if (!token) return null;
+    const payload = token.split('.')[1];
+    const decoded = atob(payload);
+    const utf8 = decodeURIComponent(
+      decoded
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(utf8);
+  }
+
+  bookmark(projectId: string): void {
+    const token = this.cookieService.get('access_token');
+    if (token) {
+      const payload = this.parseJwt(token);
+      const datapost = {
+        userId: payload.nameid,
+        projectId: projectId
+      }
+      this.subscription.add(
+        this._favorite.postData(datapost).subscribe((data: any) => {
+          if (data) {
+            const isFavorite = this.pagedData.find(f => f.id === projectId);
+            isFavorite.isFavorite = true;
+            this._notification.showSuccess("1006");
+          } else {
+            this._notification.showWarning("1007");
+          }
+        })
+      )
+    }
+  }
+
+
+  setRating(rating: number, id: string): void {
+    const data = {
+      id: id,
+      star: rating
+    };
+    this.subscription.add(
+      this._project.changeStar_Project(data).subscribe((res: any) => {
+        const star = this.pagedData.find(p => p.id === id);
+        star.star = rating;
+        this._notification.showSuccess("1008");
+      })
+    )
+  }
 }

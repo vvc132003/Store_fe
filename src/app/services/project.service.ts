@@ -15,8 +15,14 @@ export class ProjectService {
         return this.http.get<any[]>(this.apiUrl);
     }
 
-    getProject_list(): Observable<any> {
-        return this.http.get<any[]>(`${this.apiUrl}/project-list`);
+    // getProject_list(): Observable<any> {
+    //     return this.http.get<any[]>(`${this.apiUrl}/project-list`);
+    // }
+
+    getProject_list(userId?: string): Observable<any> {
+        const url = userId ? `${this.apiUrl}/project-list/${userId}` : `${this.apiUrl}/project-list`;
+
+        return this.http.get<any[]>(url);
     }
 
     getProject_latest(): Observable<any> {
@@ -27,14 +33,28 @@ export class ProjectService {
         return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
     }
 
-    getProjectByCategorySlug(slug: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-by-category-slug/${slug}`);
+    // getProjectByCategorySlug(slug: string, userId?: string): Observable<any> {
+    //     return this.http.get<any>(`${this.apiUrl}/project-by-category-slug/${slug}`);
+    // }
+
+    getProjectByCategorySlug(slug: string, userId?: string): Observable<any> {
+        const url = userId
+            ? `${this.apiUrl}/project-by-category-slug/${slug}?userId=${userId}`
+            : `${this.apiUrl}/project-by-category-slug/${slug}`;
+
+        return this.http.get<any>(url);
     }
+
 
     // Phương thức POST
     postData(data: any): Observable<any> {
         return this.http.post<any>(this.apiUrl, data);
     }
+
+    changeStar_Project(data: any): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/changeStar-Project`, data);
+    }
+    
 
     uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string, imageFiles: File[]): Observable<any> {
         const formData = new FormData();
