@@ -27,10 +27,9 @@
                     <span class="fw-bold">{{ car.categoryName }}</span>
                 </a>
             </div>
-            <div class="m1">
-                <span class="dt" *ngFor="let star of [].constructor(5); let i = index">
-                    <i class="fas fa-star"></i>
-                </span>
+            <div class="rating">
+                <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= car.star ? 'fas active' : 'far'">
+                </i>
             </div>
         </div>
     </div>

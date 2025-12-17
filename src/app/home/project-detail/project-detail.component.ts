@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -30,17 +30,21 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     },
     // Thêm các đối tượng xe khác nếu cần
   ];
+
   project_list: any[] = [];
   project: any = {};
+  mainImage: string = "";
+  slideIndex = 0;
+  intervalId: any;
+  @ViewChild('thumbList') thumbList!: ElementRef<HTMLDivElement>;
+
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";
   constructor(private titleService: Title, private _project: ProjectService, private route: ActivatedRoute) { }
   private subscription = new Subscription();
   activeTab: number = 0;
 
-  selectTab(index: number) {
-    this.activeTab = index;
-  }
+
 
   slug_viewCount: any;
   //#region  load dữ liệu
@@ -62,6 +66,60 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     );
   }
 
+  prevImage() {
+    this.slideIndex =
+      (this.slideIndex - 1 + this.project.images.length) % this.project.images.length;
+    this.mainImage = this.project.images[this.slideIndex];
+    this.scrollThumbnailIntoView();
+
+  }
+
+  nextImage() {
+    this.slideIndex = (this.slideIndex + 1) % this.project.images.length;
+    this.mainImage = this.project.images[this.slideIndex];
+    this.scrollThumbnailIntoView();
+
+  }
+
+  selectTab(index: number) {
+    this.activeTab = index;
+  }
+  selectImage(img: string) {
+    this.mainImage = img;
+    this.slideIndex = this.project.images.indexOf(img);
+    this.scrollThumbnailIntoView();
+
+  }
+  private startAutoSlide() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+    this.intervalId = setInterval(() => {
+      this.slideIndex = (this.slideIndex + 1) % this.project.images.length;
+      this.mainImage = this.project.images[this.slideIndex];
+      this.scrollThumbnailIntoView();
+    }, 3000);
+  }
+  private scrollThumbnailIntoView() {
+    const container = this.thumbList.nativeElement; // container ngang
+    const images = container.querySelectorAll('img');
+    const activeImg = images[this.slideIndex] as HTMLElement;
+
+    if (activeImg) {
+      // Tọa độ ảnh so với container
+      const containerWidth = container.clientWidth;
+      const imgOffsetLeft = activeImg.offsetLeft;
+      const imgWidth = activeImg.offsetWidth;
+
+      // Scroll sao cho ảnh active nằm giữa container
+      const scrollTo = imgOffsetLeft - (containerWidth / 2) + (imgWidth / 2);
+
+      container.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+      });
+    }
+  }
 
 
 
@@ -86,6 +144,11 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     this.subscription.add(
       this._project.getProjectBySlug(slug!).subscribe((data: any) => {
         this.project = data;
+        this.mainImage = this.project.thumbnailUrl;
+        if (!this.project.images.includes(this.mainImage)) {
+          this.project.images.push(this.mainImage);
+        }
+        this.startAutoSlide();
         this.breadcrumb_title = data.title;
         this.breadcrumb_categoryname = data.categoryName;
         this.titleService.setTitle(data.title);
@@ -96,5 +159,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 }

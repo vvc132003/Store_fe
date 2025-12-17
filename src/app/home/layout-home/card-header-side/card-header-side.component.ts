@@ -12,12 +12,18 @@ export class CardHeaderSideComponent implements OnChanges {
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['oldSlug']) {
-      const slug_viewCount = this.project_list.find(p => p.slug === this.oldSlug);
-      slug_viewCount.viewCount += 1;
-    }
+ngOnChanges(changes: SimpleChanges): void {
+  if (!changes['oldSlug'] || !this.oldSlug) {
+    return;
   }
+
+  const slug_viewCount = this.project_list.find(p => p.slug === this.oldSlug);
+
+  if (slug_viewCount) {
+    slug_viewCount.viewCount += 1;
+  }
+}
+
 
 
 }

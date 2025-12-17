@@ -373,13 +373,21 @@ a {
         align-items: center;
         gap: 3px;
         font-size: 14px;
-        color: #f7c600;
+
+        i {
+            color: #ccc; // xám
+        }
+
+        i.active {
+            color: #f7c600; // vàng
+        }
 
         span {
             margin-left: 6px;
             color: #333;
         }
     }
+
 
     .bottom-row {
         display: flex;

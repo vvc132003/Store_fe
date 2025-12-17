@@ -11,14 +11,19 @@
                     <div class="row left-side-card">
                         <h1 class="title mobile">{{ project.title }}</h1>
                         <div class="col-5">
-                            <div class="preview-box">
-                                <img class="main-preview" [src]="project.thumbnailUrl" [alt]="project.title">
+                            <div class="preview-container">
+                                <button class="nav-btn left" (click)="prevImage()">&lt;</button>
+
+                                <div class="preview-box">
+                                    <img class="main-preview" [src]="mainImage" [alt]="project.title">
+                                </div>
+
+                                <button class="nav-btn right" (click)="nextImage()">&gt;</button>
                             </div>
 
-                            <div class="thumb-list">
-                                <img [src]="project.thumbnailUrl" alt="">
-                                <img [src]="project.thumbnailUrl" alt="">
-                                <img [src]="project.thumbnailUrl" alt="">
+                            <div class="thumb-list" #thumbList>
+                                <img *ngFor="let img of project.images" [src]="img" alt="thumbnail"
+                                    [class.active]="img === mainImage" (click)="selectImage(img)">
                             </div>
                             <div class="demo-btn-container">
                                 <button class="demo-btn"><i class="fa fa-desktop"></i> Xem Live Demo</button>
@@ -27,10 +32,17 @@
                         </div>
                         <div class="col-7">
                             <h1 class="title desktop">{{ project.title }}</h1>
-
-                            <div class="meta">
-                                <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
+                            <div class="dflex">
+                                <div class="meta">
+                                    <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
+                                </div>
+                                <div class="rating">
+                                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                        [ngClass]="s <= project.star ? 'fas active' : 'far'">
+                                    </i>
+                                </div>
                             </div>
+
 
                             <div class="price">
                                 <span class="money">{{ project.price | number }} đ</span>
@@ -123,7 +135,8 @@
                     </div>
                     <br>
                     <div class="row right-side-card">
-                        <app-card-header-side [oldSlug]="slug_viewCount" [project_list]="project_list"></app-card-header-side>
+                        <app-card-header-side [oldSlug]="slug_viewCount"
+                            [project_list]="project_list"></app-card-header-side>
                     </div>
                 </div>
             </div>

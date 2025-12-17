@@ -93,7 +93,8 @@
             </div>
 
             <div class="rating">
-                <i class="fas fa-star" *ngFor="let r of [1,2,3,4,5]"></i>
+                <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= item.star ? 'fas active' : 'far'">
+                </i>
                 <span>1 đánh giá</span>
             </div>
 

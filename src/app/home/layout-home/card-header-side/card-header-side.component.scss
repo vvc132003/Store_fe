@@ -67,7 +67,22 @@
     text-decoration: none;
   }
 
-  .fa-star,
-  .fa-star-half-alt {
-    color: #f8c125;
-  }
+ .rating {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 14px;
+
+        i {
+            color: #ccc; // xám
+        }
+
+        i.active {
+            color: #f7c600; // vàng
+        }
+
+        span {
+            margin-left: 6px;
+            color: #333;
+        }
+    }
