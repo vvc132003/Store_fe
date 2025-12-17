@@ -42,31 +42,44 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     this.activeTab = index;
   }
 
-
+  slug_viewCount: any;
   //#region  load dữ liệu
   ngOnInit(): void {
-    // this.loadProject_detail();
     this.subscription.add(
       this.route.paramMap.subscribe(params => {
         const slug = params.get('slug');
         if (slug) {
+          // Lấy slug cũ từ localStorage
+          const oldSlug = localStorage.getItem('slug_viewCount');
+
+          if (slug !== oldSlug) {
+            this.slug_viewCount = oldSlug;
+          }
+          localStorage.setItem('slug_viewCount', slug);
           this.loadProject_detail(slug);
         }
       })
     );
-    this.loadProject_list();
   }
 
-  loadProject_list() {
-    this.subscription.add(
-      this._project.getProject_list().subscribe((data: any[]) => {
-        this.project_list = data.sort(
-          (a: any, b: any) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        ).slice(0, 5);
-      })
-    );
+
+
+
+  onProjectLatestReceived(data: any[]) {
+    this.project_list = data;
   }
+
+  // loadProject_list() {
+  //   this.subscription.add(
+  //     this._project.getProject_latest().subscribe((data: any[]) => {
+  //       this.project_list = data
+  //       // .sort(
+  //       //   (a: any, b: any) =>
+  //       //     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  //       // ).slice(0, 5);
+  //     })
+  //   );
+  // }
 
   loadProject_detail(slug: string) {
     // const slug = this.route.snapshot.paramMap.get('slug');

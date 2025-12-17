@@ -1,5 +1,6 @@
-<app-form [headerDiv]="tables" [text]="text" [selectedTags_Ids]="this.project.tagIds" (selectedTagsClick)="selectTag($event)" [showoffcanvas]="showcproject_add"
-    (closePupAdd)="close()" [tabTemplates]="{category: categoryContent, setting: setting}">
+<app-form [headerDiv]="tables" [text]="text" [selectedTags_Ids]="this.project.tagIds"
+    (selectedTagsClick)="selectTag($event)" [showoffcanvas]="showcproject_add" (closePupAdd)="close()"
+    [tabTemplates]="{category: categoryContent, setting: setting}">
 </app-form>
 <ng-template #categoryContent>
     <div class="mb-3">
@@ -28,23 +29,40 @@
             [(ngModel)]="project.description" rows="3"></textarea>
     </div> -->
 
-
+    <!-- MÔ TẢ -->
     <div class="mb-3">
-        <label class="form-label small">Mô tả</label>
+        <label class="form-label small">Mô tả chi tiết</label>
+
         <div class="toolbar">
-            <button (click)="exec('bold')">B</button>
-            <button (click)="exec('italic')"><i>I</i></button>
-            <button (click)="exec('underline')"><u>U</u></button>
-
-            <input type="color" (change)="changeColor($event)" title="Chọn màu">
-            <button (click)="exec('fontSize', 5)">Big</button>
-
-            <!-- <input type="file" (change)="insertImage($event)"> -->
+            <button type="button" (click)="exec(descEditor, 'bold')">B</button>
+            <button type="button" (click)="exec(descEditor, 'italic')"><i>I</i></button>
+            <button type="button" (click)="exec(descEditor, 'underline')"><u>U</u></button>
+            <input type="color" (change)="changeColor(descEditor, $event)">
+            <button type="button" (click)="exec(descEditor, 'fontSize', 5)">Big</button>
         </div>
-        <div class="editor" contenteditable="true" (input)="onInput($event)"
-            [innerHTML]="project.description | linebreaks">
+
+        <div #descEditor class="editor" contenteditable="true" (input)="onInputDescription(descEditor)"
+            [innerHTML]="project.description">
         </div>
     </div>
+
+    <!-- HƯỚNG DẪN CÀI ĐẶT -->
+    <div class="mb-3">
+        <label class="form-label small">Hướng dẫn cài đặt</label>
+
+        <div class="toolbar">
+            <button type="button" (click)="exec(guideEditor, 'bold')">B</button>
+            <button type="button" (click)="exec(guideEditor, 'italic')"><i>I</i></button>
+            <button type="button" (click)="exec(guideEditor, 'underline')"><u>U</u></button>
+            <input type="color" (change)="changeColor(guideEditor, $event)">
+            <button type="button" (click)="exec(guideEditor, 'fontSize', 5)">Big</button>
+        </div>
+
+        <div #guideEditor class="editor" contenteditable="true" (input)="onInputInstallationGuide(guideEditor)"
+            [innerHTML]="project.installationGuide">
+        </div>
+    </div>
+
 
     <div class="mb-3">
         <label for="category" class="form-label small">Danh mục</label>

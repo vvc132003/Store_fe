@@ -45,7 +45,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loadProject_list() {
     this.subscription.add(
       this._project.getProject_list().subscribe((data: any) => {
-        this.project_list = data;
+        this.project_list = data.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.filteredData = [...this.project_list];
         this.currentPage = 1;
         this.updatePagedData();

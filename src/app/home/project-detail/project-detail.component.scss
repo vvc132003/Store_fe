@@ -183,6 +183,7 @@
   }
 
   .icon-item i {
+    color: #777;
     font-size: 15px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
@@ -318,79 +319,9 @@
 
 
 .right-side-card {
-
-  .card-header {
-    position: relative;
-    // padding: 5px 5px;
-    margin-bottom: 0;
-    background-color: transparent;
-  }
-
-  .card-header:first-child {
-    border-radius: 5px 5px 0 0;
-  }
-
-  .car-item {
-    border-top: 3px solid #ddd;
-    padding-top: 20px;
-  }
-
-  .car-item:first-child {
-    border-top: none;
-  }
-
   .search-title {
     border-bottom: 3px solid #ddd;
     padding-bottom: 8px;
-  }
-
-  .hot-code {
-    // border-bottom: 1px solid #dddddd !important;
-  }
-
-  .hot-code h4 {
-    font-size: 20px !important;
-  }
-
-  .col-7 a {
-    text-decoration: none;
-    color: #212529 !important;
-  }
-
-  h3 {
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    height: 52px;
-    /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
-    font-family: inherit;
-    color: inherit;
-    -webkit-line-clamp: 3;
-    /* Giới hạn nội dung thành 3 dòng */
-    -webkit-box-orient: vertical;
-    line-height: 17px;
-    /* Điều chỉnh theo kích thước dòng của bạn */
-    font-weight: 700;
-    /* Làm đậm tiêu đề */
-  }
-
-  .code-price {
-    color: #d5101c;
-  }
-
-  .color-view {
-    color: #9f9f9f !important;
-  }
-
-  .col-12 a {
-    color: #4099ff;
-    text-decoration: none;
-  }
-
-  .fa-star,
-  .fa-star-half-alt {
-    color: #f8c125;
   }
 }
 
@@ -424,7 +355,8 @@
     align-items: center;
   }
 
-  .left-side,.right-side {
+  .left-side,
+  .right-side {
     padding: 0px 24px;
   }
 

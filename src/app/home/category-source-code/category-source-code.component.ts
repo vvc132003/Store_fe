@@ -27,27 +27,28 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.loadProject_latest();
+    // this.loadProject_latest();
     this.titleService.setTitle("Danh mục mã nguồn");
     this.route.queryParamMap.subscribe(params => {
       const category = params.get('category');
       if (category) {
         this.loadSourceCodeByCategory(category);
-      } else {
-        this.loadProject_latest(); // hoặc load dữ liệu mặc định
       }
-
     });
   }
 
 
-  loadProject_latest() {
-    this.subscription.add(
-      this._project.getProject_latest().subscribe((data: any) => {
-        this.project_latest = data;
-        // console.log(data);
-      })
-    )
+  // loadProject_latest() {
+  //   this.subscription.add(
+  //     this._project.getProject_latest().subscribe((data: any) => {
+  //       this.project_latest = data;
+  //       // console.log(data);
+  //     })
+  //   )
+  // }
+
+  onProjectLatestReceived(data: any[]) {
+    this.project_latest = data;
   }
 
   categoryname: string = "";

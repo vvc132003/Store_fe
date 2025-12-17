@@ -2,7 +2,7 @@
 <ng-template #detail>
 
     <app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
-        [breadcrumb_title]="breadcrumb_title"></app-page-header>
+        (projectLatestChange)="onProjectLatestReceived($event)" [breadcrumb_title]="breadcrumb_title"></app-page-header>
 
     <div class="project-detail-page" *ngIf="project">
         <div class="container-fuild">
@@ -37,7 +37,7 @@
                                 <div class="icons">
                                     <div class="icon-item">
                                         <i class="fa fa-eye"></i>
-                                        <span class="count">0</span>
+                                        <span class="count">{{project.viewCount}}</span>
                                     </div>
                                     <div class="icon-item">
                                         <i class="fa fa-download"></i>
@@ -87,7 +87,7 @@
                                     <div [innerHTML]="project.description | linebreaks"></div>
                                 </div>
                                 <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
-                                    Nội dung của Tab 2
+                                    <div [innerHTML]="project.installationGuide | linebreaks"></div>
                                 </div>
                                 <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
                                     <div class="top-source-title">
@@ -123,44 +123,7 @@
                     </div>
                     <br>
                     <div class="row right-side-card">
-                        <div class="card-header hot-code p-t-15 p-b-0">
-                            <h4 class="text-danger mb-2 h4">
-                                <i class="fab fa-hotjar"></i> Code mới nhất
-                            </h4>
-                        </div>
-                        <div *ngFor="let car of project_list" class="car-item mb-3">
-                            <div class="row justify-content-between">
-                                <div class="col-5">
-                                    <a href=""><img [src]="car.thumbnailUrl" width="100" height="60" alt=""></a>
-                                </div>
-                                <div class="col-7">
-                                    <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
-                                    <div class="code-price d-flex justify-content-between">
-                                        <strong>{{ car.price | number }} đ</strong>
-                                        <span class="color-view">
-                                            {{ car.views || 0 }} <i class="fas fa-eye"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex justify-content-between">
-                                    <div class="">
-                                        <a class="f-13 text"
-                                            href="https://giaodichcode.com/danh-muc-source-code?category=khac"
-                                            title="Danh mục Khác">
-                                            <i class="fas fa-code"></i>
-                                            <span class="fw-bold">{{ car.categoryName }}</span>
-                                        </a>
-                                    </div>
-                                    <div class="m1">
-                                        <span class="dt" *ngFor="let star of [].constructor(5); let i = index">
-                                            <i class="fas fa-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <app-card-header-side [oldSlug]="slug_viewCount" [project_list]="project_list"></app-card-header-side>
                     </div>
                 </div>
             </div>

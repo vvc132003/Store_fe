@@ -69,6 +69,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   save(): void {
     if (this.action === 'add') {
       this.saveProject();
+      // console.log(this.project);
     } else {
       this.updateCategory();
     }
@@ -153,7 +154,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
 
     if (input.files && input.files.length > 0) {
       this.imageFiles = Array.from(input.files);
-      console.log(this.imageFiles);
+      // console.log(this.imageFiles);
       this.previewImages = [];
 
       this.imageFiles.forEach(file => {
@@ -190,18 +191,23 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   }
 
   //#region  css màu cho mô tả
-  onInput(event: any) {
-    this.project.description = event.target.innerHTML;
+  onInputDescription(editor: HTMLElement) {
+    this.project.description = editor.innerHTML;
   }
-  exec(command: string, value?: any) {
+
+  onInputInstallationGuide(editor: HTMLElement) {
+    this.project.installationGuide = editor.innerHTML;
+  }
+
+  exec(editor: HTMLElement, command: string, value?: any) {
+    editor.focus();
     document.execCommand(command, false, value);
   }
 
-  changeColor(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input) return;
-
-    this.exec('foreColor', input.value);
+  changeColor(editor: HTMLElement, event: Event) {
+    const color = (event.target as HTMLInputElement).value;
+    editor.focus();
+    document.execCommand('foreColor', false, color);
   }
 
   insertImage(event: any) {

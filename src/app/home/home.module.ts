@@ -18,6 +18,7 @@ import { PagesRegisterComponent } from './pages/pages-register/pages-register.co
 import { DashboardsComponent } from './dashboards/dashboards.component';
 import { TopupComponent } from './topup/topup.component';
 import { CardMenuComponent } from './layout-home/card-menu/card-menu.component';
+import { CardHeaderSideComponent } from './layout-home/card-header-side/card-header-side.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -37,6 +38,7 @@ import { CardMenuComponent } from './layout-home/card-menu/card-menu.component';
     DashboardsComponent,
     TopupComponent,
     CardMenuComponent,
+    CardHeaderSideComponent,
     // SessionWarningComponent,
   ],
   imports: [
