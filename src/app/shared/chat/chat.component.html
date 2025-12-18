@@ -1,0 +1,104 @@
+<button *ngIf="showButton" class="btn btn-primary chat-toggle-btn" (click)="toggleChat()">
+    <i [class]="isShowChat ? 'fas fa-times' : 'fas fa-comment'"></i>
+</button>
+
+<button *ngIf="showButton" class="btn btn-success zalo-toggle-btn" (click)="openZaloAppChat()">
+    Zalo
+</button>
+
+
+<ng-container *ngIf="isShowChat">
+    <div class="chat-widget shadow" [class.show]="showChat">
+        <div class="chat-sidebar" *ngIf="isChatSidebarVisible">
+            <div class="chat-header p-3 bg-primary d-flex align-items-center">
+                <input type="text" class="form-control me-2" placeholder="Tìm kiếm cuộc trò chuyện..."
+                    [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+            </div>
+
+            <div class="conversation-list">
+                <div *ngFor="let convo of conversations" class="conversation"
+                    [class.active]="convo === selectedConversation" (click)="selectConversation(convo)">
+                    <img [src]="convo.avatar" alt="avatar" class="avatar">
+                    <div class="info">
+                        <div class="name">{{ convo.name }}</div>
+                        <div class="last-message">
+                            <ng-container *ngIf="convo.messageType === 'image'; else textMessage">
+                                Đã gửi 1 ảnh
+                            </ng-container>
+                            <ng-template #textMessage>
+                                {{ convo.lastMessage }}
+                            </ng-template>
+                        </div>
+                    </div>
+                    <small *ngIf="convo.createdAt!=null" class="text-muted d-block mt-1" style="font-size: 0.75rem;">
+                        {{ getFormattedTime(convo.createdAt) }}
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main" *ngIf="selectedConversation && isChatMainVisible">
+            <div class="chat-main-header">
+                <button class="btn-back d-block d-sm-none me-2 custom-close-button" (click)="backToSidebar()">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <img [src]="selectedConversation.avatar" class="avatar-sm" />
+                <span>{{ selectedConversation.name }}</span>
+                <button class="btn-close ms-auto" aria-label="Close" (click)="closeChat()"></button>
+
+            </div>
+
+            <div class="chat-messages" id="messageList" (scroll)="onScroll()" #chatContent>
+                <app-message-tree (replyToMessage)="replyMessage($event)" [listmessage]="listmessage.messages"
+                    [currentUserId]="currentUserId"></app-message-tree>
+            </div>
+
+            <div *ngIf="replyaddToMessage" class="reply-preview-box">
+                <div>Trả lời tin nhắn: {{replyaddToMessage.fullename}}</div>
+                <div *ngIf="replyaddToMessage.messageType === 'text'">{{ replyaddToMessage.text }}</div>
+                <div *ngIf="replyaddToMessage.messageType === 'like'">{{ replyaddToMessage.text }}</div>
+                <div *ngIf="replyaddToMessage.messageType === 'image'">
+                    <img [src]="replyaddToMessage.text" alt="Ảnh" />
+                </div>
+                <div *ngIf="replyaddToMessage.messageType === 'link'">
+                    <a [href]="replyaddToMessage.text" target="_blank">{{ replyaddToMessage.text }}</a>
+                </div>
+                <button class="btn-cancel-reply" (click)="cancelReply()" aria-label="Hủy trả lời">&times;</button>
+            </div>
+            <div *ngIf="isTyping" class="typing-indicator">
+                Người kia đang nhập tin nhắn<span class="dots">...</span>
+            </div>
+
+            <div class="chat-input">
+                <button class="btn-icon" (click)="toggleEmojiPicker()">
+                    <i class="fa fa-smile"></i>
+                </button>
+                <label class="btn-icon">
+                    <i class="fa fa-video-camera"></i>
+                    <input type="file" accept="video/*" (change)="onVideosSelected($event)" hidden />
+                </label>
+
+                <label class="btn-icon">
+                    <i class="fa fa-image"></i>
+                    <input type="file" accept="image/*" multiple (change)="onImagesSelected($event)" hidden />
+                </label>
+
+                <input #messageInput [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" (input)="onTyping()"
+                    type="text" placeholder="Nhập tin nhắn..." />
+
+                <button class="btn-send" (click)="sendMessage()">
+                    <i *ngIf="newMessage.trim().length > 0" class="fa fa-paper-plane"></i>
+                    <i *ngIf="newMessage.trim().length === 0" class="fa fa-thumbs-up"></i>
+                </button>
+
+            </div>
+
+            <div *ngIf="showEmojiPicker" class="emoji-picker">
+                <span class="emoji" (click)="addEmoji('😀')">😀</span>
+                <span class="emoji" (click)="addEmoji('❤️')">❤️</span>
+                <span class="emoji" (click)="addEmoji('👍')">👍</span>
+            </div>
+
+        </div>
+    </div>
+</ng-container>

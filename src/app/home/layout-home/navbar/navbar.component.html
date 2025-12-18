@@ -31,7 +31,7 @@
         <!-- Đã login -->
         <ng-container *ngIf="user">
             <div class="user-dropdown d-flex" [class.open]="isMenuOpen">
-                <div class="icon-wrapper">
+                <div class="icon-wrapper" (click)="showoNotificationt()">
                     <i class="bi bi-bell"></i>
                     <span class="badge">3</span>
                 </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="user-info-left">
                             <div class="name">{{ user }}</div>
-                            <div class="coin">0 đ</div>
+                            <div class="coin">{{balance | number}} đ</div>
                         </div>
                     </div>
 
@@ -166,3 +166,7 @@
 
 
 </nav>
+
+
+<app-notification [showoNotification]="showoNotification" (closePupAdd)="closeNotification()">
+</app-notification>

@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ConversationService } from 'src/app/services/conversation.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnChanges {
+export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input() text: string = "";
   @Output() showPupAdd = new EventEmitter<void>();
@@ -13,11 +15,23 @@ export class LayoutComponent implements OnChanges {
   @Input() tableName: string = "";
 
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
+  constructor(private conversationService: ConversationService) {
+
+  }
+  private subscription = new Subscription();
+
+  ngOnInit(): void {
+    this.loadInitialChat();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tabTemplates']) {
       // console.log('Tab templates:', this.tabTemplates); // Kiểm tra xem các TemplateRef có hợp lệ không
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 
@@ -27,7 +41,7 @@ export class LayoutComponent implements OnChanges {
   }
 
 
-  
+
   @Output() showButtonss = new EventEmitter<any[]>();
   @Input() buttonNone: any[] = [];
 
@@ -41,5 +55,15 @@ export class LayoutComponent implements OnChanges {
     this.showPupAdd.emit(event);
   }
 
+  conversations: any[] = [];
 
+  loadInitialChat() {
+    this.subscription.add(
+      this.conversationService.postData_Chat().subscribe((data: any) => {
+        this.conversationService.getConversations().subscribe((data: any) => {
+          this.conversations = data;
+        });
+      })
+    )
+  }
 }

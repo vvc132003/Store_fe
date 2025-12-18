@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{dashboards}"></app-layout-home>
+<app-layout-home [tabTemplates]="{dashboards}" [balance]="user.balance"></app-layout-home>
 <ng-template #dashboards>
     <div class="project-detail-page">
         <div class="container-fuild">
@@ -93,9 +93,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h5 class="mb-1">Chính Võ Văn</h5>
+                                                <h5 class="mb-1">{{user.fullName}}</h5>
                                                 <p class="mb-2 text">
-                                                    Tài khoản: <span class="text-danger fw-bold">0 đ</span>
+                                                    Tài khoản: <span class="text-danger fw-bold">{{user.balance | number}} đ</span>
                                                     <span class="ms-4">
                                                         Xu: <span class="text-warning fw-bold">5</span>
                                                     </span>
@@ -107,13 +107,13 @@
                                                         <a [routerLink]="['/']"
                                                             class="mb-1 text-muted d-flex align-items-center text-h-primary">
                                                             <i class="fas fa-user me-2 f-18"></i>
-                                                            Chính Võ Văn
+                                                            {{user.fullName}}
                                                         </a>
                                                         <div class="clearfix"></div>
                                                         <a [routerLink]="['/']"
                                                             class="mb-1 text-muted d-flex align-items-center text-h-primary">
                                                             <i class="fas fa-envelope me-2 f-18"></i>
-                                                            vvc132003@gmail.com
+                                                            {{user.email}}
                                                         </a>
                                                         <div class="clearfix"></div>
                                                         <a [routerLink]="['/']"

@@ -7,11 +7,11 @@
   </div>
   <div class="container-fluid p-3">
     <div *ngFor="let n of notifications" class="notification-item">
-      <img [src]="n.avatar" class="avatar" alt="user" />
+      <img [src]="avatar" class="avatar" alt="user" />
       <div class="content">
-        <p class="username">{{ n.username }}</p>
+        <p class="username">{{ n.usserName }}</p>
         <p class="message">{{ n.message }}</p>
-        <span class="time">{{ n.time }}</span>
+        <span class="time">{{ n.createdAt }}</span>
       </div>
     </div>
   </div>

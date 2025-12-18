@@ -1,0 +1,148 @@
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    flex-direction: row;
+}
+
+.message.self {
+    flex-direction: row-reverse;
+}
+
+
+.bubble {
+    background: #e0e0e0;
+    color: #000;
+    padding: 10px 14px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    position: relative;
+    white-space: pre-wrap;
+}
+
+
+.message.self .bubble {
+    background: #007bff;
+    color: white;
+    align-self: flex-end;
+
+}
+
+.reply-preview {
+    background-color: #e8e8e8;
+    padding: 6px 10px;
+    border-left: 4px solid #999;
+    margin-bottom: 8px;
+    font-style: italic;
+    font-size: 13px;
+    color: #333;
+    border-radius: 4px;
+}
+
+.menu-wrapper {
+    position: relative;
+    margin: 0 6px;
+    z-index: 100000;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.message:hover .menu-wrapper,
+.bubble:hover+.menu-wrapper {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.menu-btn:hover {
+    background-color: #ddd;
+}
+
+.dropdown-menu-message {
+    position: absolute;
+    top: -80px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    // display: flex;
+    gap: 8px;
+}
+
+.dropdown-menu-message:not(.self) {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-menu-message.self {
+    left: 0;
+    right: auto;
+    flex-direction: row-reverse;
+}
+
+
+.dropdown-menu-message button {
+    width: auto;
+    padding: 5px 1px;
+    background: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu-message button:hover {
+    background: #f0f0f0;
+}
+
+.quoted-message {
+    background-color: #f1f1f1;
+    border-left: 4px solid #007bff;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    max-width: 65%;
+    font-size: 14px;
+
+    .quoted-author {
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 2px;
+    }
+
+    .quoted-text {
+        color: #444;
+        font-style: italic;
+    }
+}
+
+.message.self .quoted-message {
+    background-color: #cce5ff;
+    border-left-color: #0056b3;
+}
+
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//     transform: translateY(-5px);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }

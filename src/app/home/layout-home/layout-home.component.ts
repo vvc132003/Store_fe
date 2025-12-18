@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
+import { ConversationService } from 'src/app/services/conversation.service';
 
 @Component({
   selector: 'app-layout-home',
@@ -11,16 +12,17 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   @Output() categoryChange = new EventEmitter<any[]>();
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
-
+  @Input() balance: number = 0;
   category_list: any[] = [];
 
-  constructor(private _category: CategoryService) {
+  constructor(private _category: CategoryService, private conversationService: ConversationService) {
 
   }
   private subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadcategory_list();
+    this.loadInitialChat();
   }
   loadcategory_list() {
     this.subscription.add(
@@ -34,5 +36,17 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  conversations: any[] = [];
+
+  loadInitialChat() {
+    this.subscription.add(
+      this.conversationService.postData_Chat().subscribe((data: any) => {
+        this.conversationService.getConversations().subscribe((data: any) => {
+          this.conversations = data;
+        });
+      })
+    )
   }
 }

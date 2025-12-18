@@ -7,7 +7,6 @@ import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
-import { NotificationComponent } from './notification/notification.component';
 import { FormComponent } from './core/form/form.component';
 import { ImgsComponent } from './core/imgs/imgs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -31,7 +30,6 @@ import { SharedModule } from '../shared/shared.module';
     LayoutComponent,
     SidebarComponent,
     ToolbarComponent,
-    NotificationComponent,
     FormComponent,
     ImgsComponent,
     DashboardComponent,

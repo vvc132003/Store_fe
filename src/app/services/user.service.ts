@@ -37,7 +37,9 @@ export class UserService {
     getData(): Observable<any> {
         return this.http.get<any[]>(this.apiUrl);
     }
-
+    getUserById(id: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${id}`);
+    }
     // Phương thức POST
     postData(data: any): Observable<any> {
         return this.http.post<any>(this.apiUrl, data);

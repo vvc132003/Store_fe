@@ -14,7 +14,15 @@ export class ProjectService {
     getData(): Observable<any> {
         return this.http.get<any[]>(this.apiUrl);
     }
-
+    getMonthlyOrderCount(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderCount`);
+    }
+    monthlyRevenue(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue`);
+    }
+     generateDrinkRevenueReport(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/generateDrinkRevenueReport`);
+    }
     // getProject_list(): Observable<any> {
     //     return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     // }
@@ -54,7 +62,7 @@ export class ProjectService {
     changeStar_Project(data: any): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/changeStar-Project`, data);
     }
-    
+
 
     uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string, imageFiles: File[]): Observable<any> {
         const formData = new FormData();

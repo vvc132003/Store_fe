@@ -8,6 +8,7 @@ import { PagesLoginComponent } from './pages/pages-login/pages-login.component';
 import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 import { DashboardsComponent } from './dashboards/dashboards.component';
 import { TopupComponent } from './topup/topup.component';
+import { HomeGuard } from '../services/HomeGuard';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path: 'danh-muc-source-code', component: CategorySourceCodeComponent },
   { path: 'dang-nhap', component: PagesLoginComponent },
   { path: 'dang-ky', component: PagesRegisterComponent },
-  { path: 'dashboards', component: DashboardsComponent },
-  { path: 'topup', component: TopupComponent }
+  { path: 'dashboards', component: DashboardsComponent, canActivate: [HomeGuard] },
+  { path: 'topup', component: TopupComponent, canActivate: [HomeGuard] }
 
 
 

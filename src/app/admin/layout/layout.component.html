@@ -1,8 +1,7 @@
 <div class="admin-layout">
   <app-header (languageChange)="onLanguageChange($event)"></app-header>
   <app-toolbar [language]="selectedLanguage" [tableName]="tableName" [count]="count" [text]="text"
-    [buttonNone]="buttonNone" (showButtonss)="evetnbuttons($event)"
-    (showPupAdd)="onChildClick($event)"></app-toolbar>
+    [buttonNone]="buttonNone" (showButtonss)="evetnbuttons($event)" (showPupAdd)="onChildClick($event)"></app-toolbar>
   <div class="admin-body">
     <app-sidebar></app-sidebar>
     <div class="admin-content">
@@ -12,4 +11,5 @@
       </ng-container>
     </div>
   </div>
+  <app-chat [data]="conversations"></app-chat>
 </div>

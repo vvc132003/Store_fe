@@ -2,12 +2,21 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from './message.service';
 import Swal from 'sweetalert2';
+import { API_URLS } from '../config/api-urls';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotificationService {
-    constructor(private toastr: ToastrService, private messageService: MessageService) { }
+    private apiUrl = API_URLS.api + '/Notifications';
+    constructor(private toastr: ToastrService, private http: HttpClient, private messageService: MessageService) { }
+
+    getNotificationByUserId(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/getNotificationByUserId/${userId}`);
+    }
+
 
     showWarning(code: string) {
         const messageContent = this.messageService.getMessageByCode(code);

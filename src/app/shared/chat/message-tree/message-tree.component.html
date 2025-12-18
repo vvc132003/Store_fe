@@ -1,0 +1,3 @@
+<app-message-node *ngFor="let msg of listmessage" [message]="msg" [allMessages]="listmessage"
+  (replyToMessage)="replyMessage($event)" [currentUserId]="currentUserId">
+</app-message-node>

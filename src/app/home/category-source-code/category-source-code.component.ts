@@ -22,7 +22,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 4;
+  pageSize = 16;
   pagedData: any[] = [];
 
 

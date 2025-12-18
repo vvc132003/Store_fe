@@ -10,10 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavbarComponent implements OnInit {
 
   constructor(private cookieService: CookieService, private elRef: ElementRef, private router: Router) { }
-
+  @Input() balance: number = 0;
   @Input() category_list: any[] = [];
   user: any = null;
   showSearchMobile = false;
+  showoNotification = false;
+
 
   private parseJwt(token: string): any {
     const payload = token.split('.')[1];
@@ -36,6 +38,9 @@ export class NavbarComponent implements OnInit {
       }
     }
   }
+
+  //#region  event
+
   logout() {
     this.cookieService.delete('access_token', '/');
     this.user = null;
@@ -65,7 +70,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
+  showoNotificationt() {
+    this.showoNotification = true;
+  }
+  closeNotification() {
+    this.showoNotification = false;
+  }
 
 
 }

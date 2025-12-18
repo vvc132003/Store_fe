@@ -1,3 +1,10 @@
-<app-layout [text]="'Doanh thu'" [tabTemplates]="{char}">
+<app-layout [text]="'Thống kê'" [tabTemplates]="{char}">
 </app-layout>
-<ng-template #char></ng-template>
+<ng-template #char>
+    <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
+    <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
+    <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas>
+    <app-mixed-canvas [revenueData]="revenueData" [orderCountData]="orderCountData"></app-mixed-canvas>
+    <app-doughnut-canvas [reportData]="reportData"></app-doughnut-canvas>
+    <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas>
+</ng-template>
