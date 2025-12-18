@@ -216,19 +216,19 @@ a {
 }
 
 .bg-c-blue {
-  background-color: #007bff;
+    background: linear-gradient(to left, #00c6ff, #0072ff); /* Xanh dương */
 }
 
 .bg-c-green {
-  background-color: #28a745;
+    background: linear-gradient(to left, #38bdf8, #34d399);
 }
 
 .bg-c-yellow {
-  background-color: #ffc107;
+    background: linear-gradient(to left, #f97316, #facc15); /* Cam và Vàng */
 }
 
 .bg-c-red {
-  background-color: #dc3545;
+    background: linear-gradient(to left, #ff5e62, #ff9966); /* Đỏ và cam */
 }
 
 .text-white {

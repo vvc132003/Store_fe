@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { OrderService } from 'src/app/services/order.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -40,7 +42,10 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";
-  constructor(private titleService: Title, private _project: ProjectService, private route: ActivatedRoute) { }
+  constructor(private titleService: Title, private _project: ProjectService, private route: ActivatedRoute,
+    private _order: OrderService,
+    private cookieService: CookieService
+  ) { }
   private subscription = new Subscription();
   activeTab: number = 0;
 
@@ -163,4 +168,45 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
       clearInterval(this.intervalId);
     }
   }
+
+  //#region  event
+
+  private parseJwt(token: string): any {
+    const payload = token.split('.')[1];
+    const decoded = atob(payload);
+    const utf8 = decodeURIComponent(
+      decoded
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(utf8);
+  }
+
+  download(project: any): void {
+    const token = this.cookieService.get('access_token');
+    const payload = this.parseJwt(token);
+
+    const data = {
+      userId: payload.nameid,
+      projectId: project.id,
+      quantity: 0,
+      totalPrice: project.price,
+      status: "10",
+    };
+
+    this.subscription.add(
+      this._order.postData(data).subscribe((response: any) => {
+        const downloadUrl = response.downloadUrl;
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.target = '_blank';
+        link.click();
+      }, error => {
+        console.error('Order creation failed:', error);
+      })
+    );
+  }
+
+
 }
