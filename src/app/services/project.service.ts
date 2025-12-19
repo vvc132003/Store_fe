@@ -20,7 +20,7 @@ export class ProjectService {
     monthlyRevenue(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue`);
     }
-     generateDrinkRevenueReport(): Observable<any> {
+    generateDrinkRevenueReport(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/generateDrinkRevenueReport`);
     }
     // getProject_list(): Observable<any> {
@@ -39,6 +39,10 @@ export class ProjectService {
 
     getProjectBySlug(slug: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
+    }
+
+    getProjectsByUserId(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-by-userid/${userId}`);
     }
 
     // getProjectByCategorySlug(slug: string, userId?: string): Observable<any> {

@@ -87,8 +87,8 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   pagedData: any[] = [];
 
   updatePagedData() {
-    this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
-
+    const total = Math.ceil(this.filteredData.length / this.pageSize);
+    this.totalPages = total > 0 ? total : 1;
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
 

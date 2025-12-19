@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +13,21 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
 
   user: any = {};
-  constructor(private _user: UserService, private cookieService: CookieService) { }
+  orders: any[] = [];
+  showFilter = false;
+  isDesktop = true;
+  dateFrom: Date | null = null;
+  dateTo: Date | null = null;
+  totalPages = 1;
+  filteredData: any[] = [];
+  currentPage = 1;
+  pageSize = 5; // mỗi trang 10 item
+  pagedData: any[] = [];
+  searchText = "";
+  priceFrom: number | null = null;
+  priceTo: number | null = null;
+  status: boolean | null = null;
+  constructor(private _user: UserService, private cookieService: CookieService, private _project: ProjectService) { }
   private subscription = new Subscription();
 
   private parseJwt(token: string): any {
@@ -28,15 +43,26 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadUserbyId();
-  }
-  
-  loadUserbyId() {
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);
+    this.loadUserbyId(payload);
+    this.loadProjectsByUserId(payload);
+  }
+
+  loadUserbyId(payload: any) {
     this.subscription.add(
       this._user.getUserById(payload?.nameid).subscribe((data: any) => {
         this.user = data;
+      })
+    )
+  }
+
+  loadProjectsByUserId(payload: any) {
+    this.subscription.add(
+      this._project.getProjectsByUserId(payload.nameid).subscribe((data: any[]) => {
+        this.orders = data;
+        this.filteredData = [...this.orders];
+        this.updatePagedData();
       })
     )
   }
@@ -45,4 +71,66 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+
+  //#region  event
+
+  onDateFromChange(date: Date) {
+    this.dateFrom = date;
+    this.applyFilter();
+  }
+
+  onDateToChange(date: Date) {
+    this.dateTo = date;
+    this.applyFilter();
+  }
+  applyFilter() {
+    const text = this.searchText?.toLowerCase().trim() || "";
+
+    this.filteredData = this.orders.filter(item => {
+
+      // 1. Lọc theo text
+      const matchText =
+        item.title?.toLowerCase().includes(text);
+
+      // 2. Lọc theo ngày tạo
+      const created = new Date(item.createdAt);
+
+      const from = this.dateFrom ? new Date(this.dateFrom) : null;
+
+      let to = this.dateTo ? new Date(this.dateTo) : null;
+      if (to) {
+        to.setHours(23, 59, 59, 999); // Bao trọn ngày cuối
+      }
+
+      const matchDate = (!from || created >= from) && (!to || created <= to);
+
+      // 3. Lọc theo trạng thái (ép kiểu boolean)
+      const matchStatus =
+        this.status === null || item.isActive === (this.status === true);
+
+      return matchText && matchDate && matchStatus;
+    });
+
+    this.currentPage = 1;
+    this.updatePagedData();
+    // this.cdr.detectChanges(); // ép Angular check lại dữ liệu ngay
+
+  }
+
+  updatePagedData() {
+    const total = Math.ceil(this.filteredData.length / this.pageSize);
+    this.totalPages = total > 0 ? total : 1;
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+
+    this.pagedData = this.filteredData.slice(startIndex, endIndex);
+  }
+  goToPage(page: number) {
+    if (page < 1) return;
+    const totalPages = Math.ceil(this.orders.length / this.pageSize);
+    if (page > totalPages) return;
+
+    this.currentPage = page;
+    this.updatePagedData();
+  }
 }

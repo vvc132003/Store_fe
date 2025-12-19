@@ -19,6 +19,7 @@ import { DashboardsComponent } from './dashboards/dashboards.component';
 import { TopupComponent } from './topup/topup.component';
 import { CardMenuComponent } from './layout-home/card-menu/card-menu.component';
 import { CardHeaderSideComponent } from './layout-home/card-header-side/card-header-side.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -45,7 +46,8 @@ import { CardHeaderSideComponent } from './layout-home/card-header-side/card-hea
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    BsDatepickerModule
   ]
 })
 export class HomeModule { }
