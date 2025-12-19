@@ -41,4 +41,12 @@ export class DashboardComponent implements OnInit {
       this.reportData = top5;
     })
   }
+
+  fromDate: string = '';
+  toDate: string = '';
+
+  onFilter() {
+    console.log('Lọc từ:', this.fromDate, 'đến:', this.toDate);
+    // Gọi API hoặc lọc dữ liệu ở đây
+  }
 }

@@ -12,15 +12,22 @@ import { MixedCanvasComponent } from './charts/mixed-canvas/mixed-canvas.compone
 import { AreaCanvasComponent } from './charts/area-canvas/area-canvas.component';
 import { DoughnutCanvasComponent } from './charts/doughnut-canvas/doughnut-canvas.component';
 import { PolarAreaCanvasComponent } from './charts/polar-area-canvas/polar-area-canvas.component';
+import { SessionWarningComponent } from './session-warning/session-warning.component';
 
 @NgModule({
-  declarations: [LineBreaksPipe, NotificationComponent, MessageTreeComponent, MessageNodeComponent, ChatComponent, LineCanvasComponent, BarCanvasComponent, MixedCanvasComponent, AreaCanvasComponent, DoughnutCanvasComponent, PolarAreaCanvasComponent],
+  declarations: [LineBreaksPipe, NotificationComponent,
+    MessageTreeComponent, MessageNodeComponent, ChatComponent,
+    LineCanvasComponent, BarCanvasComponent,
+    MixedCanvasComponent, AreaCanvasComponent,
+    DoughnutCanvasComponent, PolarAreaCanvasComponent,
+    SessionWarningComponent],
   imports: [CommonModule, FormsModule],
   providers: [DatePipe],
-  exports: [LineBreaksPipe, NotificationComponent, ChatComponent, LineCanvasComponent,BarCanvasComponent,MixedCanvasComponent,
+  exports: [LineBreaksPipe, NotificationComponent, ChatComponent, LineCanvasComponent, BarCanvasComponent, MixedCanvasComponent,
     AreaCanvasComponent,
     DoughnutCanvasComponent,
-    PolarAreaCanvasComponent
+    PolarAreaCanvasComponent,
+    SessionWarningComponent
   ] // ⭐ quan trọng
 })
 export class SharedModule { }

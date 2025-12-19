@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -16,12 +16,18 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
   user_login: any = {};
   showSessionWarning: boolean = false;
   constructor(private titleService: Title, private cookieService: CookieService,
-    private _user: UserService, private router: Router, private _notification: NotificationService) { }
+    private _user: UserService, private router: Router, private route: ActivatedRoute, private _notification: NotificationService) { }
   private subscription = new Subscription();
 
   ngOnInit(): void {
     this.titleService.setTitle("Đăng nhập");
+    this.route.queryParams.subscribe(params => {
+      if (params['sessionExpired']) {
+        this.showWarning = true;
+      }
+    });
   }
+  
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -56,13 +62,12 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
     )
 
   }
+  showWarning: boolean = false;
 
   loadSoket(data: any) {
     this._user.removeToken().subscribe(() => {
-      this.cookieService.delete('access_token', '/');
-      this._user.show();
-      this.router.navigate(['/dang-nhap']);
-      // this.showSessionWarning = true;
+      this.cookieService.delete('access_token', "/");
+      this.router.navigate(['/dang-nhap'], { queryParams: { sessionExpired: true } });
     });
     this.subscription.add(
       this._user.startConnection1(data.nameid).subscribe((data: any) => {

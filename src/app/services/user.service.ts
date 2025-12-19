@@ -22,17 +22,6 @@ export class UserService {
     }
 
 
-    private _showWarning$ = new BehaviorSubject<boolean>(false);
-    showWarning$ = this._showWarning$.asObservable();
-
-    show() {
-        this._showWarning$.next(true);
-    }
-
-    hide() {
-        this._showWarning$.next(false);
-    }
-
     // Phương thức GET
     getData(): Observable<any> {
         return this.http.get<any[]>(this.apiUrl);

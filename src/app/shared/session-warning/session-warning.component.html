@@ -1,15 +1,15 @@
-<div class="overlay">
+<div *ngIf="showWarning" class="overlay">
   <div class="warning-box">
     <div class="icon">⚠️</div>
     <h2>Thông báo</h2>
-    <p>Tài khoản của bạn đang đăng nhập ở nơi khác</p>
+    <p>{{text}}</p>
 
     <div class="actions">
       <button class="btn btn-primary" (click)="reLogin()">
-        Đăng nhập lại
+        Đăng nhập
       </button>
-      <button class="btn btn-secondary" (click)="logout()">
-        Đăng xuất
+      <button class="btn btn-secondary" (click)="button(event)">
+        {{buttons}}
       </button>
     </div>
   </div>

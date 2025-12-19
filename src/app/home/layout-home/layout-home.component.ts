@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef 
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-layout-home',
@@ -15,7 +16,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   @Input() balance: number = 0;
   category_list: any[] = [];
 
-  constructor(private _category: CategoryService, private conversationService: ConversationService) {
+  constructor(private _category: CategoryService, private _user: UserService, private conversationService: ConversationService) {
 
   }
   private subscription = new Subscription();

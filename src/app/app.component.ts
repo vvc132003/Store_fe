@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   title = 'source-code-store';
-  showSessionWarning$ = this._user.showWarning$;
-  constructor(private _user: UserService) { }
 }

@@ -9,12 +9,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptor } from './services/TokenInterceptor';
-import { SessionWarningComponent } from './home/pages/session-warning/session-warning.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SessionWarningComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +21,6 @@ import { SessionWarningComponent } from './home/pages/session-warning/session-wa
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot(),
-
   ],
   providers: [
     CookieService,

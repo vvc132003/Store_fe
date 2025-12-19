@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -44,7 +45,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   breadcrumb_categoryname: string = "";
   constructor(private titleService: Title, private _project: ProjectService, private route: ActivatedRoute,
     private _order: OrderService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private _user: UserService
   ) { }
   private subscription = new Subscription();
   activeTab: number = 0;
@@ -183,8 +185,13 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     return JSON.parse(utf8);
   }
 
+  showWarning: boolean = false;
   download(project: any): void {
     const token = this.cookieService.get('access_token');
+    if (!token) {
+      this.showWarning = true;
+      return;
+    }
     const payload = this.parseJwt(token);
 
     const data = {

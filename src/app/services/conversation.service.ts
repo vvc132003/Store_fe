@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { API_URLS } from '../config/api-urls';
-import { BehaviorSubject, Observable, EMPTY, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, EMPTY, Subject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import * as signalR from '@microsoft/signalr';
@@ -151,6 +151,9 @@ export class ConversationService {
 
     postData_Chat(): Observable<any> {
         const token = this.cookieService.get('access_token');
+        if (!token) {
+            return EMPTY;
+        }
         const decoded = this.parseJwt(token);
         const role = decoded.role;
 
@@ -160,6 +163,7 @@ export class ConversationService {
         };
 
         return this.http.post<any>(`${this.apiUrl}/createConverstation`, data);
+
     }
 
 

@@ -60,6 +60,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   loadNotificationByUserId() {
     const token = this.cookieService.get('access_token');
+    if (!token) {
+      return;
+    }
     const payload = this.parseJwt(token);
     this.subscription.add(
       this._notification.getNotificationByUserId(payload?.nameid).subscribe((data: any) => {
