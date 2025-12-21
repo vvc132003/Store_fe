@@ -1,89 +1,65 @@
 <app-layout [text]="'Thống kê'" [tabTemplates]="{char}">
 </app-layout>
-<!-- <ng-template #char>
-    <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
-    <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
-    <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas>
-    <app-mixed-canvas [revenueData]="revenueData" [orderCountData]="orderCountData"></app-mixed-canvas>
-    <app-doughnut-canvas [reportData]="reportData"></app-doughnut-canvas>
-    <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas>
-</ng-template> -->
 <ng-template #char>
-    <div class="stats-container">
-        <div class="stat-card">
-            <div class="icon">☕</div>
-            <div class="label">Cà phê đã bán</div>
-            <div class="value">22</div>
-        </div>
-        <div class="stat-card">
-            <div class="icon">💰</div>
-            <div class="label">Doanh thu</div>
-            <div class="value">5.640.000₫</div>
-        </div>
-        <div class="stat-card">
-            <div class="icon">📦</div>
-            <div class="label">Số đơn hàng</div>
-            <div class="value">22</div>
-        </div>
-        <div class="stat-card">
-            <div class="icon">👥</div>
-            <div class="label">Khách hàng</div>
-            <div class="value">289</div>
-        </div>
-        <!-- <div class="stat-card">
-            <div class="icon">🏆</div>
-            <div class="label">Top sản phẩm</div>
-            <div class="value">Cà phê sữa đá</div>
-        </div> -->
-    </div>
-    <br>
-    <div class="date-filter">
-        <div class="container-fluid px-3">
-            <div class="d-flex justify-content-end">
-                <div class="d-flex align-items-end gap-3 flex-nowrap">
-                    <div class="d-flex align-items-center gap-2">
-                        <label for="startDate" class="form-label mb-0">Từ ngày:</label>
-                        <input id="startDate" type="date" class="form-control" [(ngModel)]="fromDate" name="startDate"
-                            style="width: 200px;">
+    <div class="container">
+        <div class="date">
+            <div class="container-fluid px-3">
+                <div class="d-flex justify-content-end">
+                    <div class="d-flex align-items-end gap-3 flex-nowrap">
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="yearSelect" class="form-label mb-0">Chọn năm:</label>
+                            <select id="yearSelect" class="form-select" [(ngModel)]="selectedYear" (change)="onFilter()"
+                                style="width: 120px;">
+                                <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="d-flex align-items-center gap-2">
-                        <label for="endDate" class="form-label mb-0">Đến ngày:</label>
-                        <input id="endDate" type="date" class="form-control" [(ngModel)]="toDate" name="endDate"
-                            style="width: 200px;">
-                    </div>
-
-                    <div>
-                        <button class="btn btn-primary" (click)="onFilter()" type="button">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
-    <br>
-    <div class="row">
-        <!-- <div class="col-12 col-md-6 mb-3 mb-md-0">
-            <lib-pie-canvas [reportData]="reportData"></lib-pie-canvas>
-        </div>
-        <div class="col-12 col-md-6">
-            <lib-radar-canvas [reportData]="reportData"></lib-radar-canvas>
-        </div> -->
-    </div>
-    <app-mixed-canvas [revenueData]="revenueData" [orderCountData]="orderCountData"></app-mixed-canvas>
-    <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
-    <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas>
-    <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
-    <!-- <div class="row"> -->
-    <!-- <div class="col-12 col-md-6 mb-md-0"> -->
-    <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas>
-    <!-- </div>
-        <div class="col-12 col-md-6"> -->
-    <app-doughnut-canvas [reportData]="reportData"></app-doughnut-canvas>
-    <!-- </div> -->
-    <!-- </div> -->
+        <br>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="icon">📚</div>
+                <div class="label">Tổng source</div>
+                <div class="value">{{summary.countProject}}</div>
+            </div>
 
+            <div class="stat-card">
+                <div class="icon">🔥</div>
+                <div class="label">Source bán chạy</div>
+                <div class="value"
+                    style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis;  max-width: 200px;"
+                    [title]="summary.projectName">
+                    {{ summary.projectName }}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">💰</div>
+                <div class="label">Doanh thu</div>
+                <div class="value">{{summary.totalRevenue | number}} đ</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">👤</div>
+                <div class="label">User đăng ký</div>
+                <div class="value">{{summary.countUser}}</div>
+            </div>
+        </div>
+
+        <br>
+        <div class="cards">
+            <div class="cards-content">
+                <app-mixed-canvas [revenueData]="revenueData" [orderCountData]="orderCountData"></app-mixed-canvas>
+            </div>
+        </div>
+
+        <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
+        <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas>
+        <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
+        <!-- <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas> -->
+        <!-- <app-doughnut-canvas [reportData]="reportData"></app-doughnut-canvas> -->
+    </div>
 
 </ng-template>

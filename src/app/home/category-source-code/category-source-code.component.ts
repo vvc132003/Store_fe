@@ -147,6 +147,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   // Tải nhiều
   sortMostDownload() {
     this.filteredData.sort((a, b) => b.downloadCount - a.downloadCount);
+    // console.log(this.filteredData);
     this.resetPaging();
   }
 

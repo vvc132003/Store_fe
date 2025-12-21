@@ -59,10 +59,14 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.loadRevenueByMonth(payload);
   }
 
+  favoritesCount: number = 0;
+
   loadOrderCount(payload: any) {
     this._project.getMonthlyOrderCount_buyer(payload).subscribe((data: any) => {
-      this.orderCountData = data;
-      this.orderCount = data.reduce(
+      // console.log(data);
+      this.orderCountData = data.monthlyOrderCount;
+      this.favoritesCount = data.favoritesCount;
+      this.orderCount = this.orderCountData.reduce(
         (sum: number, item: any) => sum + item.orderCount,
         0
       );
@@ -70,7 +74,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
       const currentMonth = now.getMonth() + 1;
       const currentYear = now.getFullYear();
 
-      const currentMonthData = data.find(
+      const currentMonthData = this.orderCountData.find(
         (item: any) =>
           item.month === currentMonth && item.year === currentYear
       );
@@ -96,7 +100,9 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
       this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
-        this.orders = data;
+        this.orders = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.filteredData = [...this.orders];
         this.updatePagedData();
       })

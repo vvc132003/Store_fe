@@ -69,7 +69,9 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
       this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
-        this.orders = data;
+        this.orders = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.filteredData = [...this.orders];
         this.updatePagedData();
       })

@@ -19,6 +19,11 @@ export class OrderService {
         return this.http.get<any>(`${this.apiUrl}/DownloadCode/${projectId}`);
     }
 
+    
+    getDashboardSummary(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/getSum`);
+    }
+
 
     // Phương thức POST
     postData(data: any): Observable<any> {

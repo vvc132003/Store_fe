@@ -69,7 +69,10 @@ export class FavoriteCodeComponent implements OnInit, OnDestroy {
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
       this._project.getProjectsFavoriteByUserId(payload.nameid).subscribe((data: any[]) => {
-        this.favorite = data;
+        // this.favorite = data;
+        this.favorite = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.filteredData = [...this.favorite];
         this.updatePagedData();
       })

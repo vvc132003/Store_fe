@@ -45,7 +45,7 @@ export class MixedCanvasComponent implements OnChanges, OnInit {
 
   @Input() revenueData: any[] = [];
   @Input() orderCountData: any[] = [];
-  @Input() label:string = "Doanh thu";
+  @Input() label: string = "Doanh thu";
   chart: Chart | null = null;
 
   ngOnInit(): void {
@@ -53,9 +53,8 @@ export class MixedCanvasComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
-      (changes['revenueData'] || changes['orderCountData']) &&
-      this.revenueData.length &&
-      this.orderCountData.length
+      (changes['revenueData'] || changes['orderCountData'])
+
     ) {
       this.renderBar();
     }
@@ -66,69 +65,39 @@ export class MixedCanvasComponent implements OnChanges, OnInit {
     if (this.chart) {
       this.chart.destroy();
     }
+
+    const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+
     const revenueByMonth = new Array(12).fill(0);
+    const monthlyData = new Array(12).fill(0);
+
     this.revenueData.forEach(item => {
       revenueByMonth[item.month - 1] = item.totalRevenue;
     });
-    const monthlyData = new Array(12).fill(0);
+
     this.orderCountData.forEach(item => {
       monthlyData[item.month - 1] = item.orderCount;
     });
-    new Chart(this.mixedCanvas.nativeElement, {
+
+    this.chart = new Chart(this.mixedCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+        labels,
         datasets: [
-          {
-            label: this.label,
-            data: revenueByMonth,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1,
-            yAxisID: 'y',
-            type: 'bar'
-          },
-          {
-            label: 'Đơn hàng',
-            data: monthlyData,
-            borderColor: 'rgba(85, 11, 246, 1)',
-            backgroundColor: 'rgba(85, 11, 246, 1)',
-            tension: 0.3,
-            fill: false,
-            yAxisID: 'y1',
-            type: 'line'
-          }
+          { label: this.label, data: revenueByMonth, backgroundColor: 'rgba(54, 162, 235, 0.6)', borderColor: 'rgba(54, 162, 235, 1)', yAxisID: 'y', type: 'bar' },
+          { label: 'Đơn hàng', data: monthlyData, borderColor: 'rgba(85, 11, 246, 1)', backgroundColor: 'rgba(85, 11, 246, 1)', tension: 0.3, fill: false, yAxisID: 'y1', type: 'line' }
         ]
       },
       options: {
-        responsive: false,
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
-          y: {
-            beginAtZero: true,
-            position: 'left',
-            title: {
-              display: true,
-              text: this.label
-            }
-          },
-          y1: {
-            beginAtZero: true,
-            position: 'right',
-            grid: {
-              drawOnChartArea: false
-            },
-            title: {
-              display: true,
-              text: 'Đơn hàng'
-            }
-          }
+          y: { beginAtZero: true, position: 'left', title: { display: true, text: this.label } },
+          y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Đơn hàng' } }
         },
-        plugins: {
-          legend: {
-            position: 'top'
-          }
-        }
+        plugins: { legend: { position: 'top' } }
       }
     });
   }
+
 }
