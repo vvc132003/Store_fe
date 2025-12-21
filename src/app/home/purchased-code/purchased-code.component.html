@@ -1,0 +1,100 @@
+<app-layout-home [tabTemplates]="{dashboards}" [balance]="user.balance"></app-layout-home>
+<ng-template #dashboards>
+    <div class="project-detail-page">
+        <div class="container-fuild">
+            <div class="row">
+                <div class="col-12 col-lg-3 right-side">
+                    <div class="right-side-card">
+                        <app-card-menu></app-card-menu>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 left-side">
+                    <div class="left-side-card">
+                        <div class="bear-container">
+                            <div class="dashboard-header">
+                                <h5>Quản lý code đã mua</h5>
+                                <p> ({{orders.length}} source code)</p>
+                            </div>
+                            <div class="filter-box" [ngClass]="{'show': showFilter}" *ngIf="showFilter || isDesktop">
+
+                                <div class="filter-left">
+                                    <div class="filter-item">
+                                        <input type="text" placeholder="Từ ngày" bsDatepicker [(ngModel)]="dateFrom"
+                                            [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateFromChange($event)">
+                                    </div>
+
+                                    <div class="filter-item">
+                                        <input type="text" placeholder="Đến ngày" bsDatepicker [(ngModel)]="dateTo"
+                                            [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateToChange($event)">
+                                    </div>
+
+                                </div>
+
+                                <div class="filter-right">
+                                    <div class="filter-item">
+                                        <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText"
+                                            (input)="applyFilter()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bear-header ">
+                                <div class="h-col title text-center">STT</div>
+                                <div class="h-col title">Thể loại</div>
+                                <div class="h-col title">Tiêu đề</div>
+                                <div class="h-col desc">Ngôn ngữ</div>
+                                <div class="h-col price">Phí tải</div>
+                                <div class="h-col date">Ngày mua</div>
+                                <div class="h-col zip text-center">Thao tác</div>
+                            </div>
+
+                            <div class="bear-list ">
+                                <div class="bear-item" *ngFor="let item of pagedData; let i = index">
+                                    <div class="h-col title text-center">
+                                        {{ (currentPage - 1) * pageSize + i + 1 }}
+                                    </div>
+                                    <div class="col title">{{ item?.typeName || 'Website' }}</div>
+
+
+                                    <div class="col title">{{ item.title }}</div>
+
+                                    <div class="col desc">{{ item.categoryName }}</div>
+
+                                    <div class="col price">{{ item.price | number }} đ</div>
+
+                                    <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+
+                                    <div class="col zip text-center">
+                                        <div class="col action" (click)="$event.stopPropagation()">
+                                            <button class="btn-edit">Cập nhật</button>
+                                            <button class="btn-delete">Xoá</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="pagination">
+                                    <button (click)="goToPage(currentPage - 1)"
+                                        [disabled]="currentPage === 1">‹</button>
+
+                                    <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+                                    <button (click)="goToPage(currentPage + 1)"
+                                        [disabled]="currentPage === totalPages">›</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

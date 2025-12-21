@@ -20,6 +20,7 @@ import { TopupComponent } from './topup/topup.component';
 import { CardMenuComponent } from './layout-home/card-menu/card-menu.component';
 import { CardHeaderSideComponent } from './layout-home/card-header-side/card-header-side.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PurchasedCodeComponent } from './purchased-code/purchased-code.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -40,6 +41,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     TopupComponent,
     CardMenuComponent,
     CardHeaderSideComponent,
+    PurchasedCodeComponent,
     // SessionWarningComponent,
   ],
   imports: [
