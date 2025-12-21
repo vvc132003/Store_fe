@@ -95,7 +95,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
-      this._project.getProjectsByUserId(payload.nameid).subscribe((data: any[]) => {
+      this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
         this.orders = data;
         this.filteredData = [...this.orders];
         this.updatePagedData();

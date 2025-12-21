@@ -79,8 +79,12 @@ export class ProjectService {
         return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
     }
 
-    getProjectsByUserId(userId: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-by-userid/${userId}`);
+    getProjectsPaymenByUserId(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-paymen-by-userid/${userId}`);
+    }
+
+    getProjectsFavoriteByUserId(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-favorite-by-userid/${userId}`);
     }
 
     // getProjectByCategorySlug(slug: string, userId?: string): Observable<any> {

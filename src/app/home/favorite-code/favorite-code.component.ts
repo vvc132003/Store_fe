@@ -6,15 +6,15 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-purchased-code',
-  templateUrl: './purchased-code.component.html',
-  styleUrls: ['./purchased-code.component.scss']
+  selector: 'app-favorite-code',
+  templateUrl: './favorite-code.component.html',
+  styleUrls: ['./favorite-code.component.scss']
 })
-export class PurchasedCodeComponent implements OnInit, OnDestroy {
+export class FavoriteCodeComponent implements OnInit, OnDestroy {
 
 
   user: any = {};
-  orders: any[] = [];
+  favorite: any[] = [];
   showFilter = false;
   isDesktop = true;
   dateFrom: Date | null = null;
@@ -68,9 +68,9 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
 
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
-      this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
-        this.orders = data;
-        this.filteredData = [...this.orders];
+      this._project.getProjectsFavoriteByUserId(payload.nameid).subscribe((data: any[]) => {
+        this.favorite = data;
+        this.filteredData = [...this.favorite];
         this.updatePagedData();
       })
     )
@@ -95,7 +95,7 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
   applyFilter() {
     const text = this.searchText?.toLowerCase().trim() || "";
 
-    this.filteredData = this.orders.filter(item => {
+    this.filteredData = this.favorite.filter(item => {
 
       // 1. Lọc theo text
       const matchText =
@@ -136,7 +136,7 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
   }
   goToPage(page: number) {
     if (page < 1) return;
-    const totalPages = Math.ceil(this.orders.length / this.pageSize);
+    const totalPages = Math.ceil(this.favorite.length / this.pageSize);
     if (page > totalPages) return;
 
     this.currentPage = page;

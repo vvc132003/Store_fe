@@ -10,6 +10,7 @@ import { DashboardsComponent } from './dashboards/dashboards.component';
 import { TopupComponent } from './topup/topup.component';
 import { HomeGuard } from '../services/HomeGuard';
 import { PurchasedCodeComponent } from './purchased-code/purchased-code.component';
+import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'dang-ky', component: PagesRegisterComponent },
   { path: 'dashboards', component: DashboardsComponent, canActivate: [HomeGuard] },
   { path: 'topup', component: TopupComponent, canActivate: [HomeGuard] },
-  { path: 'purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] }
+  { path: 'purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
+  { path: 'favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] }
 
 
 
