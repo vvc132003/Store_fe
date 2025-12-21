@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 5;
+  pageSize = 10;
   pagedData: any[] = [];
 
   constructor(private _category: CategoryService, private _notification: NotificationService, private cookieService: CookieService, private _project: ProjectService, private _favorite: FavoriteService) {
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.project_list = data.sort(
           (a: any, b: any) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
+        ).slice(0, 11);
         this.filteredData = [...this.project_list];
         this.currentPage = 1;
         this.updatePagedData();
@@ -152,7 +152,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private parseJwt(token: string): any {
-    if (!token) return null; 
+    if (!token) return null;
     const payload = token.split('.')[1];
     const decoded = atob(payload);
     const utf8 = decodeURIComponent(

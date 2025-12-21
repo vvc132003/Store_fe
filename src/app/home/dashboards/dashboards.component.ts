@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { ProjectService } from 'src/app/services/project.service';
@@ -26,8 +27,14 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   searchText = "";
   priceFrom: number | null = null;
   priceTo: number | null = null;
+  orderCount: number = 0;
+  orderCount_year: number = 0;
+
   status: boolean | null = null;
-  constructor(private _user: UserService, private cookieService: CookieService, private _project: ProjectService) { }
+  orderCountData: any[] = [];
+  revenueData: any[] = [];
+  constructor(private _user: UserService,
+    private titleService: Title, private cookieService: CookieService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
   private subscription = new Subscription();
 
   private parseJwt(token: string): any {
@@ -43,11 +50,40 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Tài khoản của tôi');
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);
     this.loadUserbyId(payload);
     this.loadProjectsByUserId(payload);
+    this.loadOrderCount(payload);
+    this.loadRevenueByMonth(payload);
   }
+
+  loadOrderCount(payload: any) {
+    this._project.getMonthlyOrderCount_buyer(payload).subscribe((data: any) => {
+      this.orderCountData = data;
+      this.orderCount = data.reduce(
+        (sum: number, item: any) => sum + item.orderCount,
+        0
+      );
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1;
+      const currentYear = now.getFullYear();
+
+      const currentMonthData = data.find(
+        (item: any) =>
+          item.month === currentMonth && item.year === currentYear
+      );
+
+      this.orderCount_year = currentMonthData ? currentMonthData.orderCount : 0;
+    })
+  }
+  loadRevenueByMonth(payload: any) {
+    this._project.monthlyRevenue_buyer(payload).subscribe((data: any) => {
+      this.revenueData = data;
+    })
+  }
+
 
   loadUserbyId(payload: any) {
     this.subscription.add(
@@ -113,7 +149,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
     this.currentPage = 1;
     this.updatePagedData();
-    // this.cdr.detectChanges(); // ép Angular check lại dữ liệu ngay
+    this.cdr.detectChanges(); // ép Angular check lại dữ liệu ngay
 
   }
 

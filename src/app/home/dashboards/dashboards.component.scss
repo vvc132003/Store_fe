@@ -24,7 +24,7 @@
 }
 
 .right-side {
-  flex: 0 0 25%;
+  flex: 0 0 20%;
 }
 
 .right-side-card {
@@ -32,7 +32,7 @@
   border-radius: 5px;
   box-shadow: 0 1px 2.94px .06px #041a3729;
   background: white;
-  position: relative;
+  position: fixed;
   overflow: hidden;
 }
 

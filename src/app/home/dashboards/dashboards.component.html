@@ -143,9 +143,9 @@
                                 <div class="card-body">
                                     <h6 class="text-white">Code đã mua</h6>
                                     <h3 class="text-end text-white">
-                                        <i class="fas fa-download float-start"></i><span>0</span>
+                                        <i class="fas fa-download float-start"></i><span>{{orderCount}}</span>
                                     </h3>
-                                    <p class="m-b-0">Tháng này<span class="float-end">0</span></p>
+                                    <p class="m-b-0">Tháng này<span class="float-end">{{orderCount_year}}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,8 @@
                                 <div class="card-body">
                                     <h6 class="text-white">Số tiền đã nạp</h6>
                                     <h3 class="text-end text-white">
-                                        <i class="fas fa-handshake-alt float-start"></i><span>0</span>
+                                        <i class="fas fa-handshake-alt float-start"></i><span>{{user.balance |
+                                                        number}} đ</span>
                                     </h3>
                                     <p class="m-b-0">Tháng này<span class="float-end">0</span></p>
                                 </div>
@@ -176,9 +177,10 @@
                             </div>
                         </div>
                     </div>
-
-
                     <br>
+                    <app-mixed-canvas [label]="'Tổng phí mua'" [revenueData]="revenueData"
+                        [orderCountData]="orderCountData"></app-mixed-canvas>
+                    <!-- <br> -->
                     <div class="left-side-card">
                         <div class="bear-container">
                             <div class="dashboard-header">

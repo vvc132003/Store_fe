@@ -2,27 +2,65 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { API_URLS } from '../config/api-urls';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProjectService {
     private apiUrl = API_URLS.api + '/Projects';
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private cookieService: CookieService) {
     }
+
+    private parseJwt(token: string): any {
+        const payload = token.split('.')[1];
+        const decoded = atob(payload);
+        const utf8 = decodeURIComponent(
+            decoded
+                .split('')
+                .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                .join('')
+        );
+        return JSON.parse(utf8);
+    }
+
+
     // Phương thức GET
     getData(): Observable<any> {
         return this.http.get<any[]>(this.apiUrl);
     }
     getMonthlyOrderCount(): Observable<any> {
+        // const token = this.cookieService.get('access_token');
+        // const payload = this.parseJwt(token);
         return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderCount`);
     }
     monthlyRevenue(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue`);
     }
+
+
+
+    /// buyer
+
+    getMonthlyOrderCount_buyer(payload: any): Observable<any> {
+        // const token = this.cookieService.get('access_token');
+        // const payload = this.parseJwt(token);
+        return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderCount_buyer/${payload.nameid}`);
+    }
+    monthlyRevenue_buyer(payload: any): Observable<any> {
+        // const token = this.cookieService.get('access_token');
+        // const payload = this.parseJwt(token);
+        return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue_buyer/${payload.nameid}`);
+    }
+
+
     generateDrinkRevenueReport(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/generateDrinkRevenueReport`);
     }
+
+
+
+
     // getProject_list(): Observable<any> {
     //     return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     // }
