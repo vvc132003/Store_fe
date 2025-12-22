@@ -50,4 +50,13 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
       })
     )
   }
+
+  currentUser: any;
+  @Output() userLoaded = new EventEmitter<any>();
+
+  onUserLoaded(user: any) {
+    this.currentUser = user;
+    this.userLoaded.emit(this.currentUser);
+  }
+
 }

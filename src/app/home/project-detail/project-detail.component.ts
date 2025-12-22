@@ -199,9 +199,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
       projectId: project.id,
       quantity: 0,
       totalPrice: project.price,
-      status: "10",
+      status: "SUCCESS",
     };
-
     this.subscription.add(
       this._order.postData(data).subscribe((response: any) => {
         const downloadUrl = response.downloadUrl;

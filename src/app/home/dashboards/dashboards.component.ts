@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardsComponent implements OnInit, OnDestroy {
 
 
-  user: any = {};
+  // user: any = {};
   orders: any[] = [];
   showFilter = false;
   isDesktop = true;
@@ -29,7 +29,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   priceTo: number | null = null;
   orderCount: number = 0;
   orderCount_year: number = 0;
-
+  revenue_month: number = 0;
   status: boolean | null = null;
   orderCountData: any[] = [];
   revenueData: any[] = [];
@@ -53,49 +53,106 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('Tài khoản của tôi');
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);
-    this.loadUserbyId(payload);
+    // this.loadUserbyId(payload);
     this.loadProjectsByUserId(payload);
-    this.loadOrderCount(payload);
-    this.loadRevenueByMonth(payload);
+    // this.loadOrderCount(payload);
+    // this.loadRevenueByMonth(payload);
+    this.loadMonthlyOrderStats(payload);
   }
 
   favoritesCount: number = 0;
 
-  loadOrderCount(payload: any) {
-    this._project.getMonthlyOrderCount_buyer(payload).subscribe((data: any) => {
-      // console.log(data);
-      this.orderCountData = data.monthlyOrderCount;
-      this.favoritesCount = data.favoritesCount;
-      this.orderCount = this.orderCountData.reduce(
-        (sum: number, item: any) => sum + item.orderCount,
-        0
-      );
-      const now = new Date();
-      const currentMonth = now.getMonth() + 1;
-      const currentYear = now.getFullYear();
+  // loadOrderCount(payload: any) {
+  //   this._project.getMonthlyOrderCount_buyer(payload).subscribe((data: any) => {
+  //     // console.log(data);
+  // this.orderCountData = data.monthlyOrderCount;
+  // this.favoritesCount = data.favoritesCount;
+  // this.orderCount = this.orderCountData.reduce(
+  //   (sum: number, item: any) => sum + item.orderCount,
+  //   0
+  // );
+  // const now = new Date();
+  // const currentMonth = now.getMonth() + 1;
+  // const currentYear = now.getFullYear();
 
-      const currentMonthData = this.orderCountData.find(
-        (item: any) =>
-          item.month === currentMonth && item.year === currentYear
-      );
+  // const currentMonthData = this.orderCountData.find(
+  //   (item: any) =>
+  //     item.month === currentMonth && item.year === currentYear
+  // );
 
-      this.orderCount_year = currentMonthData ? currentMonthData.orderCount : 0;
+  // this.orderCount_year = currentMonthData ? currentMonthData.orderCount : 0;
+  //   })
+  // }
+
+  // loadRevenueByMonth(payload: any) {
+  //   this._project.monthlyRevenue_buyer(payload).subscribe((data: any) => {
+  //     this.revenueData = data;
+  //   })
+  // }
+
+
+  selectedYear!: number;
+  availableYears: number[] = [2023, 2024, 2025, 2026];
+  allOrderData: any[] = [];
+  allRevenueData: any[] = [];
+
+  loadMonthlyOrderStats(payload: any) {
+    this.selectedYear = new Date().getFullYear();
+    this._project.getMonthlyOrderStats(payload.nameid).subscribe((data: any) => {
+      this.allOrderData = data.orderCount;
+      this.allRevenueData = data.totalRevenue;
+      this.onFilter();
     })
   }
-  loadRevenueByMonth(payload: any) {
-    this._project.monthlyRevenue_buyer(payload).subscribe((data: any) => {
-      this.revenueData = data;
-    })
+
+
+  onFilter() {
+
+
+    let filteredOrder = this.allOrderData;
+    let filteredRevenue = this.allRevenueData;
+
+    if (this.selectedYear) {
+      const year = Number(this.selectedYear);
+      filteredOrder = [...this.allOrderData.filter(item => item.year === year)];
+      filteredRevenue = [...this.allRevenueData.filter(item => item.year === year)];
+    }
+    this.orderCountData = [...filteredOrder];
+    this.revenueData = [...filteredRevenue];
+
+    this.orderCount = this.orderCountData.reduce(
+      (sum: number, item: any) => sum + item.orderCount,
+      0
+    );
+
+
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
+
+    const currentMonthData = this.orderCountData.find(
+      (item: any) =>
+        item.month === currentMonth && item.year === currentYear
+    );
+
+    this.orderCount_year = currentMonthData ? currentMonthData.orderCount : 0;
+
+    const currentMonthRevenueData = this.revenueData.find(
+      (item: any) => item.month === currentMonth && item.year === currentYear
+    );
+    this.revenue_month = currentMonthRevenueData ? currentMonthRevenueData.totalRevenue : 0;
+
+
   }
 
 
-  loadUserbyId(payload: any) {
-    this.subscription.add(
-      this._user.getUserById(payload?.nameid).subscribe((data: any) => {
-        this.user = data;
-      })
-    )
-  }
+  // loadUserbyId(payload: any) {
+  //   this.subscription.add(
+  //     this._user.getUserById(payload?.nameid).subscribe((data: any) => {
+  //       this.user = data;
+  //     })
+  //   )
+  // }
 
   loadProjectsByUserId(payload: any) {
     this.subscription.add(
@@ -175,4 +232,11 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.currentPage = page;
     this.updatePagedData();
   }
+
+  currentUser: any = {};
+
+  onUserLoaded(user: any) {
+    this.currentUser = user;
+  }
+
 }

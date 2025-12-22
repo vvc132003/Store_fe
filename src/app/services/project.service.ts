@@ -38,9 +38,17 @@ export class ProjectService {
         return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue`);
     }
 
-    getMonthlyOrderStats(): Observable<any> {
-        return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderStats`);
+    // getMonthlyOrderStats(): Observable<any> {
+    //     return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderStats`);
+    // }
+
+    getMonthlyOrderStats(userId?: string) {
+        const url = userId
+            ? `${this.apiUrl}/getMonthlyOrderStats/${userId}`
+            : `${this.apiUrl}/getMonthlyOrderStats`;
+        return this.http.get(url);
     }
+
 
 
 

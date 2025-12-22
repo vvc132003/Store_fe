@@ -91,7 +91,7 @@ export class AreaCanvasComponent implements OnChanges, OnInit {
         }]
       },
       options: {
-        responsive: true,
+        responsive: false,
         plugins: {
           legend: { position: 'top' },
           tooltip: {

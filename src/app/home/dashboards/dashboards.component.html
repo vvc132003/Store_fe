@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{dashboards}" [balance]="user.balance"></app-layout-home>
+<app-layout-home (userLoaded)="onUserLoaded($event)" [tabTemplates]="{dashboards}"></app-layout-home>
 <ng-template #dashboards>
     <div class="project-detail-page">
         <div class="container-fuild">
@@ -93,9 +93,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h5 class="mb-1">{{user.fullName}}</h5>
+                                                <h5 class="mb-1">{{currentUser.fullName}}</h5>
                                                 <p class="mb-2 text">
-                                                    Tài khoản: <span class="text-danger fw-bold">{{user.balance |
+                                                    Tài khoản: <span class="text-danger fw-bold">{{currentUser.balance |
                                                         number}} đ</span>
                                                     <span class="ms-4">
                                                         Xu: <span class="text-warning fw-bold">5</span>
@@ -108,13 +108,13 @@
                                                         <a [routerLink]="['/']"
                                                             class="mb-1 text-muted d-flex align-items-center text-h-primary">
                                                             <i class="fas fa-user me-2 f-18"></i>
-                                                            {{user.fullName}}
+                                                            {{currentUser.fullName}}
                                                         </a>
                                                         <div class="clearfix"></div>
                                                         <a [routerLink]="['/']"
                                                             class="mb-1 text-muted d-flex align-items-center text-h-primary">
                                                             <i class="fas fa-envelope me-2 f-18"></i>
-                                                            {{user.email}}
+                                                            {{currentUser.email}}
                                                         </a>
                                                         <div class="clearfix"></div>
                                                         <a [routerLink]="['/']"
@@ -156,10 +156,11 @@
                                 <div class="card-body">
                                     <h6 class="text-white">Số tiền đã nạp</h6>
                                     <h3 class="text-end text-white">
-                                        <i class="fas fa-handshake-alt float-start"></i><span>{{user.balance |
+                                        <i class="fas fa-handshake-alt float-start"></i><span>{{currentUser.balance |
                                             number}} đ</span>
                                     </h3>
-                                    <p class="m-b-0">Tháng này<span class="float-end">0</span></p>
+                                    <p class="m-b-0">Tháng này<span class="float-end">{{revenue_month | number}}
+                                            đ</span></p>
                                 </div>
                             </div>
                         </div>
@@ -180,9 +181,16 @@
                     <br>
                     <div class="left-side-card">
                         <div class="bear-container">
-                            <div class="dashboard-header">
+                            <div class="dashboard-header" style="justify-content: space-between;">
                                 <h5>Biểu đồ tổng phí mua và đơn hàng theo tháng</h5>
                                 <!-- <p> ({{orders.length}} source code)</p> -->
+                                <div class="d-flex align-items-center gap-2">
+                                    <label for="yearSelect" class="form-label mb-0">Chọn năm:</label>
+                                    <select id="yearSelect" class="form-select" [(ngModel)]="selectedYear"
+                                        (change)="onFilter()" style="width: 120px;">
+                                        <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+                                    </select>
+                                </div>
                             </div>
                             <app-mixed-canvas [label]="'Tổng phí mua'" [revenueData]="revenueData"
                                 [orderCountData]="orderCountData"></app-mixed-canvas>

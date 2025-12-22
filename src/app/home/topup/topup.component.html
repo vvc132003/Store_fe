@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{topup}"></app-layout-home>
+<app-layout-home (userLoaded)="onUserLoaded($event)"  [tabTemplates]="{topup}"></app-layout-home>
 <ng-template #topup>
     <div class="project-detail-page">
         <div class="container-fuild">
@@ -49,12 +49,12 @@
 
                             <div class="instructions">
                                 <p>
-                                    (Trong đó bạn nhập nội dung <strong>{{code}}</strong> để xác định tài khoản
+                                    (Trong đó bạn nhập nội dung <strong>{{currentUser.code}}</strong> để xác định tài khoản
                                     của bạn, Hệ thống sẽ cộng tiền vào tài khoản này cho bạn)
                                 </p>
                                 <ul>
                                     <li>
-                                        Nội dung chuyển khoản của bạn phải nhập đúng là <strong>{{code}}</strong>,
+                                        Nội dung chuyển khoản của bạn phải nhập đúng là <strong>{{currentUser.code}}</strong>,
                                         sau khi xác nhận hệ thống sẽ cộng tiền cho bạn.
                                     </li>
                                     <li>

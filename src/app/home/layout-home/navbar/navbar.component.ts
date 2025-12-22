@@ -1,6 +1,8 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +11,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private cookieService: CookieService, private elRef: ElementRef, private router: Router) { }
+  constructor(private cookieService: CookieService, private _user: UserService, private elRef: ElementRef, private router: Router) { }
+  private subscription = new Subscription();
+
   @Input() balance: number = 0;
   @Input() category_list: any[] = [];
-  user: any = null;
+  @Output() userLoaded = new EventEmitter<any>();
+  user: any = {};
   showSearchMobile = false;
   showoNotification = false;
 
@@ -34,7 +39,8 @@ export class NavbarComponent implements OnInit {
     if (token) {
       const payload = this.parseJwt(token);
       if (payload) {
-        this.user = payload.unique_name || payload.name || payload.sub || null;
+        // this.user = payload.unique_name || payload.name || payload.sub || null;
+        this.loadUserbyId(payload);
       }
     }
   }
@@ -77,5 +83,14 @@ export class NavbarComponent implements OnInit {
     this.showoNotification = false;
   }
 
+  loadUserbyId(payload: any) {
+    this.subscription.add(
+      this._user.getUserById(payload?.nameid).subscribe((data: any) => {
+        this.user = data;
+        this.userLoaded.emit(data);
+        // console.log(this.user);
+      })
+    )
+  }
 
 }

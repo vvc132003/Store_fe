@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class PurchasedCodeComponent implements OnInit, OnDestroy {
 
 
-  user: any = {};
+  // user: any = {};
   orders: any[] = [];
   showFilter = false;
   isDesktop = true;
@@ -53,18 +53,18 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('Quản lý code đã mua');
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);
-    this.loadUserbyId(payload);
+    // this.loadUserbyId(payload);
     this.loadProjectsByUserId(payload);
   }
 
 
-  loadUserbyId(payload: any) {
-    this.subscription.add(
-      this._user.getUserById(payload?.nameid).subscribe((data: any) => {
-        this.user = data;
-      })
-    )
-  }
+  // loadUserbyId(payload: any) {
+  //   this.subscription.add(
+  //     this._user.getUserById(payload?.nameid).subscribe((data: any) => {
+  //       this.user = data;
+  //     })
+  //   )
+  // }
 
   loadProjectsByUserId(payload: any) {
     this.subscription.add(

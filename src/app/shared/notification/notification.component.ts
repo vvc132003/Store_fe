@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -41,7 +43,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   @Input() showoNotification!: boolean;
   @Output() closePupAdd = new EventEmitter<void>();
 
-  constructor(private _notification: NotificationService, private cookieService: CookieService) { }
+  constructor(private _notification: NotificationService, private sanitizer: DomSanitizer, private datePipe: DatePipe, private cookieService: CookieService) { }
   private subscription = new Subscription();
   private parseJwt(token: string): any {
     const payload = token.split('.')[1];
@@ -70,6 +72,48 @@ export class NotificationComponent implements OnInit, OnDestroy {
         // console.log(data);
       })
     )
+  }
+  getFormattedTime(dateStr: string | Date): string | null {
+    const date = new Date(dateStr);
+    const now = new Date();
+
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+    const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    const isToday =
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear();
+
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+
+    const isYesterday =
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear();
+
+    if (diffMinutes < 1) {
+      return 'Vừa xong';
+    } else if (diffMinutes < 60 && isToday) {
+      return `${diffMinutes} phút trước`;
+    } else if (isToday) {
+      return this.datePipe.transform(date, 'HH:mm') ?? 'ngày';
+    } else if (isYesterday) {
+      return `Hôm qua ${this.datePipe.transform(date, 'HH:mm') ?? ''}`;
+    } else if (date.getFullYear() === now.getFullYear()) {
+      return this.datePipe.transform(date, 'dd/MM HH:mm') ?? '';
+    } else {
+      return this.datePipe.transform(date, 'dd/MM/yyyy HH:mm') ?? '';
+    }
+  }
+
+  sanitizeMessage(message: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(message);
   }
 
   ngOnDestroy(): void {

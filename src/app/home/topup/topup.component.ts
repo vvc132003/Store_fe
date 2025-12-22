@@ -25,9 +25,16 @@ export class TopupComponent implements OnInit {
   ngOnInit(): void {
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);
-    this.code = payload.code;
+    // this.code = payload.code;
   }
   close() {
     this.closed.emit();
   }
+
+  currentUser: any = {};
+
+  onUserLoaded(user: any) {
+    this.currentUser = user;
+  }
+
 }
