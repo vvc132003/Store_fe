@@ -1,0 +1,10 @@
+<app-layout [text]="'Khách hàng'" [count]="count" [tabTemplates]="{customerList,customerAdd}">
+</app-layout>
+<ng-template #customerList>
+    <app-customers-list [users]="users" [user_id]="user_id"
+        (categoryclick)="selectUser($event)"></app-customers-list>
+</ng-template>
+
+<ng-template #customerAdd>
+
+</ng-template>

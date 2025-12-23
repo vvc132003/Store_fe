@@ -1,0 +1,5 @@
+<app-layout [text]="'Code được lưu'" [count]="count" [tabTemplates]="{favoriteList}">
+</app-layout>
+<ng-template #favoriteList>
+    <app-favorite-list [favorites]="favorites" [favorite_id]="favorite_id" (favoriteclick)="selectFavorite($event)"></app-favorite-list>
+</ng-template>

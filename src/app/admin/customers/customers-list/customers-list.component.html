@@ -1,0 +1,79 @@
+<div class="bear-container">
+    <!-- Ô tìm kiếm -->
+    <!-- <div class="search-box">
+        <input type="text" placeholder="Nhập tên, mã,..." [(ngModel)]="searchText" (input)="onSearch()">
+    </div> -->
+    <!-- Container để căn nút góc phải -->
+    <div class="filter-toggle-wrapper" *ngIf="!isDesktop">
+        <button class="toggle-filter-btn" (click)="toggleFilter()">
+            <!-- icon SVG filter -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                    d="M6 10.5v5l4-2.5V10.5H6zm-4-7A.5.5 0 0 1 2.5 3h11a.5.5 0 0 1 .39.81l-5.11 6.25a.5.5 0 0 0-.13.34V14a.5.5 0 0 1-1 0v-3.6a.5.5 0 0 0-.13-.34L1.61 3.81A.5.5 0 0 1 2 3.5z" />
+            </svg>
+        </button>
+    </div>
+
+
+
+    <div class="filter-box" [ngClass]="{'show': showFilter}" *ngIf="showFilter || isDesktop">
+
+        <div class="filter-left">
+            <div class="filter-item">
+                <input type="text" placeholder="Từ ngày" bsDatepicker [(ngModel)]="dateFrom" [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateFromChange($event)">
+            </div>
+
+            <div class="filter-item">
+                <input type="text" placeholder="Đến ngày" bsDatepicker [(ngModel)]="dateTo" [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateToChange($event)">
+            </div>
+
+        </div>
+
+        <!-- Right group: tìm kiếm -->
+        <div class="filter-right">
+            <div class="filter-item">
+                <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText" (input)="applyFilter()">
+            </div>
+        </div>
+    </div>
+
+    <div class="bear-header">
+        <div class="h-col code">Họ và tên</div>
+        <div class="h-col note">Email</div>
+        <div class="h-col date">Mã chuyển khoản</div>
+        <div class="h-col date">Số dư</div>
+        <div class="h-col date">Trạng thái</div>
+    </div>
+
+    <div class="bear-list">
+        <div class="bear-item" *ngFor="let item of pagedData" (click)="clickCategory(item)"
+            [ngClass]="{'bear-item-selected': user_id?.id === item?.id}">
+            <div class="col code">{{ item.fullName }}</div>
+            <div class="col name">{{ item.email || item.email }}</div>
+            <div class="col date">{{ item.code}}</div>
+            <div class="col date">{{ item.balance | number}} đ</div>
+            <div class="col date">
+                <i class="fa toggle-status" (click)="toggleStatus(item)"
+                    [class]="item.status === 'active' ? 'fa-toggle-on active' : 'fa-toggle-off locked'"
+                    title="Bật / Tắt trạng thái"></i>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+            <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+            <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
+        </div>
+    </div>
+
+</div>

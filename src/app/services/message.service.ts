@@ -13,6 +13,9 @@ export class MessageService {
     { code: '1006', text: 'Đã thêm dự án vào mục yêu thích!' },
     { code: '1007', text: 'Bạn đã thích dự án này!' },
     { code: '1008', text: 'Đánh giá thành công!' },
+    { code: '1009', text: 'Không thể thay đổi trạng thái Admin!' },
+    { code: '1010', text: 'Cập nhật trạng thái thành công!' },
+
 
 
 

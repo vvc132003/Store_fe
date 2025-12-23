@@ -21,6 +21,10 @@ import { ProjectAddComponent } from './project/project-add/project-add.component
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { SharedModule } from '../shared/shared.module';
+import { CustomersComponent } from './customers/customers.component';
+import { CustomersListComponent } from './customers/customers-list/customers-list.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { FavoriteListComponent } from './favorites/favorite-list/favorite-list.component';
 
 
 @NgModule({
@@ -40,6 +44,10 @@ import { SharedModule } from '../shared/shared.module';
     ProjectAddComponent,
     ProjectListComponent,
     ProjectDetailComponent,
+    CustomersComponent,
+    CustomersListComponent,
+    FavoritesComponent,
+    FavoriteListComponent,
   ],
   imports: [
     CommonModule,

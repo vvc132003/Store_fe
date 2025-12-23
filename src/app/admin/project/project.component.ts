@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.titleService.setTitle('Mã nguồn');
+    this.titleService.setTitle('Quản lý mã nguồn');
     this.loadProject();
   }
   ngOnDestroy(): void {
@@ -81,6 +81,22 @@ export class ProjectComponent implements OnInit, OnDestroy {
         //   this.category = this.category.filter(d => d.id !== this.category_id.id);
         //   this.category_id = this.category[0];
         // })
+        break;
+      case '106':
+        this._project.exportProjectsExcel().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ProjectsWithImages.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        });
         break;
       default:
         break;

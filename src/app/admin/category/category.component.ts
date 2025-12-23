@@ -25,11 +25,11 @@ export class CategoryComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.titleService.setTitle('Loại code');
+    this.titleService.setTitle('Quản lý loại code');
     this.loadCategorys();
   }
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
   loadCategorys() {
     this.subscription.add(
@@ -60,7 +60,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   click(event: any) {
     // this.isModalVisible = true;
-
+    console.log(event);
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showcategory_add = true, 0),
       '102': () => setTimeout(() => this.showcategory_add = true, 0)
@@ -90,10 +90,28 @@ export class CategoryComponent implements OnInit, OnDestroy {
       case '103':
         break;
       case '104':
-        this._category.deleteData(this.category_id.id).subscribe(data => {
+        this._category.deleteData(this.category_id.id).subscribe(res => {
           this.category = this.category.filter(d => d.id !== this.category_id.id);
           this.category_id = this.category[0];
         })
+        break;
+      case '106':
+        this._category.exportFavorites().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Favorites.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        });
+        break;
+      case '107':
         break;
       default:
         break;

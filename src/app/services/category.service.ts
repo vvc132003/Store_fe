@@ -15,6 +15,10 @@ export class CategoryService {
         return this.http.get<any[]>(this.apiUrl);
     }
 
+    exportFavorites(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-favorites`, { responseType: 'blob' });
+    }
+
     // Phương thức POST
     postData(data: any): Observable<any> {
         return this.http.post<any>(this.apiUrl, data);
@@ -28,6 +32,6 @@ export class CategoryService {
     // Phương thức DELETE
     deleteData(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/${id}`);
-    }    
+    }
 
 }
