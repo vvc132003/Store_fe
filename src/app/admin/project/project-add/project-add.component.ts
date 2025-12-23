@@ -37,11 +37,17 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     }
     if (changes['project'] && changes['project'].currentValue) {
       this.project = { ...changes['project'].currentValue };
-      this.previewImg = this.project.thumbnailUrl;
-      this.previewImages = this.project.images;
-      if (this.project.zipPath) {
-        this.selectedFile_zip = this.project.zipPath.split('/').pop(); // chỉ lấy tên file
-      }      // console.log(this.category);
+      if (this.action === 'copy') {
+        this.project.thumbnailUrl = '';
+        this.project.images = [];
+
+        this.selectedFile_zip = null;
+        this.selectedFile_img = null;
+        this.imageFiles = [];
+
+        this.previewImg = null;
+        this.previewImages = [];
+      }
     }
   }
 
@@ -67,7 +73,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   //#region  event
 
   save(): void {
-    if (this.action === 'add') {
+    if (this.action === 'add' || this.action === 'copy') {
       this.saveProject();
       // console.log(this.project);
     } else {

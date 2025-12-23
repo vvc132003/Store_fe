@@ -50,7 +50,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showproject_add = true, 0),
-      '102': () => setTimeout(() => this.showproject_add = true, 0)
+      '102': () => setTimeout(() => this.showproject_add = true, 0),
+      '105': () => setTimeout(() => this.showproject_add = true, 0),
+
     };
 
     const openModal = modalMap[event];
@@ -81,6 +83,13 @@ export class ProjectComponent implements OnInit, OnDestroy {
         //   this.category = this.category.filter(d => d.id !== this.category_id.id);
         //   this.category_id = this.category[0];
         // })
+        break;
+      case '105':
+        this.newproject = this.project_list.find(dr => dr.id == this.project_id.id);
+        this.data = {
+          action: 'copy',
+          text: 'Thêm mã nguồn'
+        };
         break;
       case '106':
         this._project.exportProjectsExcel().subscribe({

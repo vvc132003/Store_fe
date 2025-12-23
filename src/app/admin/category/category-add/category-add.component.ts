@@ -34,6 +34,9 @@ export class CategoryAddComponent implements OnChanges {
       this.category = { ...changes['category'].currentValue };
       // console.log(this.category);
     }
+    if (this.action === 'copy') {
+      this.category.code = "";
+    }
     if (this.category && !this.category.code) {
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const numbers = '0123456789';
@@ -65,7 +68,7 @@ export class CategoryAddComponent implements OnChanges {
     this.category.slug = this.toSlug(this.category.name);
   }
   save(): void {
-    if (this.action === 'add') {
+    if (this.action === 'add' || this.action === 'copy') {
       this.saveCategory();
     } else {
       this.updateCategory();
