@@ -6,6 +6,7 @@ import { CategoryComponent } from './category/category.component';
 import { AdminGuard } from '../services/AdminGuard';
 import { CustomersComponent } from './customers/customers.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   { path: 'revenue/:funId', component: DashboardComponent, canActivate: [AdminGuard] },
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'project/:funId', component: ProjectComponent, canActivate: [AdminGuard] },
   { path: 'customer/:funId', component: CustomersComponent, canActivate: [AdminGuard] },
   { path: 'favorite-code/:funId', component: FavoritesComponent, canActivate: [AdminGuard] },
+  { path: 'order/:funId', component: OrderComponent, canActivate: [AdminGuard] },
+
 
 
 ];

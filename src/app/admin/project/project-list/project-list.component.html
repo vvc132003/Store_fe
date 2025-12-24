@@ -44,7 +44,7 @@
         <div class="h-col desc">Mô tả</div>
         <div class="h-col price">Giá</div>
         <div class="h-col date">Ngày tạo</div>
-        <div class="h-col zip">File ZIP</div>
+        <div class="h-col zip">Link tải xuống</div>
     </div>
 
     <div class="bear-list">
@@ -64,7 +64,7 @@
             <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
 
             <div class="col zip">
-                <a [href]="item.zipPath" target="_blank">Tải ZIP</a>
+                <a [href]="item.zipPath" target="_blank">Link</a>
             </div>
             <!-- ✅ NÚT THAO TÁC -->
             <div class="col action" (click)="$event.stopPropagation()">

@@ -41,27 +41,29 @@
     </div>
 
     <div class="bear-header">
-        <div class="h-col title">Tên khách hàng</div>
         <div class="h-col title">Tiêu đề</div>
-        <div class="h-col desc">Ngôn ngữ</div>
+        <div class="h-col desc text-center">Ngôn ngữ</div>
         <div class="h-col price">Phí tải</div>
-        <div class="h-col date text-center">Lượt xem</div>
-        <div class="h-col date text-center">Lượt tải</div>
+        <div class="h-col title">Người mua</div>
+        <div class="h-col title">Link tải xuống</div>
+        <div class="h-col title">Ngày mua</div>
+
     </div>
 
     <div class="bear-list">
-        <div class="bear-item" *ngFor="let item of pagedData" (click)="clickFavorite(item)"
-            [ngClass]="{'bear-item-selected': favorite_id?.id === item?.id}">
-            <div class="col title">{{ item.fullName }}</div>
-
+        <div class="bear-item" *ngFor="let item of pagedData" (click)="clickOrder(item)"
+            [ngClass]="{'bear-item-selected': order_id?.id === item?.id}">
             <div class="col title">{{ item.title }}</div>
 
-            <div class="col desc">{{ item.categoryName }}</div>
+            <div class="col title text-center">{{ item.categoryName }}</div>
 
             <div class="col price">{{ item.price | number }} đ</div>
+            <div class="col title">{{ item.fullName }}</div>
+            <div class="col zip ">
+                <a [href]="item.zipPath" target="_blank">{{item.zipPath}}</a>
+            </div>
+            <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
 
-            <div class="col date text-center">{{ item.viewCount }}</div>
-            <div class="col date text-center">{{ item.downloadCount }}</div>
         </div>
         <div class="pagination">
             <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>

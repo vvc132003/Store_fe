@@ -8,8 +8,13 @@
       </a>
 
       <ul class="sub-menu mobile" [class.open]="item.isOpen">
-        <li *ngFor="let sub of item.subMenu; let i = index" class="circle-item">
-          <a [routerLink]="sub.route">{{ sub.label }}</a>
+        <li *ngFor="let sub of item.subMenu; let i = index" class="circle-item d-flex align-items-center">
+          <span class="sub-icon" *ngIf="sub.icon">
+            {{ sub.icon }}
+          </span>
+          <a [routerLink]="sub.route" class="sub-link">
+            {{ sub.label }}
+          </a>
         </li>
       </ul>
     </li>

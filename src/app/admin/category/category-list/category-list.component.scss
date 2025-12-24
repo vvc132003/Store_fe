@@ -37,13 +37,15 @@
 
 .bear-item:hover {
     background: rgba(0, 229, 255, 0.12);
-    border-color: #00E5FF;
+    border-color: #00E5FF;    border-left: 1px solid red;
+
     transform: translateX(5px);
 }
 
 .bear-item-selected {
     background: rgba(0, 229, 255, 0.12);
-    border-color: #00E5FF;
+    border-color: #00E5FF;    border-left: 1px solid red;
+
     transform: translateX(5px);
 }
 

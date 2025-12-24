@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.titleService.setTitle('Quản lý mã nguồn');
+    this.titleService.setTitle('Quản lý code tải lên');
     this.loadProject();
   }
   ngOnDestroy(): void {

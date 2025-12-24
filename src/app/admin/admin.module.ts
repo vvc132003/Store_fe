@@ -25,6 +25,8 @@ import { CustomersComponent } from './customers/customers.component';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoriteListComponent } from './favorites/favorite-list/favorite-list.component';
+import { OrderComponent } from './order/order.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { FavoriteListComponent } from './favorites/favorite-list/favorite-list.c
     CustomersListComponent,
     FavoritesComponent,
     FavoriteListComponent,
+    OrderComponent,
+    OrderListComponent,
   ],
   imports: [
     CommonModule,

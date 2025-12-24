@@ -61,9 +61,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '106', funId: '1007', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
 
 
-    { id: '101', funId: '1005', label: 'Thêm', icon: 'fa-plus', type: 'primary', class: '', display: 'block', language: 'vi', action: () => this.event('101') },
-    { id: '102', funId: '1005', label: 'Cập nhật', icon: 'fa-refresh', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('102') },
+    /// 1005
     { id: '103', funId: '1005', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
+    { id: '106', funId: '1005', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
+    { id: '105', funId: '1005', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
     { id: '104', funId: '1005', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
 
 

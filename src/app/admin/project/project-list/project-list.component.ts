@@ -83,7 +83,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 6; // mỗi trang 10 item
+  pageSize = 10; // mỗi trang 10 item
   pagedData: any[] = [];
 
   updatePagedData() {

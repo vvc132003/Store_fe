@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +7,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent {
   @Output() languageChange = new EventEmitter<string>();
+
+  constructor(private elRef: ElementRef,) { }
 
   selectedLanguage: string = 'vi';
   onLanguageChange(): void {
@@ -25,5 +27,19 @@ export class HeaderComponent {
   }
   closeNotification() {
     this.showoNotification = false;
+  }
+  isMenuOpen = false;
+
+  toggleMenu(event: MouseEvent) {
+    event.stopPropagation(); // ⛔ chặn bubble
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.isMenuOpen = false;
+    }
   }
 }
