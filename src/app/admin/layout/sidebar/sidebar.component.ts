@@ -29,55 +29,60 @@ export class SidebarComponent {
   isMenuOpen = false;
 
   menuItems: MenuItem[] = [
-    { icon: '📊', label: 'Doanh thu', route: '/admin/revenue', funId: '1000' },
-    { icon: '📁', label: 'Loại code', route: '/admin/category', funId: '1001' },
+    { icon: '📊', label: 'Doanh thu', route: '/mbcode/admin/revenue', funId: '1000' },
+    { icon: '📁', label: 'Loại code', route: '/mbcode/admin/category', funId: '1001' },
     {
       icon: '⬆️',
       label: 'Code tải lên',
-      route: '/admin/project',
+      route: '/mbcode/admin/project',
       funId: '1001'
     },
     {
       icon: '💰',
       label: 'Code đã bán',
-      route: '/admin/order',
+      route: '/mbcode/admin/order',
       funId: '1005'
     },
-    { icon: '👤', label: 'Khách hàng', route: '/admin/customer', funId: '1003' },
+    { icon: '👤', label: 'Khách hàng', route: '/mbcode/admin/customer', funId: '1003' },
     {
       icon: '🏦', label: 'Giao dịch',
       funId: '1004',
       isOpen: false,
       subMenu: [
-        { icon: '➕', label: 'Giao dịch nạp tiền', route: '/admin/payment/deposit', funId: '1004-1' },
-        { icon: '➖', label: 'Giao dịch trừ tiền', route: '/admin/payment/withdraw', funId: '1004-2' },
+        { icon: '➕', label: 'Giao dịch nạp tiền', route: '/mbcode/admin/deposit', funId: '1004-1' },
+        { icon: '➖', label: 'Giao dịch trừ tiền', route: '/mbcode/admin/withdraw', funId: '1004-2' },
       ]
     },
     {
       icon: '💾',
       label: 'Code đã lưu',
-      route: '/admin/favorite-code',
+      route: '/mbcode/admin/favorite-code',
       funId: '1007'
     },
-    { icon: '📝', label: 'Nội dung', route: '/admin/content', funId: '1009' },
+    { icon: '📝', label: 'Nội dung', route: '/mbcode/admin/content', funId: '1009' },
     // { icon: '📊', label: 'Doanh thu', route: '/admin/revenue', funId: '1006' },
     {
-      icon: '⚙️', label: 'Cài đặt', route: '/admin/settings', funId: '1007',
+      icon: '⚙️', label: 'Cài đặt', route: '/mbcode/admin/settings', funId: '1007',
       isOpen: false,
       subMenu: [
-        { label: 'Thông tin website', route: '/admin/settings/website', funId: '1007-1' },
-        { label: 'Bảo mật', route: '/admin/settings/security', funId: '1007-2' },
-        { label: 'Email & Thông báo', route: '/admin/settings/notification', funId: '1007-3' },
-        { label: 'Backup & Restore', route: '/admin/settings/backup', funId: '1007-4' },
-        { label: 'Thanh toán', route: '/admin/settings/payment', funId: '1007-5' }
+        { label: 'Thông tin website', route: '/mbcode/admin/settings/website', funId: '1007-1' },
+        { label: 'Bảo mật', route: '/mbcode/admin/settings/security', funId: '1007-2' },
+        { label: 'Email & Thông báo', route: '/mbcode/admin/settings/notification', funId: '1007-3' },
+        { label: 'Backup & Restore', route: '/mbcode/admin/settings/backup', funId: '1007-4' },
+        { label: 'Thanh toán', route: '/mbcode/admin/settings/payment', funId: '1007-5' }
       ]
     },
   ];
 
-  toggleSubMenu(item: any) {
-    if (item.subMenu) {
-      item.isOpen = !item.isOpen;
-    }
+ toggleSubMenu(item: MenuItem) {
+    if (!item.subMenu) return;
+
+    // đóng menu khác
+    this.menuItems.forEach(i => {
+      if (i !== item) i.isOpen = false;
+    });
+
+    item.isOpen = !item.isOpen;
   }
 
 }

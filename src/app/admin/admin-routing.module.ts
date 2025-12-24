@@ -7,6 +7,8 @@ import { AdminGuard } from '../services/AdminGuard';
 import { CustomersComponent } from './customers/customers.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { OrderComponent } from './order/order.component';
+import { DepositComponent } from './deposit/deposit.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
 
 const routes: Routes = [
   { path: 'revenue/:funId', component: DashboardComponent, canActivate: [AdminGuard] },
@@ -15,6 +17,9 @@ const routes: Routes = [
   { path: 'customer/:funId', component: CustomersComponent, canActivate: [AdminGuard] },
   { path: 'favorite-code/:funId', component: FavoritesComponent, canActivate: [AdminGuard] },
   { path: 'order/:funId', component: OrderComponent, canActivate: [AdminGuard] },
+  { path: 'deposit/:funId', component: DepositComponent, canActivate: [AdminGuard] },
+  { path: 'withdraw/:funId', component: WithdrawComponent, canActivate: [AdminGuard] },
+
 
 
 

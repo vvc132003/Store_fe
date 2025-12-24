@@ -28,7 +28,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   loadcategory_list() {
     this.subscription.add(
       this._category.getData().subscribe((data: any) => {
-        this.category_list = data;
+        this.category_list = data.slice(0, 11);
         this.categoryChange.emit(this.category_list);
         // console.log(data);
       })

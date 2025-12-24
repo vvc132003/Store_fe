@@ -1,0 +1,97 @@
+<app-layout [text]="'Giao dịch tải code'" [count]="count" [tabTemplates]="{List}">
+</app-layout>
+<ng-template #List>
+    <div class="bear-container">
+        <!-- Ô tìm kiếm -->
+        <!-- <div class="search-box">
+        <input type="text" placeholder="Nhập tên, mã,..." [(ngModel)]="searchText" (input)="onSearch()">
+    </div> -->
+        <!-- Container để căn nút góc phải -->
+        <div class="filter-toggle-wrapper" *ngIf="!isDesktop">
+            <button class="toggle-filter-btn" (click)="toggleFilter()">
+                <!-- icon SVG filter -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M6 10.5v5l4-2.5V10.5H6zm-4-7A.5.5 0 0 1 2.5 3h11a.5.5 0 0 1 .39.81l-5.11 6.25a.5.5 0 0 0-.13.34V14a.5.5 0 0 1-1 0v-3.6a.5.5 0 0 0-.13-.34L1.61 3.81A.5.5 0 0 1 2 3.5z" />
+                </svg>
+            </button>
+        </div>
+
+
+
+        <div class="filter-box" [ngClass]="{'show': showFilter}" *ngIf="showFilter || isDesktop">
+
+            <div class="filter-left">
+                <div class="filter-item">
+                    <input type="text" placeholder="Từ ngày" bsDatepicker [(ngModel)]="dateFrom" [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateFromChange($event)">
+                </div>
+
+                <div class="filter-item">
+                    <input type="text" placeholder="Đến ngày" bsDatepicker [(ngModel)]="dateTo" [bsConfig]="{
+      containerClass: 'theme-datepicker',
+      dateInputFormat: 'DD/MM/YYYY',  showWeekNumbers: false
+
+    }" (bsValueChange)="onDateToChange($event)">
+                </div>
+
+            </div>
+
+            <!-- Right group: tìm kiếm -->
+            <div class="filter-right">
+                <div class="filter-item">
+                    <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText" (input)="applyFilter()">
+                </div>
+            </div>
+        </div>
+
+        <div class="bear-header">
+            <div class="h-col code">Người giao dịch</div>
+            <div class="h-col note">Số tiền</div>
+            <div class="h-col date">Nội dung</div>
+            <div class="h-col date">Loại giao dịch</div>
+            <div class="h-col date">Trạng thái</div>
+            <div class="h-col date">Ngày trừ tiền</div>
+
+        </div>
+
+        <div class="bear-list">
+            <div class="bear-item" *ngFor="let item of pagedData" (click)="clickCategory(item)"
+                [ngClass]="{'bear-item-selected': transaction_id?.id === item?.id}">
+                <div class="col code">{{ item.fullName }}</div>
+                <div class="col name text-danger">- {{ item.amount |number }} đ</div>
+                <div class="col date">{{ item.message}}</div>
+                <div class="col date d-flex align-items-center gap-1">
+                    <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>
+                    <i *ngIf="item.transactionType === 'TRANSFER'" class="bi bi-arrow-right-circle"></i>
+                    <i *ngIf="item.transactionType === 'WITHDRAW'" class="bi bi-wallet2"></i>
+                    <i *ngIf="item.transactionType === 'DEPOSIT'" class="bi bi-cash-stack"></i>
+                    <span [ngClass]="getTransactionTypeLabel(item.transactionType).class">
+                        {{ getTransactionTypeLabel(item.transactionType).label }}
+                    </span>
+                </div>
+
+                <div class="col date d-flex align-items-center gap-1">
+                    <i [class]="'bi ' + getStatusBadge(item.status).icon"></i>
+                    <span class="badge" [ngClass]="getStatusBadge(item.status).class">
+                        {{ getStatusBadge(item.status).label }}
+                    </span>
+                </div>
+                <div class="col date">{{ item.transactionDate| date:'dd/MM/yyyy HH:mm' }}</div>
+
+            </div>
+
+            <div class="pagination">
+                <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+                <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+                <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

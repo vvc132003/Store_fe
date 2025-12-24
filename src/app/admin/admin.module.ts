@@ -27,6 +27,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoriteListComponent } from './favorites/favorite-list/favorite-list.component';
 import { OrderComponent } from './order/order.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
+import { DepositComponent } from './deposit/deposit.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
 
 
 @NgModule({
@@ -52,6 +54,8 @@ import { OrderListComponent } from './order/order-list/order-list.component';
     FavoriteListComponent,
     OrderComponent,
     OrderListComponent,
+    DepositComponent,
+    WithdrawComponent,
   ],
   imports: [
     CommonModule,

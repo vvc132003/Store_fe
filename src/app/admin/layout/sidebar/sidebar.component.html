@@ -1,22 +1,36 @@
 <nav class="sidebar">
   <ul class="sidebar-menu">
+
     <li *ngFor="let item of menuItems">
-      <a [routerLink]="[item.route, item.funId]" routerLinkActive="active" (click)="toggleSubMenu(item)">
+
+      <!-- MENU CHA CÓ SUBMENU (KHÔNG routerLink) -->
+      <a *ngIf="item.subMenu" class="menu-parent" style="cursor: pointer;" (click)="toggleSubMenu(item)">
         <p>{{ item.icon }}</p>
         <span class="label">{{ item.label }}</span>
-        <i *ngIf="item.subMenu" class="bi" [ngClass]="item.isOpen ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+        <i class="bi" [ngClass]="item.isOpen ? 'bi-chevron-up' : 'bi-chevron-down'">
+        </i>
       </a>
 
+      <!-- MENU CHA KHÔNG SUBMENU -->
+      <a *ngIf="!item.subMenu" [routerLink]="[item.route, item.funId]" routerLinkActive="active">
+        <p>{{ item.icon }}</p>
+        <span class="label">{{ item.label }}</span>
+      </a>
+
+      <!-- SUB MENU -->
       <ul class="sub-menu mobile" [class.open]="item.isOpen">
-        <li *ngFor="let sub of item.subMenu; let i = index" class="circle-item d-flex align-items-center">
+        <li *ngFor="let sub of item.subMenu" class="circle-item d-flex align-items-center">
           <span class="sub-icon" *ngIf="sub.icon">
             {{ sub.icon }}
           </span>
-          <a [routerLink]="sub.route" class="sub-link">
+
+          <a [routerLink]="[sub.route, sub.funId]" routerLinkActive="active" class="sub-link">
             {{ sub.label }}
           </a>
         </li>
       </ul>
+
     </li>
+
   </ul>
 </nav>

@@ -52,7 +52,7 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
         const role = payload.role;
 
         if (role === 'admin') {
-          this.router.navigate(['/admin/revenue/1000']);
+          this.router.navigate(['/mbcode/admin/revenue/1000']);
         } else {
           this.router.navigate(['/']);
         }

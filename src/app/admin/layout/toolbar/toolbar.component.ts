@@ -55,6 +55,22 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '106', funId: '1003', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
 
 
+    /// 1004-1
+    { id: '103', funId: '1004-1', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
+    { id: '104', funId: '1004-1', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
+    { id: '106', funId: '1004-1', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
+    { id: '107', funId: '1004-1', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
+
+
+
+    /// 1004-2
+    { id: '103', funId: '1004-2', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
+    { id: '104', funId: '1004-2', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
+    { id: '106', funId: '1004-2', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
+    { id: '107', funId: '1004-2', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
+
+
+
     ///1007
     { id: '103', funId: '1007', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
     { id: '105', funId: '1007', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
@@ -105,6 +121,20 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '102', funId: '1005', label: 'Update', icon: 'fa-refresh', type: 'warning', class: '', display: 'block', language: 'en', action: () => this.event('102') },
     { id: '103', funId: '1005', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
     { id: '104', funId: '1005', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+
+     /// 1004-1
+    { id: '103', funId: '1004-1', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
+    { id: '104', funId: '1004-1', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+    { id: '106', funId: '1004-1', label: 'Export CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'en', action: () => this.event('105') },
+    { id: '107', funId: '1004-1', label: 'Export PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('106') },
+
+
+    /// 1004-2
+    { id: '103', funId: '1004-2', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
+    { id: '104', funId: '1004-2', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+    { id: '106', funId: '1004-2', label: 'Export CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'en', action: () => this.event('105') },
+    { id: '107', funId: '1004-2', label: 'Export PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('106') },
+
 
 
 

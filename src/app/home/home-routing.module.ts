@@ -19,9 +19,9 @@ const routes: Routes = [
   { path: 'dang-nhap', component: PagesLoginComponent },
   { path: 'dang-ky', component: PagesRegisterComponent },
   { path: 'dashboards', component: DashboardsComponent, canActivate: [HomeGuard] },
-  { path: 'topup', component: TopupComponent, canActivate: [HomeGuard] },
-  { path: 'purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
-  { path: 'favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] }
+  { path: 'tk/topup', component: TopupComponent, canActivate: [HomeGuard] },
+  { path: 'tk/purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
+  { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] }
 
 
 

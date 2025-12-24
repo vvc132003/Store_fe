@@ -16,7 +16,7 @@
   margin-left: 220px;
   padding: 8px;
   background-color: #f9f9f9;
-  height: calc(90vh - 100px);
+  height: calc(100vh - 100px);
   overflow-y: auto;
   flex-grow: 1;
 }
@@ -43,6 +43,8 @@
   .admin-content {
     margin-left: 0px;
     padding: 0px;
+    height: calc(90vh - 100px);
+
   }
 }
 

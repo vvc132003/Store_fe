@@ -5,7 +5,8 @@
 /* HEADER */
 .bear-header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* 3 cột đều nhau */
+    grid-template-columns: 1.4fr 1fr 3.5fr 1.4fr 1fr 1fr;
+    /* 3 cột đều nhau */
     color: #3A3A3A;
     font-weight: 700;
     font-size: 15px;
@@ -26,7 +27,8 @@
 
 .bear-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* 3 cột đều nhau */
+    grid-template-columns: 1.4fr 1fr 3.5fr 1.4fr 1fr 1fr;
+    /* 3 cột đều nhau */
     align-items: center;
     background: #ffffff;
     padding: 13px 22px;
@@ -37,14 +39,16 @@
 
 .bear-item:hover {
     background: rgba(0, 229, 255, 0.12);
-    border-color: #00E5FF;    border-left: 1px solid red;
+    border-color: #00E5FF;
+    border-left: 1px solid red;
 
     transform: translateX(5px);
 }
 
 .bear-item-selected {
     background: rgba(0, 229, 255, 0.12);
-    border-color: #00E5FF;    border-left: 1px solid red;
+    border-color: #00E5FF;
+    border-left: 1px solid red;
 
     transform: translateX(5px);
 }
@@ -304,6 +308,30 @@
     outline: none;
 }
 
+
+.toggle-status {
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* BẬT */
+.toggle-status.active {
+    color: #16a34a;
+    /* xanh */
+}
+
+/* TẮT */
+.toggle-status.locked {
+    color: #dc2626;
+    /* đỏ */
+}
+
+.toggle-status:hover {
+    transform: scale(1.1);
+}
+
+
 /* MOBILE */
 @media (max-width: 470px) {
     .filter-toggle-wrapper {
@@ -442,6 +470,7 @@
         // flex: 1;
         // padding-bottom: 70px;
     }
+
 
     .pagination {
         // display: block;
