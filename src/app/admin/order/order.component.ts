@@ -54,6 +54,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   click(event: any) {
     // this.isModalVisible = true;
+    console.log(event)
 
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showUser_add = true, 0),
@@ -65,13 +66,41 @@ export class OrderComponent implements OnInit, OnDestroy {
       openModal();
     }
     switch (event) {
-      case '103':
-        break;
+      case '105':
+        this._order.exportOrdersExcel().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Orders.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        }); break;
+      case '106':
+        this._order.exportOrdersPdf().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Orders.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        }); break;
       default:
         break;
     }
   }
 
- 
+
 
 }

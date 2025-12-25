@@ -1,4 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angu
 export class HeaderComponent {
   @Output() languageChange = new EventEmitter<string>();
 
-  constructor(private elRef: ElementRef,) { }
+  constructor(private elRef: ElementRef, private cookieService: CookieService, private router: Router) { }
 
   selectedLanguage: string = 'vi';
   onLanguageChange(): void {
@@ -42,4 +44,10 @@ export class HeaderComponent {
       this.isMenuOpen = false;
     }
   }
+
+  logout() {
+    this.cookieService.delete('access_token', '/');
+    this.router.navigate(['/dang-nhap']);
+  }
+
 }

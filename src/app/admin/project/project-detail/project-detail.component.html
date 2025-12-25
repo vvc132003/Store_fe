@@ -1,1 +1,58 @@
-<p>project-detail works!</p>
+<div class="custom-offcanvas" [class.show]="showoffcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">{{text}}</h5>
+        <button class="close-btn" (click)="close()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div class="container-fluid p-3 ">
+        <div class="offcanvas-body">
+            <div class="product-card ">
+                <div class="image-wrapper" (mouseenter)="onHover()" (mouseleave)="onLeave()">
+                    <img *ngIf="mainImage; else noImage" [src]="mainImage" alt="{{project.name}}" (click)="openModal()"
+                        class="full-image">
+                    <ng-template #noImage>
+                        <div class="image-placeholder">
+                            <i class="bi bi-image text-muted fs-3"></i>
+                            <p class="text-muted small">Không có ảnh</p>
+                        </div>
+                    </ng-template>
+                    <div class="zoom-btn" *ngIf="showZoomBtn" (click)="openModal()">
+                        <i class="bi bi-zoom-in"></i>
+                    </div>
+                </div>
+                <br>
+                <div class="thumb-list" #thumbList>
+                    <img *ngFor="let img of project.images" [src]="img" alt="thumbnail"
+                        [class.active]="img === mainImage" (click)="selectImage(img)">
+                </div>
+                <div class="info-section">
+                    <h4 class="product-name">{{ project?.title }}</h4>
+                    <div class="info-grid">
+                        <div><strong>Code:</strong> {{ project?.code }}</div>
+                        <div><strong>Phí tải:</strong> {{ project?.price | number }} VNĐ</div>
+                        <div><strong>Thể loại:</strong> {{ project?.typeName }}</div>
+                        <div><strong>Lượt xem:</strong> {{ project?.viewCount }}</div>
+                        <div><strong>Lượt tải:</strong> {{ project?.downloadCount }}</div>
+                        <div class="rating">
+                            <strong>Số sao: </strong>
+                            <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                [ngClass]="s <= project.star ? 'fas active' : 'far'">
+                            </i>
+                        </div>
+                        <div><strong>Loại code:</strong> {{ project?.categoryId }}</div>
+                    </div>
+                    <div class="form-control form-control-sm" [innerHTML]="project.description | linebreaks"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="custom-backdrop" [class.show]="showoffcanvas"></div>
+
+<div *ngIf="isModalOpen" class="modal-backdrop" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <img [src]="mainImage" alt="{{project.name}}" class="modal-image">
+        <button class="close-btns" (click)="closeModal()">X</button>
+    </div>
+</div>

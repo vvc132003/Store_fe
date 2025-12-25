@@ -48,8 +48,8 @@
     </div>
 
     <div class="bear-list">
-        <div class="bear-item" *ngFor="let item of pagedData" (click)="clickProject(item)"
-            [ngClass]="{'bear-item-selected': project_id?.id === item?.id}">
+        <div class="bear-item" *ngFor="let item of pagedData" (dblclick)="dblclickProject()"
+            (click)="clickProject(item)" [ngClass]="{'bear-item-selected': project_id?.id === item?.id}">
 
             <div class="col img">
                 <img [src]="item.thumbnailUrl" alt="Thumbnail" width="60" height="60">

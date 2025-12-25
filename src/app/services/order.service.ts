@@ -19,9 +19,17 @@ export class OrderService {
         return this.http.get<any>(`${this.apiUrl}/DownloadCode/${projectId}`);
     }
 
-    
+
     getDashboardSummary(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/getSum`);
+    }
+
+    exportOrdersExcel(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-orders-excel`, { responseType: 'blob' });
+    }
+
+    exportOrdersPdf(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-orders-pdf`, { responseType: 'blob' });
     }
 
 
@@ -40,6 +48,6 @@ export class OrderService {
     // Phương thức DELETE
     deleteData(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/${id}`);
-    }    
+    }
 
 }

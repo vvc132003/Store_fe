@@ -11,6 +11,8 @@ import { ProjectService } from 'src/app/services/project.service';
 export class ProjectComponent implements OnInit, OnDestroy {
 
   showproject_add: boolean = false;
+  showProjectDetail = false;
+
   newproject: any = {};
   project_list: any[] = [];
   project_id: any = {};
@@ -35,6 +37,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
           (a: any, b: any) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+        // console.log(data);
         this.project_id = data[0];
         this.count = this.project_list.length;
 
@@ -51,6 +54,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showproject_add = true, 0),
       '102': () => setTimeout(() => this.showproject_add = true, 0),
+      // '103': () => setTimeout(() => this.showProjectDetail = true, 0),
       '105': () => setTimeout(() => this.showproject_add = true, 0),
 
     };
@@ -65,7 +69,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this.newproject = {};
         this.data = {
           action: 'add',
-          text: 'Thêm mã nguồn'
+          text: 'Tải Source Code'
         };
         break;
       case '102':
@@ -73,10 +77,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this.newproject = this.project_list.find(dr => dr.id == this.project_id.id);
         this.data = {
           action: 'update',
-          text: 'Cập nhật mã nguồn'
+          text: 'Cập nhật Source Code'
         };
         break;
       case '103':
+        this.dbclickDrink();
         break;
       case '104':
         // this._category.deleteData(this.category_id.id).subscribe(data => {
@@ -107,10 +112,37 @@ export class ProjectComponent implements OnInit, OnDestroy {
           }
         });
         break;
+
+      case '107':
+        this._project.exportProjectsPdf().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ProjectsWithImages.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        });
+        break;
+
       default:
         break;
     }
   }
+
+
+  dbclickDrink() {
+    const found = this.project_list.find(dr => dr.id == this.project_id.id);
+    if (!found) return;
+    this.newproject = found;
+    setTimeout(() => this.showProjectDetail = true, 100);
+  }
+
   newData(data: any) {
     const index = this.project_list.findIndex(c => c.id === data.id);
     if (index === -1) {
@@ -135,7 +167,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     // console.log(this.drink);
   }
   close() {
-    // this.showDetail = false;
+    this.showProjectDetail = false;
     this.showproject_add = false;
     setTimeout(() => {
       // this.isModalVisible = false;

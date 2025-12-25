@@ -103,6 +103,10 @@ export class ProjectService {
         return this.http.get(`${this.apiUrl}/export-projects-excel`, { responseType: 'blob' });
     }
 
+    exportProjectsPdf(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-projects-pdf`, { responseType: 'blob' });
+    }
+
     // getProjectByCategorySlug(slug: string, userId?: string): Observable<any> {
     //     return this.http.get<any>(`${this.apiUrl}/project-by-category-slug/${slug}`);
     // }

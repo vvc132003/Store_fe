@@ -59,6 +59,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
 
   click(event: any) {
+    // console.log(event);
+    // return;
     // this.isModalVisible = true;
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showcategory_add = true, 0),
@@ -87,9 +89,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
           text: 'Cập nhật loại code'
         };
         break;
-      case '103':
-        break;
-      case '104':
+        // case '103':
+        //   break;
+        // case '104':
         this._category.deleteData(this.category_id.id).subscribe(res => {
           this.category = this.category.filter(d => d.id !== this.category_id.id);
           this.category_id = this.category[0];
@@ -103,7 +105,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
         };
         break;
       case '106':
-        this._category.exportFavorites().subscribe({
+        this._category.exportFavoritesExcel().subscribe({
           next: (res: Blob) => {
             const url = window.URL.createObjectURL(res);
             const a = document.createElement('a');
@@ -119,6 +121,20 @@ export class CategoryComponent implements OnInit, OnDestroy {
         });
         break;
       case '107':
+        this._category.exportFavoritesPdf().subscribe({
+          next: (res: Blob) => {
+            const url = window.URL.createObjectURL(res);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Favorites.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            // console.error('Download failed', err);
+            // alert('Xuất file thất bại!');
+          }
+        });
         break;
       default:
         break;

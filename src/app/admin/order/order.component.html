@@ -1,4 +1,5 @@
-<app-layout [text]="'Code đã bán'" [count]="count" [tabTemplates]="{customerList,customerAdd}">
+<app-layout [text]="'Code đã bán'" [count]="count" (showPupAdd)="click($event)"
+   [tabTemplates]="{customerList,customerAdd}">
 </app-layout>
 <ng-template #customerList>
    <app-order-list [orders]="orders" [order_id]="order_id" (orderclick)="selectOrder($event)"></app-order-list>

@@ -4,9 +4,14 @@
 </app-form>
 <ng-template #categoryContent>
     <div class="mb-3">
-        <label for="code" class="form-label small">Tên dự án</label>
-        <input type="text" id="title" name="title" class="form-control form-control-sm" (input)="onNameChange()"
-            [(ngModel)]="project.title" />
+        <label for="code" class="form-label small">Code</label>
+        <input type="text" id="code" name="code" class="form-control form-control-sm" [(ngModel)]="project.code"
+            readonly />
+    </div>
+    <div class="mb-3">
+        <label for="code" class="form-label small">Tiêu Đề Code <strong class="text-danger">*</strong></label>
+        <input type="text" id="title" placeholder="VD: Full soucre website bán bút chì" name="title"
+            class="form-control form-control-sm" (input)="onNameChange()" [(ngModel)]="project.title" />
     </div>
     <!-- Chọn file ZIP -->
     <div class="mb-3">
@@ -14,7 +19,7 @@
             <input type="file" id="zip" name="zip" class="form-control form-control-sm"
                 (change)="onFileSelected_zip($event)" accept=".zip" #zipInput style="display: none" />
             <a href="javascript:void(0)" class="custom-file-link" (click)="zipInput.click()">
-                Chọn file ZIP
+                File source code (zip)
             </a>
         </div>
         <div *ngIf="selectedFile_zip" class="file-card mt-2">
@@ -23,6 +28,34 @@
             <button type="button" class="remove-file" (click)="removeSelectedZip()">✖</button>
         </div>
     </div>
+
+    <div class="mb-3">
+        <label for="codeType" class="form-label small">Thể loại <strong class="text-danger">*</strong></label>
+        <select id="codeType" name="codeType" class="form-control form-control-sm" [(ngModel)]="project.typeName">
+            <option *ngFor="let type of codeTypes" [value]="type.name">
+                {{ type.name }}
+            </option>
+        </select>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="category" class="form-label small">Loại code <strong class="text-danger">*</strong></label>
+        <select id="category" name="category" class="form-control form-control-sm" [(ngModel)]="project.categoryId">
+            <option *ngFor="let cat of category" [value]="cat.id">
+                {{ cat.name }}
+            </option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label small">
+            Phí tải Source Code <strong class="text-danger">*</strong>
+        </label>
+        <input type="text" id="price" name="price" placeholder="VD: 50.000 ₫" class="form-control form-control-sm"
+            [value]="formatVND(project.price)" (input)="onPriceInput($event)" />
+    </div>
+
     <!-- <div class="mb-3">
         <label for="description" class="form-label small">Mô tả</label>
         <textarea id="description" name="description" class="form-control form-control-sm"
@@ -31,7 +64,7 @@
 
     <!-- MÔ TẢ -->
     <div class="mb-3">
-        <label class="form-label small">Mô tả chi tiết</label>
+        <label class="form-label small">Mô tả chi tiết <strong class="text-danger">*</strong></label>
 
         <div class="toolbar">
             <button type="button" (click)="exec(descEditor, 'bold')">B</button>
@@ -48,7 +81,7 @@
 
     <!-- HƯỚNG DẪN CÀI ĐẶT -->
     <div class="mb-3">
-        <label class="form-label small">Hướng dẫn cài đặt</label>
+        <label class="form-label small">Hướng dẫn cài đặt <strong class="text-danger">*</strong></label>
 
         <div class="toolbar">
             <button type="button" (click)="exec(guideEditor, 'bold')">B</button>
@@ -63,20 +96,6 @@
         </div>
     </div>
 
-
-    <div class="mb-3">
-        <label for="category" class="form-label small">Danh mục</label>
-        <select id="category" name="category" class="form-control form-control-sm" [(ngModel)]="project.categoryId">
-            <option *ngFor="let cat of category" [value]="cat.id">
-                {{ cat.name }}
-            </option>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label for="price" class="form-label small">Giá</label>
-        <input type="number" id="price" name="price" class="form-control form-control-sm" [(ngModel)]="project.price" />
-    </div>
     <!-- Chọn ảnh -->
     <div class="mb-3">
         <div class="custom-file">

@@ -15,8 +15,12 @@ export class CategoryService {
         return this.http.get<any[]>(this.apiUrl);
     }
 
-    exportFavorites(): Observable<any> {
-        return this.http.get(`${this.apiUrl}/export-favorites`, { responseType: 'blob' });
+    exportFavoritesExcel(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-favorites-excel`, { responseType: 'blob' });
+    }
+
+    exportFavoritesPdf(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/export-favorites-pdf`, { responseType: 'blob' });
     }
 
     // Phương thức POST

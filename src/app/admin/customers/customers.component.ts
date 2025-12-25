@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private titleService: Title, private _user: UserService) { }
+  constructor(private titleService: Title, private _user: UserService, private _notification: NotificationService) { }
   private subscription = new Subscription();
 
   ngOnInit(): void {
@@ -62,7 +63,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   click(event: any) {
     // this.isModalVisible = true;
-
+    console.log(event)
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showUser_add = true, 0),
       '102': () => setTimeout(() => this.showUser_add = true, 0)
@@ -89,7 +90,18 @@ export class CustomersComponent implements OnInit, OnDestroy {
           text: 'Cập nhật khách hàng'
         };
         break;
-      case '103':
+      case '106':
+        const user = this.users.find(u => u.id == this.user_id.id);
+        if (user.role === "admin") {
+          this._notification.showWarning("1009");
+          return;
+        }
+        this.subscription.add(
+          this._user.toggleStatusUser(user.id).subscribe((data: any) => {
+            this._notification.showSuccess("1010");
+            user.status = data.status;
+          })
+        )
         break;
       case '104':
         this._user.deleteData(this.user_id.id).subscribe(data => {

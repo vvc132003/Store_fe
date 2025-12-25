@@ -11,6 +11,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   @Input() project_list: any[] = [];
   @Input() project_id: any;
   @Output() projectclick = new EventEmitter<void>();
+  @Output() dblclick = new EventEmitter<void>();
 
   dateFrom: Date | null = null;
   dateTo: Date | null = null;
@@ -147,4 +148,9 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
     this.project_id = project;
     this.projectclick.emit(project);
   }
+
+  dblclickProject() {
+    this.dblclick.emit();
+  }
+
 }

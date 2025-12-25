@@ -40,17 +40,17 @@ export class ToolbarComponent implements OnInit, OnChanges {
       language: 'vi',
       action: () => this.event('106')
     },
-    {
-      id: '107',
-      funId: '1003',
-      label: 'Cập nhật vai trò',
-      icon: 'fa-user-shield',
-      type: 'primary',
-      class: '',
-      display: 'block',
-      language: 'vi',
-      action: () => this.event('107')
-    },
+    // {
+    //   id: '107',
+    //   funId: '1003',
+    //   label: 'Cập nhật vai trò',
+    //   icon: 'fa-user-shield',
+    //   type: 'primary',
+    //   class: '',
+    //   display: 'block',
+    //   language: 'vi',
+    //   action: () => this.event('107')
+    // },
     { id: '105', funId: '1003', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
     { id: '106', funId: '1003', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
 

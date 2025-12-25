@@ -17,7 +17,13 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   action: string = "";
   category: any[] = [];
 
-
+  codeTypes = [
+    { id: 1, name: 'Website' },
+    { id: 2, name: 'Mobile' },
+    { id: 3, name: 'Desktop' },
+    { id: 4, name: 'Library' },
+    { id: 5, name: 'API' }
+  ];
 
   @Output() closeProjectAdd = new EventEmitter<void>();
   text: string = "";
@@ -49,8 +55,42 @@ export class ProjectAddComponent implements OnChanges, OnInit {
         this.previewImages = [];
       }
     }
+
+    if (this.action === "add") {
+      this.project.categoryId = this.category[0].id;
+      this.project.typeName = this.codeTypes[0].name;
+    }
+    if (this.project && !this.project.code) {
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const numbers = '0123456789';
+      let code = 'PROJ-';
+
+      for (let i = 0; i < 3; i++) {
+        code += letters[Math.floor(Math.random() * letters.length)];
+        code += numbers[Math.floor(Math.random() * numbers.length)];
+      }
+      this.project.code = code
+    }
+  }
+  // Hàm định dạng số thành VND
+  formatVND(value: number | null): string {
+    if (!value) return '';
+    return value.toLocaleString('vi-VN') + ' ₫';
   }
 
+  // Xử lý input
+  onPriceInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    // Loại bỏ ký tự không phải số
+    const numericValue = input.value.replace(/[^0-9]/g, '');
+
+    // Cập nhật project.price (số nguyên)
+    this.project.price = numericValue ? parseInt(numericValue, 10) : 0;
+
+    // Hiển thị lại định dạng VND
+    input.value = this.formatVND(this.project.price);
+  }
   get selectedZipName(): string {
     if (!this.selectedFile_zip) return '';
     return (this.selectedFile_zip instanceof File)
