@@ -184,6 +184,25 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     );
     return JSON.parse(utf8);
   }
+  isTypeOpen = false;
+
+  project_dw: any;
+  showisTypeOpen(project: any) {
+    this.project_dw = project;
+    this.isTypeOpen = true;
+  }
+
+  closeType() {
+    this.isTypeOpen = false;
+  }
+
+  currentUser: any = {};
+
+  onUserLoaded(user: any) {
+    this.currentUser = user;
+    // console.log(user);
+  }
+
 
   showWarning: boolean = false;
   download(project: any): void {
@@ -208,6 +227,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         link.href = downloadUrl;
         link.target = '_blank';
         link.click();
+        this.isTypeOpen = false;
       }, error => {
         console.error('Order creation failed:', error);
       })

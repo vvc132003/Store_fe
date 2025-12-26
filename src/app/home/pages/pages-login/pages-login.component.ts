@@ -27,7 +27,7 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -38,19 +38,19 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    if (!this.user_login.email) {
+      this._notification.showWarning("1019");
+      return;
+    }
     this.subscription.add(
       this._user.postLogin(this.user_login).subscribe((data: any) => {
-        // this.cookieService.set('access_token', data.accessToken, {
-        //   path: '/',
-        //   secure: false,
-        //   sameSite: 'Strict',
-        //   // sameSite: 'None', // chỉ mở ra khi chạy https
-        //   expires: 0.0104167
-        // });
+        if (!data.accessToken) {
+          this._notification.showError(data.code);
+          return;
+        }
         this._user.setToken(data.accessToken);
         const payload = this.parseJwt(data.accessToken);
         const role = payload.role;
-
         if (role === 'admin') {
           this.router.navigate(['/mbcode/admin/revenue/1000']);
         } else {

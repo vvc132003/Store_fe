@@ -19,6 +19,14 @@ export class MessageService {
     { code: '1012', text: 'Vui lòng nhập phí tải Source Code!' },
     { code: '1013', text: 'Vui lòng nhập chọn file Source Code!' },
     { code: '1014', text: 'File quá lớn, không thể tải lên!' },
+    { code: '1015', text: 'Email không tồn tại!' },
+    { code: '1016', text: 'Tài khoản đã bị khóa!' },
+    { code: '1017', text: 'Tài khoản chưa được kích hoạt!' },
+    { code: '1018', text: 'Mật khẩu không đúng!' },
+    { code: '1019', text: 'Bạn chưa nhập email hoặc mật khẩu!' },
+
+
+
 
 
 

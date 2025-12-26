@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{detail}"></app-layout-home>
+<app-layout-home (userLoaded)="onUserLoaded($event)"  [tabTemplates]="{detail}"></app-layout-home>
 <ng-template #detail>
 
     <app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
@@ -70,7 +70,7 @@
                                 <a href="#"><i class="fa fa-bug"></i> Báo code bị lỗi</a>
                             </div>
 
-                            <button (click)="download(project)" class="download-btn">⬇ DOWNLOAD</button>
+                            <button (click)="showisTypeOpen(project)" class="download-btn">⬇ DOWNLOAD</button>
                         </div>
                     </div>
                     <br>
@@ -144,5 +144,8 @@
     </div>
 </ng-template>
 
-<app-session-warning [showWarning]="showWarning" [text]="'Bạn cần đăng nhập để tải Source Code'"
-    [buttons]="'Trang chủ'" [event]="'home'"></app-session-warning>
+<app-session-warning [showWarning]="showWarning" [text]="'Bạn cần đăng nhập để tải Source Code'" [buttons]="'Trang chủ'"
+    [event]="'home'"></app-session-warning>
+
+<app-modal [isTypeOpen]="isTypeOpen" [currentUser]="currentUser" [project_dw]="project_dw" (download)="download($event)"
+    (closeTypeModal)="closeType()"></app-modal>

@@ -1,0 +1,39 @@
+<div class="overlay" [class.show]="isTypeOpen" (click)="closeType()"></div>
+
+<div class="payment-card" [class.show]="isTypeOpen">
+    <button class="btn-close-custom" (click)="closeType()">✕</button>
+
+    <!-- Header -->
+    <div class="payment-header">
+        <div class="avatar">
+            <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="user-info">
+            <div class="name">{{currentUser.fullName}}</div>
+            <div class="email">{{currentUser.email}}</div>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="payment-body">
+        <div class="info-row">
+            <span>Số dư tài khoản</span>
+            <span class="balance">
+                <strong>{{currentUser.balance | number}} đ</strong> + <span class="xu">0 XU</span>
+            </span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info-row total">
+            <span>Source code</span>
+            <span class="price">{{project_dw?.price | number}} đ</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="payment-footer">
+        <button class="btn-cancel" (click)="closeType()">Đóng</button>
+        <button class="btn-pay" (click)="download_dw(project_dw)">Thanh toán</button>
+    </div>
+</div>

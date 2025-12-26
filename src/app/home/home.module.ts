@@ -24,6 +24,7 @@ import { PurchasedCodeComponent } from './purchased-code/purchased-code.componen
 import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { FooterComponent } from './layout-home/footer/footer.component';
+import { ModalComponent } from './project-detail/modal/modal.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -48,6 +49,7 @@ import { FooterComponent } from './layout-home/footer/footer.component';
     FavoriteCodeComponent,
     TransactionComponent,
     FooterComponent,
+    ModalComponent,
     // SessionWarningComponent,
   ],
   imports: [
