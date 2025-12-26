@@ -15,6 +15,13 @@ export class MessageService {
     { code: '1008', text: 'Đánh giá thành công!' },
     { code: '1009', text: 'Không thể thay đổi trạng thái Admin!' },
     { code: '1010', text: 'Cập nhật trạng thái thành công!' },
+    { code: '1011', text: 'Vui lòng nhập tiêu đề Source Code!' },
+    { code: '1012', text: 'Vui lòng nhập phí tải Source Code!' },
+    { code: '1013', text: 'Vui lòng nhập chọn file Source Code!' },
+    { code: '1014', text: 'File quá lớn, không thể tải lên!' },
+
+
+
 
 
 

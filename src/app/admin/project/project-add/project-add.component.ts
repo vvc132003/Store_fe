@@ -122,28 +122,42 @@ export class ProjectAddComponent implements OnChanges, OnInit {
   }
 
   saveProject() {
+
+    if (!this.project.title) {
+      this._notification.showWarning("1011");
+      return;
+    }
+    if (!this.project.price) {
+      this._notification.showWarning("1012");
+      return;
+    }
+    // return;
+
     // this.category.icon = this.categoryIcons[0].icon;
     if (!this.selectedFile_zip || !this.selectedFile_img) {
+      this._notification.showWarning("1013");
       return;
     }
 
     const maxSize = 5 * 1024 * 1024 * 1024;
     if (this.selectedFile_zip.size > maxSize) {
+      this._notification.showWarning("1014");
+
       // console.error('File is too large');
       return;
     }
 
 
-    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
-      this.project.zipPath = res.fileUrl;
-      this.project.thumbnailUrl = res.thumbnailUrl;
-      this.project.images = res.imageUrls;
-      this._project.postData(this.project).subscribe(data => {
-        this.close();
-        this.newData.emit(data);
-        this._notification.showSuccess('1003');
-      });
-    });
+    // this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
+    //   this.project.zipPath = res.fileUrl;
+    //   this.project.thumbnailUrl = res.thumbnailUrl;
+    //   this.project.images = res.imageUrls;
+    //   this._project.postData(this.project).subscribe(data => {
+    //     this.close();
+    //     this.newData.emit(data);
+    //     this._notification.showSuccess('1003');
+    //   });
+    // });
   }
 
   updateCategory() {

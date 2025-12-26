@@ -12,7 +12,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PurchasedCodeComponent implements OnInit, OnDestroy {
 
-
+  codeTypes = [
+    { id: 1, name: 'Website' },
+    { id: 2, name: 'Mobile' },
+    { id: 3, name: 'Desktop' },
+    { id: 4, name: 'Library' },
+    { id: 5, name: 'API' }
+  ];
   // user: any = {};
   orders: any[] = [];
   showFilter = false;
@@ -30,7 +36,7 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
   orderCount: number = 0;
   orderCount_year: number = 0;
 
-  status: boolean | null = null;
+  typeName: string | null = null;
   orderCountData: any[] = [];
   revenueData: any[] = [];
   constructor(private _user: UserService,
@@ -117,7 +123,7 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
 
       // 3. Lọc theo trạng thái (ép kiểu boolean)
       const matchStatus =
-        this.status === null || item.isActive === (this.status === true);
+        this.typeName === null || item.typeName === this.typeName;
 
       return matchText && matchDate && matchStatus;
     });

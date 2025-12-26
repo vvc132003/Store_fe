@@ -20,6 +20,10 @@ export class TransactionService {
         return this.http.get<any[]>(`${this.apiUrl}/withdraw-transactions`);
     }
 
+    getHistoryTransactions(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/history-transactions/${userId}`);
+    }
+
     // Phương thức PUT
     updateData(data: any): Observable<any> {
         return this.http.put<any>(this.apiUrl, data);

@@ -12,8 +12,8 @@
                     <div class="left-side-card">
                         <div class="bear-container">
                             <div class="dashboard-header">
-                                <h5>Quản lý code đã mua</h5>
-                                <p> ({{orders.length}} source code)</p>
+                                <h5>Lịch sử giao dịch</h5>
+                                <p> ({{transactions.length}} source code)</p>
                             </div>
                             <div class="filter-box" [ngClass]="{'show': showFilter}" *ngIf="showFilter || isDesktop">
 
@@ -45,11 +45,12 @@
                                     </div>
                                     <div class="filter-item">
                                         <select class="form-select form-select-sm" style="color:#000;"
-                                            [(ngModel)]="typeName" (change)="applyFilter()">
+                                            [(ngModel)]="transactionType" (change)="applyFilter()">
+
                                             <option [ngValue]="null">-- Tất cả --</option>
-                                            <option *ngFor="let type of codeTypes" [ngValue]="type.name">
-                                                {{ type.name }}
-                                            </option>
+                                            <option [ngValue]="'DOWNLOAD_CODE'">Tải Source Code</option>
+                                            <option [ngValue]="'DEPOSIT'">Nạp tiền</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -57,11 +58,12 @@
 
                             <div class="bear-header ">
                                 <div class="h-col title text-center">STT</div>
-                                <div class="h-col title">Thể loại</div>
-                                <div class="h-col title">Tiêu đề</div>
-                                <div class="h-col desc">Ngôn ngữ</div>
-                                <div class="h-col price">Phí tải</div>
-                                <div class="h-col date">Ngày mua</div>
+                                <div class="h-col note">Số tiền</div>
+                                <div class="h-col date">Nội dung</div>
+                                <div class="h-col date">Loại giao dịch</div>
+                                <div class="h-col date">Trạng thái</div>
+                                <div class="h-col date">Ngày trừ tiền</div>
+
                                 <div class="h-col zip text-center">Thao tác</div>
                             </div>
 
@@ -70,16 +72,27 @@
                                     <div class="h-col title text-center">
                                         {{ (currentPage - 1) * pageSize + i + 1 }}
                                     </div>
-                                    <div class="col title">{{ item?.typeName || '' }}</div>
 
+                                    <div class="col name text-danger">- {{ item.amount |number }} đ</div>
+                                    <div class="col date">{{ item.message}}</div>
+                                    <div class="col date d-flex align-items-center gap-1">
+                                        <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>
+                                        <i *ngIf="item.transactionType === 'TRANSFER'"
+                                            class="bi bi-arrow-right-circle"></i>
+                                        <i *ngIf="item.transactionType === 'WITHDRAW'" class="bi bi-wallet2"></i>
+                                        <i *ngIf="item.transactionType === 'DEPOSIT'" class="bi bi-cash-stack"></i>
+                                        <span [ngClass]="getTransactionTypeLabel(item.transactionType).class">
+                                            {{ getTransactionTypeLabel(item.transactionType).label }}
+                                        </span>
+                                    </div>
 
-                                    <div class="col title">{{ item.title }}</div>
-
-                                    <div class="col desc">{{ item.categoryName }}</div>
-
-                                    <div class="col price">{{ item.price | number }} đ</div>
-
-                                    <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+                                    <div class="col date d-flex align-items-center gap-1">
+                                        <i [class]="'bi ' + getStatusBadge(item.status).icon"></i>
+                                        <span class="badge" [ngClass]="getStatusBadge(item.status).class">
+                                            {{ getStatusBadge(item.status).label }}
+                                        </span>
+                                    </div>
+                                    <div class="col date">{{ item.transactionDate| date:'dd/MM/yyyy HH:mm' }}</div>
 
                                     <div class="col zip text-center">
                                         <div class="col action" (click)="$event.stopPropagation()">

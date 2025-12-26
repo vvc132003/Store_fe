@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(private cookieService: CookieService, private _user: UserService, private elRef: ElementRef, private router: Router) { }
   private subscription = new Subscription();
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   @Input() balance: number = 0;
   @Input() category_list: any[] = [];
   @Output() userLoaded = new EventEmitter<any>();
-  user: any = {};
+  user: any = null;
   showSearchMobile = false;
   showoNotification = false;
 
@@ -44,6 +44,12 @@ export class NavbarComponent implements OnInit {
       }
     }
   }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 
   //#region  event
 

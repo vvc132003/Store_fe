@@ -42,7 +42,11 @@
                         </div>
                         <div><strong>Loại code:</strong> {{ project?.categoryId }}</div>
                     </div>
+                    <strong>Mô tả chi tiết:</strong>
                     <div class="form-control form-control-sm" [innerHTML]="project.description | linebreaks"></div>
+                    <strong>Hướng dẫn cài đặt:</strong>
+                    <div class="form-control form-control-sm" [innerHTML]="project.installationGuide | linebreaks"></div>
+
                 </div>
             </div>
         </div>

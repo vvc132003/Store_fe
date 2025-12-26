@@ -397,7 +397,7 @@
   font-family: 'Nunito', sans-serif;
   transition: 0.2s ease;
 }
-
+.filter-item select:focus,
 .filter-item input[type="text"]:focus {
   border-color: #0f766e;
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.25);

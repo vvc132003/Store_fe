@@ -11,6 +11,7 @@ import { TopupComponent } from './topup/topup.component';
 import { HomeGuard } from '../services/HomeGuard';
 import { PurchasedCodeComponent } from './purchased-code/purchased-code.component';
 import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -21,7 +22,9 @@ const routes: Routes = [
   { path: 'dashboards', component: DashboardsComponent, canActivate: [HomeGuard] },
   { path: 'tk/topup', component: TopupComponent, canActivate: [HomeGuard] },
   { path: 'tk/purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
-  { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] }
+  { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
+  { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] }
+
 
 
 

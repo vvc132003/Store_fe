@@ -3,7 +3,7 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <ul>
-                <li *ngFor="let item of category_list">
+                <li *ngFor="let item of category_list.slice(0, 8);">
                     <a [routerLink]="['/danh-muc-source-code']" [queryParams]="{ category: item.slug }">
                         {{ item.name }}
                     </a>

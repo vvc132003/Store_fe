@@ -22,6 +22,8 @@ import { CardHeaderSideComponent } from './layout-home/card-header-side/card-hea
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PurchasedCodeComponent } from './purchased-code/purchased-code.component';
 import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
+import { TransactionComponent } from './transaction/transaction.component';
+import { FooterComponent } from './layout-home/footer/footer.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
@@ -44,6 +46,8 @@ import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
     CardHeaderSideComponent,
     PurchasedCodeComponent,
     FavoriteCodeComponent,
+    TransactionComponent,
+    FooterComponent,
     // SessionWarningComponent,
   ],
   imports: [

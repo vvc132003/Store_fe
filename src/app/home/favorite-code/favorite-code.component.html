@@ -1,5 +1,5 @@
 <app-layout-home [tabTemplates]="{dashboards}"></app-layout-home>
-<ng-template #dashboards>
+<ng-template #dashboards let-category_list="category_list">
     <div class="project-detail-page">
         <div class="container-fuild">
             <div class="row">
@@ -42,6 +42,16 @@
                                     <div class="filter-item">
                                         <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText"
                                             (input)="applyFilter()">
+                                    </div>
+                                    <div class="filter-item">
+                                        <select class="form-select form-select-sm" style="color:#000;"
+                                            [(ngModel)]="categoryName" (change)="applyFilter()">
+                                            <option [ngValue]="null">-- Tất cả --</option>
+                                            <option *ngFor="let c of category_list" [value]="c.name">
+                                                {{ c.name }}
+                                            </option>
+                                        </select>
+
                                     </div>
                                 </div>
                             </div>
