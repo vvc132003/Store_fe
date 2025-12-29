@@ -40,6 +40,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this._transaction.getWithdrawTransactions().subscribe((res: any[]) => {
         res.sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime());
+        this.transactions = res;
         this.transaction_id = res[0];
         this.count = res.length;
         this.filteredData = [...res];

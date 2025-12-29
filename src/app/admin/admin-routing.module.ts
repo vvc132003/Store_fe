@@ -9,6 +9,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { OrderComponent } from './order/order.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   { path: 'revenue/:funId', component: DashboardComponent, canActivate: [AdminGuard] },
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'order/:funId', component: OrderComponent, canActivate: [AdminGuard] },
   { path: 'deposit/:funId', component: DepositComponent, canActivate: [AdminGuard] },
   { path: 'withdraw/:funId', component: WithdrawComponent, canActivate: [AdminGuard] },
+  { path: 'settings/:funId', component: SettingComponent, canActivate: [AdminGuard] },
+
 
 
 

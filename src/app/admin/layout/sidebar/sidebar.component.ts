@@ -62,19 +62,11 @@ export class SidebarComponent {
     { icon: '📝', label: 'Nội dung', route: '/mbcode/admin/content', funId: '1009' },
     // { icon: '📊', label: 'Doanh thu', route: '/admin/revenue', funId: '1006' },
     {
-      icon: '⚙️', label: 'Cài đặt', route: '/mbcode/admin/settings', funId: '1007',
-      isOpen: false,
-      subMenu: [
-        { label: 'Thông tin website', route: '/mbcode/admin/settings/website', funId: '1007-1' },
-        { label: 'Bảo mật', route: '/mbcode/admin/settings/security', funId: '1007-2' },
-        { label: 'Email & Thông báo', route: '/mbcode/admin/settings/notification', funId: '1007-3' },
-        { label: 'Backup & Restore', route: '/mbcode/admin/settings/backup', funId: '1007-4' },
-        { label: 'Thanh toán', route: '/mbcode/admin/settings/payment', funId: '1007-5' }
-      ]
+      icon: '⚙️', label: 'Cài đặt', route: '/mbcode/admin/settings', funId: '1010'
     },
   ];
 
- toggleSubMenu(item: MenuItem) {
+  toggleSubMenu(item: MenuItem) {
     if (!item.subMenu) return;
 
     // đóng menu khác

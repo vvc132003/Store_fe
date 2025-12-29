@@ -29,6 +29,7 @@ import { OrderComponent } from './order/order.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { SettingComponent } from './setting/setting.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
     OrderListComponent,
     DepositComponent,
     WithdrawComponent,
+    SettingComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,196 @@
+<app-layout [text]="'Cài đặt'" [tabTemplates]="{List}">
+</app-layout>
+<ng-template #List>
+
+    <div class="container">
+        <ul class="nav nav-tabs" id="settingsTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="site-tab" data-bs-toggle="tab" data-bs-target="#site" type="button"
+                    role="tab">Cài đặt trang</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button"
+                    role="tab">Cài đặt thanh toán</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="email-tab" data-bs-toggle="tab" data-bs-target="#email" type="button"
+                    role="tab">Cài đặt Email</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="theme-tab" data-bs-toggle="tab" data-bs-target="#theme" type="button"
+                    role="tab">Giao diện</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="seo-tab" data-bs-toggle="tab" data-bs-target="#seo" type="button"
+                    role="tab">Cài đặt SEO</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button"
+                    role="tab">Bảo mật</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification"
+                    type="button" role="tab">Thông báo</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="settingsTabContent">
+            <!-- Site Settings -->
+            <div class="tab-pane fade show active" id="site" role="tabpanel">
+                <div class="form-section">
+                    <h5>Cài đặt trang</h5>
+                    <div class="mb-3">
+                        <label for="siteName" class="form-label">Tên trang</label>
+                        <input type="text" class="form-control" id="siteName" placeholder="Nhập tên trang">
+                    </div>
+                    <div class="mb-3">
+                        <label for="logo" class="form-label">URL logo</label>
+                        <input type="text" class="form-control" id="logo" placeholder="Nhập đường dẫn logo">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                        <label class="form-check-label" for="maintenanceMode">Chế độ bảo trì</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultLanguage" class="form-label">Ngôn ngữ mặc định</label>
+                        <select class="form-select" id="defaultLanguage">
+                            <option value="vi">Tiếng Việt</option>
+                            <option value="en">Tiếng Anh</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Settings -->
+            <div class="tab-pane fade" id="payment" role="tabpanel">
+                <div class="form-section">
+                    <h5>Payment Settings</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Gateways</label>
+                        <select class="form-select" multiple>
+                            <option value="vnpay">VNPAY</option>
+                            <option value="momo">Momo</option>
+                            <option value="paypal">Paypal</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="currency" class="form-label">Currency</label>
+                        <input type="text" class="form-control" id="currency" value="VND">
+                    </div>
+                    <div class="mb-3">
+                        <label for="commission" class="form-label">Commission (%)</label>
+                        <input type="number" class="form-control" id="commission" value="10">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="enableTestMode">
+                        <label class="form-check-label" for="enableTestMode">Enable Test Mode</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Email Settings -->
+            <div class="tab-pane fade" id="email" role="tabpanel">
+                <div class="form-section">
+                    <h5>Email Settings</h5>
+                    <div class="mb-3">
+                        <label for="smtpHost" class="form-label">SMTP Host</label>
+                        <input type="text" class="form-control" id="smtpHost">
+                    </div>
+                    <div class="mb-3">
+                        <label for="smtpPort" class="form-label">SMTP Port</label>
+                        <input type="number" class="form-control" id="smtpPort" value="587">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Email Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Email Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="enableSSL">
+                        <label class="form-check-label" for="enableSSL">Enable SSL</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Theme Settings -->
+            <div class="tab-pane fade" id="theme" role="tabpanel">
+                <div class="form-section">
+                    <h5>Theme & Appearance</h5>
+                    <div class="mb-3">
+                        <label for="theme" class="form-label">Default Theme</label>
+                        <select class="form-select" id="theme">
+                            <option value="light">Light</option>
+                            <option value="dark" selected>Dark</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="primaryColor" class="form-label">Primary Color</label>
+                        <input type="color" class="form-control form-control-color" id="primaryColor" value="#FF5733">
+                    </div>
+                    <div class="mb-3">
+                        <label for="secondaryColor" class="form-label">Secondary Color</label>
+                        <input type="color" class="form-control form-control-color" id="secondaryColor" value="#333333">
+                    </div>
+                </div>
+            </div>
+            <!-- SEO Settings -->
+            <div class="tab-pane fade" id="seo" role="tabpanel">
+                <div class="form-section">
+                    <h5>SEO Settings</h5>
+                    <div class="mb-3">
+                        <label for="metaTitle" class="form-label">Meta Title</label>
+                        <input type="text" class="form-control" id="metaTitle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="metaDescription" class="form-label">Meta Description</label>
+                        <textarea class="form-control" id="metaDescription" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="metaKeywords" class="form-label">Meta Keywords (comma separated)</label>
+                        <input type="text" class="form-control" id="metaKeywords">
+                    </div>
+                </div>
+            </div>
+            <!-- Security Settings -->
+            <div class="tab-pane fade" id="security" role="tabpanel">
+                <div class="form-section">
+                    <h5>Security Settings</h5>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="enable2FA" checked>
+                        <label class="form-check-label" for="enable2FA">Enable 2FA</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordMinLength" class="form-label">Password Min Length</label>
+                        <input type="number" class="form-control" id="passwordMinLength" value="8">
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="requireSymbols" checked>
+                        <label class="form-check-label" for="requireSymbols">Require Symbols in Password</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Notification Settings -->
+            <div class="tab-pane fade" id="notification" role="tabpanel">
+                <div class="form-section">
+                    <h5>Notification Settings</h5>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                        <label class="form-check-label" for="emailNotifications">Enable Email Notifications</label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="pushNotifications">
+                        <label class="form-check-label" for="pushNotifications">Enable Push Notifications</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lowBalanceThreshold" class="form-label">Low Balance Alert Threshold</label>
+                        <input type="number" class="form-control" id="lowBalanceThreshold" value="10000">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3">Save All Settings</button>
+    </div>
+
+
+</ng-template>
