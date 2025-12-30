@@ -68,12 +68,16 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
       })
     )
   }
-  
+
+  @Output() dataEvent = new EventEmitter<any>();
+
+
   settings: any[] = [];
   loadSetting() {
     this.subscription.add(
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
+        this.dataEvent.emit(res);
       })
     )
   }

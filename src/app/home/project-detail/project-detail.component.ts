@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
@@ -43,7 +43,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";
-  constructor(private titleService: Title, private _project: ProjectService, private route: ActivatedRoute,
+  constructor(private titleService: Title, private sanitizer: DomSanitizer,
+    private _project: ProjectService, private route: ActivatedRoute,
     private _order: OrderService,
     private cookieService: CookieService,
     private _user: UserService
@@ -73,6 +74,9 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     );
   }
 
+  //#region  event
+
+
   prevImage() {
     this.slideIndex =
       (this.slideIndex - 1 + this.project.images.length) % this.project.images.length;
@@ -91,6 +95,13 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   selectTab(index: number) {
     this.activeTab = index;
   }
+
+  goToDemoTab() {
+    this.activeTab = 3;
+    const tabElement = document.querySelector('.tab-content');
+    tabElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   selectImage(img: string) {
     this.mainImage = img;
     this.slideIndex = this.project.images.indexOf(img);
@@ -159,10 +170,21 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         this.breadcrumb_title = data.title;
         this.breadcrumb_categoryname = data.categoryName;
         this.titleService.setTitle(data.title);
+        // console.log(data);
+        this.setSafeUrl(this.project.demoUrl);
       })
     )
 
   }
+  safeUrl: SafeResourceUrl | null = null;
+  setSafeUrl(url?: string) {
+    if (url) {
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    } else {
+      this.safeUrl = null;
+    }
+  }
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -171,7 +193,6 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     }
   }
 
-  //#region  event
 
   private parseJwt(token: string): any {
     const payload = token.split('.')[1];

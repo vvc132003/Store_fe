@@ -26,7 +26,7 @@ export class HeaderComponent implements OnChanges {
   logo: string = "";
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.settings)
+    // console.log(this.settings)
     if (changes['settings'] && this.settings) {
       this.logo = this.settings?.data?.SiteSettings?.logo || "";
     }

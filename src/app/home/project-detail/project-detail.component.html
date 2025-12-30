@@ -1,4 +1,4 @@
-<app-layout-home (userLoaded)="onUserLoaded($event)"  [tabTemplates]="{detail}"></app-layout-home>
+<app-layout-home (userLoaded)="onUserLoaded($event)" [tabTemplates]="{detail}"></app-layout-home>
 <ng-template #detail>
 
     <app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
@@ -26,9 +26,10 @@
                                     [class.active]="img === mainImage" (click)="selectImage(img)">
                             </div>
                             <div class="demo-btn-container">
-                                <button class="demo-btn"><i class="fa fa-desktop"></i> Xem Live Demo</button>
+                                <button class="demo-btn" (click)="goToDemoTab()">
+                                    <i class="fa fa-desktop"></i> Xem Live Demo
+                                </button>
                             </div>
-
                         </div>
                         <div class="col-7">
                             <h1 class="title desktop">{{ project.title }}</h1>
@@ -86,6 +87,9 @@
                                 <li class="nav-item" [class.active]="activeTab === 2">
                                     <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo</a>
                                 </li>
+                                <li class="nav-item" [class.active]="activeTab === 3">
+                                    <a class="nav-link" (click)="selectTab(3)">Xem demo source code</a>
+                                </li>
                             </ul>
 
                             <!-- Tab content, sử dụng ngClass để điều khiển hiển thị nội dung -->
@@ -99,6 +103,11 @@
                                     <div [innerHTML]="project.description | linebreaks"></div>
                                 </div>
                                 <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
+                                    <div class="top-source-title">
+                                        <h4><strong>HƯỚNG DẪN CÀI ĐẶT</strong></h4>
+                                    </div>
+                                    <hr>
+                                    <br>
                                     <div [innerHTML]="project.installationGuide | linebreaks"></div>
                                 </div>
                                 <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
@@ -111,6 +120,18 @@
                                     <div class="image-gallery" *ngIf="project.images?.length">
                                         <img *ngFor="let img of project.images" [src]="img" [alt]="project.title"
                                             class="main-preview">
+                                    </div>
+                                </div>
+                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 3}">
+                                    <div class="top-source-title">
+                                        <h4><strong>XEM VIDEO SOURCE CODE</strong></h4>
+                                    </div>
+                                    <hr>
+                                    <br>
+                                    <div class="video-container text-center">
+                                        <video width="860" height="480" controls *ngIf="safeUrl">
+                                            <source [src]="safeUrl" type="video/mp4">
+                                        </video>
                                     </div>
                                 </div>
                             </div>

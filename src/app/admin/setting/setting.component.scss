@@ -1,9 +1,33 @@
-.tab-content {
+.container {
+    position: relative;
+    max-width: 1200px;
+    min-height: 80vh;
     background: #ffffff;
-    padding: 20px;
+    border: 1px solid #f1f1f1;
     border-radius: 5px;
-    border: 1px solid #f3eeea;
-    margin-top: 10px;
+    // box-shadow: 0 1px 2.94px .06px #041a3729;
+}
+
+
+.tab-content {
+    margin-top: 15px;
+    padding: 20px;
+    // background: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    min-height: 400px;
+}
+
+
+.nav-tabs .nav-link {
+    color: #555;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    background-color: #fff;
+    border-bottom: 2px solid #0d6efd;
 }
 
 .form-section {
@@ -27,4 +51,16 @@
     border-radius: 4px;
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
+}
+
+.offcanvas-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem;
+    // background: white;
+    text-align: right;
+    left: 0;
+    // z-index: 1060 !important;
 }

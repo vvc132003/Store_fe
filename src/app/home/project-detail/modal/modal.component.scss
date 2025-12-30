@@ -1,45 +1,45 @@
 .category-icon-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -10%) scale(0.8);
-    opacity: 0;
-    width: 500px;
-    max-width: 90%;
-    z-index: 1101 !important;
-    border-radius: 0px;
-    background-color: white;
-    padding: 20px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    pointer-events: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%) scale(0.8);
+  opacity: 0;
+  width: 500px;
+  max-width: 90%;
+  z-index: 1101 !important;
+  border-radius: 0px;
+  background-color: white;
+  padding: 20px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .category-icon-card.show {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .category-icon-card .card-body {
-    text-align: center;
+  text-align: center;
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1051 !important;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1051 !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .overlay.show {
-    opacity: 1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .payment-card {
@@ -50,17 +50,20 @@
   max-width: 90%;
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   transform: translate(-50%, -45%) scale(0.9);
   opacity: 0;
   transition: all 0.35s ease;
   z-index: 1100;
   padding: 20px;
+  pointer-events: none;
 }
 
 .payment-card.show {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
+  pointer-events: auto;
+
 }
 
 /* Close button */

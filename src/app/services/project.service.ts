@@ -130,12 +130,13 @@ export class ProjectService {
     }
 
 
-    uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string, imageFiles: File[]): Observable<any> {
+    uploadZip(file_zip: File, file_img: File, fileName_zip: string, fileName_thumnai: string, imageFiles: File[], selectedFile_video: File): Observable<any> {
         const formData = new FormData();
         formData.append('zipFile', file_zip);
         formData.append('thumbnailUrl', file_img);
         formData.append('fileName_zip', fileName_zip);
         formData.append('fileName_thumnai', fileName_thumnai);
+        formData.append('video', selectedFile_video);
         if (imageFiles && imageFiles.length > 0) {
             imageFiles.forEach(file => {
                 formData.append('images', file);

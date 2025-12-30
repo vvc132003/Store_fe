@@ -137,6 +137,9 @@
         <input type="text" id="version" name="version" class="form-control form-control-sm"
             [(ngModel)]="project.version" />
     </div>
+    <!-- video-upload.component.html -->
+    <input type="file" (change)="onFileSelected_video($event)" accept="video/*">
+
     <div class="offcanvas-footer">
         <button type="button" class="btn btn-primary px-4" (click)="save()">
             <i class="fa fa-save"></i>

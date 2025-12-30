@@ -1,4 +1,4 @@
-<app-layout [text]="'Cài đặt'" [tabTemplates]="{List}">
+<app-layout [text]="'Cài đặt'" (dataEvent)="receiveData($event)" [tabTemplates]="{List}">
 </app-layout>
 <ng-template #List>
 
@@ -44,13 +44,13 @@
                         <input type="text" class="form-control" id="siteName"
                             [(ngModel)]="setting.SiteSettings.siteName" placeholder="Nhập tên trang">
                     </div>
-
+                    <!-- /logo/logo.png -->
                     <div class="mb-3">
                         <div class="custom-file">
                             <input type="file" id="image" name="image" class="form-control form-control-sm"
                                 (change)="onFileSelected_img($event)" #imageInput style="display: none" />
                             <a href="javascript:void(0)" class="custom-file-link" (click)="imageInput.click()">
-                                Chọn ảnh
+                                Chọn Logo
                             </a>
                         </div>
                         <img *ngIf="previewImg" [src]="previewImg" alt="Thumbnail" class="img-fluid mt-1"
@@ -108,35 +108,39 @@
                     <div class="mb-3">
                         <label for="smtpHost" class="form-label">SMTP Host</label>
                         <input type="text" class="form-control" id="smtpHost"
-                            [(ngModel)]="setting.EmailSettings.smtpHost" name="smtpHost" placeholder="Nhập SMTP Host">
+                            [(ngModel)]="setting.EmailSettings.smtpHost" name="smtpHost"
+                            placeholder="VD: smtp.gmail.com">
                     </div>
 
                     <div class="mb-3">
                         <label for="smtpPort" class="form-label">SMTP Port</label>
                         <input type="number" class="form-control" id="smtpPort"
-                            [(ngModel)]="setting.EmailSettings.smtpPort" name="smtpPort" placeholder="587">
+                            [(ngModel)]="setting.EmailSettings.smtpPort" name="smtpPort" placeholder="VD: 587">
                     </div>
 
                     <div class="mb-3">
-                        <label for="username" class="form-label">Email Username</label>
+                        <label for="username" class="form-label">Tên người dùng Email</label>
                         <input type="text" class="form-control" id="username"
-                            [(ngModel)]="setting.EmailSettings.username" name="username" placeholder="Nhập Username">
+                            [(ngModel)]="setting.EmailSettings.username" name="username"
+                            placeholder="VD: vvc132003@gmail.com">
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">Email Password</label>
+                        <label for="password" class="form-label">Mật khẩu Email</label>
                         <input type="password" class="form-control" id="password"
-                            [(ngModel)]="setting.EmailSettings.password" name="password" placeholder="Nhập Password">
+                            [(ngModel)]="setting.EmailSettings.password" name="password"
+                            placeholder="VD: bzcaumaekzuvwlia">
                     </div>
 
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" id="enableSSL"
                             [(ngModel)]="setting.EmailSettings.enableSSL" name="enableSSL">
-                        <label class="form-check-label" for="enableSSL">Enable SSL</label>
+                        <label class="form-check-label" for="enableSSL">Kích hoạt SSL</label>
                     </div>
 
                 </div>
             </div>
+
 
             <!-- Theme Settings -->
             <div class="tab-pane fade" id="theme" role="tabpanel">
@@ -180,41 +184,61 @@
             <!-- Security Settings -->
             <div class="tab-pane fade" id="security" role="tabpanel">
                 <div class="form-section">
-                    <h5>Security Settings</h5>
+                    <h5>Cài đặt bảo mật</h5>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="enable2FA" checked>
-                        <label class="form-check-label" for="enable2FA">Enable 2FA</label>
+                        <input class="form-check-input" type="checkbox" id="enable2FA"
+                            [(ngModel)]="setting.SecuritySettings.enable2FA" checked>
+                        <label class="form-check-label" for="enable2FA">Kích hoạt xác thực 2 bước (2FA)</label>
                     </div>
+
                     <div class="mb-3">
-                        <label for="passwordMinLength" class="form-label">Password Min Length</label>
-                        <input type="number" class="form-control" id="passwordMinLength" value="8">
+                        <label for="passwordMinLength" class="form-label">Độ dài tối thiểu của mật khẩu</label>
+                        <input type="number" class="form-control"
+                            [(ngModel)]="setting.SecuritySettings.passwordMinLength" id="passwordMinLength" value="8">
                     </div>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="requireSymbols" checked>
-                        <label class="form-check-label" for="requireSymbols">Require Symbols in Password</label>
+                        <input class="form-check-input" type="checkbox" id="requireSymbols"
+                            [(ngModel)]="setting.SecuritySettings.requireSymbols" checked>
+                        <label class="form-check-label" for="requireSymbols">Yêu cầu ký tự đặc biệt trong mật
+                            khẩu</label>
                     </div>
+
                 </div>
             </div>
+
             <!-- Notification Settings -->
             <div class="tab-pane fade" id="notification" role="tabpanel">
                 <div class="form-section">
-                    <h5>Notification Settings</h5>
+                    <h5>Cài đặt thông báo</h5>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
-                        <label class="form-check-label" for="emailNotifications">Enable Email Notifications</label>
+                        <input class="form-check-input" type="checkbox" id="emailNotifications"
+                            [(ngModel)]="setting.NotificationSettings.emailNotifications" checked>
+                        <label class="form-check-label" for="emailNotifications">Bật thông báo qua Email</label>
                     </div>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="pushNotifications">
-                        <label class="form-check-label" for="pushNotifications">Enable Push Notifications</label>
+                        <input class="form-check-input" type="checkbox" id="pushNotifications"
+                            [(ngModel)]="setting.NotificationSettings.pushNotifications">
+                        <label class="form-check-label" for="pushNotifications">Bật thông báo đẩy</label>
                     </div>
+
                     <div class="mb-3">
-                        <label for="lowBalanceThreshold" class="form-label">Low Balance Alert Threshold</label>
-                        <input type="number" class="form-control" id="lowBalanceThreshold" value="10000">
+                        <label for="lowBalanceThreshold" class="form-label">Ngưỡng cảnh báo số dư thấp</label>
+                        <input type="text" style="color: red;" placeholder="VD: 50.000 ₫" class="form-control" id="lowBalanceThreshold"
+                          [value]="formatVND(setting.NotificationSettings.lowBalanceThreshold)" (input)="onPriceInput($event)">
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary mt-3" (click)="saveSettings()">Save All Settings</button>
+        <div class="offcanvas-footer">
+            <button type="button" class="btn btn-primary px-4" (click)="save()">
+                <i class="fa fa-save"></i>
+                Lưu
+            </button>
+        </div>
     </div>
 
 

@@ -134,7 +134,7 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     // return;
 
     // this.category.icon = this.categoryIcons[0].icon;
-    if (!this.selectedFile_zip || !this.selectedFile_img) {
+    if (!this.selectedFile_zip || !this.selectedFile_img || !this.selectedFile_video) {
       this._notification.showWarning("1013");
       return;
     }
@@ -148,10 +148,11 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     }
 
 
-    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
+    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles, this.selectedFile_video).subscribe(res => {
       this.project.zipPath = res.fileUrl;
       this.project.thumbnailUrl = res.thumbnailUrl;
       this.project.images = res.imageUrls;
+      this.project.demoUrl = res.video;
       this._project.postData(this.project).subscribe(data => {
         this.close();
         this.newData.emit(data);
@@ -167,6 +168,12 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     // this.close();
     // this.newData.emit(data);
     // })
+  }
+
+
+  selectedFile_video: File | null = null;
+  onFileSelected_video(event: any) {
+    this.selectedFile_video = event.target.files[0];
   }
 
   selectedTags: any[] = [];
