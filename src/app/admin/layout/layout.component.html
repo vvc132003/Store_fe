@@ -1,5 +1,5 @@
 <div class="admin-layout">
-  <app-header (languageChange)="onLanguageChange($event)"></app-header>
+  <app-header [settings]="settings" (languageChange)="onLanguageChange($event)"></app-header>
   <app-toolbar [language]="selectedLanguage" [tableName]="tableName" [count]="count" [text]="text"
     [buttonNone]="buttonNone" (showButtonss)="evetnbuttons($event)" (showPupAdd)="onChildClick($event)"></app-toolbar>
   <div class="admin-body">

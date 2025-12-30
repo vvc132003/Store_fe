@@ -1,0 +1,31 @@
+import { Injectable, TemplateRef } from '@angular/core';
+import { API_URLS } from '../config/api-urls';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class SettingsService {
+    private apiUrl = API_URLS.api + '/Settings';
+    constructor(private http: HttpClient) {
+    }
+
+    // Phương thức GET
+    getData(): Observable<any> {
+        return this.http.get<any[]>(this.apiUrl);
+    }
+
+    // Phương thức POST
+    postData(data: any): Observable<any> {
+        return this.http.post<any>(this.apiUrl, data);
+    }
+
+    uploadLogo(logo: File, fileName_logo: string): Observable<any> {
+        const formData = new FormData();
+        formData.append('logo', logo);
+        formData.append('fileName_logo', fileName_logo);
+        return this.http.post<any>(`${this.apiUrl}/Uploadlogo`, formData);
+    }
+
+}

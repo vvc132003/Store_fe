@@ -148,16 +148,16 @@ export class ProjectAddComponent implements OnChanges, OnInit {
     }
 
 
-    // this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
-    //   this.project.zipPath = res.fileUrl;
-    //   this.project.thumbnailUrl = res.thumbnailUrl;
-    //   this.project.images = res.imageUrls;
-    //   this._project.postData(this.project).subscribe(data => {
-    //     this.close();
-    //     this.newData.emit(data);
-    //     this._notification.showSuccess('1003');
-    //   });
-    // });
+    this._project.uploadZip(this.selectedFile_zip, this.selectedFile_img, this.project.zipPath, this.project.thumbnailUrl, this.imageFiles).subscribe(res => {
+      this.project.zipPath = res.fileUrl;
+      this.project.thumbnailUrl = res.thumbnailUrl;
+      this.project.images = res.imageUrls;
+      this._project.postData(this.project).subscribe(data => {
+        this.close();
+        this.newData.emit(data);
+        this._notification.showSuccess('1003');
+      });
+    });
   }
 
   updateCategory() {

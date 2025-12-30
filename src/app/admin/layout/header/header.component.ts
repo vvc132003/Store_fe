@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -7,8 +7,9 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnChanges {
   @Output() languageChange = new EventEmitter<string>();
+  @Input() settings: any;
 
   constructor(private elRef: ElementRef, private cookieService: CookieService, private router: Router) { }
 
@@ -22,6 +23,16 @@ export class HeaderComponent {
     const savedLang = localStorage.getItem('selectedLanguage');
     this.selectedLanguage = savedLang || 'vi';
   }
+  logo: string = "";
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.settings)
+    if (changes['settings'] && this.settings) {
+      this.logo = this.settings?.data?.SiteSettings?.logo || "";
+    }
+  }
+
+
 
   showoNotification = false;
   showoNotificationt() {

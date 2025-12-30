@@ -1,4 +1,5 @@
-<app-navbar (userLoaded)="onUserLoaded($event)" [balance]="balance" [category_list]="category_list"></app-navbar>
+<app-navbar [settings]="settings" (userLoaded)="onUserLoaded($event)" [balance]="balance"
+  [category_list]="category_list"></app-navbar>
 <!-- <div class="div"> -->
 <ng-container *ngFor="let entry of tabTemplates | keyvalue">
   <ng-container [ngTemplateOutlet]="entry.value" [ngTemplateOutletContext]="{

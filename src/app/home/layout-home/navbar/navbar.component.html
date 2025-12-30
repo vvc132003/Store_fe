@@ -2,7 +2,10 @@
     <a class="mobile-menu" (click)="toggleMobileMenu()">
         <i class="fas fa-ellipsis-v"></i>
     </a>
-    <div class="logo" [routerLink]="['/']"> &lt;/&gt; CodeMarket</div>
+
+    <div class="logo" [routerLink]="['/']">
+        <img [src]="logo" alt="">
+    </div>
 
     <div class="search-box" [ngClass]="{ 'showSearch-mobile': showSearchMobile }">
         <a href="">

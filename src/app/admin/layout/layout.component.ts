@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { SettingsService } from 'src/app/services/setting.service';
 
 @Component({
   selector: 'app-layout',
@@ -15,13 +16,14 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
   @Input() tableName: string = "";
 
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
-  constructor(private conversationService: ConversationService) {
+  constructor(private conversationService: ConversationService, private _setting: SettingsService) {
 
   }
   private subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadInitialChat();
+    this.loadSetting();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -66,4 +68,14 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
       })
     )
   }
+  
+  settings: any[] = [];
+  loadSetting() {
+    this.subscription.add(
+      this._setting.getData().subscribe((res: any) => {
+        this.settings = res;
+      })
+    )
+  }
+
 }

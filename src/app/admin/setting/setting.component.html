@@ -41,19 +41,32 @@
                     <h5>Cài đặt trang</h5>
                     <div class="mb-3">
                         <label for="siteName" class="form-label">Tên trang</label>
-                        <input type="text" class="form-control" id="siteName" placeholder="Nhập tên trang">
+                        <input type="text" class="form-control" id="siteName"
+                            [(ngModel)]="setting.SiteSettings.siteName" placeholder="Nhập tên trang">
                     </div>
+
                     <div class="mb-3">
-                        <label for="logo" class="form-label">URL logo</label>
-                        <input type="text" class="form-control" id="logo" placeholder="Nhập đường dẫn logo">
+                        <div class="custom-file">
+                            <input type="file" id="image" name="image" class="form-control form-control-sm"
+                                (change)="onFileSelected_img($event)" #imageInput style="display: none" />
+                            <a href="javascript:void(0)" class="custom-file-link" (click)="imageInput.click()">
+                                Chọn ảnh
+                            </a>
+                        </div>
+                        <img *ngIf="previewImg" [src]="previewImg" alt="Thumbnail" class="img-fluid mt-1"
+                            style="max-height: 120px;">
                     </div>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                        <input class="form-check-input" type="checkbox" id="maintenanceMode"
+                            [(ngModel)]="setting.SiteSettings.maintenanceMode">
                         <label class="form-check-label" for="maintenanceMode">Chế độ bảo trì</label>
                     </div>
+
                     <div class="mb-3">
                         <label for="defaultLanguage" class="form-label">Ngôn ngữ mặc định</label>
-                        <select class="form-select" id="defaultLanguage">
+                        <select class="form-select" id="defaultLanguage"
+                            [(ngModel)]="setting.SiteSettings.defaultLanguage">
                             <option value="vi">Tiếng Việt</option>
                             <option value="en">Tiếng Anh</option>
                         </select>
@@ -90,29 +103,41 @@
             <!-- Email Settings -->
             <div class="tab-pane fade" id="email" role="tabpanel">
                 <div class="form-section">
-                    <h5>Email Settings</h5>
+                    <h5>Cài đặt Email</h5>
+
                     <div class="mb-3">
                         <label for="smtpHost" class="form-label">SMTP Host</label>
-                        <input type="text" class="form-control" id="smtpHost">
+                        <input type="text" class="form-control" id="smtpHost"
+                            [(ngModel)]="setting.EmailSettings.smtpHost" name="smtpHost" placeholder="Nhập SMTP Host">
                     </div>
+
                     <div class="mb-3">
                         <label for="smtpPort" class="form-label">SMTP Port</label>
-                        <input type="number" class="form-control" id="smtpPort" value="587">
+                        <input type="number" class="form-control" id="smtpPort"
+                            [(ngModel)]="setting.EmailSettings.smtpPort" name="smtpPort" placeholder="587">
                     </div>
+
                     <div class="mb-3">
                         <label for="username" class="form-label">Email Username</label>
-                        <input type="text" class="form-control" id="username">
+                        <input type="text" class="form-control" id="username"
+                            [(ngModel)]="setting.EmailSettings.username" name="username" placeholder="Nhập Username">
                     </div>
+
                     <div class="mb-3">
                         <label for="password" class="form-label">Email Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password"
+                            [(ngModel)]="setting.EmailSettings.password" name="password" placeholder="Nhập Password">
                     </div>
+
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="enableSSL">
+                        <input class="form-check-input" type="checkbox" id="enableSSL"
+                            [(ngModel)]="setting.EmailSettings.enableSSL" name="enableSSL">
                         <label class="form-check-label" for="enableSSL">Enable SSL</label>
                     </div>
+
                 </div>
             </div>
+
             <!-- Theme Settings -->
             <div class="tab-pane fade" id="theme" role="tabpanel">
                 <div class="form-section">
@@ -189,7 +214,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary mt-3">Save All Settings</button>
+        <button class="btn btn-primary mt-3" (click)="saveSettings()">Save All Settings</button>
     </div>
 
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef 
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { SettingsService } from 'src/app/services/setting.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   @Input() balance: number = 0;
   category_list: any[] = [];
 
-  constructor(private _category: CategoryService, private _user: UserService, private conversationService: ConversationService) {
+  constructor(private _category: CategoryService, private _setting: SettingsService, private _user: UserService, private conversationService: ConversationService) {
 
   }
   private subscription = new Subscription();
@@ -24,6 +25,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadcategory_list();
     this.loadInitialChat();
+    this.loadSetting();
   }
   loadcategory_list() {
     this.subscription.add(
@@ -31,6 +33,15 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
         this.category_list = data.slice(0, 11);
         this.categoryChange.emit(this.category_list);
         // console.log(data);
+      })
+    )
+  }
+
+  settings: any[] = [];
+  loadSetting() {
+    this.subscription.add(
+      this._setting.getData().subscribe((res: any) => {
+        this.settings = res;
       })
     )
   }

@@ -1,8 +1,9 @@
 <header class="admin-header">
     <div class="left-section">
-        <div class="logo">
-            <i class="bi bi-shop"></i> Logo
+        <div class="logo" *ngIf="logo">
+            <img [src]="logo" alt="Logo">
         </div>
+
     </div>
     <div class="right-section">
         <div class="icon-wrapper" (click)="showoNotificationt()">
