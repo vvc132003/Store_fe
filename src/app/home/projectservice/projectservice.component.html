@@ -1,0 +1,55 @@
+<app-layout-home [tabTemplates]="{detail}"></app-layout-home>
+<ng-template #detail>
+    <div class="project-detail-page">
+        <div class="bubbles">
+            <span *ngFor="let style of bubbleStyles" [ngStyle]="{
+          'animation-duration': style.animationDuration,
+          'animation-delay': style.animationDelay,
+          'left': style.left,
+          'top': style.top,
+          'width': style.size,
+          'height': style.size
+        }">
+            </span>
+        </div>
+
+        <div class="container-fluid">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1>Giải Pháp Đồ Án Chuyên Nghiệp</h1>
+                    <h1>Cho Sinh Viên Thời Đại Mới</h1>
+                    <p>Đội ngũ chuyên gia hàng đầu - Cam kết chất lượng - Bảo mật tuyệt đối</p>
+                    <div class="buttons">
+                        <button class=" liquid-button"> <i class="fas fa-rocket me-2"></i>Bắt Đầu Ngay</button>
+                        <button
+                            style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);"
+                            class="liquid-button"><i class="fas fa-play-circle me-2"></i>Xem Demo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Các dịch vụ nổi bật -->
+            <div class="service-cards">
+                <div class="card" (mousemove)="onMouseMove($event, 0)" (mouseleave)="onMouseLeave(0)"
+                    [ngStyle]="{'transform': transformStyles[0]}">
+                    <div class="icon">👩‍💻</div>
+                    <h2>100+ Chuyên Gia</h2>
+                    <p>Đội ngũ giảng viên, thạc sĩ và kỹ sư giàu kinh nghiệm</p>
+                </div>
+                <div class="card" (mousemove)="onMouseMove($event, 1)" (mouseleave)="onMouseLeave(1)"
+                    [ngStyle]="{'transform': transformStyles[1]}">
+                    <div class="icon">🔒</div>
+                    <h2>Cam Kết 100%</h2>
+                    <p>Hoàn tiền toàn bộ nếu không hài lòng với chất lượng</p>
+                </div>
+                <div class="card" (mousemove)="onMouseMove($event, 2)" (mouseleave)="onMouseLeave(2)"
+                    [ngStyle]="{'transform': transformStyles[2]}">
+                    <div class="icon">🛡️</div>
+                    <h2>Bảo Mật Tuyệt Đối</h2>
+                    <p>Thông tin khách hàng được mã hóa và bảo vệ tối đa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home.component';
 import { IndexComponent } from './index/index.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { CategorySourceCodeComponent } from './category-source-code/category-source-code.component';
@@ -12,6 +11,7 @@ import { HomeGuard } from '../services/HomeGuard';
 import { PurchasedCodeComponent } from './purchased-code/purchased-code.component';
 import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { ProjectserviceComponent } from './projectservice/projectservice.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -23,7 +23,9 @@ const routes: Routes = [
   { path: 'tk/topup', component: TopupComponent, canActivate: [HomeGuard] },
   { path: 'tk/purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
-  { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] }
+  { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] },
+  { path: 'project-service', component: ProjectserviceComponent, canActivate: [HomeGuard] }
+
 
 
 

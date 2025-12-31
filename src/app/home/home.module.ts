@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
 import { LayoutHomeComponent } from './layout-home/layout-home.component';
 import { NavbarComponent } from './layout-home/navbar/navbar.component';
 import { HeaderComponent } from './layout-home/header/header.component';
@@ -25,12 +24,12 @@ import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { FooterComponent } from './layout-home/footer/footer.component';
 import { ModalComponent } from './project-detail/modal/modal.component';
+import { ProjectserviceComponent } from './projectservice/projectservice.component';
 // import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
     LayoutHomeComponent,
     NavbarComponent,
     HeaderComponent,
@@ -50,6 +49,7 @@ import { ModalComponent } from './project-detail/modal/modal.component';
     TransactionComponent,
     FooterComponent,
     ModalComponent,
+    ProjectserviceComponent,
     // SessionWarningComponent,
   ],
   imports: [
