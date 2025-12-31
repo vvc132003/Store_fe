@@ -27,6 +27,10 @@ export class MessageService {
     { code: '1020', text: 'Thêm cấu hình thành công!' },
     { code: '1021', text: 'Cập nhật cấu hình thành công!' },
     { code: '1022', text: 'Bạn chưa chọn ảnh!' },
+    { code: '1023', text: 'Mật khẩu chưa đạt yêu cầu bảo mật!' },
+    { code: '1024', text: 'Mật khẩu không khớp!' },
+
+
 
 
 

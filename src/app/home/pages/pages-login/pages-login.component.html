@@ -7,7 +7,15 @@
 
     <input type="email" placeholder="Email" [(ngModel)]="user_login.email" name="email" required />
 
-    <input type="password" placeholder="Mật khẩu" [(ngModel)]="user_login.password" name="password" required />
+    <!-- <input type="password" placeholder="Mật khẩu" [(ngModel)]="user_login.password" name="password" required /> -->
+    <div class="password-wrapper">
+      <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Nhập lại mật khẩu"
+        [(ngModel)]="user_login.password" name="confirmPassword" required />
+
+      <span class="toggle-password" (click)="showConfirmPassword = !showConfirmPassword">
+        <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+      </span>
+    </div>
 
     <div class="links">
       <a routerLink="/">Trang chủ</a>

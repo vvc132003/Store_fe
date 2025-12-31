@@ -209,6 +209,11 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
   project_dw: any;
   showisTypeOpen(project: any) {
+    const token = this.cookieService.get('access_token');
+    if (!token) {
+      this.showWarning = true;
+      return;
+    }
     this.project_dw = project;
     this.isTypeOpen = true;
   }

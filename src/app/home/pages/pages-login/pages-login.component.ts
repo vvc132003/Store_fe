@@ -13,6 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PagesLoginComponent implements OnInit, OnDestroy {
 
+  showPassword = false;
+  showConfirmPassword = false;
+
   user_login: any = {};
   showSessionWarning: boolean = false;
   constructor(private titleService: Title, private cookieService: CookieService,

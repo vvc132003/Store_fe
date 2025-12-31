@@ -7,9 +7,36 @@
         <input type="text" placeholder="Họ và tên" [(ngModel)]="user_register.fullName" name="fullName" required />
         <input type="email" placeholder="Email" [(ngModel)]="user_register.email" name="email" required />
 
-        <input type="password" placeholder="Mật khẩu" [(ngModel)]="user_register.password" name="password" required />
-        <input type="password" placeholder="Nhập lại mật khẩu" [(ngModel)]="confirmPassword" name="confirmPassword"
-            required />
+        <div class="password-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" placeholder="Mật khẩu"
+                [(ngModel)]="user_register.password" name="password" required (input)="checkPassword()" />
+
+            <span class="toggle-password" (click)="showPassword = !showPassword">
+                <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </span>
+        </div>
+
+
+        <ul class="password-rules" *ngIf="securitySettings && passwordTouched ">
+            <li [class.ok]="passwordRules.minLength" [class.error]="!passwordRules.minLength">
+                <span>{{ passwordRules.minLength ? '✔️' : '❌' }}</span>
+                Ít nhất {{ securitySettings.passwordMinLength }} ký tự
+            </li>
+
+            <li *ngIf="securitySettings.requireSymbols" [class.ok]="passwordRules.symbol"
+                [class.error]="!passwordRules.symbol">
+                <span>{{ passwordRules.symbol ? '✔️' : '❌' }}</span>
+                Chứa ít nhất 1 ký tự đặc biệt
+            </li>
+        </ul>
+        <div class="password-wrapper">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Nhập lại mật khẩu"
+                [(ngModel)]="confirmPassword" name="confirmPassword" required />
+
+            <span class="toggle-password" (click)="showConfirmPassword = !showConfirmPassword">
+                <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </span>
+        </div>
         <div class="links">
             <a routerLink="/">Trang chủ</a>
             <a routerLink="/forgot-password">Quên mật khẩu</a>

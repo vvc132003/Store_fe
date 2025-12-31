@@ -30,14 +30,14 @@
   text-decoration: none;
 }
 
-input {
-  width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 18px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  font-size: 15px;
-}
+// input {
+//   width: 100%;
+//   padding: 12px 14px;
+//   margin-bottom: 18px;
+//   border-radius: 4px;
+//   border: 1px solid #ddd;
+//   font-size: 15px;
+// }
 
 .links {
   display: flex;
@@ -100,4 +100,47 @@ input {
     font-weight: 500;
     text-decoration: none;
   }
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 4px;
+  border: 1px solid #c8c4c4;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input:hover {
+  border-color: #c8c4c4;
+}
+
+input:focus {
+  border-color: #2d7ff9;
+  // box-shadow: 0 0 0 3px rgba(45, 127, 249, 0.15);
+}
+
+
+.password-wrapper {
+  position: relative;
+
+  input {
+    padding-right: 42px; // chừa chỗ cho icon 👁
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  font-size: 16px;
+}
+
+.toggle-password:hover {
+  color: #2d7ff9;
 }
