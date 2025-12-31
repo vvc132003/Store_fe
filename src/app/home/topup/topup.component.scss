@@ -177,3 +177,39 @@
 .btn-close:hover {
   background: #333;
 }
+
+
+@media (max-width: 470px) {
+  .project-detail-page {
+    padding: 80px 0px;
+    margin-top: 0;
+  }
+
+  .right-side-card {
+    position: relative;
+  }
+
+  .left-side-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .left-side-card .col-9,
+  .left-side-card .col-7 {
+    width: 100%;
+  }
+
+  .right-side,
+  .left-side {
+    flex: 0 0 100%;
+    margin-left: 0;
+    padding: 0px 23px;
+    margin-bottom: 20px;
+  }
+
+  .left-side {
+    margin-bottom: -90px;
+  }
+
+}
