@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SettingsService } from 'src/app/services/setting.service';
 
@@ -7,7 +8,7 @@ import { SettingsService } from 'src/app/services/setting.service';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss']
 })
-export class SettingComponent implements OnDestroy, OnChanges {
+export class SettingComponent implements OnDestroy, OnChanges, OnInit {
 
 
   setting: any = {
@@ -20,7 +21,13 @@ export class SettingComponent implements OnDestroy, OnChanges {
     NotificationSettings: { emailNotifications: false, pushNotifications: false, lowBalanceThreshold: 10000 }
   };
 
-  constructor(private _setting: SettingsService, private _notification: NotificationService) { }
+  constructor(private titleService: Title, private _setting: SettingsService, private _notification: NotificationService) { }
+
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Cài đặt');
+  }
+
   ngOnDestroy(): void {
 
   }
