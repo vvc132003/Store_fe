@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'tk/purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] },
-  { path: 'project-service', component: ProjectserviceComponent, canActivate: [HomeGuard] }
+  { path: 'project-service', component: ProjectserviceComponent }
 
 
 

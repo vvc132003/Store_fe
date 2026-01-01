@@ -1,17 +1,61 @@
 <app-layout-home [tabTemplates]="{detail}"></app-layout-home>
 <ng-template #detail>
     <div class="project-detail-page">
-        <div class="bubbles">
+        <!-- <div class="bubbles">
             <span *ngFor="let style of bubbleStyles" [ngStyle]="{
-          'animation-duration': style.animationDuration,
-          'animation-delay': style.animationDelay,
-          'left': style.left,
-          'top': style.top,
-          'width': style.size,
-          'height': style.size
-        }">
-            </span>
+      'animation-duration': style.animationDuration,
+      'animation-delay': style.animationDelay,
+      'left': style.left,
+      'top': style.top,
+      'width': style.size,
+      'height': style.size,
+      '--balloon-color': style.color
+    }"></span>
+        </div> -->
+
+
+
+
+        <div class="birds">
+            <div *ngFor="let bird of birdStyles" class="bird" [ngStyle]="{
+                top: bird.top,
+                animationDuration: bird.duration,
+                animationDelay: bird.delay,
+                transform: bird.scale
+                }">
+                <span class="wing left"></span>
+                <span class="wing right"></span>
+            </div>
         </div>
+
+        <div class="lanterns">
+            <div *ngFor="let lantern of lanternStyles" class="lantern" [ngStyle]="{
+      'left': lantern.left,
+      'top': lantern.top,
+      'width': lantern.size,
+      'height': lantern.height,
+      'animation-duration': lantern.duration,
+      'animation-delay': lantern.delay
+    }">
+                <div class="lantern-body"></div>
+                <div class="lantern-fire"></div>
+            </div>
+        </div>
+
+        <div class="sky">
+            <span *ngFor="let star of stars" [ngStyle]="{
+    'top': star.top,
+    'left': star.left,
+    'width': star.size,
+    'height': star.size,
+    'animation-delay': star.delay
+  }"></span>
+
+            <div class="moon"></div>
+        </div>
+
+
+
 
         <div class="container-fluid">
             <!-- Hero Section -->
@@ -30,7 +74,7 @@
             </section>
 
             <!-- Các dịch vụ nổi bật -->
-            <div class="service-cards">
+            <!-- <div class="service-cards">
                 <div class="card" (mousemove)="onMouseMove($event, 0)" (mouseleave)="onMouseLeave(0)"
                     [ngStyle]="{'transform': transformStyles[0]}">
                     <div class="icon">👩‍💻</div>
@@ -48,6 +92,32 @@
                     <div class="icon">🛡️</div>
                     <h2>Bảo Mật Tuyệt Đối</h2>
                     <p>Thông tin khách hàng được mã hóa và bảo vệ tối đa</p>
+                </div>
+            </div> -->
+
+            <div class="row mt-5" style="margin-bottom: -3rem;">
+                <div class="col-md-4 mb-3" (mousemove)="onMouseMove($event, 0)" (mouseleave)="onMouseLeave(0)">
+                    <div class="glow-card card-3d text-center text-white" [ngStyle]="{'transform': transformStyles[0]}">
+                        <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>100+ Chuyên Gia</h3>
+                        <p>Đội ngũ giảng viên, thạc sĩ và kỹ sư giàu kinh nghiệm</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3" (mousemove)="onMouseMove($event, 1)" (mouseleave)="onMouseLeave(1)">
+                    <div class="glow-card card-3d text-center text-white" [ngStyle]="{'transform': transformStyles[1]}">
+                        <i class="fas fa-shield-alt" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>Cam Kết 100%</h3>
+                        <p>Hoàn tiền toàn bộ nếu không hài lòng với chất lượng</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3" (mousemove)="onMouseMove($event, 2)" (mouseleave)="onMouseLeave(2)">
+                    <div class="glow-card card-3d text-center text-white" [ngStyle]="{'transform': transformStyles[2]}">
+                        <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>Bảo Mật Tuyệt Đối</h3>
+                        <p>Thông tin khách hàng được mã hóa và bảo vệ tối đa</p>
+                    </div>
                 </div>
             </div>
         </div>

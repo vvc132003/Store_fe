@@ -25,7 +25,6 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { FooterComponent } from './layout-home/footer/footer.component';
 import { ModalComponent } from './project-detail/modal/modal.component';
 import { ProjectserviceComponent } from './projectservice/projectservice.component';
-// import { SessionWarningComponent } from './pages/session-warning/session-warning.component';
 
 
 @NgModule({
@@ -50,7 +49,6 @@ import { ProjectserviceComponent } from './projectservice/projectservice.compone
     FooterComponent,
     ModalComponent,
     ProjectserviceComponent,
-    // SessionWarningComponent,
   ],
   imports: [
     CommonModule,

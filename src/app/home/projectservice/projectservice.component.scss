@@ -27,55 +27,302 @@
     }
 }
 
+/// bóng bay
 
-/* Bong bóng */
 .bubbles {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 0;
     overflow: hidden;
 }
 
-/* Bong bóng */
 .bubbles span {
     position: absolute;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
     border-radius: 50%;
     opacity: 0;
-    animation: floatBubble 15s infinite;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.3);
+    animation: floatBalloon 18s linear infinite;
+    background: radial-gradient(circle at 30% 30%,
+            #ffffff,
+            var(--balloon-color));
+
+    box-shadow:
+        0 0 15px var(--balloon-color),
+        0 0 30px var(--balloon-color),
+        inset -6px -10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Hiệu ứng bong bóng nổi lên */
-@keyframes floatBubble {
+
+.bubbles span::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 25%;
+    height: 25%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+.bubbles span::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    width: 2px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateX(-50%) rotate(0deg);
+    animation: stringSway 3s ease-in-out infinite alternate;
+}
+
+/* Animation lắc dây theo gió */
+@keyframes stringSway {
     0% {
-        opacity: 0;
-        transform: translateY(0) translateX(0) scale(0);
+        transform: translateX(-50%) rotate(-5deg);
     }
 
-    10% {
-        opacity: 0.7;
-        transform: translateY(-100px) translateX(20px) scale(1);
-    }
-
-    40% {
-        opacity: 0.8;
-        transform: translateY(-300px) translateX(-30px) scale(1.1);
-    }
-
-    70% {
-        opacity: 0.6;
-        transform: translateY(-600px) translateX(40px) scale(0.9);
+    50% {
+        transform: translateX(-50%) rotate(5deg);
     }
 
     100% {
-        opacity: 0;
-        transform: translateY(-1000px) translateX(-20px) scale(0.6);
+        transform: translateX(-50%) rotate(-5deg);
     }
 }
+
+
+@keyframes floatBalloon {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-500px) translateX(20px);
+    }
+
+    75% {
+        transform: translateY(-800px) translateX(-20px);
+    }
+
+    100% {
+        transform: translateY(-1200px) translateX(10px);
+        opacity: 0;
+    }
+}
+
+
+//// chim
+
+.birds {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bird {
+    position: absolute;
+    left: -120px;
+    width: 40px;
+    height: 20px;
+    animation: fly 25s linear infinite;
+}
+
+.wing {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50% 50% 0 0;
+    top: 10px;
+    animation: flap 0.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, .6));
+}
+
+@keyframes flap {
+    0% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes fly {
+    0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(60vw) translateY(-30px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(120vw) translateY(20px);
+        opacity: 1;
+    }
+}
+
+.wing.left {
+    left: 0;
+    transform-origin: right center;
+}
+
+.wing.right {
+    right: 0;
+    transform-origin: left center;
+    animation-delay: 0.3s;
+}
+
+
+//// lồng đèn
+
+.lanterns {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.lantern {
+    position: absolute;
+    animation: lanternFly linear infinite;
+}
+
+.lantern-body {
+    width: 100%;
+    height: 100%;
+    border-radius: 20% 20% 25% 25%;
+    background: linear-gradient(180deg,
+            #ffddb0 0%,
+            #ff9f43 40%,
+            #ff6b3d 100%);
+    box-shadow:
+        0 0 25px rgba(255, 150, 60, 0.8),
+        inset 0 0 20px rgba(255, 255, 255, 0.4);
+    position: relative;
+}
+
+.lantern-fire {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 10px;
+    height: 14px;
+    background: radial-gradient(circle, #fff3b0, #ff9f1a, transparent);
+    transform: translateX(-50%);
+    border-radius: 50%;
+    animation: flicker 0.6s infinite alternate;
+    filter: blur(1px);
+}
+
+@keyframes lanternFly {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-500px) translateX(20px) rotate(2deg);
+    }
+
+    75% {
+        transform: translateY(-800px) translateX(-20px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translateY(-1200px) translateX(10px) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flicker {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/// sao
+
+.sky {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #1a1a3d 70%, #000000 100%);
+    overflow: hidden;
+}
+
+
+.sky span {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0.3;
+        transform: scale(0.9);
+    }
+}
+
+.moon {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    z-index: 0;
+}
+
+
 
 
 /* Hero Section */
@@ -99,8 +346,9 @@
 
 .buttons {
     display: flex;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
@@ -137,29 +385,29 @@
 }
 
 /* Service Cards Section */
-.service-cards {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 60px;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 0 20px;
-}
+// .service-cards {
+//     display: flex;
+//     justify-content: space-around;
+//     margin-top: 60px;
+//     gap: 30px;
+//     flex-wrap: wrap;
+//     padding: 0 20px;
+// }
 
-.card {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    padding: 0px 0px;
-    width: 390px;
-    text-align: center;
-    border: 0.5px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    position: relative;
-    overflow: hidden;
-}
+// .card {
+//     background-color: rgba(255, 255, 255, 0.2);
+//     border-radius: 15px;
+//     padding: 0px 0px;
+//     width: 390px;
+//     text-align: center;
+//     border: 0.5px solid rgba(255, 255, 255, 0.5);
+//     backdrop-filter: blur(10px);
+//     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+//     transform-style: preserve-3d;
+//     // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+//     position: relative;
+//     overflow: hidden;
+// }
 
 /* Hiệu ứng ánh sáng khi hover vào */
 // .card:hover {
@@ -183,6 +431,67 @@
 //     }
 // }
 
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    position: relative;
+}
+
+.card-3d:hover {
+    transform: rotateY(10deg) rotateX(-10deg) translateZ(50px);
+}
+
+.glow-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.glow-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4facfe, #667eea);
+    border-radius: 20px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    background-size: 400% 400%;
+    animation: gradientRotate 3s ease infinite;
+}
+
+@keyframes gradientRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+.glow-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(102, 126, 234, 0.3),
+        0 0 60px rgba(102, 126, 234, 0.1);
+}
 
 .icon {
     font-size: 3rem;
@@ -192,6 +501,8 @@
 .card h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
+    color: #fff;
+
 }
 
 .card p {
@@ -200,7 +511,11 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 470px) {
+    .project-detail-page {
+        padding: 70px 0px;
+    }
+
     .hero-section h1 {
         font-size: 2rem;
     }
@@ -214,7 +529,12 @@
         align-items: center;
     }
 
-    .card {
-        width: 80%;
+    // .card {
+    //     width: 80%;
+    // }
+
+    .moon{
+        top: 5%;
+        right: 1%;
     }
 }
