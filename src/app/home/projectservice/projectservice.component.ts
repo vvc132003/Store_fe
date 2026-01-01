@@ -33,6 +33,16 @@ export class ProjectserviceComponent implements OnInit {
   }[] = [];
 
 
+  floatingIconStyle: {
+    left: string;
+    top: string;
+    size: string;
+    color: string;
+    icon: string;
+    animationDelay: string;
+  }[] = [];
+
+
   stars: { top: string; left: string; size: string; delay: string }[] = [];
 
 
@@ -44,6 +54,62 @@ export class ProjectserviceComponent implements OnInit {
     this.generateBirds();
     this.generateLanterns();
     this.generateStars();
+    this.initCornerIcons();
+  }
+
+  swapPositions() {
+    setInterval(() => {
+      const positions = this.floatingIconStyle.map(icon => ({
+        left: icon.left,
+        top: icon.top
+      }));
+
+      // Hoán đổi ngẫu nhiên các vị trí
+      for (let i = positions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [positions[i], positions[j]] = [positions[j], positions[i]];
+      }
+
+      // Gán lại vị trí mới
+      this.floatingIconStyle = this.floatingIconStyle.map((icon, idx) => ({
+        ...icon,
+        left: positions[idx].left,
+        top: positions[idx].top
+      }));
+
+    }, 4000); // mỗi 4s hoán đổi
+  }
+  
+  initCornerIcons() {
+    const icons = [
+      'fas fa-code',       // top-left
+      'fas fa-bug',        // top-right
+      'fas fa-cloud',      // bottom-left
+      'fas fa-database'    // bottom-right
+    ];
+
+    const colors = ['#00e5ff', '#7cff00', '#ffd93d', '#c77dff'];
+
+    const positions = [
+      { left: '8%', top: '10%' },     // góc trên trái
+      // { left: '90%', top: '5%' },    // góc trên phải
+      { left: '8%', top: '80%' },    // góc dưới trái
+      // { left: '90%', top: '90%' }    // góc dưới phải
+    ];
+
+    this.floatingIconStyle = [];
+
+    for (let i = 0; i < 4; i++) {
+      this.floatingIconStyle.push({
+        left: positions[i].left,
+        top: positions[i].top,
+        size: '40px', // có thể điều chỉnh
+        color: colors[i],
+        icon: icons[i],
+        animationDelay: (Math.random() * 3).toFixed(2) + 's' // random delay
+
+      });
+    }
   }
 
   generateStars() {
