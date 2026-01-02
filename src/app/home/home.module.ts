@@ -25,6 +25,11 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { FooterComponent } from './layout-home/footer/footer.component';
 import { ModalComponent } from './project-detail/modal/modal.component';
 import { ProjectserviceComponent } from './projectservice/projectservice.component';
+import { LatestcodeComponent } from './index/latestcode/latestcode.component';
+import { FeaturedwebsiteComponent } from './index/featuredwebsite/featuredwebsite.component';
+import { FeaturedsoftwareComponent } from './index/featuredsoftware/featuredsoftware.component';
+import { FeaturedapplicationsComponent } from './index/featuredapplications/featuredapplications.component';
+import { FeaturedgameComponent } from './index/featuredgame/featuredgame.component';
 
 
 @NgModule({
@@ -49,6 +54,11 @@ import { ProjectserviceComponent } from './projectservice/projectservice.compone
     FooterComponent,
     ModalComponent,
     ProjectserviceComponent,
+    LatestcodeComponent,
+    FeaturedwebsiteComponent,
+    FeaturedsoftwareComponent,
+    FeaturedapplicationsComponent,
+    FeaturedgameComponent,
   ],
   imports: [
     CommonModule,

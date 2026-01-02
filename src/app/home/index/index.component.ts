@@ -48,13 +48,15 @@ export class IndexComponent implements OnInit, OnDestroy {
     // console.log(payload);
     this.subscription.add(
       this._project.getProject_list(payload?.nameid).subscribe((data: any) => {
-        this.project_list = data.sort(
-          (a: any, b: any) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        ).slice(0, 11);
-        this.filteredData = [...this.project_list];
-        this.currentPage = 1;
-        this.updatePagedData();
+        // this.project_list = data.sort(
+        //   (a: any, b: any) =>
+        //     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        // ).slice(0, 11);
+        // this.filteredData = [...this.project_list];
+        // this.currentPage = 1;
+        // this.updatePagedData();
+        this.project_list = data;
+        // console.log("tất cả",this.project_list);
       })
     )
 
@@ -63,67 +65,67 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   //#region  event
 
-  goToPage(page: number) {
-    if (page < 1) return;
-    const totalPages = Math.ceil(this.project_list.length / this.pageSize);
-    if (page > totalPages) return;
+  // goToPage(page: number) {
+  //   if (page < 1) return;
+  //   const totalPages = Math.ceil(this.project_list.length / this.pageSize);
+  //   if (page > totalPages) return;
 
-    this.currentPage = page;
-    this.updatePagedData();
-  }
+  //   this.currentPage = page;
+  //   this.updatePagedData();
+  // }
 
-  updatePagedData() {
-    this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
+  // updatePagedData() {
+  //   this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
 
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
+  //   const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   const endIndex = startIndex + this.pageSize;
 
-    this.pagedData = this.filteredData.slice(startIndex, endIndex);
-  }
+  //   this.pagedData = this.filteredData.slice(startIndex, endIndex);
+  // }
 
 
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
+  // get pages(): number[] {
+  //   return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  // }
 
-  get visiblePages(): (number | string)[] {
-    const total = this.totalPages;
-    const current = this.currentPage;
-    const maxVisible = 3;
-    const pages: (number | string)[] = [];
+  // get visiblePages(): (number | string)[] {
+  //   const total = this.totalPages;
+  //   const current = this.currentPage;
+  //   const maxVisible = 3;
+  //   const pages: (number | string)[] = [];
 
-    if (total <= maxVisible) {
-      // tổng trang nhỏ hơn maxVisible -> hiện tất cả
-      for (let i = 1; i <= total; i++) pages.push(i);
-    } else {
-      let start = Math.max(current - 1, 1);
-      let end = start + maxVisible - 1;
+  //   if (total <= maxVisible) {
+  //     // tổng trang nhỏ hơn maxVisible -> hiện tất cả
+  //     for (let i = 1; i <= total; i++) pages.push(i);
+  //   } else {
+  //     let start = Math.max(current - 1, 1);
+  //     let end = start + maxVisible - 1;
 
-      if (end > total) {
-        end = total;
-        start = total - maxVisible + 1;
-      }
+  //     if (end > total) {
+  //       end = total;
+  //       start = total - maxVisible + 1;
+  //     }
 
-      if (start > 1) {
-        pages.push(1);
-        if (start > 2) pages.push('…');
-      }
+  //     if (start > 1) {
+  //       pages.push(1);
+  //       if (start > 2) pages.push('…');
+  //     }
 
-      for (let i = start; i <= end; i++) pages.push(i);
+  //     for (let i = start; i <= end; i++) pages.push(i);
 
-      if (end < total) {
-        if (end < total - 1) pages.push('…');
-        pages.push(total);
-      }
-    }
+  //     if (end < total) {
+  //       if (end < total - 1) pages.push('…');
+  //       pages.push(total);
+  //     }
+  //   }
 
-    return pages;
-  }
+  //   return pages;
+  // }
 
-  // helper kiểm tra number
-  isNumber(value: any): value is number {
-    return typeof value === 'number';
-  }
+  // // helper kiểm tra number
+  // isNumber(value: any): value is number {
+  //   return typeof value === 'number';
+  // }
 
 
 
@@ -161,28 +163,28 @@ export class IndexComponent implements OnInit, OnDestroy {
     return JSON.parse(utf8);
   }
 
-  bookmark(projectId: string): void {
-    const token = this.cookieService.get('access_token');
-    if (token) {
-      const payload = this.parseJwt(token);
-      const datapost = {
-        userId: payload.nameid,
-        projectId: projectId
-      }
-      this.subscription.add(
-        this._favorite.postData(datapost).subscribe((data: any) => {
-          if (data) {
-            const isFavorite = this.pagedData.find(f => f.id === projectId);
-            isFavorite.isFavorite = true;
-            this._notification.showSuccess("1006");
-          } else {
-            this._notification.showWarning("1007");
-          }
-        })
-      )
-    }
+  // bookmark(projectId: string): void {
+  //   const token = this.cookieService.get('access_token');
+  //   if (token) {
+  //     const payload = this.parseJwt(token);
+  //     const datapost = {
+  //       userId: payload.nameid,
+  //       projectId: projectId
+  //     }
+  //     this.subscription.add(
+  //       this._favorite.postData(datapost).subscribe((data: any) => {
+  //         if (data) {
+  //           const isFavorite = this.pagedData.find(f => f.id === projectId);
+  //           isFavorite.isFavorite = true;
+  //           this._notification.showSuccess("1006");
+  //         } else {
+  //           this._notification.showWarning("1007");
+  //         }
+  //       })
+  //     )
+  //   }
 
 
-  }
+  // }
 
 }

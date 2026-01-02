@@ -1,0 +1,62 @@
+<div class="top-source-title" *ngIf="project_list?.length">
+    <h4><strong>WEBSITE NỔI BẬT NHẤT</strong></h4>
+</div>
+
+<div class="product-grid" *ngIf="project_list?.length">
+
+    <div class="product-list">
+
+        <div class="product-card" *ngFor="let item of pagedData">
+
+            <div class="thumb">
+                <img [src]="item.thumbnailUrl" alt="" />
+            </div>
+
+            <div class="thumb-actions">
+                <button>Xem chi tiết</button>
+                <button>Lưu code</button>
+            </div>
+
+            <div class="tag">
+                <i class="fas fa-code"></i> {{ item.categoryName }}
+            </div>
+
+            <h3 class="title">
+                <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
+            </h3>
+
+            <div class="price">
+                {{ item.price | number }} đ
+            </div>
+
+            <div class="rating">
+                <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= item.star ? 'fas active' : 'far'">
+                </i>
+                <span>1 đánh giá</span>
+            </div>
+
+            <div class="bottom-row">
+                <div class="seller">
+                    <img [src]="item.avatar" />
+                    <span>{{ item.seller }}</span>
+                </div>
+
+                <div class="actions">
+                    <i (click)="bookmark(item.id)"
+                        [ngClass]="{'fas fa-bookmark': true, 'text-warning': item.isFavorite}"
+                        [ngStyle]="{'color': item.isFavorite ? 'yellow' : 'gray'}">
+                    </i>
+                    <i class="fas fa-download"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="view-more-center" *ngIf="project_list?.length">
+    <a [routerLink]="['/danh-muc-source-code']" [queryParams]="{ category: filteredData[0].typeName }" class="btn-view-more">
+        Xem thêm <span>›</span>
+    </a>
+</div>

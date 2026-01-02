@@ -19,10 +19,10 @@ export class ProjectAddComponent implements OnChanges, OnInit {
 
   codeTypes = [
     { id: 1, name: 'Website' },
-    { id: 2, name: 'Mobile' },
-    { id: 3, name: 'Desktop' },
-    { id: 4, name: 'Library' },
-    { id: 5, name: 'API' }
+    { id: 2, name: 'Phần mềm' },
+    { id: 3, name: 'Game' },
+    { id: 4, name: 'Ứng dụng' }
+
   ];
 
   @Output() closeProjectAdd = new EventEmitter<void>();
