@@ -176,40 +176,47 @@
                         </p>
 
                         <div class="form-group input-icon">
-                            <input class="form-control" placeholder="Họ và tên">
+                            <input class="form-control" placeholder="Họ và tên"
+                                [(ngModel)]="projectRegistration.fullName">
                             <i class="fas fa-user"></i>
                         </div>
 
                         <div class="form-group input-icon">
-                            <input class="form-control" placeholder="Email">
+                            <input class="form-control" placeholder="Email" [(ngModel)]="projectRegistration.email">
                             <i class="fas fa-envelope"></i>
                         </div>
 
                         <div class="form-group input-icon">
-                            <input class="form-control" placeholder="Số điện thoại">
+                            <input class="form-control" placeholder="Số điện thoại"
+                                [(ngModel)]="projectRegistration.phone">
                             <i class="fas fa-phone"></i>
                         </div>
 
                         <div class="form-group input-icon">
-                            <select class="form-select">
-                                <option>Loại đồ án</option>
+                            <select class="form-select" [(ngModel)]="projectRegistration.projectType">
+                                <option *ngFor="let type of projectTypes" [value]="type.value">
+                                    {{ type.label }}
+                                </option>
                             </select>
                             <i class="fas fa-layer-group"></i>
                         </div>
 
                         <div class="form-group input-icon">
-                            <select class="form-select">
-                                <option>Ngân sách</option>
+                            <select class="form-select" [(ngModel)]="projectRegistration.budget">
+                                <option *ngFor="let budget of budgets" [value]="budget.value">
+                                    {{ budget.label }}
+                                </option>
                             </select>
                             <i class="fas fa-wallet"></i>
                         </div>
 
                         <div class="form-group input-icon textarea-wrap">
-                            <textarea rows="3" class="form-control" placeholder="Mô tả chi tiết (tuỳ chọn)"></textarea>
+                            <textarea rows="3" class="form-control" placeholder="Mô tả chi tiết (tuỳ chọn)"
+                                [(ngModel)]="projectRegistration.note"></textarea>
                             <i class="fas fa-align-left"></i>
                         </div>
 
-                        <button class="btn btn-submit w-100">
+                        <button class="btn btn-submit w-100" (click)="postP()">
                             <i class="fas fa-paper-plane me-2"></i> Gửi yêu cầu
                         </button>
 

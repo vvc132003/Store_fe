@@ -29,6 +29,14 @@ export class MessageService {
     { code: '1022', text: 'Bạn chưa chọn ảnh!' },
     { code: '1023', text: 'Mật khẩu chưa đạt yêu cầu bảo mật!' },
     { code: '1024', text: 'Mật khẩu không khớp!' },
+    { code: '1025', text: 'Đăng ký dự án thành công!' },
+    { code: '1026', text: 'Vui lòng chọn loại đồ án!' },
+    { code: '1027', text: 'Vui lòng chọn ngân sách!' },
+    { code: '1028', text: 'Số dư không đủ!' },
+    { code: '1029', text: 'Tải thành công!' },
+
+
+
 
 
 

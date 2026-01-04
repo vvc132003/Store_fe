@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
@@ -47,7 +48,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     private _project: ProjectService, private route: ActivatedRoute,
     private _order: OrderService,
     private cookieService: CookieService,
-    private _user: UserService
+    private _user: UserService,
+    private _notification: NotificationService
   ) { }
   private subscription = new Subscription();
   activeTab: number = 0;
@@ -254,6 +256,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         link.target = '_blank';
         link.click();
         this.isTypeOpen = false;
+        this._notification.showSuccess("1029");
       }, error => {
         console.error('Order creation failed:', error);
       })

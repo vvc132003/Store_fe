@@ -24,6 +24,10 @@ export class ModalComponent implements OnChanges {
   }
 
   download_dw(project: any) {
+    if (!this.currentUser || this.currentUser.balance <= project.price) {
+      this.notificationService.showError("1028");
+      return;
+    }
     this.download.emit(project);
   }
 

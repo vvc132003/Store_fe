@@ -103,6 +103,7 @@ export class PagesRegisterComponent implements OnInit, OnDestroy {
       this._notification.showError("1024");
       return;
     }
+    // console.log(this.user_register);
     this.subscription.add(
       this._user.postRegister(this.user_register).subscribe((data: any) => {
         this.router.navigate(['/dang-nhap']);

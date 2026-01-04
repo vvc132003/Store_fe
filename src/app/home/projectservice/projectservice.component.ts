@@ -1,12 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ProjectRegistrationService } from 'src/app/services/ProjectRegistration.service';
 
 @Component({
   selector: 'app-projectservice',
   templateUrl: './projectservice.component.html',
   styleUrls: ['./projectservice.component.scss']
 })
-export class ProjectserviceComponent implements OnInit {
+export class ProjectserviceComponent implements OnInit, OnDestroy {
+
+
+  // Loại đồ án
+  projectTypes = [
+    { value: '', label: '--- Loại đồ án ---' },
+    { value: 'website', label: 'Website' },
+    { value: 'mobile', label: 'Ứng dụng Mobile' },
+    { value: 'desktop', label: 'Ứng dụng Desktop' },
+    { value: 'uiux', label: 'UI / UX' }
+  ];
+
+  // Ngân sách
+  budgets = [
+    { value: '', label: '--- Ngân sách ---' },
+    { value: 'under-5', label: 'Dưới 5 triệu' },
+    { value: '5-10', label: '5 – 10 triệu' },
+    { value: '10-20', label: '10 – 20 triệu' },
+    { value: 'over-20', label: 'Trên 20 triệu' }
+  ];
+
+
+
   bubbleStyles: {
     animationDuration: string;
     animationDelay: string;
@@ -42,11 +67,12 @@ export class ProjectserviceComponent implements OnInit {
     animationDelay: string;
   }[] = [];
 
-
+  projectRegistration: any = {};
   stars: { top: string; left: string; size: string; delay: string }[] = [];
 
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title, private _notification: NotificationService, private _projectRegistration: ProjectRegistrationService) { }
+  private subscription = new Subscription();
 
   ngOnInit() {
     this.titleService.setTitle("Dịch vụ làm đồ án tốt nghiệp");
@@ -55,6 +81,29 @@ export class ProjectserviceComponent implements OnInit {
     this.generateLanterns();
     this.generateStars();
     this.initCornerIcons();
+    this.projectRegistration.projectType = this.projectTypes[0]?.value;
+    this.projectRegistration.budget = this.budgets[0]?.value;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+
+  postP(): void {
+    if (!this.projectRegistration.projectType) {
+      this._notification.showError("1026");
+      return;
+    }
+    if (!this.projectRegistration.budget) {
+      this._notification.showError("1027");
+      return;
+    }
+    this.subscription.add(
+      this._projectRegistration.postData(this.projectRegistration).subscribe((res: any) => {
+        this._notification.showSuccess("1025");
+      })
+    )
   }
 
   swapPositions() {
@@ -79,7 +128,7 @@ export class ProjectserviceComponent implements OnInit {
 
     }, 4000); // mỗi 4s hoán đổi
   }
-  
+
   initCornerIcons() {
     const icons = [
       'fas fa-code',       // top-left
@@ -99,7 +148,7 @@ export class ProjectserviceComponent implements OnInit {
 
     this.floatingIconStyle = [];
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < positions.length; i++) {
       this.floatingIconStyle.push({
         left: positions[i].left,
         top: positions[i].top,

@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   //   })
   // }
   selectedYear!: number;
-  availableYears: number[] = [2023, 2024, 2025];
+  availableYears: number[] = [2023, 2024, 2025, 2026, 2027];
   allOrderData: any[] = [];
   allRevenueData: any[] = [];
   loadMonthlyOrderStats() {
