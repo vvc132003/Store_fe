@@ -34,6 +34,10 @@
     <!-- Footer -->
     <div class="payment-footer">
         <button class="btn-cancel" (click)="closeType()">Đóng</button>
-        <button class="btn-pay" (click)="download_dw(project_dw)">Thanh toán</button>
+        <button class="btn-pay" (click)="download_dw(project_dw)" [disabled]="loading"><span *ngIf="!loading">Thanh
+                toán</span>
+
+            <span *ngIf="loading" class="spinner-border spinner-border-sm">
+            </span></button>
     </div>
 </div>

@@ -174,6 +174,51 @@ a {
 
 
 
+
+.left-side, .right-side {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.container-fluid.custom-container {
+    padding-left: 0px;
+    padding-right: 60px;
+}
+
+
+.right-side-card {
+    padding: 20px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2.94px .06px #041a3729;
+    background: white;
+    position: relative;
+    overflow: hidden;
+
+    .tag-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 14px;
+        color: #fff;
+        font-size: 12px;
+        margin-right: 6px;
+    }
+}
+
+.right-side-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #4e8cff, #664eff);
+}
+
+
+
+
+
 /* Responsive */
 /* Ẩn tất cả các phần khác ngoài banner khi màn hình ≤ 470px */
 @media (max-width: 470px) {

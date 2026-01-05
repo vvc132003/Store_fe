@@ -63,9 +63,23 @@
             </div>
         </div>
     </div>
-    <app-latestcode [project_list]="project_list"></app-latestcode>
+    <br>
+
+    <div class="container-fluid custom-container">
+        <div class="row g-0">
+            <div class="col-12 col-lg-9 left-side">
+                <app-latestcode [project_list]="project_list"></app-latestcode>
+            </div>
+            <div class="col-12 col-lg-3 right-side">
+                <div class="right-side-card">
+                    <app-card-header-side [project_list]="project_latest"></app-card-header-side>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <app-featuredwebsite [project_list]="project_list"></app-featuredwebsite>
     <app-featuredsoftware [project_list]="project_list"></app-featuredsoftware>
     <app-featuredapplications [project_list]="project_list"></app-featuredapplications>
-    <app-featuredgame  [project_list]="project_list"></app-featuredgame>
+    <app-featuredgame [project_list]="project_list"></app-featuredgame>
 </ng-template>

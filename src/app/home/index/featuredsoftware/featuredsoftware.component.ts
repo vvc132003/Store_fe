@@ -12,6 +12,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class FeaturedsoftwareComponent implements OnChanges, OnDestroy {
 
   @Input() project_list: any[] = [];
+  avatar: string = "https://localhost:7274/logo/logo.png";
 
   currentIndex = 0;
   prevIndex = 0;

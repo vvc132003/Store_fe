@@ -233,12 +233,15 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
 
 
   showWarning: boolean = false;
+  isDownloading = false;
+
   download(project: any): void {
     const token = this.cookieService.get('access_token');
     if (!token) {
       this.showWarning = true;
       return;
     }
+    this.isDownloading = true;
     const payload = this.parseJwt(token);
 
     const data = {
@@ -257,8 +260,10 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         link.click();
         this.isTypeOpen = false;
         this._notification.showSuccess("1029");
+        this.isDownloading = false;
       }, error => {
         console.error('Order creation failed:', error);
+        this.isDownloading = false;
       })
     );
   }

@@ -168,5 +168,5 @@
 <app-session-warning [showWarning]="showWarning" [text]="'Bạn cần đăng nhập để tải Source Code'" [buttons]="'Trang chủ'"
     [event]="'home'"></app-session-warning>
 
-<app-modal [isTypeOpen]="isTypeOpen" [currentUser]="currentUser" [project_dw]="project_dw" (download)="download($event)"
+<app-modal [isTypeOpen]="isTypeOpen" [loading]="isDownloading" [currentUser]="currentUser" [project_dw]="project_dw" (download)="download($event)"
     (closeTypeModal)="closeType()"></app-modal>

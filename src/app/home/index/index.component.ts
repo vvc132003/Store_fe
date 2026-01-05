@@ -12,6 +12,7 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit, OnDestroy {
+  project_latest: any[] = [];
 
   slides = [
     "https://giaodichcode.com/assets/images/bannerv2/POP-UP-CODE_LARGE-2.jpg",
@@ -41,7 +42,19 @@ export class IndexComponent implements OnInit, OnDestroy {
     // this.loadProject();
     this.startAutoSlide();
     this.loadProject_list();
+    this.loadProject_latest();
   }
+
+  loadProject_latest() {
+    this.subscription.add(
+      this._project.getProject_latest().subscribe((data: any) => {
+        this.project_latest = data;
+        // console.log(data);
+      })
+    )
+  }
+
+
   loadProject_list() {
     const token = this.cookieService.get('access_token');
     const payload = this.parseJwt(token);

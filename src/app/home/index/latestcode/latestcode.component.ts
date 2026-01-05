@@ -11,8 +11,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class LatestcodeComponent implements OnChanges, OnDestroy {
 
-  @Input() project_list: any[] = [];
+  viewType: 'card' | 'list' = 'card'; // default
 
+  setViewType(type: 'card' | 'list') {
+    this.viewType = type;
+  }
+
+  @Input() project_list: any[] = [];
+  avatar: string = "https://localhost:7274/logo/logo.png";
   currentIndex = 0;
   prevIndex = 0;
   intervalId: any;

@@ -11,6 +11,7 @@ export class ModalComponent implements OnChanges {
   @Input() isTypeOpen = false;
   @Input() project_dw: any = {};
   @Input() currentUser: any = {};
+  @Input() loading = false;
 
   @Output() closeTypeModal = new EventEmitter<void>();
   @Output() download = new EventEmitter<void>();
@@ -24,6 +25,7 @@ export class ModalComponent implements OnChanges {
   }
 
   download_dw(project: any) {
+    if (this.loading) return;
     if (!this.currentUser || this.currentUser.balance <= project.price) {
       this.notificationService.showError("1028");
       return;

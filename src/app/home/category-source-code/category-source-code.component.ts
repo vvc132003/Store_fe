@@ -22,8 +22,10 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 16;
+  pageSize = 5;
   pagedData: any[] = [];
+  projectRamdom: any[] = [];
+
 
 
   constructor(private _project: ProjectService, private _notification: NotificationService, private cookieService: CookieService, private _favorite: FavoriteService, private titleService: Title, private route: ActivatedRoute) { }
@@ -38,6 +40,8 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
         this.loadSourceCodeByCategory(category);
       }
     });
+    this.getRandom();
+
   }
 
 
@@ -68,6 +72,14 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
         this.count = data.length;
         this.updatePagedData();
         // console.log(data)
+      })
+    )
+  }
+
+  getRandom() {
+    this.subscription.add(
+      this._project.getRandom().subscribe((res: any) => {
+        this.projectRamdom = res;
       })
     )
   }
