@@ -153,6 +153,38 @@
     }
 }
 
+.notification-item {
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.notification-item.unread {
+  background-color: #f3f6ff;
+}
+
+.notification-item.unread .username {
+  font-weight: 600;
+}
+
+.notification-item:hover {
+  background-color: #eef2ff;
+}
+
+/* chấm xanh */
+.notification-item .dot {
+  width: 8px;
+  height: 8px;
+  background-color: #0d6efd;
+  border-radius: 50%;
+  position: absolute;
+  right: 12px;
+  top: 18px;
+}
+
+
+
+
 
 @media (max-width: 470px) {
 

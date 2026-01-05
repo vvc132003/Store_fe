@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="container-fluid p-3">
-    <div *ngFor="let n of notifications" class="notification-item">
+    <div *ngFor="let n of notifications" class="notification-item" [class.unread]="!n.isRead" (click)="markAsRead(n)">
       <img [src]="avatar" class="avatar" alt="user" />
       <div class="content">
         <p class="username">{{ n.usserName }}</p>
@@ -16,6 +16,7 @@
           {{ getFormattedTime(n.createdAt) }}
         </span>
       </div>
+      <span class="dot" *ngIf="!n.isRead"></span>
     </div>
   </div>
 </div>

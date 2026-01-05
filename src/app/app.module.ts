@@ -24,8 +24,11 @@ import { TokenInterceptor } from './services/TokenInterceptor';
   ],
   providers: [
     CookieService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

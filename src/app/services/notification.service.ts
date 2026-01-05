@@ -13,9 +13,24 @@ export class NotificationService {
     private apiUrl = API_URLS.api + '/Notifications';
     constructor(private toastr: ToastrService, private http: HttpClient, private messageService: MessageService) { }
 
-    getNotificationByUserId(userId: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/getNotificationByUserId/${userId}`);
+    // getNotificationByUserId(userId: string): Observable<any> {
+    //     return this.http.get<any>(`${this.apiUrl}/getNotificationByUserId/${userId}`);
+    // }
+
+    getNotification(userId?: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/getNotification`, {
+            params: userId ? { userId } : {}
+        });
     }
+
+ 
+    markAsRead(notificationId: string): Observable<any> {
+        return this.http.put(
+            `${this.apiUrl}/read/${notificationId}`,
+            {}
+        );
+    }
+
 
 
     showWarning(code: string) {

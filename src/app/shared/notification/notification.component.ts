@@ -42,6 +42,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   ];
   @Input() showoNotification!: boolean;
   @Output() closePupAdd = new EventEmitter<void>();
+  @Output() countnotis = new EventEmitter<number>();
+
 
   constructor(private _notification: NotificationService, private sanitizer: DomSanitizer, private datePipe: DatePipe, private cookieService: CookieService) { }
   private subscription = new Subscription();
@@ -59,20 +61,48 @@ export class NotificationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadNotificationByUserId();
   }
-
+  countnoti: number = 0;
   loadNotificationByUserId() {
     const token = this.cookieService.get('access_token');
     if (!token) {
       return;
     }
     const payload = this.parseJwt(token);
+    const userId = payload?.role === 'admin' ? undefined : payload?.nameid;
     this.subscription.add(
-      this._notification.getNotificationByUserId(payload?.nameid).subscribe((data: any) => {
+      this._notification.getNotification(userId).subscribe((data: any[]) => {
         this.notifications = data;
+        // this.countnoti = data.length;
+        if (payload?.role === 'admin') {
+          this.countnotis.emit(0);
+          return;
+        }
+        const unreadCount = this.notifications.filter(n => !n.isRead).length;
+        this.countnotis.emit(unreadCount);
         // console.log(data);
       })
     )
   }
+
+
+  markAsRead(n: any) {
+    const token = this.cookieService.get('access_token');
+    if (!token) return;
+
+    const payload = this.parseJwt(token);
+    if (payload?.role === 'admin') return;
+
+    if (n.isRead) return;
+
+    this._notification.markAsRead(n.id).subscribe(() => {
+      n.isRead = true;
+      this.countnoti = this.notifications.filter(x => !x.isRead).length;
+      this.countnotis.emit(this.countnoti ?? 0);
+    });
+  }
+
+
+
   getFormattedTime(dateStr: string | Date): string | null {
     const date = new Date(dateStr);
     const now = new Date();

@@ -65,6 +65,14 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
 
   //#region  event
 
+  countnoti: number = 0;
+
+
+  onCountNotiChange(count: number) {
+    this.countnoti = count;
+    this.closeNotification();
+  }
+
   logout() {
     this.cookieService.delete('access_token', '/');
     this.user = null;

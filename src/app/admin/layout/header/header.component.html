@@ -8,7 +8,7 @@
     <div class="right-section">
         <div class="icon-wrapper" (click)="showoNotificationt()">
             <i class="bi bi-bell"></i>
-            <span class="badge">3</span>
+            <span class="badge">{{countnoti}}</span>
         </div>
         <div class="icon-wrapper">
             <i class="bi bi-chat-dots"></i>
@@ -50,5 +50,6 @@
     </div>
 </header>
 
-<app-notification [showoNotification]="showoNotification" (closePupAdd)="closeNotification()">
+<app-notification [showoNotification]="showoNotification" (countnotis)="onCountNotiChange($event)"
+    (closePupAdd)="closeNotification()">
 </app-notification>

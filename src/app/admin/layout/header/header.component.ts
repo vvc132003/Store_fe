@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderComponent implements OnChanges {
   @Output() languageChange = new EventEmitter<string>();
   @Input() settings: any;
-
+  countnoti: number = 0;
   constructor(private elRef: ElementRef, private cookieService: CookieService, private router: Router) { }
 
   selectedLanguage: string = 'vi';
@@ -30,6 +30,10 @@ export class HeaderComponent implements OnChanges {
     if (changes['settings'] && this.settings) {
       this.logo = this.settings?.data?.SiteSettings?.logo || "";
     }
+  }
+  
+  onCountNotiChange(count: number) {
+    this.countnoti = count;
   }
 
 
