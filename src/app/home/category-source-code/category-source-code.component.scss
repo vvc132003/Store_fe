@@ -171,16 +171,12 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         height: 52px;
-        /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
         font-family: inherit;
         color: inherit;
         -webkit-line-clamp: 3;
-        /* Giới hạn nội dung thành 3 dòng */
         -webkit-box-orient: vertical;
         line-height: 17px;
-        /* Điều chỉnh theo kích thước dòng của bạn */
         font-weight: 700;
-        /* Làm đậm tiêu đề */
     }
 
     .code-price {
@@ -248,16 +244,12 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         height: 52px;
-        /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
         font-family: inherit;
         color: inherit;
         -webkit-line-clamp: 3;
-        /* Giới hạn nội dung thành 3 dòng */
         -webkit-box-orient: vertical;
         line-height: 17px;
-        /* Điều chỉnh theo kích thước dòng của bạn */
         font-weight: 700;
-        /* Làm đậm tiêu đề */
     }
 
     .code-price {
@@ -298,7 +290,7 @@
 /* Card sản phẩm */
 .product-card {
     background: white;
-    border-radius: 5px;
+    // border-radius: 5px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -324,13 +316,13 @@
         align-items: center;
         overflow: hidden;
         position: relative;
-        border-radius: 6px;
+        // border-radius: 6px;
 
         img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; // giữ tỉ lệ ảnh
-            border-radius: 6px;
+            // border-radius: 6px;
             user-select: none;
             pointer-events: none;
             /* tránh ảnh bị drag */
@@ -367,7 +359,7 @@
 
     /* Tag thể loại */
     .tag {
-        color: #0a63ff;
+        color: #ff8401;
         font-size: 14px;
         font-weight: 600;
         display: flex;
@@ -385,7 +377,7 @@
         font-weight: 600;
         height: 40px;
         overflow: hidden;
-        margin-bottom: -10px;
+        margin-bottom: -0px;
         line-height: 20px;
 
         a {
@@ -487,6 +479,63 @@
         }
     }
 }
+.downview {
+    background-color: #4f46e5;
+    border-radius: 0px;
+    color: white;
+    height: 22px;
+    margin: 5px auto 0px auto;
+    width: 100%;
+    max-width: 240px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+.down-count {
+    padding-left: 18px;
+    color: #4f46e5;
+    margin-right: 15px;
+}
+
+.down-count:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f019";
+    margin-right: 3px;
+}
+
+.down-count2 {
+    width: 50%;
+    height: 22px;
+    float: left;
+    padding: 2px 0px 0px 5px;
+    border-left: 1px solid #faf8f1;
+    overflow: hidden;
+}
+
+.down-count2:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f019";
+    float: left;
+    margin: 3px -10px 0px 6px;
+    color: #fff;
+}
+
+.view-count {
+    background: url('/assets/images/view.png') no-repeat 0px 4px;
+    padding-left: 18px;
+    color: #ff8401;
+}
+
+.view-count2 {
+    width: 50%;
+    height: 22px;
+    background: url(/assets/images/view2.png) no-repeat 6px 6px;
+    float: left;
+    padding: 2px 0px 0px 5px;
+    overflow: hidden;
+}
 
 .pagination {
     display: flex;
@@ -556,7 +605,7 @@
     content: '';
     display: block;
     width: 100%;
-    height: 2px;
+    height: 2.5px;
     background: linear-gradient(
       to right,
       #4f46e5 0%,

@@ -23,28 +23,22 @@
                 <div class="thumb">
                     <img [src]="item.thumbnailUrl" alt="" />
                 </div>
-
-                <div class="thumb-actions">
-                    <button>Xem chi tiết</button>
-                    <button>Lưu code</button>
+                <div class="downview">
+                    <span class="view-count2">{{item.viewCount}}</span>
+                    <span class="down-count2">{{item.downloadCount}}</span>
                 </div>
-
                 <div class="tag">
-                    <i class="fas fa-code"></i> {{ item.categoryName }}
+                    <i class="fas fa-project-diagram"></i> {{ item.categoryName }}
                 </div>
 
                 <h3 class="title">
                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                 </h3>
 
-                <div class="price">
-                    {{ item.price | number }} đ
-                </div>
-
                 <div class="rating">
                     <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= item.star ? 'fas active' : 'far'">
                     </i>
-                    <span>1 đánh giá</span>
+                    <!-- <span>1 đánh giá</span> -->
                 </div>
 
                 <div class="bottom-row">
@@ -72,8 +66,14 @@
 
         <div class="list-item" *ngFor="let item of pagedData">
 
-            <div class="thumb">
-                <img [src]="item.thumbnailUrl" alt="" />
+            <div>
+                <div class="thumb">
+                    <img [src]="item.thumbnailUrl" alt="" />
+                </div>
+                <div class="downview">
+                    <span class="view-count2">72</span>
+                    <span class="down-count2">0</span>
+                </div>
             </div>
 
             <div class="content-info">
@@ -85,22 +85,45 @@
                 </div>
 
                 <div class="details-row">
-                    <div><strong>Danh mục:</strong> {{ item.categoryName }}</div>
-                    <div><strong>Thể loại:</strong> {{ item.typeName }}</div>
-                    <div><strong>Phí tải:</strong> <span class="price">{{ item.price | number }} Xu</span></div>
+                    <div class="info-item">
+                        <strong>Danh mục:</strong>
+                        <p>{{ item.categoryName }}</p>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Thể loại:</strong>
+                        <p>{{ item.typeName }}</p>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Phí tải:</strong>
+                        <span class="price">{{ item.price | number }} đ</span>
+                    </div>
                 </div>
 
                 <div class="details-row">
-                    <div><strong>Ngày:</strong> {{ item.createdAt | date:'dd-MM-yyyy' }}</div>
-                    <div><strong>Loại file:</strong> Full code</div>
-                    <div><strong>Dung lượng:</strong> #</div>
+                    <div class="info-item">
+                        <strong>Ngày:</strong>
+                        <span>{{ item.createdAt | date:'dd-MM-yyyy' }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Loại file:</strong>
+                        <span>Full code</span>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Dung lượng:</strong>
+                        <span>#</span>
+                    </div>
                 </div>
+
             </div>
 
-            <div class="actions">
+            <div class="actions-list">
                 <button class="btn-download" title="Download"><i class="fas fa-download"></i></button>
-                <button class="btn-favorite" title="Yêu thích"><i class="fas fa-heart"></i></button>
-                <button class="btn-save" title="Lưu"><i class="fas fa-folder"></i></button>
+                <button class="btn-favorite" title="Yêu thích"><i class="fas fa-bookmark"></i></button>
+                <!-- <button class="btn-save" title="Lưu"><i class="fas fa-folder"></i></button> -->
             </div>
 
         </div>

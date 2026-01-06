@@ -1,88 +1,90 @@
  .card-header {
-    position: relative;
-    // padding: 5px 5px;
-    margin-bottom: 0;
-    background-color: transparent;
-  }
+   position: relative;
+   // padding: 5px 5px;
+   margin-bottom: 0;
+   background-color: transparent;
+ }
 
-  .card-header:first-child {
-    border-radius: 5px 5px 0 0;
-  }
+ .card-header:first-child {
+   border-radius: 5px 5px 0 0;
+ }
 
-  .car-item {
-    border-top: 3px solid #ddd;
-    padding-top: 20px;
-  }
+ .car-item {
+   border-top: 3px solid #ddd;
+   padding-top: 20px;
+ }
 
-  .car-item:first-child {
-    border-top: none;
-  }
+ .car-item:first-child {
+   border-top: none;
+ }
 
-  .search-title {
-    border-bottom: 3px solid #ddd;
-    padding-bottom: 8px;
-  }
+ .search-title {
+   border-bottom: 3px solid #ddd;
+   padding-bottom: 8px;
+ }
 
-  .hot-code {
-    // border-bottom: 1px solid #dddddd !important;
-  }
+ .hot-code {
+   // border-bottom: 1px solid #dddddd !important;
+ }
 
-  .hot-code h4 {
-    font-size: 20px !important;
-  }
+ .hot-code h4 {
+   font-size: 20px !important;
+ }
 
-  .col-7 a {
-    text-decoration: none;
-    color: #212529 !important;
-  }
+ .col-7 a {
+   text-decoration: none;
+   color: #212529 !important;
+ }
 
-  h3 {
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    height: 52px;
-    /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
-    font-family: inherit;
-    color: inherit;
-    -webkit-line-clamp: 3;
-    /* Giới hạn nội dung thành 3 dòng */
-    -webkit-box-orient: vertical;
-    line-height: 17px;
-    /* Điều chỉnh theo kích thước dòng của bạn */
-    font-weight: 700;
-    /* Làm đậm tiêu đề */
-  }
+ h3 {
+   font-size: 16px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   height: 52px;
+   /* Điều chỉnh chiều cao theo số dòng bạn muốn hiển thị */
+   // font-family: inherit;
+   color: inherit;
+   -webkit-line-clamp: 3;
+   /* Giới hạn nội dung thành 3 dòng */
+   -webkit-box-orient: vertical;
+   line-height: 17px;
+   /* Điều chỉnh theo kích thước dòng của bạn */
+   // font-weight: 700;
+   /* Làm đậm tiêu đề */
+ }
 
-  .code-price {
-    color: #d5101c;
-  }
+ .code-price {
+   color: #d5101c;
+ }
 
-  .color-view {
-    color: #9f9f9f !important;
-  }
+ .color-view {
+   color: #9f9f9f !important;
+ }
 
-  .col-12 a {
-    color: #4099ff;
-    text-decoration: none;
-  }
+ .col-12 a {
+   color: #ff8401;
+   text-decoration: none;
+  //  font-size: 14px;
+        font-weight: 600;
+ }
 
  .rating {
-        display: flex;
-        align-items: center;
-        gap: 3px;
-        font-size: 14px;
+   display: flex;
+   align-items: center;
+   gap: 3px;
+   font-size: 14px;
 
-        i {
-            color: #ccc; // xám
-        }
+   i {
+     color: #ccc; // xám
+   }
 
-        i.active {
-            color: #f7c600; // vàng
-        }
+   i.active {
+     color: #f7c600; // vàng
+   }
 
-        span {
-            margin-left: 6px;
-            color: #333;
-        }
-    }
+   span {
+     margin-left: 6px;
+     color: #333;
+   }
+ }

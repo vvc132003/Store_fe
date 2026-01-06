@@ -93,13 +93,14 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     this.scrollThumbnailIntoView();
 
   }
+  countImage: number = 0;
 
   selectTab(index: number) {
     this.activeTab = index;
   }
 
-  goToDemoTab() {
-    this.activeTab = 3;
+  goToDemoTab(tab: number) {
+    this.activeTab = tab;
     const tabElement = document.querySelector('.tab-content');
     tabElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -168,6 +169,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         if (!this.project.images.includes(this.mainImage)) {
           this.project.images.push(this.mainImage);
         }
+        this.countImage = this.project.images.length;
         this.startAutoSlide();
         this.breadcrumb_title = data.title;
         this.breadcrumb_categoryname = data.categoryName;

@@ -173,105 +173,61 @@
   }
 }
 
-.left-side .demo-btn-container {
-  display: flex;
-  justify-content: center;
+.demo-link {
+  display: inline-flex;
   align-items: center;
-  margin-top: 20px;
+  gap: 6px;
+  padding: 8px 16px;
+  color: #ff8401;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  cursor: pointer;
 }
 
-.demo-btn {
-  display: inline-block;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #fff;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: #ff4d6b;
-  border: 1px solid transparent;
-  padding: .375rem .95rem;
-  font-size: .875rem;
-  border-radius: 2px;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+.demo-link i {
+  font-size: 16px;
 }
+
+
 
 /* TEXT CONTENT */
 .title {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 600;
   margin-bottom: 12px;
 }
 
+.title.desktop .code {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0099ff;
+  margin-left: 6px;
+}
 
-/* Ensure the container is using flexbox for alignment */
-.dflex {
+
+.rating-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+  position: relative;
+  flex-wrap: wrap;
 
-/* Style for the meta section (createdAt) */
-.meta {
-  margin-bottom: 15px;
-  color: #9f9f9f !important;
-  font-size: 14px;
-
-  i {
-    margin-right: 5px;
-  }
-}
-
-
-
-/* Style for the rating section */
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 16px;
-
-  i {
-    color: #ccc; // xám
-  }
-
-  i.active {
-    color: #f7c600; // vàng
-  }
-
-  span {
-    margin-left: 6px;
-    color: #333;
-  }
-}
-
-.price {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .money {
-    color: #d5101c;
-    flex: 1;
-    font-size: 20.5px;
-    font-weight: 600;
+  .d-flex {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .icons {
     display: flex;
-    gap: 10px;
+    gap: 16px;
   }
 
   .icon-item {
     display: flex;
     align-items: center;
-    gap: 5px;
-    /* Khoảng cách giữa icon và số lượng */
+    gap: 4px;
   }
 
   .icon-item i {
@@ -289,6 +245,91 @@
     font-size: 14px;
     color: #777;
   }
+
+  .rating-text {
+    color: #444;
+    font-weight: 500;
+  }
+
+  .btn-write-review {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .btn-write-review:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  .btn-write-review i {
+    font-size: 14px;
+  }
+
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 16px;
+
+    i {
+      color: #ccc;
+    }
+
+    i.active {
+      color: #f7c600;
+    }
+
+    span {
+      margin-left: 6px;
+      color: #333;
+    }
+  }
+}
+
+.rating-hr {
+  border-top: 1px dashed #9b9a9a;
+  width: 100%;
+  border-image: repeating-linear-gradient(to right, #9b9a9a 0, #9b9a9a 10px, transparent 10px, transparent 15px) 1;
+
+  margin: 10px 0;
+}
+
+.price {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  .price-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+  }
+
+  .price-info strong {
+    color: #444;
+    font-size: 20.5px;
+    font-weight: 700;
+
+  }
+
+  .money {
+    color: #d5101c;
+    flex: 1;
+    font-size: 20.5px;
+    font-weight: 700;
+  }
+
+
 }
 
 .info-line {
@@ -297,11 +338,13 @@
 
 
   .category {
-    color: #3a7bff;
+    color: #ff8401;
     cursor: pointer;
     font-weight: 600;
   }
 }
+
+
 
 .free-guide {
   margin-top: 12px;
@@ -313,35 +356,93 @@
   }
 }
 
-.report-box a {
-  color: #e55353;
-  font-size: 14px;
-  margin-right: 20px;
-  cursor: pointer;
-  font-weight: 500;
-  align-items: center;
-  list-style: none;
-  text-decoration: none;
 
+/* DOWNLOAD BUTTON */
+
+.col-4.button {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.report-box i {
-  margin-right: 1px;
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.download-btn {
+  background-color: #d5101c;
+  color: #fff;
+}
+
+.download-btn:hover {
+  background-color: #b40f18;
+  transform: translateY(-2px);
+}
+
+.demo-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.demo-btn:hover {
+  background-color: #1e90ff;
+  color: #fff;
+  border-color: #1e90ff;
+  transform: translateY(-2px);
+}
+
+.demo-btn i {
   font-size: 16px;
 }
 
-/* DOWNLOAD BUTTON */
-.download-btn {
-  margin-top: 25px;
-  width: 100%;
-  padding: 16px 0;
-  font-size: 18px;
-  font-weight: 700;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #c72cf6, #6151ff);
-  color: #fff;
+.dt-chk {
+  border: 1px dashed #9b9a9a;
+  border-image: repeating-linear-gradient(to right, #9b9a9a 0, #9b9a9a 12px, transparent 12px, transparent 17px) 1;
+  margin: 15px 0px;
+  border-radius: 5px;
+  background-color: #f4f0e2;
+  padding: 17px 5px 17px 15px;
+  overflow: hidden;
+}
+
+.dt-chk .it-chk {
+  width: 50%;
+  float: left;
+  padding: 6px 0px 6px 50px;
+  position: relative;
+  color: #9b9a9a;
+}
+
+.dt-chk .it-chk::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #007bff;
+}
+
+.dt-chk .it-chk.checked::before {
+  content: "✓";
 }
 
 

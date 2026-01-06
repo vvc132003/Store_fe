@@ -172,21 +172,26 @@ a {
     line-height: 1.4;
 }
 
-
-
-
-.left-side, .right-side {
-    padding-left: 0;
-    padding-right: 0;
+.custom-container {
+    display: flex;
+    gap: 20px;
+    padding: 0 60px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.container-fluid.custom-container {
-    padding-left: 0px;
-    padding-right: 60px;
-}
 
+.left-side {
+    flex: 1;
+    /* chiếm toàn bộ phần còn lại */
+    min-width: 0;
+    /* cực kỳ quan trọng để tránh vỡ layout */
+}
 
 .right-side-card {
+    width: 320px;
+    flex-shrink: 0;
+
     padding: 20px 10px;
     border-radius: 5px;
     box-shadow: 0 1px 2.94px .06px #041a3729;

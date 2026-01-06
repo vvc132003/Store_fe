@@ -79,30 +79,34 @@
                                 <div class="thumb">
                                     <img [src]="item.thumbnailUrl" alt="" />
                                 </div>
-
+                                 <div class="downview">
+                                    <span class="view-count2">{{item.viewCount}}</span>
+                                    <span class="down-count2">{{item.downloadCount}}</span>
+                                </div>
+                                <!-- 
                                 <div class="thumb-actions">
                                     <button>Xem chi tiết</button>
                                     <button>Lưu code</button>
-                                </div>
+                                </div> -->
 
                                 <div class="tag">
-                                    <i class="fas fa-code"></i> {{ item?.categoryName }}
+                                    <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}
                                 </div>
 
                                 <h3 class="title">
                                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                                 </h3>
 
-                                <div class="price">
+                                <!-- <div class="price">
                                     {{ item.price | number }} đ
-                                </div>
+                                </div> -->
 
                                 <div class="rating">
                                     <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
                                         [ngClass]="s <= item.star ? 'fas active' : 'far'"
                                         (click)="setRating(s, item.id)">
                                     </i>
-                                    <span>1 đánh giá</span>
+                                    <!-- <span>1 đánh giá</span> -->
                                 </div>
 
                                 <div class="bottom-row">
@@ -144,29 +148,33 @@
                                 <div class="thumb">
                                     <img [src]="item.thumbnailUrl" alt="" />
                                 </div>
-
-                                <div class="thumb-actions">
-                                    <button>Xem chi tiết</button>
-                                    <button>Lưu code</button>
+                                <div class="downview">
+                                    <span class="view-count2">{{item.viewCount}}</span>
+                                    <span class="down-count2">{{item.downloadCount}}</span>
                                 </div>
 
+                                <!-- <div class="thumb-actions">
+                                    <button>Xem chi tiết</button>
+                                    <button>Lưu code</button>
+                                </div> -->
+
                                 <div class="tag">
-                                    <i class="fas fa-code"></i> {{ item.categoryName }}
+                                    <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}
                                 </div>
 
                                 <h3 class="title">
                                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                                 </h3>
 
-                                <div class="price">
+                                <!-- <div class="price">
                                     {{ item.price | number }} đ
-                                </div>
+                                </div> -->
 
                                 <div class="rating">
                                     <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
                                         [ngClass]="s <= item.star ? 'fas active' : 'far'">
                                     </i>
-                                    <span>1 đánh giá</span>
+                                    <!-- <span>1 đánh giá</spFan> -->
                                 </div>
 
                                 <div class="bottom-row">

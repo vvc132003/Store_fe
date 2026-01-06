@@ -65,15 +65,13 @@
     </div>
     <br>
 
-    <div class="container-fluid custom-container">
-        <div class="row g-0">
-            <div class="col-12 col-lg-9 left-side">
-                <app-latestcode [project_list]="project_list"></app-latestcode>
-            </div>
-            <div class="col-12 col-lg-3 right-side">
-                <div class="right-side-card">
-                    <app-card-header-side [project_list]="project_latest"></app-card-header-side>
-                </div>
+    <div class="custom-container">
+        <div class="left-side">
+            <app-latestcode [project_list]="project_list"></app-latestcode>
+        </div>
+        <div class="right-side">
+            <div class=" right-side-card">
+                <app-card-header-side [project_list]="project_latest"></app-card-header-side>
             </div>
         </div>
     </div>

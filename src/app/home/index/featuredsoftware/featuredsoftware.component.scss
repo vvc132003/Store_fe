@@ -46,7 +46,7 @@ a {
 /* Card sản phẩm */
 .product-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -115,7 +115,7 @@ a {
 
 
     .tag {
-        color: #0a63ff;
+        color: #ff8401;
         font-size: 14px;
         font-weight: 600;
         display: flex;
@@ -128,7 +128,7 @@ a {
         font-weight: 600;
         height: 40px;
         overflow: hidden;
-        margin-bottom: -10px;
+        margin-bottom: -0px;
     }
 
     .price {
@@ -207,6 +207,63 @@ a {
     }
 }
 
+.downview {
+    background-color: #4f46e5;
+    border-radius: 0px;
+    color: white;
+    height: 22px;
+    margin: 5px auto 0px auto;
+    width: 100%;
+    max-width: 240px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+.down-count {
+    padding-left: 18px;
+    color: #4f46e5;
+    margin-right: 15px;
+}
+
+.down-count:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f019";
+    margin-right: 3px;
+}
+
+.down-count2 {
+    width: 50%;
+    height: 22px;
+    float: left;
+    padding: 2px 0px 0px 5px;
+    border-left: 1px solid #faf8f1;
+    overflow: hidden;
+}
+
+.down-count2:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f019";
+    float: left;
+    margin: 3px -10px 0px 6px;
+    color: #fff;
+}
+
+.view-count {
+    background: url('/assets/images/view.png') no-repeat 0px 4px;
+    padding-left: 18px;
+    color: #ff8401;
+}
+
+.view-count2 {
+    width: 50%;
+    height: 22px;
+    background: url(/assets/images/view2.png) no-repeat 6px 6px;
+    float: left;
+    padding: 2px 0px 0px 5px;
+    overflow: hidden;
+}
 .view-more-center {
     text-align: center;
     margin-top: 20px;

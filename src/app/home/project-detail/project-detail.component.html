@@ -25,28 +25,33 @@
                                 <img *ngFor="let img of project.images" [src]="img" alt="thumbnail"
                                     [class.active]="img === mainImage" (click)="selectImage(img)">
                             </div>
-                            <div class="demo-btn-container">
-                                <button class="demo-btn" (click)="goToDemoTab()">
-                                    <i class="fa fa-desktop"></i> Xem Live Demo
-                                </button>
+                            <div class="text-center">
+                                <a class="demo-link" (click)="goToDemoTab(2)">
+                                    <i class="fa fa-image"></i> Xem {{countImage}} Ảnh Demo
+                                </a>
                             </div>
+
                         </div>
                         <div class="col-7">
-                            <h1 class="title desktop">{{ project.title }}</h1>
-                            <div class="dflex">
-                                <div class="meta">
-                                    <i class="fa fa-calendar"></i> {{ project.createdAt | date:'dd/MM/yyyy' }}
+                            <h1 class="title desktop">
+                                {{ project.title }}.
+                                <span class="code">[Mã code {{project.code}}]</span>
+                            </h1>
+                            <div class="rating-wrapper">
+                                <div class="d-flex">
+                                    <div class="rating">
+                                        <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                            [ngClass]="s <= project.star ? 'fas active' : 'far'">
+                                        </i>
+                                    </div>
+                                    <span class="rating-text">1 đánh giá</span>
+                                    <a class="btn-write-review">
+                                        <i class="fas fa-pencil-alt"></i> Viết đánh giá
+                                    </a>
+
                                 </div>
-                                <div class="rating">
-                                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
-                                        [ngClass]="s <= project.star ? 'fas active' : 'far'">
-                                    </i>
-                                </div>
-                            </div>
 
 
-                            <div class="price">
-                                <span class="money">{{ project.price | number }} đ</span>
                                 <div class="icons">
                                     <div class="icon-item">
                                         <i class="fa fa-eye"></i>
@@ -54,24 +59,55 @@
                                     </div>
                                     <div class="icon-item">
                                         <i class="fa fa-download"></i>
-                                        <span class="count">0</span>
+                                        <span class="count">{{project.downloadCount}}</span>
                                     </div>
                                 </div>
+
                             </div>
-
-                            <div class="info-line">Thể loại: {{project.typeName}}</div>
-                            <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
-                                    }}</span>
+                            <div class="rating-hr">
                             </div>
-
-                            <!-- <div class="free-guide">Hướng dẫn nhận xu tải miễn phí: <a class="view-now">Xem ngay</a></div> -->
-
-                            <div class="report-box">
-                                <a href="#"><i class="fa fa-exclamation-triangle"></i> Báo vi phạm bản quyền</a>
-                                <a href="#"><i class="fa fa-bug"></i> Báo code bị lỗi</a>
+                            <div class="price">
+                                <div class="price-info">
+                                    <strong>Phí tải:</strong>
+                                    <span class="money">{{ project.price | number }} đ</span>
+                                </div>
                             </div>
+                            <div class="rating-hr">
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
+                                            }}</span>
+                                    </div>
+                                    <div class="info-line">Thể loại: <span class="category">{{project.typeName}}</span>
+                                    </div>
+                                    <div class="info-line">Ngày đăng: {{ project.createdAt |
+                                        date:'dd/MM/yyyy' }}
+                                    </div>
+                                    <div class="info-line">Loại file: Full code
+                                    </div>
+                                    <div class="info-line">Dung lượng: #
+                                    </div>
+                                </div>
+                                <div class="col-4 button">
+                                    <button (click)="showisTypeOpen(project)" class="btn download-btn">
+                                        ⬇ DOWNLOAD
+                                    </button>
 
-                            <button (click)="showisTypeOpen(project)" class="download-btn">⬇ DOWNLOAD</button>
+                                    <button class="btn demo-btn" (click)="goToDemoTab(3)">
+                                        <i class="fa fa-desktop"></i> Xem Demo
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rating-hr">
+                            </div>
+                            <div class="dt-chk">
+                                <div class="it-chk checked">Code đã kiểm thử</div>
+                                <div class="it-chk checked">Cam kết hỗ trợ</div>
+                                <div class="it-chk checked">Không chứa mã độc</div>
+                                <div class="it-chk checked">Có demo thực tế</div>
+                                <div class="it-chk checked">Có hướng dẫn cài đặt</div>
+                            </div>
                         </div>
                     </div>
                     <br>
@@ -85,7 +121,8 @@
                                     <a class="nav-link" (click)="selectTab(1)">Hướng dẫn cài đặt</a>
                                 </li>
                                 <li class="nav-item" [class.active]="activeTab === 2">
-                                    <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo</a>
+                                    <a class="nav-link" (click)="selectTab(2)">Hình ảnh demo
+                                        ({{countImage}})</a>
                                 </li>
                                 <li class="nav-item" [class.active]="activeTab === 3">
                                     <a class="nav-link" (click)="selectTab(3)">Xem demo source code</a>
@@ -168,5 +205,5 @@
 <app-session-warning [showWarning]="showWarning" [text]="'Bạn cần đăng nhập để tải Source Code'" [buttons]="'Trang chủ'"
     [event]="'home'"></app-session-warning>
 
-<app-modal [isTypeOpen]="isTypeOpen" [loading]="isDownloading" [currentUser]="currentUser" [project_dw]="project_dw" (download)="download($event)"
-    (closeTypeModal)="closeType()"></app-modal>
+<app-modal [isTypeOpen]="isTypeOpen" [loading]="isDownloading" [currentUser]="currentUser" [project_dw]="project_dw"
+    (download)="download($event)" (closeTypeModal)="closeType()"></app-modal>
