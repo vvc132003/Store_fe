@@ -30,6 +30,8 @@ import { FeaturedwebsiteComponent } from './index/featuredwebsite/featuredwebsit
 import { FeaturedsoftwareComponent } from './index/featuredsoftware/featuredsoftware.component';
 import { FeaturedapplicationsComponent } from './index/featuredapplications/featuredapplications.component';
 import { FeaturedgameComponent } from './index/featuredgame/featuredgame.component';
+import { CommentComponent } from './project-detail/comment/comment.component';
+import { CommentItemComponent } from './project-detail/comment/comment-item/comment-item.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { FeaturedgameComponent } from './index/featuredgame/featuredgame.compone
     FeaturedsoftwareComponent,
     FeaturedapplicationsComponent,
     FeaturedgameComponent,
+    CommentComponent,
+    CommentItemComponent,
   ],
   imports: [
     CommonModule,

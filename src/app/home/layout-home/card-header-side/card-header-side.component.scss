@@ -59,14 +59,30 @@
  }
 
  .color-view {
-   color: #9f9f9f !important;
+   display: flex;
+   gap: 10px;
+   align-items: center;
+   font-size: 14px;
  }
+
+ .color-view i {
+   margin-right: 0px;
+ }
+
+ .stat-item.downloads {
+   color: #4e8cff;
+ }
+
+ .stat-item.views {
+   color: #ff6b6b;
+ }
+
 
  .col-12 a {
    color: #ff8401;
    text-decoration: none;
-  //  font-size: 14px;
-        font-weight: 600;
+   //  font-size: 14px;
+   font-weight: 600;
  }
 
  .rating {

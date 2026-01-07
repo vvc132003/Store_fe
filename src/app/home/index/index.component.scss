@@ -284,30 +284,28 @@ a {
         z-index: 99;
     }
 
-
-    .top-source-title {
-        text-align: center;
-        margin: 0;
-
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-        }
+    .custom-container {
+        flex-direction: column;
+        padding: 0 0px;
     }
 
-    .product-grid {
-        padding: 0px 16px;
-
-        &::before {
-            left: 16px;
-            /* khớp với padding-left mới */
-            width: calc(100% - 32px);
-            /* 2 * padding */
-        }
+    .left-side {
+        flex: 0 0 100%;
+        padding: 0 10px;
     }
 
-    .product-list {
-        grid-template-columns: repeat(2, 1fr);
+    .right-side {
+        flex: 0 0 100%;
+        margin-left: 0;
+        margin-top: 15px;
+        padding: 0 10px;
     }
+
+    .right-side-card {
+        width: 100%;
+    }
+
+
+
 
 }

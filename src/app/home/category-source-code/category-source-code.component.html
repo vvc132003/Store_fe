@@ -138,13 +138,9 @@
                     <div class="top-source-title">
                         <h4><strong>CODE GỢI Ý CHO BẠN</strong></h4>
                     </div>
-
                     <div class="product-grid">
-
                         <div class="product-list">
-
                             <div class="product-card" *ngFor="let item of projectRamdom">
-
                                 <div class="thumb">
                                     <img [src]="item.thumbnailUrl" alt="" />
                                 </div>
@@ -152,37 +148,21 @@
                                     <span class="view-count2">{{item.viewCount}}</span>
                                     <span class="down-count2">{{item.downloadCount}}</span>
                                 </div>
-
-                                <!-- <div class="thumb-actions">
-                                    <button>Xem chi tiết</button>
-                                    <button>Lưu code</button>
-                                </div> -->
-
                                 <div class="tag">
                                     <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}
                                 </div>
-
                                 <h3 class="title">
                                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                                 </h3>
-
-                                <!-- <div class="price">
-                                    {{ item.price | number }} đ
-                                </div> -->
-
                                 <div class="rating">
                                     <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
                                         [ngClass]="s <= item.star ? 'fas active' : 'far'">
                                     </i>
-                                    <!-- <span>1 đánh giá</spFan> -->
                                 </div>
-
                                 <div class="bottom-row">
                                     <div class="seller">
-                                        <!-- <img [src]="item.avatar" /> -->
                                         <span>{{ item.seller }}</span>
                                     </div>
-
                                     <div class="actions">
                                         <i (click)="bookmark(item.id)"
                                             [ngClass]="{'fas fa-bookmark': true, 'text-warning': item.isFavorite}"
@@ -200,4 +180,5 @@
             </div>
         </div>
     </div>
+    <br>
 </ng-template>

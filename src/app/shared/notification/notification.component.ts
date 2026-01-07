@@ -78,6 +78,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
           return;
         }
         const unreadCount = this.notifications.filter(n => !n.isRead).length;
+        this.countnoti = unreadCount;
         this.countnotis.emit(unreadCount);
         // console.log(data);
       })

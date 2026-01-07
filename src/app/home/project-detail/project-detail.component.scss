@@ -1,5 +1,5 @@
 .project-detail-page {
-  padding: 0px 72px;
+  padding: 0px 60px;
   margin-top: -120px;
 }
 
@@ -11,9 +11,8 @@
 
 .left-side {
   flex: 1;
-  /* Cột này chiếm phần còn lại của không gian */
+  min-height: 1500px;
 }
-
 
 .left-side-card {
   padding: 20px 15px;
@@ -22,20 +21,37 @@
   background: white;
   position: relative;
   overflow: hidden;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
+
+.left-side-card .col-5 {
+    flex: 0 0 40%;       
+    min-width: 150px;   
+}
+
+.left-side-card .col-7 {
+    flex: 1;            
+    min-width: 200px;   
+}
+
 
 .right-side {
   flex: 0 0 25%;
-  margin-left: 22px;
+  margin-left: 2px;
+  position: sticky;
+  top: 50px;
+  align-self: flex-start;
 }
 
 .right-side-card {
-  padding: 20px 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 2.94px .06px #041a3729;
-  background: white;
   position: relative;
-  overflow: hidden;
+  // margin: 0;
+  padding: 20px 15px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 2.94px 0.06px #041a3729;
 
   .tag-item {
     display: inline-flex;
@@ -56,11 +72,268 @@
   left: 0;
   width: 100%;
   height: 4px;
+  border-radius: 6px 6px 0 0;
   background: linear-gradient(90deg, #4e8cff, #664eff);
 }
 
+.top-source-title {
+  margin: 20px auto 20px;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2.5px;
+    background: linear-gradient(to right,
+        #4f46e5 0%,
+        #4f46e5 30%, // 👈 10% có màu
+        #e5e7eb 10%,
+        #e5e7eb 100%);
+  }
+}
 
 
+/* Lưới sản phẩm */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 5 cột cố định
+  gap: 20px;
+}
+
+/* Card sản phẩm */
+.product-card {
+  background: white;
+  // border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: 0.2s ease;
+  position: relative;
+  cursor: pointer;
+
+  /* Hiện các button khi hover card */
+  &:hover .thumb-actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Thumb chứa ảnh */
+  .thumb {
+    width: 100%;
+    height: 180px;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    // border-radius: 6px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; // giữ tỉ lệ ảnh
+      // border-radius: 6px;
+      user-select: none;
+      pointer-events: none;
+      /* tránh ảnh bị drag */
+    }
+  }
+
+  /* Nút thao tác trên ảnh */
+  .thumb-actions {
+    position: absolute;
+    top: 155px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+
+    button {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        background: #fff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  /* Tag thể loại */
+  .tag {
+    color: #ff8401;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+    i {
+      font-size: 14px;
+    }
+  }
+
+  /* Tiêu đề sản phẩm */
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    height: 40px;
+    overflow: hidden;
+    margin-bottom: -0px;
+    line-height: 20px;
+
+    a {
+      text-decoration: none;
+      color: #212529;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0a63ff;
+      }
+    }
+  }
+
+  /* Giá tiền */
+  .price {
+    color: #e60000;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  /* Đánh giá sao */
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+
+    i {
+      color: #ccc; // xám
+    }
+
+    i.active {
+      color: #f7c600; // vàng
+    }
+
+    span {
+      margin-left: 6px;
+      color: #333;
+    }
+  }
+
+  /* Phần dưới cùng: seller và hành động */
+  .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+    position: relative;
+
+    /* Đường kẻ ngang */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #e5e5e5;
+      z-index: 1;
+    }
+
+    /* Thông tin người bán */
+    .seller {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+
+      img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      span {
+        font-size: 14px;
+        color: #555;
+      }
+    }
+
+    /* Hành động */
+    .actions {
+      display: flex;
+      gap: 14px;
+      font-size: 20px;
+      color: #888;
+      z-index: 2;
+
+      i {
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+.downview {
+  background-color: #4f46e5;
+  color: white;
+  height: 28px;
+  max-width: 240px;
+  width: 100%;
+  margin: -10px auto 0 auto;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.downview i {
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+.view-count2,
+.down-count2 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-count2 {
+  color: #fff;
+}
+
+.down-count2 {
+  color: #fff;
+}
+
+.separator {
+  width: 1px;
+  background-color: white;
+  height: 100%;
+}
 
 /* IMAGE PREVIEW */
 .preview-container {
@@ -526,7 +799,7 @@
 @media (max-width: 470px) {
 
   .project-detail-page {
-    padding: 70px 11px;
+    padding: 70px 0px;
     margin-bottom: -45px;
   }
 
@@ -550,7 +823,9 @@
 
   .left-side,
   .right-side {
-    padding: 0px 24px;
+    flex: 0 0 100%;
+    margin-left: 0;
+    padding: 0px 23px;
   }
 
   .left-side-card .col-5,
@@ -588,5 +863,20 @@
 
   .tab-content img {
     width: 100%;
+  }
+
+  .product-grid {
+    padding: 0px 0px;
+
+    &::before {
+      left: 16px;
+      /* khớp với padding-left mới */
+      width: calc(100% - 32px);
+      /* 2 * padding */
+    }
+  }
+
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

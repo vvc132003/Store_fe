@@ -1,0 +1,74 @@
+.comment-box {
+    background: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 1px 2.94px 0.06px #041a3729;
+
+}
+
+.comment-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.input-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* cho textarea trên, button dưới */
+    align-items: flex-end;  /* căn nút sang phải */
+    gap: 6px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    resize: none;
+    min-height: 60px;
+    font-size: 14px;
+}
+
+.btn-submit {
+    background: #4e8cff;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #3a6fd4;
+}
+
+.btn-submit svg {
+    display: block;
+}
+
+
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.btn-submit {
+    margin-bottom: 20px;
+    background: #4e8cff;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+

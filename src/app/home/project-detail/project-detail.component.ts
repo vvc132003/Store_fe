@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -34,7 +35,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     },
     // Thêm các đối tượng xe khác nếu cần
   ];
-
+  projectRamdom: any[] = [];
   project_list: any[] = [];
   project: any = {};
   mainImage: string = "";
@@ -49,7 +50,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     private _order: OrderService,
     private cookieService: CookieService,
     private _user: UserService,
-    private _notification: NotificationService
+    private _notification: NotificationService,
+    private _favorite: FavoriteService
   ) { }
   private subscription = new Subscription();
   activeTab: number = 0;
@@ -74,10 +76,37 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         }
       })
     );
+    this.getRandom();
   }
-
+  getRandom() {
+    this.subscription.add(
+      this._project.getRandom().subscribe((res: any) => {
+        this.projectRamdom = res;
+      })
+    )
+  }
   //#region  event
-
+  bookmark(projectId: string): void {
+    const token = this.cookieService.get('access_token');
+    if (token) {
+      const payload = this.parseJwt(token);
+      const datapost = {
+        userId: payload.nameid,
+        projectId: projectId
+      }
+      // this.subscription.add(
+      //   this._favorite.postData(datapost).subscribe((data: any) => {
+      //     if (data) {
+      //       const isFavorite = this.pagedData.find(f => f.id === projectId);
+      //       isFavorite.isFavorite = true;
+      //       this._notification.showSuccess("1006");
+      //     } else {
+      //       this._notification.showWarning("1007");
+      //     }
+      //   })
+      // )
+    }
+  }
 
   prevImage() {
     this.slideIndex =

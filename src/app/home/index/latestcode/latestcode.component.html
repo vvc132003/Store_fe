@@ -24,9 +24,15 @@
                     <img [src]="item.thumbnailUrl" alt="" />
                 </div>
                 <div class="downview">
-                    <span class="view-count2">{{item.viewCount}}</span>
-                    <span class="down-count2">{{item.downloadCount}}</span>
+                    <span class="view-count2">
+                        <i class="fas fa-eye"></i> {{item.viewCount}}
+                    </span>
+                    <span class="separator"></span>
+                    <span class="down-count2">
+                        <i class="fas fa-download"></i> {{item.downloadCount}}
+                    </span>
                 </div>
+
                 <div class="tag">
                     <i class="fas fa-project-diagram"></i> {{ item.categoryName }}
                 </div>
@@ -71,9 +77,15 @@
                     <img [src]="item.thumbnailUrl" alt="" />
                 </div>
                 <div class="downview">
-                    <span class="view-count2">72</span>
-                    <span class="down-count2">0</span>
+                    <span class="view-count2">
+                        <i class="fas fa-eye"></i> {{item.viewCount}}
+                    </span>
+                    <span class="separator"></span>
+                    <span class="down-count2">
+                        <i class="fas fa-download"></i> {{item.downloadCount}}
+                    </span>
                 </div>
+
             </div>
 
             <div class="content-info">

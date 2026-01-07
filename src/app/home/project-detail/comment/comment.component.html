@@ -1,0 +1,23 @@
+<div class="comment-box">
+
+    <div class="comment-form">
+        <img class="avatar" src="https://i.pravatar.cc/40?img=1" alt="avatar" />
+        <div class="input-area">
+            <textarea [(ngModel)]="commentInput" placeholder="Viết bình luận..."></textarea>
+            <button class="btn-submit" aria-label="Gửi bình luận" (click)="addComment()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                    <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- LIST BÌNH LUẬN -->
+    <div class="comment-list">
+        <div *ngFor="let comment of parentComments">
+            <app-comment-item [comment]="comment" [comments]="comments" [currentUserId]="currentUserId">
+            </app-comment-item>
+        </div>
+    </div>
+</div>

@@ -75,9 +75,12 @@
             </div>
         </div>
     </div>
+    <div class="left-side">
+        <app-featuredwebsite [project_list]="project_list"></app-featuredwebsite>
+        <app-featuredsoftware [project_list]="project_list"></app-featuredsoftware>
+        <app-featuredapplications [project_list]="project_list"></app-featuredapplications>
+        <app-featuredgame [project_list]="project_list"></app-featuredgame>
+    </div>
 
-    <app-featuredwebsite [project_list]="project_list"></app-featuredwebsite>
-    <app-featuredsoftware [project_list]="project_list"></app-featuredsoftware>
-    <app-featuredapplications [project_list]="project_list"></app-featuredapplications>
-    <app-featuredgame [project_list]="project_list"></app-featuredgame>
+    <br>
 </ng-template>

@@ -12,6 +12,8 @@
 .left-side {
   flex: 1;
   margin-left: 2px;
+  min-height: 1500px;
+
 }
 
 .left-side-card {
@@ -25,6 +27,9 @@
 
 .right-side {
   flex: 0 0 20%;
+  position: sticky;
+  top: 160px;
+  align-self: flex-start;
 }
 
 .right-side-card {
@@ -32,7 +37,7 @@
   border-radius: 5px;
   box-shadow: 0 1px 2.94px 0.06px #041a3729;
   background: white;
-  position: fixed;
+  position: relative;
   overflow: hidden;
 }
 
