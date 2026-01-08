@@ -20,111 +20,208 @@
                                 <span class="text-muted" style="font-size: 14px;">({{count}} source code)</span>
                             </h4>
                         </div>
+                        <div class="sort-bar">
+                            <div class="sort-buttons">
+                                <span class="sort-label">Sắp xếp</span>
+                                <button class="btn btn-primary btn-sm" (click)="sortNewest()">Mới nhất</button>
+                                <button class="btn btn-primary btn-sm" (click)="sortMostDownload()">Tải nhiều</button>
 
-                        <div class="sort-buttons">
-                            <span class="sort-label">Sắp xếp</span>
-                            <button class="btn btn-primary btn-sm" (click)="sortNewest()">Mới nhất</button>
-                            <button class="btn btn-primary btn-sm" (click)="sortMostDownload()">Tải nhiều</button>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownTheoTen" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Theo tên
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownTheoTen">
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortNameAsc()">A → Z</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortNameDesc()">Z → A</a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <div class="dropdown">
-                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                    id="dropdownTheoTen" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Theo tên
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownTheoTen">
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortNameAsc()">A → Z</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortNameDesc()">Z → A</a>
-                                    </li>
-                                </ul>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownLuotXem" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Lượt xem
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownLuotXem">
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortViewAsc()">Tăng dần</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortViewDesc()">Giảm dần</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownTheoGia" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Theo giá
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownTheoGia">
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortPriceAsc()">Thấp → Cao</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" (click)="sortPriceDesc()">Cao → Thấp</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-
-                            <div class="dropdown">
-                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                    id="dropdownLuotXem" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Lượt xem
+                            <div class="view-toggle">
+                                <button [class.active]="viewType === 'card'" (click)="setViewType('card')">
+                                    <i class="bi bi-grid-fill"></i>
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownLuotXem">
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortViewAsc()">Tăng dần</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortViewDesc()">Giảm dần</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="dropdown">
-                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                    id="dropdownTheoGia" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Theo giá
+                                <button [class.active]="viewType === 'list'" (click)="setViewType('list')">
+                                    <i class="bi bi-list-ul"></i>
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownTheoGia">
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortPriceAsc()">Thấp → Cao</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" (click)="sortPriceDesc()">Cao → Thấp</a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
+
                     </div>
                     <br>
-                    <div class=" product-grid">
-                        <div class="product-list">
-                            <div class="product-card" *ngFor="let item of pagedData">
-                                <div class="thumb">
-                                    <img [src]="item.thumbnailUrl" alt="" />
-                                </div>
-                                 <div class="downview">
-                                    <span class="view-count2">{{item.viewCount}}</span>
-                                    <span class="down-count2">{{item.downloadCount}}</span>
-                                </div>
-                                <!-- 
+                    <div *ngIf="viewType === 'card'">
+
+                        <div class=" product-grid">
+                            <div class="product-list">
+                                <div class="product-card" *ngFor="let item of pagedData">
+                                    <div class="thumb">
+                                        <img [src]="item.thumbnailUrl" alt="" />
+                                    </div>
+                                    <div class="downview">
+                                        <span class="view-count2">
+                                            <i class="fas fa-eye"></i> {{item.viewCount}}
+                                        </span>
+                                        <span class="separator"></span>
+                                        <span class="down-count2">
+                                            <i class="fas fa-download"></i> {{item.downloadCount}}
+                                        </span>
+                                    </div>
+                                    <!-- 
                                 <div class="thumb-actions">
                                     <button>Xem chi tiết</button>
                                     <button>Lưu code</button>
                                 </div> -->
 
-                                <div class="tag">
-                                    <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}
-                                </div>
+                                    <div class="tag">
+                                        <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}
+                                    </div>
 
-                                <h3 class="title">
-                                    <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
-                                </h3>
+                                    <h3 class="title">
+                                        <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
+                                    </h3>
 
-                                <!-- <div class="price">
+                                    <!-- <div class="price">
                                     {{ item.price | number }} đ
                                 </div> -->
 
-                                <div class="rating">
-                                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
-                                        [ngClass]="s <= item.star ? 'fas active' : 'far'"
-                                        (click)="setRating(s, item.id)">
-                                    </i>
-                                    <!-- <span>1 đánh giá</span> -->
-                                </div>
-
-                                <div class="bottom-row">
-                                    <div class="seller">
-                                        <!-- <img [src]="item.avatar" /> -->
-                                        <span>{{ item.seller }}</span>
+                                    <div class="rating">
+                                        <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                            [ngClass]="s <= item.star ? 'fas active' : 'far'"
+                                            (click)="setRating(s, item.id)">
+                                        </i>
+                                        <!-- <span>1 đánh giá</span> -->
                                     </div>
 
-                                    <div class="actions">
-                                        <i (click)="bookmark(item.id)"
-                                            [ngClass]="{'fas fa-bookmark': true, 'text-warning': item.isFavorite}"
-                                            [ngStyle]="{'color': item.isFavorite ? 'yellow' : 'gray'}">
-                                        </i> <i class="fas fa-download"></i>
+                                    <div class="bottom-row">
+                                        <div class="seller">
+                                            <!-- <img [src]="item.avatar" /> -->
+                                            <span>{{ item.seller }}</span>
+                                        </div>
+
+                                        <div class="actions">
+                                            <i (click)="bookmark(item.id)"
+                                                [ngClass]="{'fas fa-bookmark': true, 'text-warning': item.isFavorite}"
+                                                [ngStyle]="{'color': item.isFavorite ? 'yellow' : 'gray'}">
+                                            </i> <i class="fas fa-download"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div *ngIf="viewType === 'list'">
+                        <div class="list-view">
+
+                            <div class="list-item" *ngFor="let item of pagedData">
+
+                                <div>
+                                    <div class="thumb">
+                                        <img [src]="item.thumbnailUrl" alt="" />
+                                    </div>
+                                    <div class="downview">
+                                        <span class="view-count2">
+                                            <i class="fas fa-eye"></i> {{item.viewCount}}
+                                        </span>
+                                        <span class="separator"></span>
+                                        <span class="down-count2">
+                                            <i class="fas fa-download"></i> {{item.downloadCount}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="content-info">
+                                    <h3 class="title">{{ item.title }}</h3>
+
+                                    <div class="rating">
+                                        <i *ngFor="let s of [1,2,3,4,5]"
+                                            [ngClass]="s <= item.star ? 'fas fa-star active' : 'far fa-star'"></i>
+                                    </div>
+
+                                    <div class="details-row">
+                                        <div class="info-item">
+                                            <strong>Danh mục:</strong>
+                                            <p>{{ item.categoryName }}</p>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <strong>Thể loại:</strong>
+                                            <p>{{ item.typeName }}</p>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <strong>Phí tải:</strong>
+                                            <span class="price">{{ item.price | number }} đ</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="details-row">
+                                        <div class="info-item">
+                                            <strong>Ngày:</strong>
+                                            <span>{{ item.createdAt | date:'dd-MM-yyyy' }}</span>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <strong>Loại file:</strong>
+                                            <span>Full code</span>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <strong>Dung lượng:</strong>
+                                            <span>#</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="actions-list">
+                                    <button class="btn-download" title="Download"><i
+                                            class="fas fa-download"></i></button>
+                                    <button class="btn-favorite" title="Yêu thích"><i
+                                            class="fas fa-bookmark"></i></button>
+                                    <!-- <button class="btn-save" title="Lưu"><i class="fas fa-folder"></i></button> -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
                     <div class="pagination" *ngIf="totalPages > 1">
                         <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
 
@@ -145,8 +242,13 @@
                                     <img [src]="item.thumbnailUrl" alt="" />
                                 </div>
                                 <div class="downview">
-                                    <span class="view-count2">{{item.viewCount}}</span>
-                                    <span class="down-count2">{{item.downloadCount}}</span>
+                                    <span class="view-count2">
+                                        <i class="fas fa-eye"></i> {{item.viewCount}}
+                                    </span>
+                                    <span class="separator"></span>
+                                    <span class="down-count2">
+                                        <i class="fas fa-download"></i> {{item.downloadCount}}
+                                    </span>
                                 </div>
                                 <div class="tag">
                                     <i class="fas fa-project-diagram"></i> {{ item?.categoryName }}

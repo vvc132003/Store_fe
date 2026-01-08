@@ -54,13 +54,18 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     private _favorite: FavoriteService
   ) { }
   private subscription = new Subscription();
-  activeTab: number = 0;
+  activeTab: number = -1;
 
 
 
   slug_viewCount: any;
   //#region  load dữ liệu
   ngOnInit(): void {
+    const token = this.cookieService.get('access_token');
+    let payload: any;
+    if (token) {
+      payload = this.parseJwt(token);
+    }
     this.subscription.add(
       this.route.paramMap.subscribe(params => {
         const slug = params.get('slug');
@@ -72,7 +77,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
             this.slug_viewCount = oldSlug;
           }
           localStorage.setItem('slug_viewCount', slug);
-          this.loadProject_detail(slug);
+          this.loadProject_detail(slug, payload?.nameid);
         }
       })
     );
@@ -94,17 +99,17 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         userId: payload.nameid,
         projectId: projectId
       }
-      // this.subscription.add(
-      //   this._favorite.postData(datapost).subscribe((data: any) => {
-      //     if (data) {
-      //       const isFavorite = this.pagedData.find(f => f.id === projectId);
-      //       isFavorite.isFavorite = true;
-      //       this._notification.showSuccess("1006");
-      //     } else {
-      //       this._notification.showWarning("1007");
-      //     }
-      //   })
-      // )
+      this.subscription.add(
+        this._favorite.postData(datapost).subscribe((data: any) => {
+          if (data) {
+            // const isFavorite = this.project.find(f => f.id === projectId);
+            this.project.isFavorite = true;
+            this._notification.showSuccess("1006");
+          } else {
+            this._notification.showWarning("1007");
+          }
+        })
+      )
     }
   }
 
@@ -189,10 +194,10 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   //   );
   // }
 
-  loadProject_detail(slug: string) {
+  loadProject_detail(slug: string, userId?: string) {
     // const slug = this.route.snapshot.paramMap.get('slug');
     this.subscription.add(
-      this._project.getProjectBySlug(slug!).subscribe((data: any) => {
+      this._project.getProjectBySlug(slug!, userId).subscribe((data: any) => {
         this.project = data;
         this.mainImage = this.project.thumbnailUrl;
         if (!this.project.images.includes(this.mainImage)) {

@@ -87,8 +87,16 @@ export class ProjectService {
         return this.http.get<any[]>(`${this.apiUrl}/project-latest`);
     }
 
-    getProjectBySlug(slug: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
+    // getProjectBySlug(slug: string): Observable<any> {
+    //     return this.http.get<any>(`${this.apiUrl}/project-by-slug/${slug}`);
+    // }
+
+    getProjectBySlug(slug: string, userId?: string): Observable<any> {
+        const url = userId
+            ? `${this.apiUrl}/project-by-slug/${slug}?userId=${userId}`
+            : `${this.apiUrl}/project-by-slug/${slug}`;
+
+        return this.http.get<any>(url);
     }
 
     getProjectsPaymenByUserId(userId: string): Observable<any> {

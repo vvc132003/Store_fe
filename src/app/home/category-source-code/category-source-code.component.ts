@@ -22,7 +22,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
   totalPages = 1;
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 5;
+  pageSize = 12;
   pagedData: any[] = [];
   projectRamdom: any[] = [];
 
@@ -30,6 +30,7 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
 
   constructor(private _project: ProjectService, private _notification: NotificationService, private cookieService: CookieService, private _favorite: FavoriteService, private titleService: Title, private route: ActivatedRoute) { }
   private subscription = new Subscription();
+
 
   ngOnInit(): void {
     // this.loadProject_latest();
@@ -44,6 +45,11 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
 
   }
 
+  viewType: 'card' | 'list' = 'card'; // default
+
+  setViewType(type: 'card' | 'list') {
+    this.viewType = type;
+  }
 
   // loadProject_latest() {
   //   this.subscription.add(

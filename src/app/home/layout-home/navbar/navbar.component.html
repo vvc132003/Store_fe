@@ -161,6 +161,18 @@
 </nav>
 
 
-<app-notification [showoNotification]="showoNotification" (countnotis)="onCountNotiChange($event)"
-    (closePupAdd)="closeNotification()">
+<div class="toast-container" *ngIf="currentNotification">
+    <div class="toast">
+        <img [src]="currentNotification.avatar" class="avatar" alt="user" />
+        <div class="content">
+            <p class="username">{{ currentNotification.username }}</p>
+            <div [innerHTML]="sanitizeMessage(currentNotification.message)"></div>
+            <span class="time">{{ getFormattedTime(currentNotification.createdAt) }}</span>
+        </div>
+    </div>
+</div>
+
+
+<app-notification (currentNotification)="onNotification($event)" [showoNotification]="showoNotification"
+    (countnotis)="onCountNotiChange($event)" (closePupAdd)="closeNotification()">
 </app-notification>

@@ -25,20 +25,23 @@ export class CommentItemComponent {
     return this.comments.filter(c => c.parentId === this.comment.id);
   }
 
-  addReply() {
+  addReply(userId: string) {
     if (!this.replyInput.trim()) return;
 
     const newComment = {
       projectId: this.comment.projectId,
-      userId: this.currentUserId,
+      authorUserId: this.currentUserId,
       content: this.replyInput,
-      parentId: this.comment.id
+      parentId: this.comment.id,
+      shouldCreateNotification: true,
+      repliedUserId: userId
+
     };
 
     this._comment.postData(newComment).subscribe((res: any) => {
       this.replyInput = "";
       this.showReplyInput = false;
-        this.comments.push(res);
+      this.comments.push(res);
     });
   }
 }

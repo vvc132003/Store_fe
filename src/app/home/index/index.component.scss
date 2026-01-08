@@ -183,10 +183,16 @@ a {
 
 .left-side {
     flex: 1;
-    /* chiếm toàn bộ phần còn lại */
     min-width: 0;
-    /* cực kỳ quan trọng để tránh vỡ layout */
+    min-height: 1100px;
+
 }
+.right-side {
+    position: sticky;
+    top: 160px;
+    align-self: flex-start;
+}
+
 
 .right-side-card {
     width: 320px;

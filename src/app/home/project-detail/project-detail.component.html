@@ -71,6 +71,11 @@
                                     <strong>Phí tải:</strong>
                                     <span class="money">{{ project.price | number }} đ</span>
                                 </div>
+                                <div class="likeactions">
+                                    <i class="fas fa-bookmark" (click)="bookmark(project.id)"
+                                        [class.text-warning]="project.isFavorite">
+                                    </i>
+                                </div>
                             </div>
                             <div class="rating-hr">
                             </div>
@@ -114,7 +119,7 @@
                     <div class=" left-side-card">
                         <div class="nav-tabs">
                             <ul class="nav">
-                                <li class="nav-item" [class.active]="activeTab === 0">
+                                <li class="nav-item" [class.active]="activeTab === -1">
                                     <a class="nav-link" (click)="selectTab(0)">Mô tả</a>
                                 </li>
                                 <li class="nav-item" [class.active]="activeTab === 1">
@@ -131,7 +136,7 @@
 
                             <!-- Tab content, sử dụng ngClass để điều khiển hiển thị nội dung -->
                             <div class="tab-content">
-                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 0}">
+                                <div class="tab-pane" *ngIf="activeTab === -1 || activeTab === 0">
                                     <div class="top-title">
                                         <h4><strong>MÔ TẢ</strong></h4>
                                     </div>
@@ -139,7 +144,7 @@
                                     <br>
                                     <div [innerHTML]="project.description | linebreaks"></div>
                                 </div>
-                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 1}">
+                                <div class="tab-pane" *ngIf="activeTab === -1 || activeTab === 1">
                                     <div class="top-title">
                                         <h4><strong>HƯỚNG DẪN CÀI ĐẶT</strong></h4>
                                     </div>
@@ -147,7 +152,7 @@
                                     <br>
                                     <div [innerHTML]="project.installationGuide | linebreaks"></div>
                                 </div>
-                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 2}">
+                                <div class="tab-pane" *ngIf="activeTab === -1 || activeTab === 2">
                                     <div class="top-title">
                                         <h4><strong>HÌNH ẢNH DEMO</strong></h4>
                                     </div>
@@ -159,7 +164,7 @@
                                             class="main-preview">
                                     </div>
                                 </div>
-                                <div [ngClass]="{'tab-pane': true, 'active': activeTab === 3}">
+                                <div class="tab-pane" *ngIf="activeTab === -1 || activeTab === 3">
                                     <div class="top-title">
                                         <h4><strong>XEM VIDEO SOURCE CODE</strong></h4>
                                     </div>

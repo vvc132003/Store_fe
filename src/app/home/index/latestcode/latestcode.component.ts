@@ -26,7 +26,7 @@ export class LatestcodeComponent implements OnChanges, OnDestroy {
 
   filteredData: any[] = [];
   currentPage = 1;
-  pageSize = 10;
+  pageSize = 12;
   pagedData: any[] = [];
 
   constructor(private cookieService: CookieService, private _favorite: FavoriteService, private _notification: NotificationService) { }
@@ -41,7 +41,7 @@ export class LatestcodeComponent implements OnChanges, OnDestroy {
     this.project_list = this.project_list.sort(
       (a: any, b: any) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    ).slice(0, 11);
+    ).slice(0, 12);
     this.filteredData = [...this.project_list];
     this.currentPage = 1;
     this.updatePagedData();

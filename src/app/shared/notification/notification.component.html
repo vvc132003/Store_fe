@@ -10,7 +10,6 @@
       <img [src]="avatar" class="avatar" alt="user" />
       <div class="content">
         <p class="username">{{ n.usserName }}</p>
-        <!-- <p class="message">{{ n.message }}</p> -->
         <div [innerHTML]="sanitizeMessage(n.message)"></div>
         <span class="time">
           {{ getFormattedTime(n.createdAt) }}

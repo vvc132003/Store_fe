@@ -27,19 +27,19 @@
 }
 
 .left-side-card .col-5 {
-    flex: 0 0 40%;       
-    min-width: 150px;   
+  flex: 0 0 40%;
+  min-width: 150px;
 }
 
 .left-side-card .col-7 {
-    flex: 1;            
-    min-width: 200px;   
+  flex: 1;
+  min-width: 200px;
 }
 
 
 .right-side {
-  flex: 0 0 25%;
-  margin-left: 2px;
+  // flex: 0 0 25%;
+  // margin-left: 2px;
   position: sticky;
   top: 50px;
   align-self: flex-start;
@@ -294,6 +294,35 @@
   }
 }
 
+.likeactions {
+  font-size: 36px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  i {
+    color: #9ca3af; // xám nhẹ
+    transition: color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  &:hover i {
+    color: #111;
+    transform: scale(1.15);
+  }
+
+  i.text-warning {
+    color: #facc15 !important; // vàng đẹp hơn yellow mặc định
+    text-shadow: 0 0 6px rgba(250, 204, 21, 0.6);
+  }
+
+  &:active i {
+    transform: scale(0.95);
+  }
+}
+
+
 .downview {
   background-color: #4f46e5;
   color: white;
@@ -389,16 +418,10 @@
 }
 
 .tab-pane {
-  width: 100%;
   padding: 10px;
-  display: none;
+  display: block !important;
+
 }
-
-.tab-pane.active {
-  display: block;
-}
-
-
 
 
 .thumb-list {
@@ -765,15 +788,6 @@
 
 .tab-content {
   margin-top: 20px;
-}
-
-.tab-pane {
-  display: none;
-}
-
-.tab-pane.active {
-  display: block;
-  /* Hiển thị content của tab active */
 }
 
 .tab-pane h4 {

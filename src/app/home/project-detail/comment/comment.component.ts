@@ -21,7 +21,7 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     const token = this.cookieService.get('access_token');
-    if (!token) return alert("Bạn cần đăng nhập");
+    if (!token) return;
 
     const payload = this.parseJwt(token);
     if (!payload) return;
@@ -32,7 +32,7 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
     // console.log(this.projectId)
     this.loadComment();
   }
-  
+
   loadComment() {
     this.subscription.add(
       this._comment.getData(this.projectId).subscribe((res: any) => {
@@ -69,9 +69,10 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
 
     const comment = {
       projectId: this.projectId,
-      userId: payload.nameid,
+      authorUserId: payload.nameid,
       content: this.commentInput,
-      parentId: parentId || null
+      parentId: parentId || null,
+      shouldCreateNotification: false
     };
 
     this.subscription.add(

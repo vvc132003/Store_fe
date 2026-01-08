@@ -42,6 +42,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   ];
   @Input() showoNotification!: boolean;
   @Output() closePupAdd = new EventEmitter<void>();
+  @Output() currentNotification = new EventEmitter<any>();
+
   @Output() countnotis = new EventEmitter<number>();
 
 
@@ -68,6 +70,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       return;
     }
     const payload = this.parseJwt(token);
+    this.loadSoket(payload);
     const userId = payload?.role === 'admin' ? undefined : payload?.nameid;
     this.subscription.add(
       this._notification.getNotification(userId).subscribe((data: any[]) => {
@@ -149,10 +152,31 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this._notification.stopConnection1();
   }
   //#region  event
   close() {
     this.showoNotification = false;
     this.closePupAdd.emit();
   }
+
+
+  loadSoket(data: any) {
+    this.subscription.add(
+      this._notification.startConnection1(data.nameid).subscribe(() => {
+        this._notification.loadNotification().subscribe((res: any) => {
+          this.newNotification(res);
+        })
+      })
+    )
+  }
+
+
+  newNotification(data: any) {
+    this.countnoti += 1;
+    this.countnotis.emit(this.countnoti);
+    this.notifications = [data, ...this.notifications];
+    this.currentNotification.emit(data);
+  }
+
 }
