@@ -32,6 +32,7 @@ import { FeaturedapplicationsComponent } from './index/featuredapplications/feat
 import { FeaturedgameComponent } from './index/featuredgame/featuredgame.component';
 import { CommentComponent } from './project-detail/comment/comment.component';
 import { CommentItemComponent } from './project-detail/comment/comment-item/comment-item.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { CommentItemComponent } from './project-detail/comment/comment-item/comm
     FeaturedgameComponent,
     CommentComponent,
     CommentItemComponent,
+    UpdateAccountComponent,
   ],
   imports: [
     CommonModule,

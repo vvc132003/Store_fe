@@ -1,6 +1,6 @@
 .login-bg {
   min-height: 100vh;
-  background: linear-gradient(135deg, #3bb2f6, #34e6b2);
+  // background: linear-gradient(135deg, #3bb2f6, #34e6b2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,4 +143,128 @@ input:focus {
 
 .toggle-password:hover {
   color: #2d7ff9;
+}
+
+/// sao
+
+.sky {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #1a1a3d 70%, #000000 100%);
+    overflow: hidden;
+}
+
+
+.sky span {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0.3;
+        transform: scale(0.9);
+    }
+}
+
+.moon {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    z-index: 0;
+}
+
+//// chim
+
+.birds {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bird {
+    position: absolute;
+    left: -120px;
+    width: 40px;
+    height: 20px;
+    animation: fly 25s linear infinite;
+}
+
+.wing {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50% 50% 0 0;
+    top: 10px;
+    animation: flap 0.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, .6));
+}
+
+@keyframes flap {
+    0% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes fly {
+    0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(60vw) translateY(-30px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(120vw) translateY(20px);
+        opacity: 1;
+    }
+}
+
+.wing.left {
+    left: 0;
+    transform-origin: right center;
+}
+
+.wing.right {
+    right: 0;
+    transform-origin: left center;
+    animation-delay: 0.3s;
 }

@@ -12,7 +12,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./pages-register.component.scss']
 })
 export class PagesRegisterComponent implements OnInit, OnDestroy {
+stars: { top: string; left: string; size: string; delay: string }[] = [];
 
+  birdStyles: {
+    top: string;
+    duration: string;
+    delay: string;
+    scale: string;
+  }[] = [];
   user_register: any = {};
   constructor(private titleService: Title,
     private _user: UserService,
@@ -24,11 +31,39 @@ export class PagesRegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.titleService.setTitle("Đăng ký tài khoản");
     this.loadSetting();
+     this.generateBirds();
+    this.generateStars();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+ generateStars() {
+    const numStars = 100;
+    this.stars = [];
 
+    for (let i = 0; i < numStars; i++) {
+      this.stars.push({
+        top: `${Math.random() * 100 + 15}vh`,
+        left: `${Math.random() * 100}vw`,
+        size: `${Math.random() * 2 + 1}px`,  // ngôi sao nhỏ 1-3px
+        delay: `${Math.random() * 5}s`
+      });
+    }
+  }
+
+  generateBirds() {
+    const numBirds = 10; // số chim
+    this.birdStyles = [];
+
+    for (let i = 0; i < numBirds; i++) {
+      this.birdStyles.push({
+        top: `${Math.random() * 60 + 10}vh`,        // bay từ trên xuống giữa
+        duration: `${20 + Math.random() * 20}s`,    // bay chậm
+        delay: `${Math.random() * 10}s`,
+        scale: `scale(${0.3 + Math.random() * 0.4})`
+      });
+    }
+  }
 
   settings: any;
   securitySettings: any;

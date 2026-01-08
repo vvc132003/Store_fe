@@ -12,6 +12,7 @@ import { PurchasedCodeComponent } from './purchased-code/purchased-code.componen
 import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProjectserviceComponent } from './projectservice/projectservice.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'tk/purchased-code', component: PurchasedCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] },
+  { path: 'tk/update-account', component: UpdateAccountComponent, canActivate: [HomeGuard] },
   { path: 'project-service', component: ProjectserviceComponent }
 
 

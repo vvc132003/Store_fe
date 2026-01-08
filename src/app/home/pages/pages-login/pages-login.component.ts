@@ -12,7 +12,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./pages-login.component.scss']
 })
 export class PagesLoginComponent implements OnInit, OnDestroy {
+  stars: { top: string; left: string; size: string; delay: string }[] = [];
 
+  birdStyles: {
+    top: string;
+    duration: string;
+    delay: string;
+    scale: string;
+  }[] = [];
   showPassword = false;
   showConfirmPassword = false;
 
@@ -29,6 +36,36 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
         this.showWarning = true;
       }
     });
+    this.generateBirds();
+    this.generateStars();
+  }
+
+  generateStars() {
+    const numStars = 100;
+    this.stars = [];
+
+    for (let i = 0; i < numStars; i++) {
+      this.stars.push({
+        top: `${Math.random() * 100 + 15}vh`,
+        left: `${Math.random() * 100}vw`,
+        size: `${Math.random() * 2 + 1}px`,  // ngôi sao nhỏ 1-3px
+        delay: `${Math.random() * 5}s`
+      });
+    }
+  }
+
+  generateBirds() {
+    const numBirds = 10; // số chim
+    this.birdStyles = [];
+
+    for (let i = 0; i < numBirds; i++) {
+      this.birdStyles.push({
+        top: `${Math.random() * 60 + 10}vh`,        // bay từ trên xuống giữa
+        duration: `${20 + Math.random() * 20}s`,    // bay chậm
+        delay: `${Math.random() * 10}s`,
+        scale: `scale(${0.3 + Math.random() * 0.4})`
+      });
+    }
   }
 
   ngOnDestroy(): void {

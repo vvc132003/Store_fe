@@ -1,4 +1,28 @@
 <div class="login-bg">
+    <div class="birds">
+    <div *ngFor="let bird of birdStyles" class="bird" [ngStyle]="{
+                top: bird.top,
+                animationDuration: bird.duration,
+                animationDelay: bird.delay,
+                transform: bird.scale
+                }">
+      <span class="wing left"></span>
+      <span class="wing right"></span>
+    </div>
+  </div>
+
+  <div class="sky">
+    <span *ngFor="let star of stars" [ngStyle]="{
+    'top': star.top,
+    'left': star.left,
+    'width': star.size,
+    'height': star.size,
+    'animation-delay': star.delay
+  }"></span>
+
+    <div class="moon"></div>
+  </div>
+
     <div class="login-card">
 
         <h2 class="title">Đăng ký</h2>

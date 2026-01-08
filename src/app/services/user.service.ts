@@ -48,9 +48,21 @@ export class UserService {
     }
 
 
+    uploadImg(file_img: File, fileName_thumnai: string): Observable<any> {
+        const formData = new FormData();
+        formData.append('thumbnailUrl', file_img);
+        formData.append('fileName_thumnai', fileName_thumnai);
+      
+        return this.http.post<any>(`${this.apiUrl}/UploadImg`, formData);
+    }
+
     // Phương thức PUT
     updateData(data: any): Observable<any> {
         return this.http.put<any>(this.apiUrl, data);
+    }
+
+    updateUser(id: string, data: any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${id}`, data);
     }
 
     // Phương thức DELETE

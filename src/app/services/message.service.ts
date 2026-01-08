@@ -34,6 +34,8 @@ export class MessageService {
     { code: '1027', text: 'Vui lòng chọn ngân sách!' },
     { code: '1028', text: 'Số dư không đủ!' },
     { code: '1029', text: 'Tải thành công!' },
+    { code: '1030', text: 'Cập nhật tài khoản thành công!' },
+
 
 
 

@@ -9,7 +9,7 @@
     <div *ngFor="let n of notifications" class="notification-item" [class.unread]="!n.isRead" (click)="markAsRead(n)">
       <img [src]="avatar" class="avatar" alt="user" />
       <div class="content">
-        <p class="username">{{ n.usserName }}</p>
+        <p class="username">{{ n?.usserName || currentUser}}</p>
         <div [innerHTML]="sanitizeMessage(n.message)"></div>
         <span class="time">
           {{ getFormattedTime(n.createdAt) }}

@@ -43,14 +43,14 @@
                     <span class="badge">5</span>
                 </div>
                 <!-- Avatar -->
-                <img class="avatar" [src]="user.avatar || 'http://192.168.1.6/uploads/a3.png'" alt="avatar"
+                <img class="avatar" [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'" alt="avatar"
                     (click)="toggleMenu($event)" />
 
                 <!-- Dropdown menu -->
                 <div class="dropdown-menud" (click)="$event.stopPropagation()">
                     <div class="user-info">
                         <div class="avatar-circle">
-                            <img class="avatar" [src]="user.avatar || 'http://192.168.1.6/uploads/a3.png'"
+                            <img class="avatar" [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'"
                                 alt="avatar" />
                         </div>
                         <div class="user-info-left">
@@ -66,7 +66,7 @@
                         <li [routerLink]="['/tk/favorite-code']">
                             <i class="fa-solid fa-bookmark"></i> Code đã thích
                         </li>
-                        <li [routerLink]="['/']">
+                        <li [routerLink]="['/tk/update-account']">
                             <i class="fa-solid fa-pen"></i> Cập nhật tài khoản
                         </li>
                         <li class="logout" (click)="logout()">

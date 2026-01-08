@@ -63,6 +63,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadNotificationByUserId();
   }
+  currentUser: any;
+
   countnoti: number = 0;
   loadNotificationByUserId() {
     const token = this.cookieService.get('access_token');
@@ -70,6 +72,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
       return;
     }
     const payload = this.parseJwt(token);
+    this.currentUser = payload.unique_name;
+    // console.log(this.currentUser);
     this.loadSoket(payload);
     const userId = payload?.role === 'admin' ? undefined : payload?.nameid;
     this.subscription.add(

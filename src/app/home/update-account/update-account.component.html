@@ -1,0 +1,59 @@
+<app-layout-home (userLoaded)="onUserLoaded($event)" [tabTemplates]="{dashboards}"></app-layout-home>
+<ng-template #dashboards>
+    <div class="project-detail-page">
+        <div class="container-fuild">
+            <div class="row">
+                <div class="col-12 col-lg-3 right-side">
+                    <div class="right-side-card">
+                        <app-card-menu></app-card-menu>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 left-side">
+                    <div class="left-side-card">
+                        <div class="bear-container">
+                            <div class="dashboard-header">
+                                <h5>Cập nhật tài khoản</h5>
+                            </div>
+                            <div class="container">
+                                <div class="left">
+                                    <label class="image-box">
+                                        <input type="file" hidden accept="image/*" (change)="onFileSelected($event)">
+                                        <ng-container *ngIf="!previewImg">
+                                            <div class="icon">📷</div>
+                                            <p>Tải ảnh lên</p>
+                                        </ng-container>
+                                        <img *ngIf="previewImg" [src]="previewImg" class="preview-img">
+                                    </label>
+
+                                    <button class="btn-add-image">+ Thêm ảnh</button>
+                                </div>
+                                <div class="right">
+                                    <div class="form-group">
+                                        <label>Email đã đăng ký <span>*</span></label>
+                                        <input type="email" [(ngModel)]="currentUser.email" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Tên hiển thị <span>*</span></label>
+                                        <input type="text" [(ngModel)]="currentUser.fullName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Số điện thoại <span>*</span></label>
+                                        <input type="number" [(ngModel)]="currentUser.phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="offcanvas-footer">
+                                <button type="button" class="btn btn-primary px-4" (click)="update()">
+                                    <i class="fa fa-save"></i>
+                                    Lưu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
