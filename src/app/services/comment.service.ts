@@ -15,7 +15,11 @@ export class CommentService {
     //     return this.http.get<any[]>(`${this.apiUrl}/${projectId}`);
     // }
     getData(projectId?: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/commentbypjId/${projectId}`);
+        const url = projectId
+            ? `${this.apiUrl}/commentbypjId/${projectId}`
+            : `${this.apiUrl}/commentbypjId`; 
+
+        return this.http.get<any>(url);
     }
 
     exportFavoritesExcel(): Observable<any> {

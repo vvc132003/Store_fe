@@ -18,13 +18,12 @@
                                 <div class="left">
                                     <label class="image-box">
                                         <input type="file" hidden accept="image/*" (change)="onFileSelected($event)">
-                                        <ng-container *ngIf="!previewImg">
+                                        <ng-container>
                                             <div class="icon">📷</div>
                                             <p>Tải ảnh lên</p>
                                         </ng-container>
-                                        <img *ngIf="previewImg" [src]="previewImg" class="preview-img">
-                                    </label>
-
+                                        <img *ngIf="previewImg" [src]="previewImg" class="preview-img" alt=""
+                                            (error)="previewImg = null"> </label>
                                     <button class="btn-add-image">+ Thêm ảnh</button>
                                 </div>
                                 <div class="right">

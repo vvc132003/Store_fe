@@ -15,9 +15,13 @@ export class IndexComponent implements OnInit, OnDestroy {
   project_latest: any[] = [];
 
   slides = [
-    "https://giaodichcode.com/assets/images/bannerv2/POP-UP-CODE_LARGE-2.jpg",
-    "https://giaodichcode.com/assets/images/banner/banner2.png"
+    'assets/a1.png',
+    'assets/a2.png',
+    'assets/a3.png',
+    'assets/a4.png'
+
   ];
+
 
   // @Input() category_list: any[] = [];
   project_list: any[] = [];

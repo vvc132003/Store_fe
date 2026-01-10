@@ -108,10 +108,12 @@
   cursor: pointer;
   background: #fafafa;
   overflow: hidden;
+  position: relative;
 
 }
 
 .preview-img {
+  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -120,6 +122,11 @@
 .image-box .icon {
   font-size: 50px;
   margin-bottom: 10px;
+}
+
+.image-box .icon,
+.image-box p {
+  z-index: 9999;
 }
 
 .btn-add-image {
@@ -183,15 +190,15 @@
 }
 
 .offcanvas-footer {
-    // position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    padding: 1rem;
-    // background: white;
-    text-align: right;
-    left: 0;
-    // z-index: 1060 !important;
+  // position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding: 1rem;
+  // background: white;
+  text-align: right;
+  left: 0;
+  // z-index: 1060 !important;
 }
 
 /* MOBILE */

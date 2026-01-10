@@ -20,44 +20,98 @@
         <br>
         <div class="stats-container">
             <div class="stat-card">
-                <div class="icon">📚</div>
-                <div class="label">Tổng source</div>
-                <div class="value">{{summary.countProject}}</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="icon">🔥</div>
-                <div class="label">Source bán chạy</div>
-                <div class="value"
-                    style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis;  max-width: 200px;"
-                    [title]="summary.projectName">
-                    {{ summary.projectName }}
+                <div class="icon icon-books">📚</div>
+                <div class="stat-content">
+                    <div class="label">Tổng source</div>
+                    <div class="value">{{summary.countProject}}</div>
                 </div>
             </div>
 
             <div class="stat-card">
-                <div class="icon">💰</div>
-                <div class="label">Doanh thu</div>
-                <div class="value">{{summary.totalRevenue | number}} đ</div>
+                <div class="icon icon-hot">🔥</div>
+                <div class="stat-content"
+                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;"
+                    [title]="summary.projectName">
+                    <div class="label">Source bán chạy</div>
+                    <div class="value">{{ summary.projectName }}</div>
+                </div>
             </div>
 
             <div class="stat-card">
-                <div class="icon">👤</div>
-                <div class="label">User đăng ký</div>
-                <div class="value">{{summary.countUser}}</div>
+                <div class="icon icon-money">💰</div>
+                <div class="stat-content">
+                    <div class="label">Doanh thu</div>
+                    <div class="value">{{summary.totalRevenue | number}} đ</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon icon-user">👤</div>
+                <div class="stat-content">
+                    <div class="label">User đăng ký</div>
+                    <div class="value">{{summary.countUser}}</div>
+                </div>
             </div>
         </div>
 
+
         <br>
-        <div class="cards">
+        <!-- <div class="cards">
             <div class="cards-content">
                 <app-mixed-canvas [revenueData]="revenueData" [orderCountData]="orderCountData"></app-mixed-canvas>
             </div>
-        </div>
+        </div> -->
 
-        <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
-        <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas>
-        <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
+        <div class="row">
+            <div class="col-8">
+                <div class="cards">
+                    <!-- <app-mixed-canvas [revenueData]="revenueData"
+                            [orderCountData]="orderCountData"></app-mixed-canvas> -->
+                    <app-area-canvas [revenueData]="revenueData"></app-area-canvas>
+
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="cards">
+                    <h4 class="comments-title">Tất cả bình luận</h4>
+                    <div *ngIf="comments.length; else noComments">
+                        <div class="comment-card" *ngFor="let comment of comments.slice(0,4)">
+                            <div class="avatar">
+                                <img [src]="comment.avatar || 'assets/default-avatar.png'" alt="Avatar">
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-header">
+                                    <span class="username">{{ comment.userName }}</span>
+                                    <span class="date">{{ getFormattedTime(comment.createdAt) }}</span>
+                                </div>
+                                <p class="comment-text">{{ comment.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offcanvas-footer">
+                        <a href="#" class="view-all-btn">Xem tất cả</a>
+                    </div>
+                    <ng-template #noComments>
+                        <p class="no-comments">Chưa có bình luận nào.</p>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <div class="cards">
+                    <app-line-canvas [orderCountData]="orderCountData"></app-line-canvas>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="cards">
+                    <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas>
+                </div>
+            </div>
+        </div>
+        <!-- <app-area-canvas [revenueData]="revenueData"></app-area-canvas> -->
+        <!-- <app-bar-canvas [revenueData]="revenueData"></app-bar-canvas> -->
         <!-- <app-polar-area-canvas [reportData]="reportData"></app-polar-area-canvas> -->
         <!-- <app-doughnut-canvas [reportData]="reportData"></app-doughnut-canvas> -->
     </div>

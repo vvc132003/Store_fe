@@ -1,7 +1,7 @@
 <div class="comment-box">
 
     <div class="comment-form">
-        <img class="avatar" src="https://i.pravatar.cc/40?img=1" alt="avatar" />
+        <img class="avatar" [src]="currentUser.avatar" alt="avatar" />
         <div class="input-area">
             <textarea [(ngModel)]="commentInput" placeholder="Viết bình luận..."></textarea>
             <button class="btn-submit" aria-label="Gửi bình luận" (click)="addComment()">
@@ -16,7 +16,8 @@
     <!-- LIST BÌNH LUẬN -->
     <div class="comment-list">
         <div *ngFor="let comment of parentComments">
-            <app-comment-item [comment]="comment" [comments]="comments" [currentUserId]="currentUserId">
+            <app-comment-item [currentUser]=" currentUser" [comment]="comment" [comments]="comments"
+                [currentUserId]="currentUserId">
             </app-comment-item>
         </div>
     </div>

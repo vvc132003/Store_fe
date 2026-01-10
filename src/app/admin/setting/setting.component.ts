@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { forkJoin, tap } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SettingsService } from 'src/app/services/setting.service';
 
@@ -12,7 +13,7 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
 
 
   setting: any = {
-    SiteSettings: { siteName: '', logo: '', maintenanceMode: false, defaultLanguage: 'vi' },
+    SiteSettings: { siteName: '', logo: '', maintenanceMode: false, defaultLanguage: 'vi', defaultUserAvatar: '' },
     PaymentSettings: { gateways: [], currency: 'VND', commission: 10, enableTestMode: false },
     EmailSettings: { smtpHost: '', smtpPort: 587, username: '', password: '', enableSSL: false },
     ThemeSettings: { theme: 'dark', primaryColor: '#FF5733', secondaryColor: '#333333' },
@@ -44,7 +45,7 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   saveSettings(): void {
-    if (!this.selectedFile_img) {
+    if (!this.selectedFile_img_logo || !this.selectedFile_img_avatar) {
       this._notification.showError("1022");
       return;
     }
@@ -55,14 +56,19 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
       IsPublic: true
     };
 
-    this._setting.uploadLogo(this.selectedFile_img, this.setting.SiteSettings.logo).subscribe((res: any) => {
-      payload.Data.SiteSettings.logo = res.thumbnailUrl;
+    this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar).subscribe((res: any) => {
+      payload.Data.SiteSettings.logo = res.logoUrl;
       this._setting.postData(payload).subscribe(() => {
         // console.log("thành công");
         this._notification.showSuccess("1020");
       })
     })
   }
+
+  // private stripDomain(url: string | null): string {
+  //   if (!url) return '';
+  //   return url.replace(/^https?:\/\/[^\/]+/, '');
+  // }
 
   updateSettings(): void {
     const payload = {
@@ -71,14 +77,50 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
       Data: this.setting,
       IsPublic: true
     };
-    if (this.previewImg) {
-      this.setting.SiteSettings.logo = '';
-    }
-    this._setting.updateData(payload.Key, payload).subscribe(() => {
-      this._notification.showSuccess("1021");
 
-    })
+    const uploadObservables = [];
+
+    if (this.selectedFile_img_logo || this.selectedFile_img_avatar) {
+      uploadObservables.push(
+        this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar)
+          .pipe(tap((res: any) => {
+            if (res.logoUrl && res.logoUrl.trim() !== '') {
+              this.setting.SiteSettings.logo = res.logoUrl;
+            } else {
+              delete this.setting.SiteSettings.logo;
+            }
+
+            if (res.avatarUrl && res.avatarUrl.trim() !== '') {
+              this.setting.SiteSettings.defaultUserAvatar = res.avatarUrl;
+            } else {
+              delete this.setting.SiteSettings.defaultUserAvatar;
+            }
+          }))
+      );
+    }
+
+    if (uploadObservables.length > 0) {
+      forkJoin(uploadObservables).subscribe({
+        next: () => this._updateData(payload),
+        error: () => this._notification.showError("Error uploading images")
+      });
+    } else {
+      delete this.setting.SiteSettings.logo;
+      delete this.setting.SiteSettings.defaultUserAvatar;
+      this._updateData(payload);
+      
+    }
   }
+
+  private _updateData(payload: any) {
+    // console.log(payload);
+    this._setting.updateData(payload.Key, payload).subscribe({
+      next: () => this._notification.showSuccess("1021"),
+      error: () => this._notification.showError("Error updating settings")
+    });
+  }
+
+
 
 
   // Hàm định dạng số thành VND
@@ -101,27 +143,65 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
     input.value = this.formatVND(this.setting.NotificationSettings.lowBalanceThreshold);
   }
 
-  selectedFile_img: File | null = null;
-  previewImg: string | null = null;
-  onFileSelected_img(event: any): void {
+  selectedFile_img_avatar?: File;
+  previewImg_avatar: string | null = null;
+  onFileSelected_img_avatar(event: any): void {
     const file: File = event.target.files[0];
-    if (file) {
-      this.setting.SiteSettings.logo = file.name;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.selectedFile_img = file;
-        // console.log(this.selectedFile_img);
-        this.previewImg = reader.result as string; // <-- gán trực tiếp
-      };
-      reader.readAsDataURL(file); // Đọc file dưới dạng Data URL
+    if (!file) return;
+
+    if (file.type !== 'image/png') {
+      this._notification.showError('Chỉ cho phép ảnh PNG (nền trong suốt)');
+      event.target.value = '';
+      return;
     }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile_img_avatar = file;
+      this.previewImg_avatar = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
   }
+
+
+  selectedFile_img_logo?: File;
+  previewImg_logo: string | null = null;
+
+  onFileSelected_img_logo(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    if (file.type !== 'image/png') {
+      this._notification.showError('Chỉ cho phép ảnh PNG (nền trong suốt)');
+      event.target.value = '';
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      this._notification.showError('Dung lượng ảnh tối đa 2MB');
+      event.target.value = '';
+      return;
+    }
+
+    this.setting.SiteSettings.logo = file.name;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile_img_logo = file;
+      this.previewImg_logo = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   key: string = "";
   receiveData(event: any) {
     this.setting = event.data;
     this.key = event.id;
     // console.log(event);
-    this.previewImg = this.setting.SiteSettings.logo;
+    this.previewImg_logo = this.setting.SiteSettings.logo;
+    this.previewImg_avatar = this.setting.SiteSettings.defaultUserAvatar;
+
     // console.log(event)
   }
 

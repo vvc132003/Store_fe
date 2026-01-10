@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { FavoriteService } from 'src/app/services/favorite.service';
@@ -46,7 +46,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   breadcrumb_title: string = "";
   breadcrumb_categoryname: string = "";
   constructor(private titleService: Title, private sanitizer: DomSanitizer,
-    private _project: ProjectService, private route: ActivatedRoute,
+    private _project: ProjectService, private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _order: OrderService,
     private cookieService: CookieService,
     private _user: UserService,
@@ -67,7 +68,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
       payload = this.parseJwt(token);
     }
     this.subscription.add(
-      this.route.paramMap.subscribe(params => {
+      this._activatedRoute.paramMap.subscribe(params => {
         const slug = params.get('slug');
         if (slug) {
           // Lấy slug cũ từ localStorage

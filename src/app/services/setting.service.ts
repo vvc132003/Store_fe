@@ -25,11 +25,15 @@ export class SettingsService {
         return this.http.put<any>(`${this.apiUrl}/${key}`, data);
     }
 
-    uploadLogo(logo: File, fileName_logo: string): Observable<any> {
+    uploadLogo(logo?: File, avatar?: File): Observable<any> {
         const formData = new FormData();
-        formData.append('logo', logo);
-        formData.append('fileName_logo', fileName_logo);
+
+        if (logo) formData.append('logo', logo);
+        if (avatar) formData.append('avatar', avatar);
+
         return this.http.post<any>(`${this.apiUrl}/Uploadlogo`, formData);
     }
+
+
 
 }

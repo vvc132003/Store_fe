@@ -94,7 +94,7 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
         if (role === 'admin') {
           this.router.navigate(['/mbcode/admin/revenue/1000']);
         } else {
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboards']);
         }
         this.loadSoket(payload);
         this._notification.showSuccess('1005');

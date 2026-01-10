@@ -10,6 +10,8 @@ import { CommentService } from 'src/app/services/comment.service';
 })
 export class CommentComponent implements OnInit, OnDestroy, OnChanges {
 
+  @Input() currentUser: any = {};
+
   comments: any[] = [];
   @Input() projectId!: string;
   commentInput: string = "";       // Dùng cho input comment/reply
@@ -80,7 +82,7 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
         // alert("Thêm bình luận thành công");
         this.commentInput = "";
         this.replyParentId = null;
-        this.comments.push(res);
+        this.comments.unshift(res);
       })
     );
   }

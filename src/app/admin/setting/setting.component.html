@@ -45,16 +45,30 @@
                             [(ngModel)]="setting.SiteSettings.siteName" placeholder="Nhập tên trang">
                     </div>
                     <!-- /logo/logo.png -->
-                    <div class="mb-3">
-                        <div class="custom-file">
-                            <input type="file" id="image" name="image" class="form-control form-control-sm"
-                                (change)="onFileSelected_img($event)" #imageInput style="display: none" />
-                            <a href="javascript:void(0)" class="custom-file-link" (click)="imageInput.click()">
-                                Chọn Logo
-                            </a>
+                    <div class="row ">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="custom-file">
+                                    <input type="file" id="image" name="image" class="form-control form-control-sm"
+                                        (change)="onFileSelected_img_logo($event)" #imageInput style="display: none" />
+                                    <a href="javascript:void(0)" class="custom-file-link" (click)="imageInput.click()">
+                                        Chọn Logo
+                                    </a>
+                                </div>
+                                <img *ngIf="previewImg_logo" [src]="previewImg_logo" alt="Thumbnail" class="img-fluid mt-1"
+                                    style="max-height: 120px;">
+                            </div>
                         </div>
-                        <img *ngIf="previewImg" [src]="previewImg" alt="Thumbnail" class="img-fluid mt-1"
-                            style="max-height: 120px;">
+                        <div class="col-6 d-flex justify-content-end">
+                            <label class="image-box">
+                                <input type="file" hidden accept="image" (change)="onFileSelected_img_avatar($event)">
+                                <ng-container>
+                                    <div class="icon">📷</div>
+                                    <p>Tải ảnh người dùng (mặc định)</p>
+                                </ng-container>
+                                <img *ngIf="previewImg_avatar" [src]="previewImg_avatar" class="preview-img">
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-check form-switch mb-3">
@@ -63,7 +77,7 @@
                         <label class="form-check-label" for="maintenanceMode">Chế độ bảo trì</label>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="width: 50%;">
                         <label for="defaultLanguage" class="form-label">Ngôn ngữ mặc định</label>
                         <select class="form-select" id="defaultLanguage"
                             [(ngModel)]="setting.SiteSettings.defaultLanguage">
@@ -227,8 +241,10 @@
 
                     <div class="mb-3">
                         <label for="lowBalanceThreshold" class="form-label">Ngưỡng cảnh báo số dư thấp</label>
-                        <input type="text" style="color: red;" placeholder="VD: 50.000 ₫" class="form-control" id="lowBalanceThreshold"
-                          [value]="formatVND(setting.NotificationSettings.lowBalanceThreshold)" (input)="onPriceInput($event)">
+                        <input type="text" style="color: red;" placeholder="VD: 50.000 ₫" class="form-control"
+                            id="lowBalanceThreshold"
+                            [value]="formatVND(setting.NotificationSettings.lowBalanceThreshold)"
+                            (input)="onPriceInput($event)">
                     </div>
                 </div>
             </div>

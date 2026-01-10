@@ -64,7 +64,9 @@ export class UpdateAccountComponent implements OnInit, OnDestroy {
 
   onUserLoaded(user: any) {
     this.currentUser = user;
-    this.previewImg = this.currentUser.avatar
+    this.previewImg = this.currentUser.avatar && this.currentUser.avatar.trim() !== ''
+      ? this.currentUser.avatar
+      : null;
   }
 
   previewImg: string | null = null;

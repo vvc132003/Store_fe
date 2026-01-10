@@ -13,13 +13,20 @@ export class CommentItemComponent {
   @Input() currentUserId: string = "";
   replyInput: string = "";
   showReplyInput: boolean = false;
+  @Input() currentUser: any = {};
+
 
   constructor(private _comment: CommentService, private cookieService: CookieService) { }
 
-  toggleReplyInput() {
-    this.showReplyInput = !this.showReplyInput;
-    this.replyInput = "";
+  toggleReplyInput(comment: any) {
+    this.comments.forEach(c => {
+      if (c !== comment) c.showReplyInput = false; // đóng comment khác
+    });
+
+    comment.showReplyInput = !comment.showReplyInput;
+    comment.replyInput = "";
   }
+
 
   getReplies(): any[] {
     return this.comments.filter(c => c.parentId === this.comment.id);
