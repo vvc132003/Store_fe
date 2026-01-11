@@ -1,0 +1,46 @@
+<div class="custom-offcanvas" [class.show]="showoffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{text}}</h5>
+    <button class="close-btn" (click)="close()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="container-fluid p-3 ">
+    <div class="offcanvas-body">
+      <div class="comment-detail-card" *ngIf="comment">
+        <div class="header">
+          <img class="avatar" [src]="comment.avatar" alt="{{ comment.userName }}">
+          <div class="user-info">
+            <b>{{ comment.userName }}</b>
+            <span class="time">{{ comment.createdAt | date:'short' }}</span>
+            <span class="rating">
+              <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                <span [class.filled]="i < comment.rating">★</span>
+              </ng-container>
+            </span>
+          </div>
+        </div>
+
+        <div class="product">
+          Tên project: <b>{{ comment.projectName }}</b>
+        </div>
+
+        <div class="content">
+          "{{ comment.content }}"
+        </div>
+        <div class="actions">
+          <button class="approve"><i class="fa-solid fa-check"></i></button>
+          <button class="reply"><i class="fa-solid fa-comment"></i></button>
+          <button class="hide"><i class="fa-solid fa-eye-slash"></i></button>
+          <button class="delete"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+      <div *ngFor="let comment of parentComments">
+        <app-comment-item [currentUser]=" currentUser" [comment]="comment" [comments]="filteredComments"
+          [currentUserId]="currentUserId">
+        </app-comment-item>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="custom-backdrop" [class.show]="showoffcanvas"></div>

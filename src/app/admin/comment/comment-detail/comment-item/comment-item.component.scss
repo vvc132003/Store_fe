@@ -1,0 +1,279 @@
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.input-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* cho textarea trên, button dưới */
+  align-items: flex-end;
+  /* căn nút sang phải */
+  gap: 6px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  resize: none;
+  min-height: 60px;
+  font-size: 14px;
+}
+
+.btn-submit {
+  background: #4e8cff;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #3a6fd4;
+}
+
+.btn-submit svg {
+  display: block;
+}
+
+
+
+.btn-submit {
+  background: #4e8cff;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #165ecc;
+}
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #03658c;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #dee1e3;
+}
+
+
+/* ===== Comment list ===== */
+.comments-list {
+  margin-top: 30px;
+  position: relative;
+}
+
+.comments-list::before {
+  display: none;
+}
+
+/* Chỉ hiển thị khi có reply */
+.comments-list.has-replies::before {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #c7cacb;
+}
+
+.comments-list li.has-replies::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 65px;
+  /* chiều cao avatar */
+  bottom: 0;
+  width: 2px;
+  background: #c7cacb;
+}
+
+
+/* ===== Item ===== */
+.comments-list li {
+  position: relative;
+  margin-bottom: 15px;
+  clear: both;
+}
+
+/* ===== Avatar ===== */
+.comment-avatar {
+  float: left;
+  width: 65px;
+  height: 65px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+
+}
+
+.comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+
+}
+
+/* ===== Comment box ===== */
+.comment-box {
+  margin-left: 85px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.comment-box::before,
+.comment-box::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -12px;
+  border-style: solid;
+  border-width: 10px 12px 10px 0;
+}
+
+.comment-box::before {
+  border-color: transparent rgba(0, 0, 0, 0.05);
+}
+
+.comment-box::after {
+  left: -11px;
+  border-color: transparent #fff;
+}
+
+/* ===== Header ===== */
+.comment-head {
+  background: #f9f9f9;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #283035;
+}
+
+.comment-name.by-author {
+  color: #03658c;
+}
+
+.comment-head span {
+  font-size: 13px;
+  color: #999;
+}
+
+/* ===== Icons ===== */
+.comment-head i {
+  margin-left: auto;
+  cursor: pointer;
+  color: #a6a6a6;
+  transition: color 0.3s;
+}
+
+.comment-head i+i {
+  margin-left: 14px;
+}
+
+.comment-head i:hover {
+  color: #03658c;
+}
+
+/* ===== Content ===== */
+.comment-content {
+  padding: 12px;
+  font-size: 15px;
+  color: #595959;
+}
+
+/* ===== Replies ===== */
+.reply-list {
+  margin-top: 15px;
+  padding-left: 88px;
+}
+
+.reply-list::before,
+.reply-list::after {
+  display: none;
+}
+
+.reply-list li::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: -55px;
+  width: 60px;
+  height: 2px;
+  background: #c7cacb;
+}
+
+.reply-list .comment-avatar {
+  width: 50px;
+  height: 50px;
+}
+
+.reply-list .comment-box {
+  margin-left: 70px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@media (max-width: 470px) {
+
+  //  .reply-list {
+  //   padding-left: 40px;
+  // }
+  ul.comments-list.reply-list::before {
+    left: -8px !important;
+    width: 10px !important;
+  }
+
+  .comment-avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .comment-box {
+    margin-left: 60px;
+  }
+}

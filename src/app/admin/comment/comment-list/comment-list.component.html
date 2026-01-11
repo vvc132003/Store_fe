@@ -1,0 +1,62 @@
+<div class="comment-container">
+    <div class="comment-grid">
+        <div *ngFor="let c of pagedData" class="comment-card" (click)="clickComment(c)"
+            [ngClass]="{'bear-item-selected': compent_id?.id === c?.id}">
+
+            <div class="comment-header">
+                <div class="user-info">
+                    <img class="avatar" [src]="c.avatar" alt="{{ c.userName }}">
+                    <b>{{ c.userName }}</b>
+                </div>
+                <div class="rating-time">
+                    <span>
+                        <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                            <span [class.filled]="i < c.rating">★</span>
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+            <span class="time">{{ getFormattedTime(c.createdAt) }}</span>
+            <div class="comment-product">
+                Tên code: <b>{{ c.projectName }}</b>
+            </div>
+
+            <div class="comment-content">
+                "{{ c.content }}"
+            </div>
+
+            <div class="comment-status">
+                Trạng thái: <b [ngStyle]="{
+    'background-color': c.status === 'pending' ? '#facc15' :
+                        c.status === 'approved' ? '#a7f3d0' :
+                        '#e5e7eb',
+    'color': c.status === 'pending' ? '#92400e' :
+             c.status === 'approved' ? '#065f46' :
+             '#374151',
+    'padding': '2px 6px',
+    'border-radius': '6px'
+  }">
+                    {{ c.status === 'pending' ? 'Chờ duyệt' :
+                    c.status === 'approved' ? 'Đã duyệt' : 'Ẩn' }}
+                </b>
+            </div>
+
+            <br>
+            <div class="comment-actions">
+                <button class="approve"><i class="fa-solid fa-check"></i></button>
+                <button class="reply"><i class="fa-solid fa-comment"></i></button>
+                <button class="hide"><i class="fa-solid fa-eye-slash"></i></button>
+                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+
+    </div>
+    <div class="pagination">
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+        <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
+    </div>
+</div>
+<app-comment-detail></app-comment-detail>

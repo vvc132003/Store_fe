@@ -71,6 +71,35 @@
   cursor: pointer;
 }
 
+.btn-approve {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-approve:hover {
+  background-color: #15803d;
+}
+
+.btn-reply {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-reply:hover {
+  background-color: #1d4ed8;
+}
+
+
 
 @media (max-width: 470px) {
   .admin-toolbar {

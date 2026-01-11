@@ -1,0 +1,11 @@
+<app-layout [text]="'Bình luận sản phẩm'" (showPupAdd)="click($event)" [count]="countComment"
+    [tabTemplates]="{commentList,commentDetail}">
+</app-layout>
+<ng-template #commentList>
+    <app-comment-list [comments]="comments" (commentclick)="selectpComment($event)"
+        [compent_id]="compent_id"></app-comment-list>
+</ng-template>
+<ng-template #commentDetail>
+    <app-comment-detail *ngIf="newComment" [comments_list]="comments_list" [showoffcanvas]="showCommentDetail" [comment]="newComment"
+        (closeDetail)="close()"></app-comment-detail>
+</ng-template>

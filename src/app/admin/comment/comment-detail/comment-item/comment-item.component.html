@@ -1,0 +1,39 @@
+<ul id="comments-list" class="comments-list" [class.has-replies]="getReplies().length > 0">
+  <li>
+    <div class="comment-main-level">
+      <div class="comment-avatar"><img [src]="comment.avatar" alt=""></div>
+      <div class="comment-box">
+        <div class="comment-head">
+          <h6 class="comment-name" [class.by-author]="comment.userId === currentUserId"
+            [class.is-parent]="!comment.parentId">
+            <a href="#">
+              {{ comment.userId === currentUserId ? 'Bạn' : comment.userName }}
+            </a>
+          </h6>
+          <span>{{ comment.createdAt | date:'short' }}</span>
+          <i class="fa fa-reply" (click)="toggleReplyInput(comment)"></i>
+          <i class="fa fa-heart"></i>
+        </div>
+        <div class="comment-content">
+          {{ comment.content }}
+        </div>
+        <div class="comment-form" *ngIf="comment.showReplyInput">
+          <img class="avatar" [src]="currentUser.avatar" alt="avatar" />
+          <div class="input-area">
+            <textarea [(ngModel)]="replyInput" placeholder="Trả lời bình luận..."></textarea>
+            <button class="btn-submit" aria-label="Gửi bình luận" (click)="addReply(comment.userId)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="comments-list reply-list" *ngIf="getReplies().length">
+      <app-comment-item *ngFor="let reply of getReplies()" [currentUser]="currentUser" [comment]="reply"
+        [comments]="comments" [currentUserId]="currentUserId">
+      </app-comment-item>
+    </ul>
+  </li>
+</ul>

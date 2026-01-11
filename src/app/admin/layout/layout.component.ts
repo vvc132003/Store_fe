@@ -37,7 +37,7 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
   }
 
 
-  selectedLanguage: string = 'vi';
+  selectedLanguage: string = '';
   onLanguageChange(event: any): void {
     this.selectedLanguage = event;
   }

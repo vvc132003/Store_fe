@@ -84,6 +84,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '104', funId: '1005', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
 
 
+    /// 1008
+    { id: '101', funId: '1009', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('101') },
+    { id: '102', funId: '1009', label: 'Duyệt', icon: 'fa-check', type: '', class: 'btn-approve', display: 'block', language: 'vi', action: () => this.event('102') },
+    { id: '103', funId: '1009', label: 'Trả lời', icon: 'fa-comment', type: '', class: 'btn-reply', display: 'block', language: 'vi', action: () => this.event('103') },
+    { id: '104', funId: '1009', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
+    { id: '105', funId: '1009', label: 'Ẩn', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
 
 
 
@@ -122,7 +128,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '103', funId: '1005', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
     { id: '104', funId: '1005', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
 
-     /// 1004-1
+    /// 1004-1
     { id: '103', funId: '1004-1', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
     { id: '104', funId: '1004-1', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
     { id: '106', funId: '1004-1', label: 'Export CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'en', action: () => this.event('105') },
@@ -142,6 +148,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     { id: '105', funId: '1007', label: 'Export CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'en', action: () => this.event('105') },
     { id: '106', funId: '1007', label: 'Export PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('106') },
+
+    /// 1009
+    { id: '101', funId: '1009', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('101') },
+    { id: '102', funId: '1009', label: 'Approve', icon: 'fa-check', type: '', class: 'btn-approve', display: 'block', language: 'en', action: () => this.event('102') },
+    { id: '103', funId: '1009', label: 'Reply', icon: 'fa-comment', type: '', class: 'btn-reply', display: 'block', language: 'en', action: () => this.event('103') },
+    { id: '104', funId: '1009', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+    { id: '105', funId: '1009', label: 'Hide', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'en', action: () => this.event('105') },
+
+
   ];
 
 
@@ -168,7 +183,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     }
   }
 
-  @Input() language: string = "";
+  @Input() language: string = "vi";
 
   loadButtons(): void {
     if (this.rawButtons.length > 0) return;

@@ -27,7 +27,7 @@ export class HomeGuard implements CanActivate {
 
         try {
             const payload = this.parseJwt(token);
-            if (payload.role === 'buyer') {
+            if (payload.role === 'buyer' || payload.role === 'admin') {
                 return true; // là admin → cho phép truy cập
             } else {
                 this.router.navigate(['/']); // không phải admin → chuyển home

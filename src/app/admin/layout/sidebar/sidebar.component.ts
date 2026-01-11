@@ -59,7 +59,8 @@ export class SidebarComponent {
       route: '/mbcode/admin/favorite-code',
       funId: '1007'
     },
-    { icon: '📝', label: 'Nội dung', route: '/mbcode/admin/content', funId: '1009' },
+    // { icon: '📝', label: 'Nội dung', route: '/mbcode/admin/content', funId: '1009' },
+    { icon: '🗨️', label: 'Bình luận', route: '/mbcode/admin/comments', funId: '1009' },
     // { icon: '📊', label: 'Doanh thu', route: '/admin/revenue', funId: '1006' },
     {
       icon: '⚙️', label: 'Cài đặt', route: '/mbcode/admin/settings', funId: '1010'

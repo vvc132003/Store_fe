@@ -10,6 +10,7 @@ import { OrderComponent } from './order/order.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { SettingComponent } from './setting/setting.component';
+import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [
   { path: 'revenue/:funId', component: DashboardComponent, canActivate: [AdminGuard] },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'deposit/:funId', component: DepositComponent, canActivate: [AdminGuard] },
   { path: 'withdraw/:funId', component: WithdrawComponent, canActivate: [AdminGuard] },
   { path: 'settings/:funId', component: SettingComponent, canActivate: [AdminGuard] },
+  { path: 'comments/:funId', component: CommentComponent, canActivate: [AdminGuard] },
+
 
 
 

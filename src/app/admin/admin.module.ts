@@ -30,6 +30,10 @@ import { OrderListComponent } from './order/order-list/order-list.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { SettingComponent } from './setting/setting.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentListComponent } from './comment/comment-list/comment-list.component';
+import { CommentDetailComponent } from './comment/comment-detail/comment-detail.component';
+import { CommentItemComponent } from './comment/comment-detail/comment-item/comment-item.component';
 
 
 @NgModule({
@@ -58,6 +62,10 @@ import { SettingComponent } from './setting/setting.component';
     DepositComponent,
     WithdrawComponent,
     SettingComponent,
+    CommentComponent,
+    CommentListComponent,
+    CommentDetailComponent,
+    CommentItemComponent
   ],
   imports: [
     CommonModule,
