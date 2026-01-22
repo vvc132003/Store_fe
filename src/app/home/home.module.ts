@@ -33,6 +33,8 @@ import { FeaturedgameComponent } from './index/featuredgame/featuredgame.compone
 import { CommentComponent } from './project-detail/comment/comment.component';
 import { CommentItemComponent } from './project-detail/comment/comment-item/comment-item.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { UpdateAccountComponent } from './update-account/update-account.componen
     CommentComponent,
     CommentItemComponent,
     UpdateAccountComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,

@@ -35,6 +35,12 @@ export class MessageService {
     { code: '1028', text: 'Số dư không đủ!' },
     { code: '1029', text: 'Tải thành công!' },
     { code: '1030', text: 'Cập nhật tài khoản thành công!' },
+    { code: '1031', text: 'Mật khẩu cũ không đúng!' },
+    { code: '1032', text: 'Mật khẩu mới không khớp!' },
+    { code: '1033', text: 'Đổi mật khẩu thành công!' },
+    { code: '1034', text: 'Email không tồn tại!' },
+    { code: '1035', text: 'Bạn cần nhập Email!' },
+
 
 
 

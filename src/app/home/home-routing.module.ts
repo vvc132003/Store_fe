@@ -13,6 +13,8 @@ import { FavoriteCodeComponent } from './favorite-code/favorite-code.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProjectserviceComponent } from './projectservice/projectservice.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] },
   { path: 'tk/update-account', component: UpdateAccountComponent, canActivate: [HomeGuard] },
-  { path: 'project-service', component: ProjectserviceComponent }
+  { path: 'project-service', component: ProjectserviceComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent }
 
 
 

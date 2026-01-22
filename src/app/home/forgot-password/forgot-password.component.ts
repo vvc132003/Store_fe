@@ -1,18 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/AuthService';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-pages-login',
-  templateUrl: './pages-login.component.html',
-  styleUrls: ['./pages-login.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class PagesLoginComponent implements OnInit, OnDestroy {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   stars: { top: string; left: string; size: string; delay: string }[] = [];
 
   birdStyles: {
@@ -21,12 +20,12 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
     delay: string;
     scale: string;
   }[] = [];
-  showPassword = false;
-  showConfirmPassword = false;
+  email: string = '';
+  isSubmitting = false;
 
   user_login: any = {};
   showSessionWarning: boolean = false;
-  constructor(private titleService: Title, private cookieService: CookieService, private auth: AuthService,
+  constructor(private titleService: Title, private auth: AuthService,
     private _user: UserService, private router: Router, private route: ActivatedRoute, private _notification: NotificationService) { }
   private subscription = new Subscription();
 
@@ -89,46 +88,27 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
   //   return JSON.parse(decoded);
   // }
 
-  login() {
-    if (!this.user_login.email) {
-      this._notification.showWarning("1019");
+  submitForgotPassword() {
+    if (!this.email) {
+      this._notification.showWarning("Vui lòng nhập email");
       return;
     }
-
-    this.subscription.add(
-      this._user.postLogin(this.user_login).subscribe({
-        next: (res: any) => {
-          if(res.code){
-            this._notification.showError(res.code);
-            return;
-          }
-          this.auth.me().subscribe(user => {
-            if (user.role === 'admin') {
-              this.router.navigate(['/mbcode/admin/revenue/1000']);
-            } else {
-              const lastRoute = localStorage.getItem('last_route');
-
-              if (lastRoute) {
-                this.router.navigateByUrl(lastRoute);
-              }
-
-            }
-
-            this._user.startConnection(user.id).subscribe();
-
-            this._user.listenForceLogout(() => {
-              this.logoutByOtherLogin();
-            });
-            this._notification.showSuccess('1005');
-          });
-
-        },
-        error: () => {
-          this._notification.showError("Login failed");
+    this.isSubmitting = true;
+    this._user.forgotPassword({ email: this.email }).subscribe({
+      next: (res: any) => {
+        if (res != null && res.code) {
+          this._notification.showError(res.code);
+          return;
         }
-      })
-    );
+        this.router.navigate(['/dang-nhap']);
+      },
+      error: () => {
+        this._notification.showError("Email không tồn tại");
+        this.isSubmitting = false;
+      }
+    });
   }
+
   logoutByOtherLogin() {
 
     this._user.stopConnection();
