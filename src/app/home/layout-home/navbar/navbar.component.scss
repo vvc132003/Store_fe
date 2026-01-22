@@ -5,7 +5,8 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: linear-gradient(to right, #38bdf8, #34d399);
+    // background: linear-gradient(to right, #0ea5e9, #10b981);
+    background-color: #0d6efd;
     padding: 12px 50px;
     display: flex;
     align-items: center;
@@ -510,6 +511,7 @@
         opacity: 1;
         transform: translateY(0);
     }
+
     to {
         opacity: 0;
         transform: translateY(20px);

@@ -27,6 +27,10 @@
     <div class="auth">
         <!-- Chưa login -->
         <ng-container *ngIf="!user">
+            <div class="icon-wrapper">
+                <i class="bi bi-cart"></i>
+                <span class="badge">5</span>
+            </div>
             <a routerLink="/dang-nhap" class="login-btn">Đăng nhập</a>
             <a routerLink="/dang-ky" class="register-btn">Đăng ký</a>
         </ng-container>
@@ -34,6 +38,10 @@
         <!-- Đã login -->
         <ng-container *ngIf="user">
             <div class="user-dropdown d-flex" [class.open]="isMenuOpen">
+                <div class="icon-wrapper">
+                    <i class="bi bi-cart"></i>
+                    <span class="badge">5</span>
+                </div>
                 <div class="icon-wrapper" (click)="showoNotificationt()">
                     <i class="bi bi-bell"></i>
                     <span class="badge">{{countnoti}}</span>
@@ -43,14 +51,16 @@
                     <span class="badge">5</span>
                 </div>
                 <!-- Avatar -->
-                <img class="avatar" [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'" alt="avatar"
-                    (click)="toggleMenu($event)" />
+                <img class="avatar"
+                    [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'"
+                    alt="avatar" (click)="toggleMenu($event)" />
 
                 <!-- Dropdown menu -->
                 <div class="dropdown-menud" (click)="$event.stopPropagation()">
                     <div class="user-info">
                         <div class="avatar-circle">
-                            <img class="avatar" [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'"
+                            <img class="avatar"
+                                [src]="user.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'"
                                 alt="avatar" />
                         </div>
                         <div class="user-info-left">
