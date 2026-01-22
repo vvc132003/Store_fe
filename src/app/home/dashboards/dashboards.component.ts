@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -34,30 +35,17 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   orderCountData: any[] = [];
   revenueData: any[] = [];
   constructor(private _user: UserService,
-    private titleService: Title, private cookieService: CookieService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
+    private titleService: Title, private cookieService: CookieService, private auth: AuthService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
   private subscription = new Subscription();
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
 
   ngOnInit(): void {
     this.titleService.setTitle('Tài khoản của tôi');
-    const token = this.cookieService.get('access_token');
-    const payload = this.parseJwt(token);
-    // this.loadUserbyId(payload);
-    this.loadProjectsByUserId(payload);
-    // this.loadOrderCount(payload);
-    // this.loadRevenueByMonth(payload);
-    this.loadMonthlyOrderStats(payload);
+    // this.auth.me().subscribe(user => {
+    //   this.loadProjectsByUserId(user);
+    //   this.loadMonthlyOrderStats(user);
+    // });
+
   }
 
   favoritesCount: number = 0;
@@ -98,7 +86,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
   loadMonthlyOrderStats(payload: any) {
     this.selectedYear = new Date().getFullYear();
-    this._project.getMonthlyOrderStats(payload.nameid).subscribe((data: any) => {
+    this._project.getMonthlyOrderStats(payload.id).subscribe((data: any) => {
       this.allOrderData = data.orderCount;
       this.allRevenueData = data.totalRevenue;
       this.onFilter();
@@ -154,9 +142,9 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   //   )
   // }
 
-  loadProjectsByUserId(payload: any) {
+  loadProjectsByUserId() {
     this.subscription.add(
-      this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
+      this._project.getProjectsPaymenByUserId().subscribe((data: any[]) => {
         this.orders = data.sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
@@ -237,6 +225,8 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
   onUserLoaded(user: any) {
     this.currentUser = user;
+    this.loadProjectsByUserId();
+    this.loadMonthlyOrderStats(user);
   }
 
 }

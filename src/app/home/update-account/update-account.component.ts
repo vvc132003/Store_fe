@@ -43,17 +43,17 @@ export class UpdateAccountComponent implements OnInit, OnDestroy {
     private _notification: NotificationService) { }
   private subscription = new Subscription();
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   ngOnInit(): void {
     this.titleService.setTitle('Tài khoản của tôi - Cập nhật tài khoản');

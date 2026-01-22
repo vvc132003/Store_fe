@@ -61,7 +61,7 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
 
   loadInitialChat() {
     this.subscription.add(
-      this.conversationService.postData_Chat().subscribe((data: any) => {
+      this.conversationService.createConversation().subscribe((data: any) => {
         this.conversationService.getConversations().subscribe((data: any) => {
           this.conversations = data;
         });

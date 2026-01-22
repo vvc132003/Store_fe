@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/AuthService';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,7 @@ export class HeaderComponent implements OnChanges {
   @Output() languageChange = new EventEmitter<string>();
   @Input() settings: any;
   countnoti: number = 0;
-  constructor(private elRef: ElementRef, private cookieService: CookieService, private router: Router) { }
+  constructor(private elRef: ElementRef, private auth: AuthService, private _user: UserService, private cookieService: CookieService, private router: Router) { }
 
   selectedLanguage: string = 'vi';
   onLanguageChange(): void {
@@ -31,7 +33,7 @@ export class HeaderComponent implements OnChanges {
       this.logo = this.settings?.data?.SiteSettings?.logo || "";
     }
   }
-  
+
   onCountNotiChange(count: number) {
     this.countnoti = count;
   }
@@ -60,9 +62,11 @@ export class HeaderComponent implements OnChanges {
     }
   }
 
-  logout() {
-    this.cookieService.delete('access_token', '/');
-    this.router.navigate(['/dang-nhap']);
+  logoutByOtherLogin() {
+    this._user.stopConnection();
+    this.auth.logout().subscribe(() => {
+      this.router.navigate(['/dang-nhap']);
+    });
   }
 
 }

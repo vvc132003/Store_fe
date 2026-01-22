@@ -66,18 +66,18 @@ export class FeaturedapplicationsComponent implements OnChanges, OnDestroy {
     this.pagedData = this.filteredData.slice(startIndex, endIndex);
   }
 
-  private parseJwt(token: string): any {
-    if (!token) return null;
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   if (!token) return null;
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   get visiblePages(): (number | string)[] {
     const total = this.totalPages;
@@ -118,26 +118,48 @@ export class FeaturedapplicationsComponent implements OnChanges, OnDestroy {
     return typeof value === 'number';
   }
 
+  // bookmark(projectId: string): void {
+  //   const token = this.cookieService.get('access_token');
+  //   if (token) {
+  //     const payload = this.parseJwt(token);
+  //     const datapost = {
+  //       userId: payload.nameid,
+  //       projectId: projectId
+  //     }
+  //     this.subscription.add(
+  //       this._favorite.postData(datapost).subscribe((data: any) => {
+  //         if (data) {
+  //           const isFavorite = this.pagedData.find(f => f.id === projectId);
+  //           isFavorite.isFavorite = true;
+  //           this._notification.showSuccess("1006");
+  //         } else {
+  //           this._notification.showWarning("1007");
+  //         }
+  //       })
+  //     )
+  //   }
+
+  // }
+  showWarning: boolean = false;
   bookmark(projectId: string): void {
-    const token = this.cookieService.get('access_token');
-    if (token) {
-      const payload = this.parseJwt(token);
-      const datapost = {
-        userId: payload.nameid,
-        projectId: projectId
-      }
-      this.subscription.add(
-        this._favorite.postData(datapost).subscribe((data: any) => {
-          if (data) {
-            const isFavorite = this.pagedData.find(f => f.id === projectId);
-            isFavorite.isFavorite = true;
-            this._notification.showSuccess("1006");
+    const datapost = {
+      projectId: projectId
+    }
+    this.subscription.add(
+      this._favorite.postData(datapost).subscribe({
+        next: () => {
+          const isFavorite = this.pagedData.find(f => f.id === projectId);
+          isFavorite.isFavorite = true;
+          this._notification.showSuccess("1006");
+        },
+        error: err => {
+          if (err.status === 401) {
+            this.showWarning = true;
           } else {
             this._notification.showWarning("1007");
           }
-        })
-      )
-    }
-
+        }
+      })
+    );
   }
 }

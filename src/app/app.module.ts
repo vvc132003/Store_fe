@@ -22,8 +22,15 @@ import { TokenInterceptor } from './services/TokenInterceptor';
     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot(),
   ],
+  // providers: [
+  //   CookieService,
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: TokenInterceptor,
+  //     multi: true
+  //   }
+  // ],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

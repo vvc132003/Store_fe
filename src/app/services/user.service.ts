@@ -1,10 +1,11 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { API_URLS } from '../config/api-urls';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
+import { AuthService } from './AuthService';
 
 @Injectable({
     providedIn: 'root'
@@ -12,11 +13,21 @@ import * as signalR from '@microsoft/signalr';
 export class UserService {
     private apiUrl = API_URLS.api + '/Users';
     private hubUrl = API_URLS.hub;
-    private hubConnection1: signalR.HubConnection;
+    private hubConnection?: signalR.HubConnection;
 
-    constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
-        this.hubConnection1 = new signalR.HubConnectionBuilder()
-            .withUrl(this.hubUrl)
+    constructor(private http: HttpClient, private cookieService: CookieService, private auth: AuthService, private router: Router) {
+        // this.hubConnection1 = new signalR.HubConnectionBuilder()
+        //     .withUrl(this.hubUrl, {
+        //         withCredentials: true
+        //     }).withAutomaticReconnect()
+        //     .configureLogging(signalR.LogLevel.Error)
+        //     .build();
+    }
+
+    private createConnection() {
+        this.hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(API_URLS.hub, { withCredentials: true })
+            .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Error)
             .build();
     }
@@ -24,11 +35,24 @@ export class UserService {
 
     // Phương thức GET
     getData(): Observable<any> {
-        return this.http.get<any[]>(this.apiUrl);
+        return this.http.get<any[]>(`${this.apiUrl}/users`);
     }
-    getUserById(id: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${id}`);
+    // getUserById(): Observable<any> {
+    //     return this.http.get<any>(`${this.apiUrl}`,
+    //         { withCredentials: true });
+    // }
+
+    getUserById(): Observable<any | null> {
+        return this.http.get<any>(`${this.apiUrl}`, {
+            withCredentials: true
+        }).pipe(
+            catchError(err => {
+                if (err.status === 401) return of(null);
+                throw err;
+            })
+        );
     }
+
 
     toggleStatusUser(id: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/toggleStatusUser/${id}`);
@@ -43,8 +67,16 @@ export class UserService {
         return this.http.post<any>(`${this.apiUrl}/register`, data);
     }
 
-    postLogin(data: any): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/login`, data);
+    // postLogin(data: any): Observable<any> {
+    //     return this.http.post<any>(`${this.apiUrl}/login`, data);
+    // }
+
+    postLogin(data: any) {
+        return this.http.post(
+            `${this.apiUrl}/login`,
+            data,
+            { withCredentials: true }
+        );
     }
 
 
@@ -52,7 +84,7 @@ export class UserService {
         const formData = new FormData();
         formData.append('thumbnailUrl', file_img);
         formData.append('fileName_thumnai', fileName_thumnai);
-      
+
         return this.http.post<any>(`${this.apiUrl}/UploadImg`, formData);
     }
 
@@ -108,45 +140,53 @@ export class UserService {
         this.router.navigate(['/dang-nhap']);
     }
 
-    // getToken(): string {
-    //     return this.cookieService.get('access_token');
-    // }
 
 
+    startConnection(userId: string): Observable<void> {
+        return new Observable(observer => {
 
+            // 🔥 tạo mới nếu chưa có hoặc đã stop
+            if (!this.hubConnection ||
+                this.hubConnection.state === signalR.HubConnectionState.Disconnected) {
+                this.createConnection();
+            }
 
-    /// mở kết nối đến websoket
-    startConnection1(nameid: string): Observable<void> {
-        return new Observable<void>((observer) => {
-            this.hubConnection1
-                .start()
+            // 🚫 nếu đang connected / connecting thì bỏ qua
+            if (this.hubConnection?.state !== signalR.HubConnectionState.Disconnected) {
+                observer.next();
+                observer.complete();
+                return;
+            }
+
+            this.hubConnection.start()
+                .then(() => this.hubConnection!.invoke('JoinGropsLogin', userId))
                 .then(() => {
-                    this.hubConnection1.invoke('JoinGropsLogin', nameid);
                     observer.next();
                     observer.complete();
                 })
-                .catch((error) => {
-                    // console.error('Error connecting to SignalR hub:', error);
-                    observer.error(error);
-                });
+                .catch(err => observer.error(err));
         });
     }
 
-    /// ngắt kết nối websoket 
-    stopConnection1(): void {
-        if (this.hubConnection1) {
-            this.hubConnection1.off("RemoveToken");
-            this.hubConnection1.stop();
-        }
-    }
-    /// lắng nghe sự kiện từ server
-    removeToken(): Observable<void> {
-        return new Observable(observer => {
-            this.hubConnection1.on('RemoveToken', () => {
-                // console.log("ddd");
-                observer.next();
-            });
+    listenForceLogout(onLogout: () => void) {
+        this.hubConnection?.off('ForceLogout');
+        this.hubConnection?.on('ForceLogout', () => {
+            onLogout();
         });
+    }
+
+
+    /// ngắt kết nối websoket 
+    stopConnection(): void {
+        if (this.hubConnection) {
+            this.hubConnection.off('ForceLogout');
+
+            if (this.hubConnection.state !== signalR.HubConnectionState.Disconnected) {
+                this.hubConnection.stop();
+            }
+
+            this.hubConnection = undefined; // 🔥 CỰC KỲ QUAN TRỌNG
+        }
     }
 
 

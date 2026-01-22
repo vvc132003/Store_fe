@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -25,15 +26,25 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
 
   user_login: any = {};
   showSessionWarning: boolean = false;
-  constructor(private titleService: Title, private cookieService: CookieService,
+  constructor(private titleService: Title, private cookieService: CookieService, private auth: AuthService,
     private _user: UserService, private router: Router, private route: ActivatedRoute, private _notification: NotificationService) { }
   private subscription = new Subscription();
 
   ngOnInit(): void {
     this.titleService.setTitle("Đăng nhập");
+    this.showWarning = false;
+
     this.route.queryParams.subscribe(params => {
-      if (params['sessionExpired']) {
+      if (params['sessionExpired'] === 'true') {
         this.showWarning = true;
+
+        // 🔥 xoá param sau khi đọc
+        setTimeout(() => {
+          this.router.navigate([], {
+            queryParams: {},
+            replaceUrl: true
+          });
+        });
       }
     });
     this.generateBirds();
@@ -70,49 +81,63 @@ export class PagesLoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    // this._user.stopConnection1();
   }
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    return JSON.parse(decoded);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   return JSON.parse(decoded);
+  // }
 
   login() {
     if (!this.user_login.email) {
       this._notification.showWarning("1019");
       return;
     }
+
     this.subscription.add(
-      this._user.postLogin(this.user_login).subscribe((data: any) => {
-        if (!data.accessToken) {
-          this._notification.showError(data.code);
-          return;
+      this._user.postLogin(this.user_login).subscribe({
+        next: () => {
+
+          // 🔥 HỎI BACKEND: tôi là ai?
+          this.auth.me().subscribe(user => {
+            if (user.role === 'admin') {
+              this.router.navigate(['/mbcode/admin/revenue/1000']);
+            } else {
+              const lastRoute = localStorage.getItem('last_route');
+
+              if (lastRoute) {
+                this.router.navigateByUrl(lastRoute);
+              }
+
+            }
+
+            this._user.startConnection(user.id).subscribe();
+
+            this._user.listenForceLogout(() => {
+              this.logoutByOtherLogin();
+            });
+            this._notification.showSuccess('1005');
+          });
+
+        },
+        error: () => {
+          this._notification.showError("Login failed");
         }
-        this._user.setToken(data.accessToken);
-        const payload = this.parseJwt(data.accessToken);
-        const role = payload.role;
-        if (role === 'admin') {
-          this.router.navigate(['/mbcode/admin/revenue/1000']);
-        } else {
-          this.router.navigate(['/dashboards']);
-        }
-        this.loadSoket(payload);
-        this._notification.showSuccess('1005');
       })
-    )
-
+    );
   }
-  showWarning: boolean = false;
+  logoutByOtherLogin() {
 
-  loadSoket(data: any) {
-    this._user.removeToken().subscribe(() => {
-      this.cookieService.delete('access_token', "/");
-      this.router.navigate(['/dang-nhap'], { queryParams: { sessionExpired: true } });
+    this._user.stopConnection();
+
+    this.auth.logout().subscribe(() => {
+      this.router.navigate(['/dang-nhap'], {
+        queryParams: { sessionExpired: true }
+      });
     });
-    this.subscription.add(
-      this._user.startConnection1(data.nameid).subscribe((data: any) => {
-      })
-    )
   }
+
+  showWarning: boolean = false;
 
 }

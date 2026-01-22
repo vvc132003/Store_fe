@@ -17,7 +17,7 @@ export class CommentService {
     getData(projectId?: string): Observable<any> {
         const url = projectId
             ? `${this.apiUrl}/commentbypjId/${projectId}`
-            : `${this.apiUrl}/commentbypjId`; 
+            : `${this.apiUrl}/commentbypjId`;
 
         return this.http.get<any>(url);
     }
@@ -39,6 +39,14 @@ export class CommentService {
     updateData(data: any): Observable<any> {
         return this.http.put<any>(this.apiUrl, data);
     }
+
+    updateStatus(id: string, status: string): Observable<any> {
+        return this.http.put<any>(
+            `${this.apiUrl}/update-status/${id}`,
+            { status }
+        );
+    }
+
 
     // Phương thức DELETE
     deleteData(id: string): Observable<any> {

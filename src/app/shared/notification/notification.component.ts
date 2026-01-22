@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -47,67 +48,85 @@ export class NotificationComponent implements OnInit, OnDestroy {
   @Output() countnotis = new EventEmitter<number>();
 
 
-  constructor(private _notification: NotificationService, private sanitizer: DomSanitizer, private datePipe: DatePipe, private cookieService: CookieService) { }
+  constructor(private _notification: NotificationService, private auth: AuthService, private sanitizer: DomSanitizer, private datePipe: DatePipe, private cookieService: CookieService) { }
   private subscription = new Subscription();
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
   ngOnInit(): void {
-    this.loadNotificationByUserId();
+    this.auth.session().subscribe(isAuth => {
+      if (!isAuth) {
+        return;
+      }
+      this.auth.me().subscribe(user => {
+        this.loadNotificationByUserId(user);
+      });
+    });
   }
   currentUser: any;
 
   countnoti: number = 0;
-  loadNotificationByUserId() {
-    const token = this.cookieService.get('access_token');
-    if (!token) {
-      return;
-    }
-    const payload = this.parseJwt(token);
-    this.currentUser = payload.unique_name;
-    // console.log(this.currentUser);
+  loadNotificationByUserId(payload: any) {
     this.loadSoket(payload);
-    const userId = payload?.role === 'admin' ? undefined : payload?.nameid;
+    const userId = payload.role === 'admin' ? undefined : payload.id;
+
     this.subscription.add(
       this._notification.getNotification(userId).subscribe((data: any[]) => {
         this.notifications = data;
-        // this.countnoti = data.length;
-        if (payload?.role === 'admin') {
+
+        if (payload.role === 'admin') {
           this.countnotis.emit(0);
           return;
         }
         const unreadCount = this.notifications.filter(n => !n.isRead).length;
         this.countnoti = unreadCount;
         this.countnotis.emit(unreadCount);
-        // console.log(data);
       })
-    )
+    );
   }
 
+
+  // markAsRead(n: any) {
+  //   const token = this.cookieService.get('access_token');
+  //   if (!token) return;
+
+  //   const payload = this.parseJwt(token);
+  //   if (payload?.role === 'admin') return;
+
+  //   if (n.isRead) return;
+
+  //   this._notification.markAsRead(n.id).subscribe(() => {
+  //     n.isRead = true;
+  //     this.countnoti = this.notifications.filter(x => !x.isRead).length;
+  //     this.countnotis.emit(this.countnoti ?? 0);
+  //   });
+  // }
 
   markAsRead(n: any) {
-    const token = this.cookieService.get('access_token');
-    if (!token) return;
-
-    const payload = this.parseJwt(token);
-    if (payload?.role === 'admin') return;
-
     if (n.isRead) return;
 
-    this._notification.markAsRead(n.id).subscribe(() => {
-      n.isRead = true;
-      this.countnoti = this.notifications.filter(x => !x.isRead).length;
-      this.countnotis.emit(this.countnoti ?? 0);
+    this._notification.markAsRead(n.id).subscribe({
+      next: () => {
+        n.isRead = true;
+        this.countnoti = this.notifications.filter(x => !x.isRead).length;
+        this.countnotis.emit(this.countnoti ?? 0);
+      },
+      error: err => {
+        if (err.status === 401) {
+          // hết hạn / bị logout nơi khác
+        }
+      }
     });
   }
+
 
 
 
@@ -167,7 +186,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   loadSoket(data: any) {
     this.subscription.add(
-      this._notification.startConnection1(data.nameid).subscribe(() => {
+      this._notification.startConnection1(data.id).subscribe(() => {
         this._notification.loadNotification().subscribe((res: any) => {
           this.newNotification(res);
         })

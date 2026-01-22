@@ -24,7 +24,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadcategory_list();
-    this.loadInitialChat();
+    // this.loadInitialChat();
     this.loadSetting();
   }
   loadcategory_list() {
@@ -54,7 +54,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   loadInitialChat() {
     this.subscription.add(
-      this.conversationService.postData_Chat().subscribe((data: any) => {
+      this.conversationService.createConversation().subscribe((data: any) => {
         this.conversationService.getConversations().subscribe((data: any) => {
           this.conversations = data;
         });
@@ -67,6 +67,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   onUserLoaded(user: any) {
     this.currentUser = user;
+    this.loadInitialChat();
     this.userLoaded.emit(this.currentUser);
   }
 

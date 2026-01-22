@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { AuthService } from 'src/app/services/AuthService';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -56,27 +57,28 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
     //   ]
     // }
   ];
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
   currentUserId: string = "";
   private subscription: Subscription = new Subscription();
 
-  constructor(private datePipe: DatePipe, private conversationService: ConversationService, private cookieService: CookieService, private cdr: ChangeDetectorRef) {
-    const token = this.cookieService.get('access_token');
-    if (token) {
-      const decoded = this.parseJwt(token);
-      this.currentUserId = decoded.nameid;
-      this.showButton = true;
-    }
+  constructor(private datePipe: DatePipe, private auth: AuthService, private conversationService: ConversationService, private cookieService: CookieService, private cdr: ChangeDetectorRef) {
+
+    this.subscription.add(
+      this.auth.me().subscribe((res: any) => {
+        this.currentUserId = res.id;
+        this.showButton = true;
+      })
+    )
     // console.log(this.currentUserId);
   }
 

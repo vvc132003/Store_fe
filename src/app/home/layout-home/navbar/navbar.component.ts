@@ -4,6 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
 
-  constructor(private datePipe: DatePipe, private sanitizer: DomSanitizer, private cookieService: CookieService, private _user: UserService, private elRef: ElementRef, private router: Router) { }
+  constructor(private datePipe: DatePipe, private auth: AuthService, private sanitizer: DomSanitizer, private cookieService: CookieService, private _user: UserService, private elRef: ElementRef, private router: Router) { }
   private subscription = new Subscription();
   @Input() balance: number = 0;
   @Input() category_list: any[] = [];
@@ -25,27 +26,37 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
   showoNotification = false;
 
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   ngOnInit(): void {
-    const token = this.cookieService.get('access_token');
-    if (token) {
-      const payload = this.parseJwt(token);
-      if (payload) {
-        // this.user = payload.unique_name || payload.name || payload.sub || null;
-        this.loadUserbyId(payload);
+    // const token = this.cookieService.get('access_token');
+    // if (token) {
+    //   const payload = this.parseJwt(token);
+    //   if (payload) {
+    //     // this.user = payload.unique_name || payload.name || payload.sub || null;
+    //     this.loadUserbyId(payload);
+    //   }
+    // }
+    this.auth.session().subscribe(isAuth => {
+      if (!isAuth) {
+        return;
       }
-    }
+      this.auth.me().subscribe(user => {
+        this.loadUserbyId();
+      });
+    });
+
+
   }
 
   logo: string = "";
@@ -128,9 +139,10 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   logout() {
-    this.cookieService.delete('access_token', '/');
-    this.user = null;
-    this.router.navigate(['/dang-nhap']);
+    this._user.stopConnection();
+    this.auth.logout().subscribe(() => {
+      this.router.navigate(['/dang-nhap']);
+    });
   }
 
   toggleMobileSearch() {
@@ -163,14 +175,22 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
     this.showoNotification = false;
   }
 
-  loadUserbyId(payload: any) {
+  loadUserbyId() {
     this.subscription.add(
-      this._user.getUserById(payload?.nameid).subscribe((data: any) => {
-        this.user = data;
-        this.userLoaded.emit(data);
-        // console.log(this.user);
+      this._user.getUserById().subscribe({
+        next: (data: any) => {
+          this.user = data;
+          this.userLoaded.emit(data);
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            this.user = null;
+            this.userLoaded.emit(null);
+          }
+        }
       })
-    )
+    );
   }
+
 
 }

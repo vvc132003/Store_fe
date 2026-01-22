@@ -69,6 +69,28 @@ export class CommentComponent implements OnInit, OnDestroy {
         this.newComment = found;
         setTimeout(() => this.showCommentDetail = true, 100);
         break;
+      case '102':
+        this.subscription.add(
+          this._comment.updateStatus(this.compent_id.id, 'approved')
+            .subscribe(() => {
+              const found = this.comments.find(dr => dr.id == this.compent_id.id);
+              if (found) {
+                found.status = 'approved';
+              }
+            })
+        )
+        break;
+      case '105':
+        this.subscription.add(
+          this._comment.updateStatus(this.compent_id.id, 'rejected')
+            .subscribe(() => {
+              const found = this.comments.find(dr => dr.id == this.compent_id.id);
+              if (found) {
+                found.status = 'rejected';
+              }
+            })
+        )
+        break;
 
       default:
         break;

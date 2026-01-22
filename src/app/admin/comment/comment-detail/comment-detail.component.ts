@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 
 @Component({
   selector: 'app-comment-detail',
@@ -19,30 +20,31 @@ export class CommentDetailComponent implements OnChanges, OnDestroy {
 
   text: string = "";
 
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private auth: AuthService,) { }
   private subscription = new Subscription();
 
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    const token = this.cookieService.get('access_token');
-    if (!token) return;
-
-    const payload = this.parseJwt(token);
-    if (!payload) return;
-    this.currentUserId = payload.nameid;
+    this.auth.me().subscribe({
+      next: (res: any) => {
+        this.currentUserId = res.id;
+      },
+      error: () => {
+        this.currentUserId = '';
+      }
+    })
 
     if (!changes['comment'] && this.comment) {
       this.text = "Xem chi tiết: " + this.comment.projectName;

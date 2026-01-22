@@ -41,24 +41,24 @@ export class TransactionComponent implements OnInit, OnDestroy {
     private _transaction: TransactionService) { }
   private subscription = new Subscription();
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Quản lý lịch sử giao dịch');
-    const token = this.cookieService.get('access_token');
-    const payload = this.parseJwt(token);
+    // this.titleService.setTitle('Quản lý lịch sử giao dịch');
+    // const token = this.cookieService.get('access_token');
+    // const payload = this.parseJwt(token);
     // this.loadUserbyId(payload);
-    this.loadTransactionUserId(payload);
+    this.loadTransactionUserId();
   }
 
 
@@ -70,9 +70,9 @@ export class TransactionComponent implements OnInit, OnDestroy {
   //   )
   // }
 
-  loadTransactionUserId(payload: any) {
+  loadTransactionUserId() {
     this.subscription.add(
-      this._transaction.getHistoryTransactions(payload.nameid).subscribe((data: any[]) => {
+      this._transaction.getHistoryTransactions().subscribe((data: any[]) => {
         // this.transactions = data;
         this.transactions = data.sort(
           (a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime()

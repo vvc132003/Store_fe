@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { FavoriteService } from 'src/app/services/favorite.service';
@@ -38,7 +39,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   pagedData: any[] = [];
 
   constructor(private titleService: Title,
-    private _project: ProjectService,
+    private _project: ProjectService, private router: Router, private _activatedRoute: ActivatedRoute,
     private _notification: NotificationService, private cookieService: CookieService, private _favorite: FavoriteService) { }
   private subscription = new Subscription();
   ngOnInit(): void {
@@ -47,6 +48,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.startAutoSlide();
     this.loadProject_list();
     this.loadProject_latest();
+    const url = this.router.url;
+    localStorage.setItem('last_route', url);
   }
 
   loadProject_latest() {

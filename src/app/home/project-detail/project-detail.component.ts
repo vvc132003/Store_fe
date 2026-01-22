@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/AuthService';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -52,7 +53,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     private cookieService: CookieService,
     private _user: UserService,
     private _notification: NotificationService,
-    private _favorite: FavoriteService
+    private _favorite: FavoriteService,
+    private auth: AuthService
   ) { }
   private subscription = new Subscription();
   activeTab: number = -1;
@@ -62,11 +64,11 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   slug_viewCount: any;
   //#region  load dữ liệu
   ngOnInit(): void {
-    const token = this.cookieService.get('access_token');
-    let payload: any;
-    if (token) {
-      payload = this.parseJwt(token);
-    }
+    // const token = this.cookieService.get('access_token');
+    // let payload: any;
+    // if (token) {
+    //   payload = this.parseJwt(token);
+    // }
     this.subscription.add(
       this._activatedRoute.paramMap.subscribe(params => {
         const slug = params.get('slug');
@@ -78,7 +80,9 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
             this.slug_viewCount = oldSlug;
           }
           localStorage.setItem('slug_viewCount', slug);
-          this.loadProject_detail(slug, payload?.nameid);
+          localStorage.setItem('last_route', '/source-code/' + slug);
+
+          this.loadProject_detail(slug);
         }
       })
     );
@@ -92,27 +96,43 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     )
   }
   //#region  event
+  // bookmark(projectId: string): void {
+  //   const datapost = {
+  //     projectId: projectId
+  //   }
+  //   this.subscription.add(
+  //     this._favorite.postData(datapost).subscribe((data: any) => {
+  //       if (data) {
+  //         this.project.isFavorite = true;
+  //         this._notification.showSuccess("1006");
+  //       } else {
+  //         this._notification.showWarning("1007");
+  //       }
+  //     })
+  //   )
+  // }
+
   bookmark(projectId: string): void {
-    const token = this.cookieService.get('access_token');
-    if (token) {
-      const payload = this.parseJwt(token);
-      const datapost = {
-        userId: payload.nameid,
-        projectId: projectId
-      }
-      this.subscription.add(
-        this._favorite.postData(datapost).subscribe((data: any) => {
-          if (data) {
-            // const isFavorite = this.project.find(f => f.id === projectId);
-            this.project.isFavorite = true;
-            this._notification.showSuccess("1006");
+    const datapost = {
+      projectId: projectId
+    }
+    this.subscription.add(
+      this._favorite.postData(datapost).subscribe({
+        next: () => {
+          this.project.isFavorite = true;
+          this._notification.showSuccess("1006");
+        },
+        error: err => {
+          if (err.status === 401) {
+            this.showWarning = true;
           } else {
             this._notification.showWarning("1007");
           }
-        })
-      )
-    }
+        }
+      })
+    );
   }
+
 
   prevImage() {
     this.slideIndex =
@@ -195,10 +215,10 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   //   );
   // }
 
-  loadProject_detail(slug: string, userId?: string) {
+  loadProject_detail(slug: string) {
     // const slug = this.route.snapshot.paramMap.get('slug');
     this.subscription.add(
-      this._project.getProjectBySlug(slug!, userId).subscribe((data: any) => {
+      this._project.getProjectBySlug(slug!).subscribe((data: any) => {
         this.project = data;
         this.mainImage = this.project.thumbnailUrl;
         if (!this.project.images.includes(this.mainImage)) {
@@ -233,29 +253,41 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   }
 
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
   isTypeOpen = false;
 
   project_dw: any;
   showisTypeOpen(project: any) {
-    const token = this.cookieService.get('access_token');
-    if (!token) {
-      this.showWarning = true;
-      return;
-    }
-    this.project_dw = project;
-    this.isTypeOpen = true;
+    // this.auth.me().subscribe({
+    //   next: user => {
+    //     this.project_dw = project;
+    //     this.isTypeOpen = true;
+    //   },
+    //   error: () => {
+    //     this.showWarning = true;
+    //   }
+    // });
+    this.auth.session().subscribe((is: boolean) => {
+      if (!is) {
+        this.showWarning = true;
+        return;
+      }
+      this.project_dw = project;
+      this.isTypeOpen = true;
+    })
+
   }
+
 
   closeType() {
     this.isTypeOpen = false;
@@ -273,16 +305,16 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   isDownloading = false;
 
   download(project: any): void {
-    const token = this.cookieService.get('access_token');
-    if (!token) {
-      this.showWarning = true;
-      return;
-    }
+    // const token = this.cookieService.get('access_token');
+    // if (!token) {
+    //   this.showWarning = true;
+    //   return;
+    // }
     this.isDownloading = true;
-    const payload = this.parseJwt(token);
+    // const payload = this.parseJwt(token);
 
     const data = {
-      userId: payload.nameid,
+      // userId: payload.nameid,
       projectId: project.id,
       quantity: 0,
       totalPrice: project.price,

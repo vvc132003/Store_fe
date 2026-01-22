@@ -1,14 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpErrorResponse
+} from '@angular/common/http';
+import { EMPTY, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private cookieService: CookieService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = this.cookieService.get('access_token');
-    const authReq = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
-    return next.handle(authReq);
+
+    const csrf = this.getCookie('XSRF-TOKEN');
+
+    const secureReq = req.clone({
+      withCredentials: true,
+      ...(csrf && {
+        setHeaders: {
+          'X-XSRF-TOKEN': csrf
+        }
+      })
+    });
+
+    return next.handle(secureReq).pipe(
+      catchError((err: HttpErrorResponse) => {
+
+        if (err.status === 401) {
+          // this.router.navigate(['/dang-nhap']);
+        }
+        return throwError(() => err);
+      })
+    );
+  }
+
+  private getCookie(name: string): string {
+    return document.cookie
+      .split('; ')
+      .find(row => row.startsWith(name + '='))
+      ?.split('=')[1] ?? '';
   }
 }

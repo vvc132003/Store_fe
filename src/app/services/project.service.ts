@@ -12,17 +12,17 @@ export class ProjectService {
     constructor(private http: HttpClient, private cookieService: CookieService) {
     }
 
-    private parseJwt(token: string): any {
-        const payload = token.split('.')[1];
-        const decoded = atob(payload);
-        const utf8 = decodeURIComponent(
-            decoded
-                .split('')
-                .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                .join('')
-        );
-        return JSON.parse(utf8);
-    }
+    // private parseJwt(token: string): any {
+    //     const payload = token.split('.')[1];
+    //     const decoded = atob(payload);
+    //     const utf8 = decodeURIComponent(
+    //         decoded
+    //             .split('')
+    //             .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+    //             .join('')
+    //     );
+    //     return JSON.parse(utf8);
+    // }
 
 
     // Phương thức GET
@@ -99,12 +99,12 @@ export class ProjectService {
         return this.http.get<any>(url);
     }
 
-    getProjectsPaymenByUserId(userId: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-paymen-by-userid/${userId}`);
+    getProjectsPaymenByUserId(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-paymen-by-userid`, { withCredentials: true });
     }
 
-    getProjectsFavoriteByUserId(userId: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-favorite-by-userid/${userId}`);
+    getProjectsFavoriteByUserId(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/project-favorite-by-userid`, { withCredentials: true });
     }
 
     exportProjectsExcel(): Observable<any> {

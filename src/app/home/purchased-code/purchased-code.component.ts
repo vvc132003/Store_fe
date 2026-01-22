@@ -43,26 +43,31 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
     private titleService: Title, private cookieService: CookieService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
   private subscription = new Subscription();
 
-  private parseJwt(token: string): any {
-    const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    const utf8 = decodeURIComponent(
-      decoded
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(utf8);
-  }
+  // private parseJwt(token: string): any {
+  //   const payload = token.split('.')[1];
+  //   const decoded = atob(payload);
+  //   const utf8 = decodeURIComponent(
+  //     decoded
+  //       .split('')
+  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //       .join('')
+  //   );
+  //   return JSON.parse(utf8);
+  // }
 
   ngOnInit(): void {
     this.titleService.setTitle('Quản lý code đã mua');
-    const token = this.cookieService.get('access_token');
-    const payload = this.parseJwt(token);
+    // const token = this.cookieService.get('access_token');
+    // const payload = this.parseJwt(token);
     // this.loadUserbyId(payload);
-    this.loadProjectsByUserId(payload);
+    this.loadProjectsByUserId();
   }
+  currentUser: any = {};
 
+  // onUserLoaded(user: any) {
+  //   this.currentUser = user;
+  //   this.loadProjectsByUserId(user);
+  // }
 
   // loadUserbyId(payload: any) {
   //   this.subscription.add(
@@ -72,9 +77,9 @@ export class PurchasedCodeComponent implements OnInit, OnDestroy {
   //   )
   // }
 
-  loadProjectsByUserId(payload: any) {
+  loadProjectsByUserId() {
     this.subscription.add(
-      this._project.getProjectsPaymenByUserId(payload.nameid).subscribe((data: any[]) => {
+      this._project.getProjectsPaymenByUserId().subscribe((data: any[]) => {
         this.orders = data.sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );

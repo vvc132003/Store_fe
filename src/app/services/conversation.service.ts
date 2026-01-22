@@ -136,55 +136,47 @@ export class ConversationService {
     }
 
     // Phương thức POST
-    private parseJwt(token: string): any {
-        const payload = token.split('.')[1];
-        const decoded = atob(payload);
-        const utf8 = decodeURIComponent(
-            decoded
-                .split('')
-                .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                .join('')
+    // private parseJwt(token: string): any {
+    //     const payload = token.split('.')[1];
+    //     const decoded = atob(payload);
+    //     const utf8 = decodeURIComponent(
+    //         decoded
+    //             .split('')
+    //             .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+    //             .join('')
+    //     );
+    //     return JSON.parse(utf8);
+    // }
+
+
+    createConversation(): Observable<any> {
+        return this.http.post(
+            `${this.apiUrl}/createConverstation`,
+            {},
+            { withCredentials: true }
         );
-        return JSON.parse(utf8);
     }
 
 
-    postData_Chat(): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        if (!token) {
-            return EMPTY;
-        }
-        const decoded = this.parseJwt(token);
-        const role = decoded.role;
 
-        const data = {
-            userId2: decoded.nameid,
-            role: role
-        };
+    // postData_Chat_AI(): Observable<any> {
+    //     const token = this.cookieService.get('access_token');
+    //     const decoded = this.parseJwt(token);
+    //     const role = decoded.role;
 
-        return this.http.post<any>(`${this.apiUrl}/createConverstation`, data);
-
-    }
+    //     const data = {
+    //         userId2: decoded.nameid,
+    //         role: role
+    //     };
 
 
-    postData_Chat_AI(): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        const decoded = this.parseJwt(token);
-        const role = decoded.role;
-
-        const data = {
-            userId2: decoded.nameid,
-            role: role
-        };
-
-
-        return this.http.post<any>(`${this.apiUrl}/createConverstationAI`, data);
-    }
+    //     return this.http.post<any>(`${this.apiUrl}/createConverstationAI`, data);
+    // }
 
     postChat(data: any): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        const decoded = this.parseJwt(token);
-        const role = decoded.role;
+        // const token = this.cookieService.get('access_token');
+        // const decoded = this.parseJwt(token);
+        // const role = decoded.role;
 
         // const data = {
         //     userId2: decoded.nameid,
@@ -208,9 +200,9 @@ export class ConversationService {
     }
 
     postChatReply(data: any): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        const decoded = this.parseJwt(token);
-        const role = decoded.role;
+        // const token = this.cookieService.get('access_token');
+        // const decoded = this.parseJwt(token);
+        // const role = decoded.role;
 
         // const data = {
         //     userId2: decoded.nameid,
@@ -223,17 +215,10 @@ export class ConversationService {
 
 
 
-    getConversations(): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        const decoded = this.parseJwt(token);
-        const role = decoded.role;
-
-        // const data = {
-        //     userId2: decoded.nameid,
-        //     role: role
-        // };
-
-        return this.http.get<any>(`${this.apiUrl}/getConversations/${decoded.nameid}`);
+    getConversations() {
+        return this.http.get(`${this.apiUrl}/getConversations`, {
+            withCredentials: true
+        });
     }
 
     // getMessages(conversationId: string): Observable<any> {
@@ -242,9 +227,7 @@ export class ConversationService {
     //     return this.http.get<any>(`${this.apiUrl}/getMessages/${conversationId}/${decoded.id}`);
     // }
     getMessages(conversationId: string, page: number, pageSize: number): Observable<any> {
-        const token = this.cookieService.get('access_token');
-        const decoded = this.parseJwt(token);
-        return this.http.get<any>(`${this.apiUrl}/getMessages/${conversationId}/${decoded.nameid}?page=${page}&pageSize=${pageSize}`);
+        return this.http.get<any>(`${this.apiUrl}/getMessages/${conversationId}?page=${page}&pageSize=${pageSize}`);
     }
 
 

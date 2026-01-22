@@ -84,12 +84,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '104', funId: '1005', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
 
 
-    /// 1008
+    /// 1009
     { id: '101', funId: '1009', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('101') },
     { id: '102', funId: '1009', label: 'Duyệt', icon: 'fa-check', type: '', class: 'btn-approve', display: 'block', language: 'vi', action: () => this.event('102') },
     { id: '103', funId: '1009', label: 'Trả lời', icon: 'fa-comment', type: '', class: 'btn-reply', display: 'block', language: 'vi', action: () => this.event('103') },
     { id: '104', funId: '1009', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
-    { id: '105', funId: '1009', label: 'Ẩn', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
+    { id: '105', funId: '1009', label: 'Từ chối', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
 
 
 
