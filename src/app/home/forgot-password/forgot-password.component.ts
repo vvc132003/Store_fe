@@ -98,9 +98,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         if (res != null && res.code) {
           this._notification.showError(res.code);
+          this.isSubmitting = false;
           return;
         }
-        this.router.navigate(['/dang-nhap']);
+        this.router.navigate(['/reset-password']);
+        this._notification.showSuccess("1037");
       },
       error: () => {
         this._notification.showError("Email không tồn tại");

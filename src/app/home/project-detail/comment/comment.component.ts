@@ -65,7 +65,7 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription.add(
       this._comment.getData(this.projectId).subscribe((res: any) => {
         this.comments = res;
-        console.log(res);
+        // console.log(res);
       })
     );
   }

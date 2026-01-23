@@ -37,6 +37,9 @@ export class ProjectService {
     monthlyRevenue(): Observable<any> {
         return this.http.get<any[]>(`${this.apiUrl}/monthlyRevenue`);
     }
+    toggleStatusPr(id: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/toggleStatusProject/${id}`);
+    }
 
     // getMonthlyOrderStats(): Observable<any> {
     //     return this.http.get<any[]>(`${this.apiUrl}/getMonthlyOrderStats`);

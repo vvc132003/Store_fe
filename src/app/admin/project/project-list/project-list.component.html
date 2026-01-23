@@ -43,6 +43,7 @@
         <div class="h-col title">Tiêu đề</div>
         <div class="h-col desc">Mô tả</div>
         <div class="h-col price">Giá</div>
+        <div class="h-col price">Trạng thái</div>
         <div class="h-col date">Ngày tạo</div>
         <div class="h-col zip">Link tải xuống</div>
     </div>
@@ -61,6 +62,11 @@
 
             <div class="col price">{{ item.price | number }} đ</div>
 
+            <div class="col date">
+                <i class="fa toggle-status" (click)="toggleStatus(item)"
+                    [class]="item.status === 'active' ? 'fa-toggle-on active' : 'fa-toggle-off locked'"
+                    title="Bật / Tắt trạng thái"></i>
+            </div>
             <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
 
             <div class="col zip">

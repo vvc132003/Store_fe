@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -23,7 +24,7 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   showFilter = false;
   isDesktop = true;
   private subscription = new Subscription();
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef, private _project: ProjectService) { }
 
 
   ngOnInit(): void {
@@ -151,6 +152,16 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
 
   dblclickProject() {
     this.dblclick.emit();
+  }
+
+  toggleStatus(item: any) {
+
+    this.subscription.add(
+      this._project.toggleStatusPr(item.id).subscribe((data: any) => {
+        // this._notification.showSuccess("1010");
+        this.project_id.status = data.status;
+      })
+    )
   }
 
 }

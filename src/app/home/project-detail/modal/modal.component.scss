@@ -98,6 +98,15 @@
   font-size: 22px;
 }
 
+.avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .user-info .name {
   font-weight: 600;
   font-size: 16px;

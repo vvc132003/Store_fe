@@ -220,6 +220,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     this.subscription.add(
       this._project.getProjectBySlug(slug!).subscribe((data: any) => {
         this.project = data;
+        console.log(data);
         this.mainImage = this.project.thumbnailUrl;
         if (!this.project.images.includes(this.mainImage)) {
           this.project.images.push(this.mainImage);

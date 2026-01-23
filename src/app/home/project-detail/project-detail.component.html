@@ -81,10 +81,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-7">
-                                    <div class="info-line">Danh mục: <span class="category">{{ project.categoryName
+                                    <div [routerLink]="['/danh-muc-source-code']"
+                                        [queryParams]="{ category: project.slug }" class="info-line">Danh mục: <span
+                                            class="category">{{ project.categoryName
                                             }}</span>
                                     </div>
-                                    <div class="info-line">Thể loại: <span class="category">{{project.typeName}}</span>
+                                    <div [routerLink]="['/danh-muc-source-code']"
+                                        [queryParams]="{ category: project.typeName }" class="info-line">Thể loại: <span
+                                            class="category">{{project.typeName}}</span>
                                     </div>
                                     <div class="info-line">Ngày đăng: {{ project.createdAt |
                                         date:'dd/MM/yyyy' }}

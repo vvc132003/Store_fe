@@ -70,9 +70,15 @@ export class UserService {
     passwordreset(data: any): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/password_reset`, data);
     }
+
     forgotPassword(data: any) {
         return this.http.post(`${this.apiUrl}/forgot-password`, data);
     }
+
+    resetPassword(data: any) {
+        return this.http.post(`${this.apiUrl}/reset-password`, data);
+    }
+
 
 
     // postLogin(data: any): Observable<any> {
