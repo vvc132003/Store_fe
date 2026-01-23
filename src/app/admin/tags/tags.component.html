@@ -1,6 +1,10 @@
-<app-layout [text]="'Giao dịch nạp tiền'" [count]="count" [tabTemplates]="{List}">
+<app-layout [text]="'Thẻ'" [tabTemplates]="{tagsAdd,tagsList}" [count]="count" (showPupAdd)="click($event)">
 </app-layout>
-<ng-template #List>
+<ng-template #tagsAdd>
+    <app-tags-add [showtags_add]="showtags_add" [newtag]="newTag" [data]="data" (closetags_Add)="close()"
+        (newData)="newData($event)"></app-tags-add>
+</ng-template>
+<ng-template #tagsList>
     <div class="bear-container">
         <!-- Ô tìm kiếm -->
         <!-- <div class="search-box">
@@ -49,56 +53,35 @@
         </div>
 
         <div class="bear-header">
-            <div class="h-col code">Người giao dịch</div>
-            <div class="h-col note">Số tiền</div>
-            <div class="h-col date">Nội dung</div>
-            <div class="h-col date">Loại giao dịch</div>
-            <div class="h-col date">Trạng thái</div>
-            <div class="h-col date">Ngày trừ tiền</div>
-
+            <div class="h-col note">Ngôn ngữ</div>
+            <div class="h-col code">Màu nền</div>
+            <div class="h-col code">Icon</div>
+            <div class="h-col date">Ngày tạo</div>
         </div>
 
         <div class="bear-list">
-            <div class="bear-item" *ngFor="let item of pagedData" (click)="clickCategory(item)"
-                [ngClass]="{'bear-item-selected': transaction_id?.id === item?.id}">
+            <div class="bear-item" *ngFor="let item of pagedData" (click)="clickTag(item)"
+                [ngClass]="{'bear-item-selected': tag_id?.id === item?.id}">
+                <div class="col name">{{ item.name || item.name }}</div>
                 <div class="col code">
-                    <div class="d-flex align-items-center gap-2">
-                        <img [src]="item.avatar || 'assets/images/default-avatar.png'" title="{{ item.fullName }}"
-                            alt="avatar" class="avatar">
-                        <p class="mb-0">{{ item.fullName }}</p>
-                    </div>
-                </div>
-                <style>
-                    .avatar {
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                        border: 1px solid #ddd;
-                    }
-                </style>
-                <div class="col name text-danger">- {{ item.amount |number }} đ</div>
-                <div class="col date">{{ item.message}}</div>
-                <div class="col date d-flex align-items-center gap-1">
-                    <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>
-                    <i *ngIf="item.transactionType === 'TRANSFER'" class="bi bi-arrow-right-circle"></i>
-                    <i *ngIf="item.transactionType === 'WITHDRAW'" class="bi bi-wallet2"></i>
-                    <i *ngIf="item.transactionType === 'DEPOSIT'" class="bi bi-cash-stack"></i>
-                    <span [ngClass]="getTransactionTypeLabel(item.transactionType).class">
-                        {{ getTransactionTypeLabel(item.transactionType).label }}
+                    <span class="color-box " [ngStyle]="{ 'background-color': item.color }" [title]="item.color">
                     </span>
+                    <style>
+                        .color-box {
+                            width: 22px;
+                            height: 22px;
+                            border-radius: 4px;
+                            border: 1px solid #ccc;
+                            display: inline-block;
+                        }
+                    </style>
                 </div>
-
-                <div class="col date d-flex align-items-center gap-1">
-                    <i [class]="'bi ' + getStatusBadge(item.status).icon"></i>
-                    <span class="badge text-success" [ngClass]="getStatusBadge(item.status).class">
-                        {{ getStatusBadge(item.status).label }}
-                    </span>
+                <div class="col code">
+                    <i class="fas" [ngClass]="item.icon" [style.color]="item.color" title="{{ item.icon }}">
+                    </i>
                 </div>
-                <div class="col date">{{ item.transactionDate| date:'dd/MM/yyyy HH:mm' }}</div>
-
+                <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
             </div>
-
             <div class="pagination">
                 <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
 

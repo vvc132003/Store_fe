@@ -43,8 +43,8 @@
     <div class="bear-header">
         <div class="h-col title">Tên khách hàng</div>
         <div class="h-col title">Tiêu đề</div>
-        <div class="h-col desc">Ngôn ngữ</div>
-        <div class="h-col price">Phí tải</div>
+        <div class="h-col desc text-center">Ngôn ngữ</div>
+        <div class="h-col price text-center">Phí tải</div>
         <div class="h-col date text-center">Lượt xem</div>
         <div class="h-col date text-center">Lượt tải</div>
     </div>
@@ -52,13 +52,27 @@
     <div class="bear-list">
         <div class="bear-item" *ngFor="let item of pagedData" (click)="clickFavorite(item)"
             [ngClass]="{'bear-item-selected': favorite_id?.id === item?.id}">
-            <div class="col title">{{ item.fullName }}</div>
-
+            <div class="col title">
+                <div class="d-flex align-items-center gap-2">
+                    <img [src]="item.avatar || 'assets/images/default-avatar.png'" title="{{ item.fullName }}"
+                        alt="avatar" class="avatar">
+                    <p class="mb-0">{{ item.fullName }}</p>
+                </div>
+            </div>
+            <style>
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 1px solid #ddd;
+                }
+            </style>
             <div class="col title">{{ item.title }}</div>
 
-            <div class="col desc">{{ item.categoryName }}</div>
+            <div class="col desc text-center">{{ item.categoryName }}</div>
 
-            <div class="col price">{{ item.price | number }} đ</div>
+            <div class="col price text-danger text-center">{{ item.price | number }} đ</div>
 
             <div class="col date text-center">{{ item.viewCount }}</div>
             <div class="col date text-center">{{ item.downloadCount }}</div>

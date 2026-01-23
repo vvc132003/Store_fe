@@ -8,7 +8,8 @@
         Nạp tiền
     </li>
 
-    <li [routerLink]="['/tk/purchased-code']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <li [routerLink]="['/tk/purchased-code']" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
         <span class="icon red"><i class="fas fa-download"></i></span>
         Code đã mua
     </li>
@@ -20,9 +21,17 @@
         <span class="icon pink"><i class="fas fa-bell"></i></span>
         Thông báo - Tin nhắn
     </li>
-    <li [routerLink]="['/tk/history-transaction']"  routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <li [routerLink]="['/tk/history-transaction']" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
         <span class="icon purple"><i class="fas fa-search"></i></span>
         Lịch sử giao dịch
+    </li>
+    <li [routerLink]="['/tk/history-comment']" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <span class="icon blue">
+            <i class="fas fa-comments"></i>
+        </span>
+        Lịch sử bình luận
     </li>
     <li routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <span class="icon blue-question"><i class="fas fa-question-circle"></i></span>

@@ -15,6 +15,7 @@ import { ProjectserviceComponent } from './projectservice/projectservice.compone
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { HistoryCommentComponent } from './history-comment/history-comment.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'tk/favorite-code', component: FavoriteCodeComponent, canActivate: [HomeGuard] },
   { path: 'tk/history-transaction', component: TransactionComponent, canActivate: [HomeGuard] },
   { path: 'tk/update-account', component: UpdateAccountComponent, canActivate: [HomeGuard] },
+  { path: 'tk/history-comment', component: HistoryCommentComponent, canActivate: [HomeGuard] },
   { path: 'project-service', component: ProjectserviceComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent }

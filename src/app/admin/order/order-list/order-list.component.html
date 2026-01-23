@@ -57,8 +57,23 @@
 
             <div class="col title text-center">{{ item.categoryName }}</div>
 
-            <div class="col price">{{ item.price | number }} đ</div>
-            <div class="col title">{{ item.fullName }}</div>
+            <div class="col price text-danger">{{ item.price | number }} đ</div>
+            <div class="col title">
+                <div class="d-flex align-items-center gap-2">
+                    <img [src]="item.avatar || 'assets/images/default-avatar.png'" title="{{ item.fullName }}"
+                        alt="avatar" class="avatar">
+                    <p class="mb-0">{{ item.fullName }}</p>
+                </div>
+            </div>
+            <style>
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 1px solid #ddd;
+                }
+            </style>
             <div class="col zip ">
                 <a [href]="item.zipPath" target="_blank">{{item.zipPath}}</a>
             </div>

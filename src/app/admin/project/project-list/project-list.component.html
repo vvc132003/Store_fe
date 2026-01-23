@@ -35,15 +35,36 @@
             <div class="filter-item">
                 <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText" (input)="applyFilter()">
             </div>
+            <div class="filter-item">
+                <select class="form-select form-select-sm" style="color:#000;" [(ngModel)]="categoryName"
+                    (change)="applyFilter()">
+                    <option [ngValue]="null">-- Tất cả --</option>
+                    <option *ngFor="let c of category_list" [value]="c.name">
+                        {{ c.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <select class="form-select form-select-sm" style="color:#000000dc;" [(ngModel)]="typeName"
+                    (change)="applyFilter()">
+                    <option [ngValue]="null">-- Tất cả --</option>
+                    <option *ngFor="let type of codeTypes" [value]="type.name">
+                        {{ type.name }}
+                    </option>
+                </select>
+            </div>
+
         </div>
     </div>
 
     <div class="bear-header">
         <div class="h-col img">Ảnh</div>
+        <div class="h-col title">Thể loại</div>
+        <div class="h-col title">Ngôn ngữ</div>
         <div class="h-col title">Tiêu đề</div>
         <div class="h-col desc">Mô tả</div>
-        <div class="h-col price">Giá</div>
-        <div class="h-col price">Trạng thái</div>
+        <div class="h-col price text-center">Giá bán</div>
+        <div class="h-col price text-center">Trạng thái</div>
         <div class="h-col date">Ngày tạo</div>
         <div class="h-col zip">Link tải xuống</div>
     </div>
@@ -55,21 +76,23 @@
             <div class="col img">
                 <img [src]="item.thumbnailUrl" alt="Thumbnail" width="60" height="60">
             </div>
+            <div class="col title">{{ item.typeName }}</div>
+            <div class="col title">{{ item.categoryName }}</div>
 
             <div class="col title">{{ item.title }}</div>
 
             <div class="col desc">{{ item.description | linebreaks}}</div>
 
-            <div class="col price">{{ item.price | number }} đ</div>
+            <div class="col price text-danger text-center">{{ item.price | number }} đ</div>
 
-            <div class="col date">
+            <div class="col date text-center">
                 <i class="fa toggle-status" (click)="toggleStatus(item)"
                     [class]="item.status === 'active' ? 'fa-toggle-on active' : 'fa-toggle-off locked'"
                     title="Bật / Tắt trạng thái"></i>
             </div>
             <div class="col date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
 
-            <div class="col zip">
+            <div class="col zip ">
                 <a [href]="item.zipPath" target="_blank">Link</a>
             </div>
             <!-- ✅ NÚT THAO TÁC -->

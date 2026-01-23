@@ -50,7 +50,7 @@ export class FavoriteCodeComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit(): void {
-    // this.titleService.setTitle('Quản lý code đã mua');
+    this.titleService.setTitle('Quản lý code đã thích');
     // const token = this.cookieService.get('access_token');
     // const payload = this.parseJwt(token);
     // this.loadUserbyId(payload);

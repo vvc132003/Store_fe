@@ -1,5 +1,5 @@
 <app-layout-home [tabTemplates]="{dashboards}"></app-layout-home>
-<ng-template #dashboards>
+<ng-template #dashboards let-category_list="category_list">
     <div class="project-detail-page">
         <div class="container-fuild">
             <div class="row">
@@ -12,8 +12,8 @@
                     <div class="left-side-card">
                         <div class="bear-container">
                             <div class="dashboard-header">
-                                <h5>Lịch sử giao dịch</h5>
-                                <p> ({{transactions.length}} source code)</p>
+                                <h5>Quản lý bình luận</h5>
+                                <p> ({{comments.length}})</p>
                             </div>
                             <div class="filter-box" [ngClass]="{'show': showFilter}" *ngIf="showFilter || isDesktop">
 
@@ -43,27 +43,15 @@
                                         <input type="text" placeholder="Nhập tên, mã..." [(ngModel)]="searchText"
                                             (input)="applyFilter()">
                                     </div>
-                                    <div class="filter-item">
-                                        <select class="form-select form-select-sm" style="color:#000;"
-                                            [(ngModel)]="transactionType" (change)="applyFilter()">
-
-                                            <option [ngValue]="null">-- Tất cả --</option>
-                                            <option [ngValue]="'DOWNLOAD_CODE'">Tải Source Code</option>
-                                            <option [ngValue]="'DEPOSIT'">Nạp tiền</option>
-
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
 
                             <div class="bear-header ">
                                 <div class="h-col title text-center">STT</div>
-                                <div class="h-col note">Số tiền</div>
-                                <div class="h-col date">Nội dung</div>
-                                <div class="h-col date">Loại giao dịch</div>
-                                <div class="h-col date">Trạng thái</div>
-                                <div class="h-col date">Ngày trừ tiền</div>
-
+                                <div class="h-col title">Tiêu đề</div>
+                                <div class="h-col desc">Nội dung</div>
+                                <div class="h-col price">Trạng thái</div>
+                                <div class="h-col date text-center">Ngày bình luận</div>
                                 <div class="h-col zip text-center">Thao tác</div>
                             </div>
 
@@ -72,35 +60,30 @@
                                     <div class="h-col title text-center">
                                         {{ (currentPage - 1) * pageSize + i + 1 }}
                                     </div>
+                                    <div class="col title">{{ item.projectName }}</div>
 
-                                    <div class="col name text-danger">- {{ item.amount |number }} đ</div>
-                                    <div class="col date">{{ item.message}}</div>
-                                    <div class="col date d-flex align-items-center gap-1">
-                                        <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>
-                                        <i *ngIf="item.transactionType === 'TRANSFER'"
-                                            class="bi bi-arrow-right-circle"></i>
-                                        <i *ngIf="item.transactionType === 'WITHDRAW'" class="bi bi-wallet2"></i>
-                                        <i *ngIf="item.transactionType === 'DEPOSIT'" class="bi bi-cash-stack"></i>
-                                        <span [ngClass]="getTransactionTypeLabel(item.transactionType).class">
-                                            {{ getTransactionTypeLabel(item.transactionType).label }}
-                                        </span>
-                                    </div>
+                                    <div class="col desc">{{ item.content }}</div>
 
-                                    <div class="col date d-flex align-items-center gap-1">
-                                        <i [class]="'bi ' + getStatusBadge(item.status).icon"></i>
-                                        <span class="badge text-success" [ngClass]="getStatusBadge(item.status).class">
-                                            {{ getStatusBadge(item.status).label }}
-                                        </span>
-                                    </div>
-                                    <div class="col date">{{ item.transactionDate| date:'dd/MM/yyyy HH:mm' }}</div>
-
-                                    <div class="col zip text-center">
+                                    <div class="col price"> <b [ngStyle]="{
+                                                    'background-color': item.status === 'pending' ? '#facc15' :
+                                                                        item.status === 'approved' ? '#a7f3d0' :
+                                                                        '#e5e7eb',
+                                                    'color': item.status === 'pending' ? '#92400e' :
+                                                            item.status === 'approved' ? '#065f46' :
+                                                            '#374151',
+                                                    'padding': '2px 6px',
+                                                    'border-radius': '6px'
+                                                }">
+                                            {{ item.status === 'pending' ? 'Chờ duyệt' :
+                                            item.status === 'approved' ? 'Đã duyệt' : 'Từ chối' }}
+                                        </b></div>
+                                    <div class="col date">{{ item.createdAt }}</div>
+                                    <div class="col text-center">
                                         <div class="col action" (click)="$event.stopPropagation()">
-                                            <!-- <button class="btn-edit">Cập nhật</button> -->
-                                            <button class="btn-delete">Xoá</button>
+                                            <i class="fas fa-edit action-icon edit" title="Cập nhật"></i>
+                                            <i class="fas fa-trash-alt action-icon delete" title="Xoá"></i>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="pagination">
                                     <button (click)="goToPage(currentPage - 1)"

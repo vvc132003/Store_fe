@@ -35,6 +35,7 @@ import { CommentItemComponent } from './project-detail/comment/comment-item/comm
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { HistoryCommentComponent } from './history-comment/history-comment.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     UpdateAccountComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    HistoryCommentComponent,
   ],
   imports: [
     CommonModule,

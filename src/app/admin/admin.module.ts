@@ -35,6 +35,8 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentDetailComponent } from './comment/comment-detail/comment-detail.component';
 import { CommentItemComponent } from './comment/comment-detail/comment-item/comment-item.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { TagsComponent } from './tags/tags.component';
+import { TagsAddComponent } from './tags/tags-add/tags-add.component';
 
 
 @NgModule({
@@ -67,7 +69,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     CommentListComponent,
     CommentDetailComponent,
     CommentItemComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    TagsComponent,
+    TagsAddComponent
   ],
   imports: [
     CommonModule,

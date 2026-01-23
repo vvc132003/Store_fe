@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -13,7 +14,16 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   @Input() project_id: any;
   @Output() projectclick = new EventEmitter<void>();
   @Output() dblclick = new EventEmitter<void>();
+  categoryName: string | null = null;
+  typeName: string | null = null;
+  codeTypes = [
+    { id: 1, name: 'Website' },
+    { id: 2, name: 'Phần mềm' },
+    { id: 3, name: 'Game' },
+    { id: 4, name: 'Ứng dụng' }
 
+  ];
+  category_list: any[] = [];
   dateFrom: Date | null = null;
   dateTo: Date | null = null;
   searchText = "";
@@ -24,14 +34,22 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
   showFilter = false;
   isDesktop = true;
   private subscription = new Subscription();
-  constructor(private cdr: ChangeDetectorRef, private _project: ProjectService) { }
+  constructor(private cdr: ChangeDetectorRef, private _project: ProjectService, private _category: CategoryService) { }
 
 
   ngOnInit(): void {
     this.updatePagedData();
     this.checkScreen();
-
+    this.loadC();
     window.addEventListener('resize', () => this.checkScreen());
+  }
+
+  loadC() {
+    this.subscription.add(
+      this._category.getData().subscribe((res: any) => {
+        this.category_list = res;
+      })
+    )
   }
 
   checkScreen() {
@@ -133,11 +151,13 @@ export class ProjectListComponent implements OnChanges, OnInit, OnDestroy {
 
       const matchDate = (!from || created >= from) && (!to || created <= to);
 
-      // 3. Lọc theo trạng thái (ép kiểu boolean)
-      const matchStatus =
-        this.status === null || item.isActive === (this.status === true);
+      const matchCName =
+        this.categoryName === null || item.categoryName === this.categoryName;
 
-      return matchText && matchDate && matchStatus;
+      const matchTl =
+        this.typeName === null || item.typeName === this.typeName;
+
+      return matchText && matchDate && matchCName && matchTl;
     });
 
     this.currentPage = 1;

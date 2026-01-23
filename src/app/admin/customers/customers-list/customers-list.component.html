@@ -56,17 +56,32 @@
     <div class="bear-list">
         <div class="bear-item" *ngFor="let item of pagedData" (click)="clickCategory(item)"
             [ngClass]="{'bear-item-selected': user_id?.id === item?.id}">
-            <div class="col code">{{ item.fullName }}</div>
+            <div class="col code">
+                <div class="d-flex align-items-center gap-2">
+                    <img [src]="item.avatar || 'assets/images/default-avatar.png'" title="{{ item.fullName }}"
+                        alt="avatar" class="avatar">
+                    <p class="mb-0">{{ item.fullName }}</p>
+                </div>
+            </div>
+            <style>
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 1px solid #ddd;
+                }
+            </style>
             <div class="col name">{{ item.email || item.email }}</div>
             <div class="col date">{{ item.code}}</div>
-            <div class="col date">{{ item.balance | number}} đ</div>
+            <div class="col date text-danger">{{ item.balance | number}} đ</div>
             <div class="col date">
                 <i class="fa toggle-status" (click)="toggleStatus(item)"
                     [class]="item.status === 'active' ? 'fa-toggle-on active' : 'fa-toggle-off locked'"
                     title="Bật / Tắt trạng thái"></i>
             </div>
         </div>
-        
+
         <div class="pagination">
             <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
 

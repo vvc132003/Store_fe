@@ -2,20 +2,20 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { CommentService } from 'src/app/services/comment.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
-
 @Component({
-  selector: 'app-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.scss']
+  selector: 'app-history-comment',
+  templateUrl: './history-comment.component.html',
+  styleUrls: ['./history-comment.component.scss']
 })
-export class TransactionComponent implements OnInit, OnDestroy {
+export class HistoryCommentComponent implements OnInit, OnDestroy {
 
 
   // user: any = {};
-  transactions: any[] = [];
+  comments: any[] = [];
   showFilter = false;
   isDesktop = true;
   dateFrom: Date | null = null;
@@ -26,58 +26,30 @@ export class TransactionComponent implements OnInit, OnDestroy {
   pageSize = 5; // mỗi trang 10 item
   pagedData: any[] = [];
   searchText = "";
-  priceFrom: number | null = null;
-  priceTo: number | null = null;
-  orderCount: number = 0;
-  orderCount_year: number = 0;
-
   transactionType: string | null = null;
-  orderCountData: any[] = [];
-  revenueData: any[] = [];
   constructor(private _user: UserService,
     private titleService: Title, private cookieService: CookieService,
     private cdr: ChangeDetectorRef,
+    private _comment: CommentService,
     private _project: ProjectService,
     private _transaction: TransactionService) { }
   private subscription = new Subscription();
 
-  // private parseJwt(token: string): any {
-  //   const payload = token.split('.')[1];
-  //   const decoded = atob(payload);
-  //   const utf8 = decodeURIComponent(
-  //     decoded
-  //       .split('')
-  //       .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-  //       .join('')
-  //   );
-  //   return JSON.parse(utf8);
-  // }
+
 
   ngOnInit(): void {
-    this.titleService.setTitle('Quản lý lịch sử giao dịch');
-    // const token = this.cookieService.get('access_token');
-    // const payload = this.parseJwt(token);
-    // this.loadUserbyId(payload);
-    this.loadTransactionUserId();
+    this.titleService.setTitle("Quản lý bình luận");
+    this.loadcomments();
   }
 
 
-  // loadUserbyId(payload: any) {
-  //   this.subscription.add(
-  //     this._user.getUserById(payload?.nameid).subscribe((data: any) => {
-  //       this.user = data;
-  //     })
-  //   )
-  // }
-
-  loadTransactionUserId() {
+  loadcomments() {
     this.subscription.add(
-      this._transaction.getHistoryTransactions().subscribe((data: any[]) => {
-        // this.transactions = data;
-        this.transactions = data.sort(
+      this._comment.getHistoryComments().subscribe((data: any[]) => {
+        this.comments = data.sort(
           (a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime()
         );
-        this.filteredData = [...this.transactions];
+        this.filteredData = [...this.comments];
         this.updatePagedData();
       })
     )
@@ -127,10 +99,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
   applyFilter() {
     const text = this.searchText?.toLowerCase().trim() || "";
 
-    this.filteredData = this.transactions.filter(item => {
+    this.filteredData = this.comments.filter(item => {
       // 1. Lọc theo text
       const matchText =
-        item.message?.toLowerCase().includes(text);
+        item.content?.toLowerCase().includes(text)||
+        item.projectName?.toLowerCase().includes(text);
 
       // 2. Lọc theo ngày tạo
       const created = new Date(item.transactionDate);
@@ -144,10 +117,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
       const matchDate = (!from || created >= from) && (!to || created <= to);
 
-      // 3. Lọc theo transactionType
-      const matchStatus =
-        this.transactionType === null || item.transactionType === this.transactionType;
-      return matchText && matchDate && matchStatus;
+    
+      return matchText && matchDate;
     });
 
     this.currentPage = 1;
@@ -166,7 +137,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
   goToPage(page: number) {
     if (page < 1) return;
-    const totalPages = Math.ceil(this.transactions.length / this.pageSize);
+    const totalPages = Math.ceil(this.comments.length / this.pageSize);
     if (page > totalPages) return;
 
     this.currentPage = page;

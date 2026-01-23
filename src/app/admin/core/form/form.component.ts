@@ -103,7 +103,25 @@ export class FormComponent implements AfterViewInit, OnInit, OnDestroy, OnChange
     }
     this.showTagList = false;
   }
+  getIconClass(icon: string): string {
+    const brands = [
+      'fa-angular', 'fa-react', 'fa-vuejs',
+      'fa-html5', 'fa-css3-alt', 'fa-js',
+      'fa-node-js', 'fa-bootstrap',
+      'fa-github', 'fa-gitlab',
+      'fa-docker', 'fa-linux', 'fa-windows'
+    ];
 
+    if (brands.includes(icon)) {
+      return 'fab';   // Brand icon
+    }
+
+    if (icon) {
+      return 'fas';   // Solid icon
+    }
+
+    return 'fa';      // Fallback (hiếm khi dùng)
+  }
   removeTag(tag: any) {
     this.selectedTags = this.selectedTags.filter(t => t.id !== tag.id);
   }

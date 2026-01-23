@@ -26,7 +26,7 @@
 
 .right-side {
   flex: 0 0 20%;
-   position: sticky;
+  position: sticky;
   top: 160px;
   align-self: flex-start;
 }
@@ -66,7 +66,7 @@
 /* HEADER */
 .bear-header {
   display: grid;
-  grid-template-columns: 0.3fr 3fr 2fr 1.4fr 1fr 1.4fr 1.5fr;
+  grid-template-columns: 0.3fr 1.5fr 2fr 1.2fr 1.4fr 1.2fr;
   /* 3 cột đều nhau */
   color: #3A3A3A;
   font-weight: 700;
@@ -89,7 +89,7 @@
 
 .bear-item {
   display: grid;
-  grid-template-columns: 0.3fr 3fr 2fr 1.4fr 1fr 1.4fr 1.5fr;
+  grid-template-columns: 0.3fr 1.5fr 2fr 1.2fr 1.4fr 1.2fr;
   /* 3 cột đều nhau */
   align-items: center;
   background: #ffffff;
@@ -410,6 +410,32 @@
   outline: none;
 }
 
+.action {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.action-icon.edit {
+  color: #2196f3;
+  /* xanh dương */
+}
+
+.action-icon.delete {
+  color: #f44336;
+  /* đỏ */
+}
+
+.action-icon:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+}
 
 
 /* MOBILE */
@@ -520,6 +546,7 @@
     text-align: center;
     justify-content: center;
   }
+
 
   .col.zip {
     display: none;

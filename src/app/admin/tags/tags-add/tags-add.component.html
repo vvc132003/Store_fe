@@ -1,0 +1,53 @@
+<app-form [headerDiv]="tables" [showTags]="false" [text]="text" [showoffcanvas]="showtags_add" (closePupAdd)="close()"
+    [tabTemplates]="{category: tagss, setting: setting}">
+</app-form>
+<ng-template #tagss>
+    <div class="mb-3">
+        <label for="name" class="form-label small">Tên thẻ</label>
+        <input type="text" id="name" name="name" placeholder="VD: Angular" class="form-control form-control-sm"
+            [(ngModel)]="newtag.name" (input)="onNameChange()" required="" />
+    </div>
+    <div class="mb-3">
+        <label for="slug" class="form-label small">Đường dẫn</label>
+        <input type="text" id="slug" name="slug" placeholder="VD: angular" class="form-control form-control-sm"
+            [(ngModel)]="newtag.slug" readonly />
+    </div>
+    <div class="mb-3">
+        <label class="form-label small">Màu thẻ</label>
+        <input type="color" class="form-control form-control-sm form-control-color" [(ngModel)]="newtag.color">
+    </div>
+    <div class="mb-3">
+        <label class="form-label small">Chọn icon</label>
+
+        <div class="dropdown">
+            <button class="btn btn-light btn-sm dropdown-toggle w-100 d-flex align-items-center justify-content-between"
+                type="button" data-bs-toggle="dropdown">
+
+                <span *ngIf="newtag.icon; else placeholder">
+                    <i [class]="getIconClass(newtag.icon) + ' ' + newtag.icon"></i>
+                    {{ newtag.icon }}
+                </span>
+
+                <ng-template #placeholder>
+                    <span class="text-muted">Chọn icon</span>
+                </ng-template>
+            </button>
+
+            <ul class="dropdown-menu w-100 icon-dropdown">
+                <li *ngFor="let icon of ALL_PROGRAMMING_ICONS">
+                    <a class="dropdown-item d-flex align-items-center gap-2" (click)="selectIcon(icon)">
+                        <i [class]="getIconClass(icon) + ' ' + icon"></i>
+                        {{ icon }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <button type="button" class="btn btn-primary px-4" (click)="save()">
+            <i class="fa fa-save"></i>
+            Lưu
+        </button>
+    </div>
+</ng-template>
+<ng-template #setting></ng-template>

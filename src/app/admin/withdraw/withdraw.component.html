@@ -61,7 +61,22 @@
         <div class="bear-list">
             <div class="bear-item" *ngFor="let item of pagedData" (click)="clickCategory(item)"
                 [ngClass]="{'bear-item-selected': transaction_id?.id === item?.id}">
-                <div class="col code">{{ item.fullName }}</div>
+                <div class="col code">
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="item.avatar || 'assets/images/default-avatar.png'" title="{{ item.fullName }}"
+                            alt="avatar" class="avatar">
+                        <p class="mb-0">{{ item.fullName }}</p>
+                    </div>
+                </div>
+                <style>
+                    .avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        border: 1px solid #ddd;
+                    }
+                </style>
                 <div class="col name text-danger">- {{ item.amount |number }} đ</div>
                 <div class="col date">{{ item.message}}</div>
                 <div class="col date d-flex align-items-center gap-1">
@@ -76,7 +91,7 @@
 
                 <div class="col date d-flex align-items-center gap-1">
                     <i [class]="'bi ' + getStatusBadge(item.status).icon"></i>
-                    <span class="badge" [ngClass]="getStatusBadge(item.status).class">
+                    <span class="badge text-success" [ngClass]="getStatusBadge(item.status).class">
                         {{ getStatusBadge(item.status).label }}
                     </span>
                 </div>

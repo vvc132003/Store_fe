@@ -32,6 +32,12 @@ export class SidebarComponent {
     { icon: '📊', label: 'Doanh thu', route: '/mbcode/admin/revenue', funId: '1000' },
     { icon: '📁', label: 'Loại code', route: '/mbcode/admin/category', funId: '1001' },
     {
+      icon: '🏷️',
+      label: 'Thẻ',
+      route: '/mbcode/admin/tags',
+      funId: '1011'
+    },
+    {
       icon: '⬆️',
       label: 'Code tải lên',
       route: '/mbcode/admin/project',

@@ -13,15 +13,15 @@
             </button>
             <div class="selected-tags">
                 <span class="selected-tag" *ngFor="let tag of selectedTags" [ngStyle]="{ 'background': tag.color }">
-                    {{ tag.name }}
-                    <i class="remove" (click)="removeTag(tag)">×</i>
+                    <i style="margin-right: 10px;" [class]="getIconClass(tag.icon) + ' ' + tag.icon"></i>
+                    {{ tag.name }} <i class="remove" (click)="removeTag(tag)">×</i>
                 </span>
             </div>
         </div>
         <div class="tag-dropdown" *ngIf="showTagList">
             <div class="tag-item" *ngFor="let tag of tags" [ngStyle]="{ 'background': tag.color }"
                 (click)="selectTag(tag)">
-                <i style="margin-right: 10px;" [class]="tag.icon"></i>
+                <i style="margin-right: 10px;" [class]="getIconClass(tag.icon) + ' ' + tag.icon"></i>
                 {{ tag.name }}
             </div>
         </div>

@@ -91,7 +91,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '104', funId: '1009', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
     { id: '105', funId: '1009', label: 'Từ chối', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
 
-
+    /// 1011
+    { id: '101', funId: '1011', label: 'Thêm', icon: 'fa-plus', type: 'primary', class: '', display: 'block', language: 'vi', action: () => this.event('101') },
+    { id: '102', funId: '1011', label: 'Cập nhật', icon: 'fa-refresh', type: 'warning', class: '', display: 'block', language: 'vi', action: () => this.event('102') },
+    { id: '103', funId: '1011', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
+    { id: '104', funId: '1011', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
+    { id: '105', funId: '1011', label: 'Sao chép', icon: 'fa-copy', type: '', class: 'btn-custom-copy', display: 'block', language: 'vi', action: () => this.event('105') },
 
 
 
@@ -155,6 +160,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '103', funId: '1009', label: 'Reply', icon: 'fa-comment', type: '', class: 'btn-reply', display: 'block', language: 'en', action: () => this.event('103') },
     { id: '104', funId: '1009', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
     { id: '105', funId: '1009', label: 'Hide', icon: 'fa-eye-slash', type: 'warning', class: '', display: 'block', language: 'en', action: () => this.event('105') },
+
+    ///1011
+    { id: '101', funId: '1011', label: 'Add', icon: 'fa-plus', type: 'primary', class: '', display: 'block', language: 'en', action: () => this.event('101') },
+    { id: '102', funId: '1011', label: 'Update', icon: 'fa-refresh', type: 'warning', class: '', display: 'block', language: 'en', action: () => this.event('102') },
+    { id: '103', funId: '1011', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
+    { id: '104', funId: '1011', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+    { id: '105', funId: '1011', label: 'Copy', icon: 'fa-copy', type: '', class: 'btn-custom-copy', display: 'block', language: 'en', action: () => this.event('105') },
 
 
   ];

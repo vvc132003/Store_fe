@@ -12,6 +12,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
 import { SettingComponent } from './setting/setting.component';
 import { CommentComponent } from './comment/comment.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
   { path: 'revenue/:funId', component: DashboardComponent, canActivate: [AdminGuard] },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'settings/:funId', component: SettingComponent, canActivate: [AdminGuard] },
   { path: 'comments/:funId', component: CommentComponent, canActivate: [AdminGuard] },
   { path: 'change-password/:funId', component: ChangePasswordComponent, canActivate: [AdminGuard] },
+  { path: 'tags/:funId', component: TagsComponent, canActivate: [AdminGuard] },
+
 
 
 
