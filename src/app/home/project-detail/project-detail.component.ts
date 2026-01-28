@@ -220,7 +220,7 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     this.subscription.add(
       this._project.getProjectBySlug(slug!).subscribe((data: any) => {
         this.project = data;
-        console.log(data);
+        // console.log(data);
         this.mainImage = this.project.thumbnailUrl;
         if (!this.project.images.includes(this.mainImage)) {
           this.project.images.push(this.mainImage);
@@ -306,16 +306,8 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   isDownloading = false;
 
   download(project: any): void {
-    // const token = this.cookieService.get('access_token');
-    // if (!token) {
-    //   this.showWarning = true;
-    //   return;
-    // }
     this.isDownloading = true;
-    // const payload = this.parseJwt(token);
-
     const data = {
-      // userId: payload.nameid,
       projectId: project.id,
       quantity: 0,
       totalPrice: project.price,
@@ -323,11 +315,16 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     };
     this.subscription.add(
       this._order.postData(data).subscribe((response: any) => {
-        const downloadUrl = response.downloadUrl;
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.target = '_blank';
-        link.click();
+        // const downloadUrl = response.downloadUrl;
+        // const link = document.createElement('a');
+        // link.href = downloadUrl;
+        // link.target = '_blank';
+        // link.click();
+        // this.isTypeOpen = false;
+        // this._notification.showSuccess("1029");
+        // this.isDownloading = false;
+        window.open(response.downloadUrl, '_blank');
+
         this.isTypeOpen = false;
         this._notification.showSuccess("1029");
         this.isDownloading = false;
