@@ -103,11 +103,11 @@ export class ProjectService {
     }
 
     getProjectsPaymenByUserId(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-paymen-by-userid`, { withCredentials: true });
+        return this.http.get<any>(`${this.apiUrl}/project-paymen-by-userid`);
     }
 
     getProjectsFavoriteByUserId(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/project-favorite-by-userid`, { withCredentials: true });
+        return this.http.get<any>(`${this.apiUrl}/project-favorite-by-userid`);
     }
 
     exportProjectsExcel(): Observable<any> {
