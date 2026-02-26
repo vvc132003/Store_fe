@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSize = 10;
   pagedData: any[] = [];
-
+  @Input() logo: string = "";
   constructor(private titleService: Title,
     private _project: ProjectService, private router: Router, private _activatedRoute: ActivatedRoute,
     private _notification: NotificationService, private cookieService: CookieService, private _favorite: FavoriteService) { }
@@ -80,6 +80,11 @@ export class IndexComponent implements OnInit, OnDestroy {
       })
     )
 
+  }
+  @Output() logoChange = new EventEmitter<string>();
+
+  changeLogo(event: string) {
+    this.logo = event;
   }
 
 

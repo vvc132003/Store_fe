@@ -60,7 +60,6 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   logo: string = "";
-
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(this.settings)
     if (changes['settings'] && this.settings) {

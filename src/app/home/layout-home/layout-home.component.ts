@@ -15,6 +15,8 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   @Output() categoryChange = new EventEmitter<any[]>();
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
   @Input() balance: number = 0;
+  logo: string = "";
+
   category_list: any[] = [];
 
   constructor(private _category: CategoryService, private _setting: SettingsService, private _user: UserService, private conversationService: ConversationService) {
@@ -38,12 +40,15 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
   }
 
   settings: any[] = [];
+  @Output() logoChange = new EventEmitter<string>();
   loadSetting() {
     this.subscription.add(
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
+        this.logo = res?.data?.SiteSettings?.logo ?? "";
+        this.logoChange.emit(this.logo);
       })
-    )
+    );
   }
 
   ngOnDestroy(): void {

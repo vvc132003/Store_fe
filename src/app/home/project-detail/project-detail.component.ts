@@ -112,6 +112,12 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
   //   )
   // }
 
+
+  avatar: string = "";
+  changeLogo(event: string) {
+    this.avatar = event;
+  }
+
   bookmark(projectId: string): void {
     const datapost = {
       projectId: projectId

@@ -276,4 +276,9 @@ export class CategorySourceCodeComponent implements OnInit, OnDestroy {
       })
     )
   }
+
+  avatar: string = "";
+  changeLogo(event: string) {
+    this.avatar = event;
+  }
 }

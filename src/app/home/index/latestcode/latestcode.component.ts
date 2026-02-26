@@ -18,7 +18,7 @@ export class LatestcodeComponent implements OnChanges, OnDestroy {
   }
 
   @Input() project_list: any[] = [];
-  avatar: string = "https://localhost:7274/logo/logo.png";
+  @Input() avatar: string = "";
   currentIndex = 0;
   prevIndex = 0;
   intervalId: any;

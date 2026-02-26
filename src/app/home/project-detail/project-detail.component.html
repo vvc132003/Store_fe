@@ -1,4 +1,5 @@
-<app-layout-home (userLoaded)="onUserLoaded($event)" [tabTemplates]="{detail}"></app-layout-home>
+<app-layout-home (logoChange)="changeLogo($event)" (userLoaded)="onUserLoaded($event)"
+    [tabTemplates]="{detail}"></app-layout-home>
 <ng-template #detail>
 
     <app-page-header [breadcrumb_categoryname]="breadcrumb_categoryname"
@@ -224,6 +225,7 @@
                                 </div>
                                 <div class="bottom-row">
                                     <div class="seller">
+                                        <img [src]="avatar" />
                                         <span>{{ item.seller }}</span>
                                     </div>
                                     <div class="actions">

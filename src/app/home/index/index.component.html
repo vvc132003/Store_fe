@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{dashboards}"></app-layout-home>
+<app-layout-home (logoChange)="changeLogo($event)" [tabTemplates]="{dashboards}"></app-layout-home>
 <!-- <app-header [category_list]="category_list"></app-header> -->
 <ng-template #dashboards let-category_list="category_list">
     <div class="main">
@@ -58,7 +58,7 @@
                 <div class="icon"><i class="fas fa-bolt"></i></div>
                 <div class="content">
                     <h3>Giao dịch nhanh</h3>
-                    <p>Nạp & rút tiền chỉ trong vài giây</p>
+                    <p>Nạp tiền chỉ trong vài giây</p>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
 
     <div class="custom-container">
         <div class="left-side">
-            <app-latestcode [project_list]="project_list"></app-latestcode>
+            <app-latestcode [avatar]="logo"  [project_list]="project_list"></app-latestcode>
         </div>
         <div class="right-side">
             <div class=" right-side-card">
@@ -76,10 +76,10 @@
         </div>
     </div>
     <div class="left-side">
-        <app-featuredwebsite [project_list]="project_list"></app-featuredwebsite>
-        <app-featuredsoftware [project_list]="project_list"></app-featuredsoftware>
-        <app-featuredapplications [project_list]="project_list"></app-featuredapplications>
-        <app-featuredgame [project_list]="project_list"></app-featuredgame>
+        <app-featuredwebsite [avatar]="logo" [project_list]="project_list"></app-featuredwebsite>
+        <app-featuredsoftware [avatar]="logo" [project_list]="project_list"></app-featuredsoftware>
+        <app-featuredapplications [avatar]="logo" [project_list]="project_list"></app-featuredapplications>
+        <app-featuredgame [avatar]="logo" [project_list]="project_list"></app-featuredgame>
     </div>
 
     <br>

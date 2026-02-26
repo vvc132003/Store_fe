@@ -1,4 +1,4 @@
-<app-layout-home [tabTemplates]="{category}"></app-layout-home>
+<app-layout-home (logoChange)="changeLogo($event)" [tabTemplates]="{category}"></app-layout-home>
 <ng-template #category>
     <app-page-header [breadcrumb_categoryname]="'Danh mục'" (projectLatestChange)="onProjectLatestReceived($event)"
         [breadcrumb_title]="categoryname"></app-page-header>
@@ -128,7 +128,7 @@
 
                                     <div class="bottom-row">
                                         <div class="seller">
-                                            <!-- <img [src]="item.avatar" /> -->
+                                            <img [src]="avatar" />
                                             <span>{{ item.seller }}</span>
                                         </div>
 
