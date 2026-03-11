@@ -36,7 +36,7 @@ export class AuthService {
 
     me(): Observable<AuthUser> {
         return this.http.get<AuthUser>(
-            `${this.apiUrl}/me`,
+            `${this.apiUrl}/meondrive`,
             { withCredentials: true }
         ).pipe(
             tap(user => this.userSubject.next(user))
