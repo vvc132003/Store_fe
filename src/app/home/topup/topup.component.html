@@ -1,4 +1,5 @@
-<app-layout-home (userLoaded)="onUserLoaded($event)"  [tabTemplates]="{topup}"></app-layout-home>
+<app-layout-home (paymentSettings)="paymentSettings($event)" (userLoaded)="onUserLoaded($event)"
+    [tabTemplates]="{topup}"></app-layout-home>
 <ng-template #topup>
     <div class="project-detail-page">
         <div class="container-fuild">
@@ -32,48 +33,57 @@
                             <div class="qr-container">
                                 <div class="qr-box">
                                     <div class="logo">
-                                        <img src="http://192.168.1.6/uploads/logo.jpg" alt="MoMo logo" />
+                                        <p>{{settingP.bank.bankName}}</p>
                                     </div>
-                                    <img src="http://192.168.1.6/uploads/qr.png" alt="QR MoMo" />
-                                    <div class="name">Vo Van Chinh</div>
+                                    <img [src]="settingP.qrCodes.bankQR" alt="QR Bank" />
+                                    <div class="name">{{settingP.bank.accountHolder}}</div>
                                 </div>
+
                                 <div class="qr-box">
                                     <div class="logo">
-                                        <img src="https://upload.wikimedia.org/wikipedia/vi/8/8e/Viettel_Money_Logo.svg"
-                                            alt="Viettel Money logo" width="60" />
+                                        <p>Momo</p>
                                     </div>
-                                    <img src="assets/viettel-qr.png" alt="QR Viettel Money" />
-                                    <div class="name">Vo Van Chinh</div>
+                                    <img [src]="settingP.qrCodes.momoQR" alt="QR Bank" />
+                                    <div class="name">{{settingP.bank.accountHolder}}</div>
                                 </div>
                             </div>
 
                             <div class="instructions">
                                 <p>
-                                    (Trong đó bạn nhập nội dung <strong>{{currentUser.code}}</strong> để xác định tài khoản
+                                    (Trong đó bạn nhập nội dung <strong>{{currentUser.code}}</strong> để xác định tài
+                                    khoản
                                     của bạn, Hệ thống sẽ cộng tiền vào tài khoản này cho bạn)
                                 </p>
                                 <ul>
                                     <li>
-                                        Nội dung chuyển khoản của bạn phải nhập đúng là <strong>{{currentUser.code}}</strong>,
+                                        Nội dung chuyển khoản của bạn phải nhập đúng là
+                                        <strong>{{currentUser.code}}</strong>,
                                         sau khi xác nhận hệ thống sẽ cộng tiền cho bạn.
                                     </li>
                                     <li>
                                         Trường hợp sau 30 phút chưa thấy cộng tiền chụp lại giao dịch gọi qua
-                                        <a href="#">hotline</a>.
+                                        <a href="#">{{settingP.phone}}</a>.
                                     </li>
                                     <li>
-                                        Mọi hướng dẫn chi tiết liên hệ qua <a href="#">hotline</a>.
+                                        Mọi hướng dẫn chi tiết liên hệ qua <a href="#">{{settingP.phone}}</a>.
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="content" *ngIf="activeTab === 2">
-                            <p>Phần nội dung chuyển khoản ở đây (Bạn có thể thêm)</p>
+                            <div class="bank-card">
+                                <div class="bank-icon">💳</div>
+                                <div class="bank-info">
+                                    <p class="bank-name">{{settingP.bank.bankName}}</p>
+                                    <p class="bank-number">{{settingP.bank.accountNumber}}</p>
+                                    <p class="bank-owner">{{settingP.bank.accountHolder}}</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="content" *ngIf="activeTab === 3">
-                            <p>Phần nội dung thanh toán qua thẻ ATM ở đây (Bạn có thể thêm)</p>
+                            <p>Chức năng đang làm</p>
                         </div>
                     </div>
                 </div>

@@ -334,8 +334,9 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
         this.isTypeOpen = false;
         this._notification.showSuccess("1029");
         this.isDownloading = false;
+        this._user.updateBalance(project.price);
       }, error => {
-        console.error('Order creation failed:', error);
+        // console.error('Order creation failed:', error);
         this.isDownloading = false;
       })
     );

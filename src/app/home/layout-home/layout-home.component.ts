@@ -41,12 +41,15 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   settings: any[] = [];
   @Output() logoChange = new EventEmitter<string>();
+  @Output() paymentSettings = new EventEmitter<any>();
+
   loadSetting() {
     this.subscription.add(
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
         this.logo = res?.data?.SiteSettings?.logo ?? "";
         this.logoChange.emit(this.logo);
+        this.paymentSettings.emit(res?.data?.PaymentSettings ?? "");
       })
     );
   }

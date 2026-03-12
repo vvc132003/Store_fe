@@ -56,6 +56,11 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
       });
     });
 
+    this._user.balance$.subscribe(price => {
+      if (this.user) {
+        this.user.balance -= price;
+      }
+    });
 
   }
 

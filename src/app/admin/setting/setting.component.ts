@@ -14,7 +14,20 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
 
   setting: any = {
     SiteSettings: { siteName: '', logo: '', maintenanceMode: false, defaultLanguage: 'vi', defaultUserAvatar: '' },
-    PaymentSettings: { gateways: [], currency: 'VND', commission: 10, enableTestMode: false },
+    PaymentSettings: {
+      bank: {
+        bankName: 'VPBank',
+        accountNumber: '0865209668',
+        accountHolder: 'Vũ Tiến Hải'
+      },
+
+      phone: '0865209668',
+
+      qrCodes: {
+        bankQR: '',
+        momoQR: ''
+      }
+    },
     EmailSettings: { smtpHost: '', smtpPort: 587, username: '', password: '', enableSSL: false },
     ThemeSettings: { theme: 'dark', primaryColor: '#FF5733', secondaryColor: '#333333' },
     SEOSettings: { metaTitle: '', metaDescription: '', metaKeywords: '' },
@@ -45,7 +58,7 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   saveSettings(): void {
-    if (!this.selectedFile_img_logo || !this.selectedFile_img_avatar) {
+    if (!this.selectedFile_img_logo || !this.selectedFile_img_avatar || this.selectedFile_img_bankQR || this.selectedFile_img_momoQR) {
       this._notification.showError("1022");
       return;
     }
@@ -56,7 +69,7 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
       IsPublic: true
     };
 
-    this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar).subscribe((res: any) => {
+    this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar, this.selectedFile_img_bankQR, this.selectedFile_img_momoQR).subscribe((res: any) => {
       payload.Data.SiteSettings.logo = res.logoUrl;
       this._setting.postData(payload).subscribe(() => {
         // console.log("thành công");
@@ -80,9 +93,9 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
 
     const uploadObservables = [];
 
-    if (this.selectedFile_img_logo || this.selectedFile_img_avatar) {
+    if (this.selectedFile_img_logo || this.selectedFile_img_avatar || this.selectedFile_img_bankQR || this.selectedFile_img_momoQR) {
       uploadObservables.push(
-        this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar)
+        this._setting.uploadLogo(this.selectedFile_img_logo, this.selectedFile_img_avatar, this.selectedFile_img_bankQR, this.selectedFile_img_momoQR)
           .pipe(tap((res: any) => {
             if (res.logoUrl && res.logoUrl.trim() !== '') {
               this.setting.SiteSettings.logo = res.logoUrl;
@@ -94,6 +107,18 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
               this.setting.SiteSettings.defaultUserAvatar = res.avatarUrl;
             } else {
               delete this.setting.SiteSettings.defaultUserAvatar;
+            }
+            ////
+            if (res.bankQRUrl && res.bankQRUrl.trim() !== '') {
+              this.setting.PaymentSettings.qrCodes.bankQR = res.bankQRUrl;
+            } else {
+              delete this.setting.PaymentSettings.qrCodes.bankQR;
+            }
+
+            if (res.momoQRUrl && res.momoQRUrl.trim() !== '') {
+              this.setting.PaymentSettings.qrCodes.momoQR = res.momoQRUrl;
+            } else {
+              delete this.setting.PaymentSettings.qrCodes.momoQR;
             }
           }))
       );
@@ -107,13 +132,15 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
     } else {
       delete this.setting.SiteSettings.logo;
       delete this.setting.SiteSettings.defaultUserAvatar;
+      delete this.setting.PaymentSettings.qrCodes.momoQR;
+      delete this.setting.PaymentSettings.qrCodes.bankQR;
+
       this._updateData(payload);
-      
+
     }
   }
 
   private _updateData(payload: any) {
-    // console.log(payload);
     this._setting.updateData(payload.Key, payload).subscribe({
       next: () => this._notification.showSuccess("1021"),
       error: () => this._notification.showError("Error updating settings")
@@ -201,8 +228,51 @@ export class SettingComponent implements OnDestroy, OnChanges, OnInit {
     // console.log(event);
     this.previewImg_logo = this.setting.SiteSettings.logo;
     this.previewImg_avatar = this.setting.SiteSettings.defaultUserAvatar;
+    this.previewImg_momoQR = this.setting.PaymentSettings.qrCodes.momoQR;
+    this.previewImg_bankQR = this.setting.PaymentSettings.qrCodes.bankQR;
 
     // console.log(event)
   }
 
+
+
+  selectedFile_img_bankQR?: File;
+  previewImg_bankQR: string | null = null;
+  onFileSelected_bankQR(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    if (file.type !== 'image/png') {
+      this._notification.showError('Chỉ cho phép ảnh PNG (nền trong suốt)');
+      event.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile_img_bankQR = file;
+      this.previewImg_bankQR = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  selectedFile_img_momoQR?: File;
+  previewImg_momoQR: string | null = null;
+  onFileSelected_momoQR(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    if (file.type !== 'image/png') {
+      this._notification.showError('Chỉ cho phép ảnh PNG (nền trong suốt)');
+      event.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile_img_momoQR = file;
+      this.previewImg_momoQR = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
+  }
 }

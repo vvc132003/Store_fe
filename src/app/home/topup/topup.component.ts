@@ -36,5 +36,13 @@ export class TopupComponent implements OnInit {
   onUserLoaded(user: any) {
     this.currentUser = user;
   }
+  settingP: any = {};
+  previewImg_bankQR: string | null = null;
+  previewImg_momoQR: string | null = null;
+
+  paymentSettings(setting: any) {
+    this.settingP = setting;
+  }
+
 
 }

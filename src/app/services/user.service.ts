@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { API_URLS } from '../config/api-urls';
-import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -203,6 +203,11 @@ export class UserService {
         }
     }
 
+    private balanceSource = new Subject<number>();
+    balance$ = this.balanceSource.asObservable();
 
+    updateBalance(price: number) {
+        this.balanceSource.next(price);
+    }
 
 }

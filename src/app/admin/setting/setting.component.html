@@ -55,8 +55,8 @@
                                         Chọn Logo
                                     </a>
                                 </div>
-                                <img *ngIf="previewImg_logo" [src]="previewImg_logo" alt="Thumbnail" class="img-fluid mt-1"
-                                    style="max-height: 120px;">
+                                <img *ngIf="previewImg_logo" [src]="previewImg_logo" alt="Thumbnail"
+                                    class="img-fluid mt-1" style="max-height: 120px;">
                             </div>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
@@ -91,26 +91,48 @@
             <!-- Payment Settings -->
             <div class="tab-pane fade" id="payment" role="tabpanel">
                 <div class="form-section">
-                    <h5>Payment Settings</h5>
+                    <h5>Cài đặt thanh toán</h5>
                     <div class="mb-3">
-                        <label class="form-label">Gateways</label>
-                        <select class="form-select" multiple>
-                            <option value="vnpay">VNPAY</option>
-                            <option value="momo">Momo</option>
-                            <option value="paypal">Paypal</option>
-                        </select>
+                        <label for="bankName" class="form-label">Tên ngân hàng</label>
+                        <input type="text" class="form-control" id="bankName"
+                            [(ngModel)]="setting.PaymentSettings.bank.bankName" placeholder="Nhập tên ngân hàng">
                     </div>
                     <div class="mb-3">
-                        <label for="currency" class="form-label">Currency</label>
-                        <input type="text" class="form-control" id="currency" value="VND">
+                        <label for="accountNumber" class="form-label">Số tài khoản</label>
+                        <input type="text" class="form-control" id="accountNumber"
+                            [(ngModel)]="setting.PaymentSettings.bank.accountNumber" placeholder="Nhập số tài khoản">
                     </div>
                     <div class="mb-3">
-                        <label for="commission" class="form-label">Commission (%)</label>
-                        <input type="number" class="form-control" id="commission" value="10">
+                        <label for="accountHolder" class="form-label">Tên chủ sở hữu</label>
+                        <input type="text" class="form-control" id="accountHolder"
+                            [(ngModel)]="setting.PaymentSettings.bank.accountHolder" placeholder="Nhập tên chủ sở hữu">
                     </div>
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="enableTestMode">
-                        <label class="form-check-label" for="enableTestMode">Enable Test Mode</label>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone" [(ngModel)]="setting.PaymentSettings.phone"
+                            placeholder="Nhập số điện thoại">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-start">
+                            <label class="image-box">
+                                <input type="file" hidden accept="image" (change)="onFileSelected_bankQR($event)">
+                                <ng-container>
+                                    <div class="icon">📷</div>
+                                    <p>Tải Bank QR (mặc định)</p>
+                                </ng-container>
+                                <img *ngIf="previewImg_bankQR" [src]="previewImg_bankQR" class="preview-img">
+                            </label>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <label class="image-box">
+                                <input type="file" hidden accept="image" (change)="onFileSelected_momoQR($event)">
+                                <ng-container>
+                                    <div class="icon">📷</div>
+                                    <p>Tải MoMo QR (mặc định)</p>
+                                </ng-container>
+                                <img *ngIf="previewImg_momoQR" [src]="previewImg_momoQR" class="preview-img">
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

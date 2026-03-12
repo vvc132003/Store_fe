@@ -25,11 +25,14 @@ export class SettingsService {
         return this.http.put<any>(`${this.apiUrl}/${key}`, data);
     }
 
-    uploadLogo(logo?: File, avatar?: File): Observable<any> {
+    uploadLogo(logo?: File, avatar?: File, bankQR?: File, momoQR?: File): Observable<any> {
         const formData = new FormData();
 
         if (logo) formData.append('logo', logo);
         if (avatar) formData.append('avatar', avatar);
+        if (bankQR) formData.append('bankQR', bankQR);
+        if (momoQR) formData.append('momoQR', momoQR);
+
 
         return this.http.post<any>(`${this.apiUrl}/Uploadlogo`, formData);
     }
