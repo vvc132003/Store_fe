@@ -14,6 +14,7 @@ export class UserService {
     private apiUrl = API_URLS.api + '/Users';
     private hubUrl = API_URLS.hub;
     private hubConnection?: signalR.HubConnection;
+    private hubConnectionMoney?: signalR.HubConnection;
 
     constructor(private http: HttpClient, private cookieService: CookieService, private auth: AuthService, private router: Router) {
         // this.hubConnection1 = new signalR.HubConnectionBuilder()
@@ -26,6 +27,11 @@ export class UserService {
 
     private createConnection() {
         this.hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(API_URLS.hub, { withCredentials: true })
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Error)
+            .build();
+        this.hubConnectionMoney = new signalR.HubConnectionBuilder()
             .withUrl(API_URLS.hub, { withCredentials: true })
             .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Error)
@@ -79,6 +85,13 @@ export class UserService {
         return this.http.post(`${this.apiUrl}/reset-password`, data);
     }
 
+    updateBalanceMoney(userId: string, amount: number) {
+        const body = {
+            userId: userId,
+            amount: amount
+        };
+        return this.http.post(`${this.apiUrl}/update-balance`, body);
+    }
 
 
     // postLogin(data: any): Observable<any> {
@@ -182,6 +195,32 @@ export class UserService {
         });
     }
 
+    startConnectionMoney(userId: string): Observable<void> {
+        return new Observable(observer => {
+
+            // 🔥 tạo mới nếu chưa có hoặc đã stop
+            if (!this.hubConnectionMoney ||
+                this.hubConnectionMoney.state === signalR.HubConnectionState.Disconnected) {
+                this.createConnection();
+            }
+
+            // 🚫 nếu đang connected / connecting thì bỏ qua
+            if (this.hubConnectionMoney?.state !== signalR.HubConnectionState.Disconnected) {
+                observer.next();
+                observer.complete();
+                return;
+            }
+
+            this.hubConnectionMoney.start()
+                .then(() => this.hubConnectionMoney!.invoke('JoinGroupsMoneyUpdate', userId))
+                .then(() => {
+                    observer.next();
+                    observer.complete();
+                })
+                .catch(err => observer.error(err));
+        });
+    }
+
     listenForceLogout(onLogout: () => void) {
         this.hubConnection?.off('ForceLogout');
         this.hubConnection?.on('ForceLogout', () => {
@@ -200,6 +239,27 @@ export class UserService {
             }
 
             this.hubConnection = undefined; // 🔥 CỰC KỲ QUAN TRỌNG
+        }
+    }
+
+
+    loadMoney(): Observable<any> {
+        return new Observable((observer) => {
+            this.hubConnectionMoney?.on('BalanceUpdated', (data: any) => {
+                observer.next(data);
+            });
+        });
+    }
+
+    stopConnectionMoney(): void {
+        if (this.hubConnectionMoney) {
+            this.hubConnectionMoney.off('BalanceUpdated');
+
+            if (this.hubConnectionMoney.state !== signalR.HubConnectionState.Disconnected) {
+                this.hubConnectionMoney.stop();
+            }
+
+            this.hubConnectionMoney = undefined; // 🔥 CỰC KỲ QUAN TRỌNG
         }
     }
 

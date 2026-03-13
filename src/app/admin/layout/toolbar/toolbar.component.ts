@@ -27,7 +27,19 @@ export class ToolbarComponent implements OnInit, OnChanges {
     { id: '104', funId: '1002', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
 
     /// 1003
-    { id: '103', funId: '1003', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
+    {
+      id: '102',
+      funId: '1003',
+      label: 'Nạp tiền',
+      labelEn: 'Top up',
+      icon: 'fa-money-bill',
+      type: 'success',
+      class: '',
+      display: 'block',
+      language: 'vi',
+      action: () => this.event('103')
+    },
+    // { id: '103', funId: '1003', label: 'Xem', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'vi', action: () => this.event('103') },
     // { id: '104', funId: '1003', label: 'Xoá', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('104') },
     {
       id: '106',
@@ -51,8 +63,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
     //   language: 'vi',
     //   action: () => this.event('107')
     // },
-    { id: '105', funId: '1003', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
-    { id: '106', funId: '1003', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
+    // { id: '105', funId: '1003', label: 'Xuất CSV', icon: 'fa-file-csv', type: 'success', class: '', display: 'block', language: 'vi', action: () => this.event('105') },
+    // { id: '106', funId: '1003', label: 'Xuất PDF', icon: 'fa-file-pdf', type: 'danger', class: '', display: 'block', language: 'vi', action: () => this.event('106') },
 
 
     /// 1004-1
@@ -127,6 +139,17 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     { id: '103', funId: '1003', label: 'View', icon: 'fa-eye', type: 'secondary', class: '', display: 'block', language: 'en', action: () => this.event('103') },
     { id: '104', funId: '1003', label: 'Delete', icon: 'fa-trash', type: 'danger', class: '', display: 'block', language: 'en', action: () => this.event('104') },
+    {
+      id: '102',
+      funId: '1003',
+      label: 'Top Up',
+      icon: 'fa-money-bill',
+      type: 'success',
+      class: '',
+      display: 'block',
+      language: 'en',
+      action: () => this.event('103')
+    },
 
     { id: '101', funId: '1005', label: 'Add', icon: 'fa-plus', type: 'primary', class: '', display: 'block', language: 'en', action: () => this.event('101') },
     { id: '102', funId: '1005', label: 'Update', icon: 'fa-refresh', type: 'warning', class: '', display: 'block', language: 'en', action: () => this.event('102') },

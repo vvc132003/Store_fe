@@ -6,5 +6,6 @@
 </ng-template>
 
 <ng-template #customerAdd>
-
+    <app-update-balance [showUpdateBalance]="showUpdateBalance" [user]="newUser" (closeBalanceUpdate)="close()"
+        (newData)="newData($event)"></app-update-balance>
 </ng-template>

@@ -37,6 +37,7 @@ import { CommentItemComponent } from './comment/comment-detail/comment-item/comm
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { TagsComponent } from './tags/tags.component';
 import { TagsAddComponent } from './tags/tags-add/tags-add.component';
+import { UpdateBalanceComponent } from './customers/update-balance/update-balance.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { TagsAddComponent } from './tags/tags-add/tags-add.component';
     CommentItemComponent,
     ChangePasswordComponent,
     TagsComponent,
-    TagsAddComponent
+    TagsAddComponent,
+    UpdateBalanceComponent
   ],
   imports: [
     CommonModule,

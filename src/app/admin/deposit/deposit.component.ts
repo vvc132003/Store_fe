@@ -38,7 +38,7 @@ export class DepositComponent implements OnInit, OnDestroy {
 
   loaTransactions() {
     this.subscription.add(
-      this._transaction.getWithdrawTransactions().subscribe((res: any[]) => {
+      this._transaction.getDepositTransactions().subscribe((res: any[]) => {
         res.sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime());
         this.transactions = res;
         this.transaction_id = res[0];

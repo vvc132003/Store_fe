@@ -20,6 +20,11 @@ export class TransactionService {
         return this.http.get<any[]>(`${this.apiUrl}/withdraw-transactions`);
     }
 
+    getDepositTransactions(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrl}/deposit-transactions`);
+    }
+
+
     getHistoryTransactions(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/history-transactions`, { withCredentials: true });
     }

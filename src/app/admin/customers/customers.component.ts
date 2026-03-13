@@ -63,7 +63,6 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   click(event: any) {
     // this.isModalVisible = true;
-    console.log(event)
     const modalMap: { [key: string]: () => void } = {
       '101': () => setTimeout(() => this.showUser_add = true, 0),
       '102': () => setTimeout(() => this.showUser_add = true, 0)
@@ -74,21 +73,17 @@ export class CustomersComponent implements OnInit, OnDestroy {
       openModal();
     }
     switch (event) {
-      case '101':
-        // this.showoffcanvas = true;
-        this.newUser = {};
-        this.data = {
-          action: 'add',
-          text: 'Thêm khách hàng'
-        };
-        break;
+      // case '101':
+      //   // this.showoffcanvas = true;
+      //   this.newUser = {};
+      //   this.data = {
+      //     action: 'add',
+      //     text: 'Thêm khách hàng'
+      //   };
+      //   break;
       case '102':
-        // this.showoffcanvas = true;
+        this.showUpdateBalance = true;
         this.newUser = this.users.find(dr => dr.id == this.user_id.id);
-        this.data = {
-          action: 'update',
-          text: 'Cập nhật khách hàng'
-        };
         break;
       case '106':
         const user = this.users.find(u => u.id == this.user_id.id);
@@ -103,37 +98,31 @@ export class CustomersComponent implements OnInit, OnDestroy {
           })
         )
         break;
-      case '104':
-        this._user.deleteData(this.user_id.id).subscribe(data => {
-          this.users = this.users.filter(d => d.id !== this.user_id.id);
-          this.user_id = this.users[0];
-        })
-        break;
+      // case '104':
+      //   this._user.deleteData(this.user_id.id).subscribe(data => {
+      //     this.users = this.users.filter(d => d.id !== this.user_id.id);
+      //     this.user_id = this.users[0];
+      //   })
+      //   break;
       default:
         break;
     }
   }
+
   newData(data: any) {
-    const index = this.users.findIndex(c => c.id === data.id);
-    if (index === -1) {
-      this.count += 1;
-      // this.categories.unshift(data);
-      this.users = [data, ...this.users];
-    } else {
+    const index = this.users.findIndex(u => u.id === this.user_id.id);
+    if (index !== -1) {
       const updated = [...this.users];
-      updated[index] = data;
+      updated[index].balance = data.balance;
       this.users = updated;
     }
-    this.user_id = data;
-    // if (this.pendingActions.length > 0) {
-    //   this.evetnbuttons(this.pendingActions);
-    //   // this.pendingActions = [];
-    // }
   }
 
+  showUpdateBalance = false;
   close() {
     // this.showDetail = false;
     this.showUser_add = false;
+    this.showUpdateBalance = false;
     setTimeout(() => {
       // this.isModalVisible = false;
     }, 400);

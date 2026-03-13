@@ -42,6 +42,7 @@ export class MessageService {
     { code: '1035', text: 'Bạn cần nhập Email!' },
     { code: '1036', text: 'Mã OTP không tồn tạil!' },
     { code: '1037', text: 'Mã OTP đã gửi về email!' },
+    { code: '1038', text: 'Nạp tiền thành công!' },
 
 
 

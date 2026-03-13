@@ -73,13 +73,16 @@
                                         {{ (currentPage - 1) * pageSize + i + 1 }}
                                     </div>
 
-                                    <div class="col name text-danger">- {{ item.amount |number }} đ</div>
+                                    <div class="col name"
+                                        [ngClass]="item.transactionType === 'DEPOSIT' ? 'text-success' : 'text-danger'">
+                                        {{ item.transactionType === 'DEPOSIT' ? '+' : '-' }} {{ item.amount | number }} đ
+                                    </div>
                                     <div class="col date">{{ item.message}}</div>
                                     <div class="col date d-flex align-items-center gap-1">
                                         <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>
-                                        <i *ngIf="item.transactionType === 'TRANSFER'"
+                                        <i *ngIf="item.transactionType === 'DEPOSIT'"
                                             class="bi bi-arrow-right-circle"></i>
-                                        <i *ngIf="item.transactionType === 'WITHDRAW'" class="bi bi-wallet2"></i>
+                                        <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-wallet2"></i>
                                         <i *ngIf="item.transactionType === 'DEPOSIT'" class="bi bi-cash-stack"></i>
                                         <span [ngClass]="getTransactionTypeLabel(item.transactionType).class">
                                             {{ getTransactionTypeLabel(item.transactionType).label }}

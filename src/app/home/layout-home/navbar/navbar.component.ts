@@ -61,6 +61,23 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
         this.user.balance -= price;
       }
     });
+    this.moneyUpdate();
+  }
+
+  moneyUpdate() {
+    this.auth.session().subscribe(isAuth => {
+      if (!isAuth) {
+        return;
+      }
+
+      this.auth.me().subscribe((user: any) => {
+        this._user.startConnectionMoney(user.id).subscribe(() => {
+          this._user.loadMoney().subscribe((balance: any) => {
+            this.user.balance = balance;
+          })
+        })
+      });
+    });
 
   }
 
@@ -76,6 +93,7 @@ export class NavbarComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this._user.stopConnectionMoney();
   }
 
 

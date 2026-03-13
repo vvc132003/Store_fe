@@ -54,7 +54,7 @@
             <div class="h-col date">Nội dung</div>
             <div class="h-col date">Loại giao dịch</div>
             <div class="h-col date">Trạng thái</div>
-            <div class="h-col date">Ngày trừ tiền</div>
+            <div class="h-col date">Ngày nạp tiền</div>
 
         </div>
 
@@ -77,7 +77,7 @@
                         border: 1px solid #ddd;
                     }
                 </style>
-                <div class="col name text-danger">- {{ item.amount |number }} đ</div>
+                <div class="col name text-success">+ {{ item.amount |number }} đ</div>
                 <div class="col date">{{ item.message}}</div>
                 <div class="col date d-flex align-items-center gap-1">
                     <i *ngIf="item.transactionType === 'DOWNLOAD_CODE'" class="bi bi-download"></i>

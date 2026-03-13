@@ -1,0 +1,24 @@
+<app-form [headerDiv]="tables" [showTags]="false" [text]="'Nạp tiền: '+user.fullName"
+    [showoffcanvas]="showUpdateBalance" (closePupAdd)="close()"
+    [tabTemplates]="{category: categoryContent, setting: setting}">
+</app-form>
+<ng-template #categoryContent>
+    <div class="mb-3">
+        <label for="fullName" class="form-label small">Tên khách hàng</label>
+        <input type="text" id="fullName" name="fullName" class="form-control form-control-sm" [(ngModel)]="user.fullName"
+            disabled="" />
+    </div>
+
+    <div class="mb-3">
+        <label for="balance" class="form-label small">Số tiền cần nạp</label>
+        <input type="text" id="balance" name="balance" placeholder="VD: 11000" class="form-control form-control-sm"
+            [(ngModel)]="balance" />
+    </div>
+    <div class="offcanvas-footer">
+        <button type="button" class="btn btn-primary px-4" (click)="save()">
+            <i class="fa fa-save"></i>
+            Lưu
+        </button>
+    </div>
+</ng-template>
+<ng-template #setting></ng-template>
