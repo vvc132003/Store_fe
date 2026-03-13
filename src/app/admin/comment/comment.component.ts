@@ -37,7 +37,7 @@ export class CommentComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this._comment.getData().subscribe((res: any) => {
         this.comments_list = res.result;
-        this.comments = res.filter((c: any) => c.parentId == null);
+        this.comments = this.comments_list.filter((c: any) => c.parentId == null);
         this.compent_id = this.comments[0];
         this.countComment = this.comments.length;
       })
