@@ -81,7 +81,7 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
         this.logo = res?.data?.SiteSettings?.logo ?? "";
         this.faviconService.setFavicon(this.logo);
         this.dataEvent.emit(res);
-        console.log(this.settings);
+        // console.log(this.settings);
       })
     )
   }

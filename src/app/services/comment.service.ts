@@ -18,6 +18,7 @@ export class CommentService {
         const url = projectId
             ? `${this.apiUrl}/commentbypjId/${projectId}`
             : `${this.apiUrl}/commentbypjId`;
+    console.log("API URL:", url);
 
         return this.http.get<any>(url);
     }
