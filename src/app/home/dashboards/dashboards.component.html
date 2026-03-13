@@ -171,9 +171,9 @@
                                 <div class="card-body">
                                     <h6 class="text-white">Code đã thích</h6>
                                     <h3 class="text-end text-white">
-                                        <i class="fas fa-bookmark float-start"></i><span>{{favoritesCount}}</span>
+                                        <i class="fas fa-bookmark float-start"></i><span>{{totalFavorite | number}}</span>
                                     </h3>
-                                    <p class="m-b-0">Tháng này<span class="float-end">0</span></p>
+                                    <p class="m-b-0">Tháng này<span class="float-end">{{totalFavoriteThisMonth | number}}</span></p>
                                 </div>
                             </div>
                         </div>

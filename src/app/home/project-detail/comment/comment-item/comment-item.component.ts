@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommentService } from 'src/app/services/comment.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -16,7 +18,7 @@ export class CommentItemComponent {
   @Input() currentUser: any = {};
 
 
-  constructor(private _comment: CommentService, private cookieService: CookieService) { }
+  constructor(private _comment: CommentService, private _notification: NotificationService, private router: Router, private cookieService: CookieService) { }
 
   toggleReplyInput(comment: any) {
     this.comments.forEach(c => {
@@ -33,7 +35,13 @@ export class CommentItemComponent {
   }
 
   addReply(userId: string) {
-    if (!this.replyInput.trim()) return;
+    if (!this.currentUserId) {
+      this.router.navigate(['/dang-nhap']);
+    }
+    if (!this.replyInput.trim()) {
+      this._notification.showWarning("1041");
+      return;
+    }
 
     const newComment = {
       projectId: this.comment.projectId,

@@ -83,12 +83,18 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   availableYears: number[] = [2023, 2024, 2025, 2026];
   allOrderData: any[] = [];
   allRevenueData: any[] = [];
+  totalFavorite!: number;
+  totalFavoriteThisMonth!: number;
 
   loadMonthlyOrderStats(payload: any) {
     this.selectedYear = new Date().getFullYear();
     this._project.getMonthlyOrderStats(payload.id).subscribe((data: any) => {
       this.allOrderData = data.orderCount;
       this.allRevenueData = data.totalRevenue;
+      this.revenue_month = data.total;
+      this.totalFavorite = data.totalFavorite;
+      this.totalFavoriteThisMonth = data.favoriteThisMonth;
+      console.log(data);
       this.onFilter();
     })
   }
@@ -128,7 +134,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     const currentMonthRevenueData = this.revenueData.find(
       (item: any) => item.month === currentMonth && item.year === currentYear
     );
-    this.revenue_month = currentMonthRevenueData ? currentMonthRevenueData.totalRevenue : 0;
+    // this.revenue_month = currentMonthRevenueData ? currentMonthRevenueData.totalRevenue : 0;
 
 
   }

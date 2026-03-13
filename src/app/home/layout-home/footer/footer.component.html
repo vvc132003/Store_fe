@@ -3,7 +3,7 @@
 
     <!-- Cột 1: Logo + mô tả -->
     <div class="footer-col">
-      <h4 class="footer-logo">CodeMarket</h4>
+      <h4 class="footer-logo"><img [src]="settings?.data?.SiteSettings?.logo" alt=""></h4>
       <p class="footer-desc">
         Nền tảng chia sẻ & mua bán mã nguồn chất lượng cao.
       </p>
@@ -34,8 +34,8 @@
     <!-- Cột 4: Liên hệ -->
     <div class="footer-col">
       <h5>Liên hệ</h5>
-      <p>Email: vvc132003@gmail.com</p>
-      <p>Hotline: 0386231275</p>
+      <p>Email: {{settings?.data?.EmailSettings?.username}}</p>
+      <p>Hotline: {{settings?.data?.PaymentSettings?.phone}}</p>
 
       <div class="social">
         <a href="#"><i class="bi bi-facebook"></i></a>
@@ -44,10 +44,5 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- Bottom -->
-  <div class="footer-bottom">
-    © {{ currentYear }} CodeMarket. All rights reserved.
   </div>
 </footer>

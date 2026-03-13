@@ -409,8 +409,16 @@
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.25);
   outline: none;
 }
+.action-icon {
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s;
+}
 
-
+.action-icon.delete {
+  color: #f44336;
+  /* đỏ */
+}
 
 /* MOBILE */
 @media (max-width: 470px) {

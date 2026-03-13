@@ -1,75 +1,125 @@
 .app-footer {
-  background: #0f172a;
+  background: linear-gradient(135deg, #0f172a, #020617);
   color: #cbd5f5;
-  padding: 40px 0 0;
+  padding: 60px 0 0;
   font-size: 14px;
 }
 
+/* container */
 .footer-container {
-  max-width: 100%;
+  max-width: 1400px;
   margin: auto;
-  padding: 0px 90px;
+  padding: 0 80px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
+  gap: 40px;
 }
 
-.footer-logo {
-  color: #22c55e;
-  font-size: 22px;
-  margin-bottom: 10px;
+/* logo */
+.footer-logo img {
+  height: 45px;
+  margin-bottom: 15px;
 }
 
+/* description */
 .footer-desc {
   color: #94a3b8;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 260px;
 }
 
+/* title */
 .footer-col h5 {
   color: #fff;
-  margin-bottom: 12px;
-  font-size: 15px;
+  margin-bottom: 18px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
 }
 
+.footer-col h5::after {
+  content: "";
+  width: 35px;
+  height: 2px;
+  background: #22c55e;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+}
+
+/* list */
 .footer-col ul {
   list-style: none;
   padding: 0;
 }
 
 .footer-col ul li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .footer-col ul li a {
   color: #cbd5f5;
   text-decoration: none;
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  font-size: 14px;
 }
 
 .footer-col ul li a:hover {
   color: #22c55e;
+  padding-left: 5px;
 }
 
+/* contact */
+.footer-col p {
+  margin: 6px 0;
+  color: #94a3b8;
+}
+
+/* social */
 .social {
-  margin-top: 10px;
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
 }
 
 .social a {
+  width: 36px;
+  height: 36px;
+  background: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #cbd5f5;
-  margin-right: 10px;
-  font-size: 18px;
-  transition: 0.3s;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .social a:hover {
-  color: #22c55e;
+  background: #22c55e;
+  color: #fff;
+  transform: translateY(-3px);
 }
 
+/* bottom */
 .footer-bottom {
   border-top: 1px solid #1e293b;
-  margin-top: 30px;
-  padding: 15px;
+  margin-top: 50px;
+  padding: 18px;
   text-align: center;
   font-size: 13px;
   color: #94a3b8;
+  background: rgba(0,0,0,0.2);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 25px;
+    gap: 30px;
+  }
+
+  .footer-desc {
+    max-width: 100%;
+  }
 }

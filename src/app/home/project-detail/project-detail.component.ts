@@ -342,5 +342,19 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
     );
   }
 
+  addCart() {
+    this._notification.showWarning("1039");
+  }
+  lengthC: number = 0;
+  lengthComment(length: number) {
+    this.lengthC = length;
+  }
 
+  @ViewChild('commentSection') commentSection!: ElementRef;
+
+  scrollToComment() {
+    this.commentSection.nativeElement.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
 }

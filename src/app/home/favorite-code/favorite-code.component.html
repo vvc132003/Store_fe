@@ -83,9 +83,8 @@
 
 
                                     <div class="col zip text-center">
-                                        <div class="col action" (click)="$event.stopPropagation()">
-                                            <button class="btn-edit">Cập nhật</button>
-                                            <button class="btn-delete">Xoá</button>
+                                        <div class="col action" (click)="removeFavorite(item.projectId)">
+                                            <i class="fas fa-trash-alt action-icon delete" title="Xoá"></i>
                                         </div>
                                     </div>
 

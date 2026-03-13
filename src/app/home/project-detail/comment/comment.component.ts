@@ -1,8 +1,10 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/AuthService';
 import { CommentService } from 'src/app/services/comment.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-comment',
@@ -20,7 +22,7 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
 
   private subscription = new Subscription();
 
-  constructor(private cookieService: CookieService, private auth: AuthService, private _comment: CommentService) { }
+  constructor(private cookieService: CookieService, private _notification: NotificationService, private router: Router, private auth: AuthService, private _comment: CommentService) { }
 
   ngOnInit(): void {
     // const token = this.cookieService.get('access_token');
@@ -56,16 +58,17 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['projectId'] && this.projectId) {
-      this.loadComment(); // ✅ CHỈ GỌI 1 NƠI
+      this.loadComment();
     }
   }
-
+  @Output() lengthComment = new EventEmitter<number>();
+  hasPurchased: boolean = true;
   loadComment() {
-
     this.subscription.add(
       this._comment.getData(this.projectId).subscribe((res: any) => {
-        this.comments = res;
-        // console.log(res);
+        this.comments = res.result;
+        this.hasPurchased = res.hasPurchased;
+        this.lengthComment.emit(this.comments.filter(c => c.status === "approved").length);
       })
     );
   }
@@ -89,6 +92,19 @@ export class CommentComponent implements OnInit, OnDestroy, OnChanges {
   // }
   currentUserId: string = "";
   addComment(parentId?: string): void {
+    if (!this.currentUserId) {
+      this.router.navigate(['/dang-nhap']);
+    }
+    if (!this.hasPurchased) {
+      this._notification.showWarning("1040");
+      return;
+    }
+
+    // nội dung rỗng
+    if (!this.commentInput || this.commentInput.trim() === '') {
+      this._notification.showWarning("1041");
+      return;
+    }
     const comment = {
       projectId: this.projectId,
       authorUserId: this.currentUserId,

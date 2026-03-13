@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FavoriteCodeComponent implements OnInit, OnDestroy {
 
-  
+
   // user: any = {};
   favorite: any[] = [];
   showFilter = false;
@@ -34,7 +35,7 @@ export class FavoriteCodeComponent implements OnInit, OnDestroy {
   orderCountData: any[] = [];
   revenueData: any[] = [];
   constructor(private _user: UserService,
-    private titleService: Title, private cookieService: CookieService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
+    private titleService: Title, private cookieService: CookieService, private favoriteService: FavoriteService, private cdr: ChangeDetectorRef, private _project: ProjectService) { }
   private subscription = new Subscription();
 
   // private parseJwt(token: string): any {
@@ -137,7 +138,7 @@ export class FavoriteCodeComponent implements OnInit, OnDestroy {
 
     this.pagedData = this.filteredData.slice(startIndex, endIndex);
   }
-  
+
   goToPage(page: number) {
     if (page < 1) return;
     const totalPages = Math.ceil(this.favorite.length / this.pageSize);
@@ -145,5 +146,23 @@ export class FavoriteCodeComponent implements OnInit, OnDestroy {
 
     this.currentPage = page;
     this.updatePagedData();
+  }
+
+  removeFavorite(projectId: string) {
+
+    if (!confirm("Bạn có chắc muốn xoá khỏi danh sách yêu thích?")) {
+      return;
+    }
+
+    this.favoriteService.removeFavorite(projectId)
+      .subscribe({
+        next: () => {
+          this.pagedData = this.pagedData.filter(f => f.projectId !== projectId);
+        },
+        error: () => {
+          alert("Xoá thất bại");
+        }
+      });
+
   }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { FaviconService } from 'src/app/services/FaviconService';
 import { SettingsService } from 'src/app/services/setting.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
   @Input() tableName: string = "";
 
   @Input() tabTemplates: { [key: string]: TemplateRef<any> } = {};
-  constructor(private conversationService: ConversationService, private _setting: SettingsService) {
+  constructor(private conversationService: ConversationService, private faviconService: FaviconService, private _setting: SettingsService) {
 
   }
   private subscription = new Subscription();
@@ -71,12 +72,14 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
 
   @Output() dataEvent = new EventEmitter<any>();
 
-
+  logo: string = "";
   settings: any[] = [];
   loadSetting() {
     this.subscription.add(
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
+        this.logo = res?.data?.SiteSettings?.logo ?? "";
+        this.faviconService.setFavicon(this.logo);
         this.dataEvent.emit(res);
       })
     )

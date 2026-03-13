@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef 
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConversationService } from 'src/app/services/conversation.service';
+import { FaviconService } from 'src/app/services/FaviconService';
 import { SettingsService } from 'src/app/services/setting.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -19,7 +20,9 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
 
   category_list: any[] = [];
 
-  constructor(private _category: CategoryService, private _setting: SettingsService, private _user: UserService, private conversationService: ConversationService) {
+  constructor(private _category: CategoryService, private _setting: SettingsService, private _user: UserService, private conversationService: ConversationService,
+    private faviconService: FaviconService
+  ) {
 
   }
   private subscription = new Subscription();
@@ -48,6 +51,7 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
         this.logo = res?.data?.SiteSettings?.logo ?? "";
+        this.faviconService.setFavicon(this.logo);
         this.logoChange.emit(this.logo);
         this.paymentSettings.emit(res?.data?.PaymentSettings ?? "");
       })

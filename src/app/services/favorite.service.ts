@@ -28,6 +28,9 @@ export class FavoriteService {
     // Phương thức DELETE
     deleteData(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/${id}`);
-    }    
+    }
+    removeFavorite(projectId: string) {
+        return this.http.delete(`${this.apiUrl}/favorite/${projectId}`);
+    }
 
 }
