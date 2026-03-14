@@ -1,18 +1,18 @@
 <div class="login-bg">
     <div class="birds">
-    <div *ngFor="let bird of birdStyles" class="bird" [ngStyle]="{
+        <div *ngFor="let bird of birdStyles" class="bird" [ngStyle]="{
                 top: bird.top,
                 animationDuration: bird.duration,
                 animationDelay: bird.delay,
                 transform: bird.scale
                 }">
-      <span class="wing left"></span>
-      <span class="wing right"></span>
+            <span class="wing left"></span>
+            <span class="wing right"></span>
+        </div>
     </div>
-  </div>
 
-  <div class="sky">
-    <span *ngFor="let star of stars" [ngStyle]="{
+    <div class="sky">
+        <span *ngFor="let star of stars" [ngStyle]="{
     'top': star.top,
     'left': star.left,
     'width': star.size,
@@ -20,8 +20,8 @@
     'animation-delay': star.delay
   }"></span>
 
-    <div class="moon"></div>
-  </div>
+        <div class="moon"></div>
+    </div>
 
     <div class="login-card">
 
@@ -46,11 +46,14 @@
                 <span>{{ passwordRules.minLength ? '✔️' : '❌' }}</span>
                 Ít nhất {{ securitySettings.passwordMinLength }} ký tự
             </li>
-
             <li *ngIf="securitySettings.requireSymbols" [class.ok]="passwordRules.symbol"
                 [class.error]="!passwordRules.symbol">
                 <span>{{ passwordRules.symbol ? '✔️' : '❌' }}</span>
                 Chứa ít nhất 1 ký tự đặc biệt
+            </li>
+            <li [class.ok]="passwordRules.uppercase" [class.error]="!passwordRules.uppercase">
+                <span>{{ passwordRules.uppercase ? '✔️' : '❌' }}</span>
+                Chứa ít nhất 1 chữ viết hoa
             </li>
         </ul>
         <div class="password-wrapper">

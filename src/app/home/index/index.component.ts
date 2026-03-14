@@ -16,10 +16,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   project_latest: any[] = [];
 
   slides = [
-    'assets/a1.png',
-    'assets/a2.png',
-    'assets/a3.png',
-    'assets/a4.png'
+    // 'assets/b1.png',
+    'assets/image.png',
+    // 'assets/a3.png',
+    // 'assets/a4.png'
 
   ];
 
@@ -63,11 +63,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
 
   loadProject_list() {
-    const token = this.cookieService.get('access_token');
-    const payload = this.parseJwt(token);
     // console.log(payload);
     this.subscription.add(
-      this._project.getProject_list(payload?.nameid).subscribe((data: any) => {
+      this._project.getProject_list().subscribe((data: any) => {
         // this.project_list = data.sort(
         //   (a: any, b: any) =>
         //     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()

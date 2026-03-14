@@ -14,38 +14,7 @@
                             <div class="user-profile user-card mb-4">
                                 <div class="card-header border-0 p-0 pb-0">
                                     <div class="cover-img-block">
-                                        <img src="https://giaodichcode.com/assets/images/bannerv2/ban_source_code_kiem_them_thu_nhap.jpg"
-                                            alt="Bán source code kiếm thêm thu nhập - giaodichcode.com"
-                                            class="img-fluid">
-                                        <div class="change-cover">
-                                            <div class="dropdown">
-                                                <a class="drp-icon dropdown-toggle" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false"><i
-                                                        class="icon feather icon-camera"></i></a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="https://giaodichcode.com/tai-khoan/cap-nhat-tai-khoan"
-                                                        title="Cập nhật tài khoản">
-                                                        Cập nhật tài khoản
-                                                    </a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                        title="Nạp tiền tài khoản">
-                                                        Nạp tiền tài khoản
-                                                    </a>
-                                                    <a class="dropdown-item"
-                                                        href="https://giaodichcode.com/tai-khoan/tai-len"
-                                                        title="Tải code lên">
-                                                        Tải code lên
-                                                    </a>
-                                                    <a class="dropdown-item"
-                                                        href="https://giaodichcode.com/tai-khoan/doi-mat-khau"
-                                                        title="Đổi mật khẩu">
-                                                        Đổi mật khẩu
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <img src="assets/image.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                                 <div class="card-body py-0">
@@ -69,28 +38,6 @@
                                                                 <i class="fas fa-check front-icon text-white"></i>
                                                             </div>
                                                         </a>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item"
-                                                                href="https://giaodichcode.com/tai-khoan/cap-nhat-tai-khoan"
-                                                                title="Cập nhật tài khoản">
-                                                                Cập nhật tài khoản
-                                                            </a>
-                                                            <a class="dropdown-item" href="javascript:void(0)"
-                                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                                title="Nạp tiền tài khoản">
-                                                                Nạp tiền tài khoản
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="https://giaodichcode.com/tai-khoan/tai-len"
-                                                                title="Tải code lên">
-                                                                Tải code lên
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="https://giaodichcode.com/tai-khoan/doi-mat-khau"
-                                                                title="Đổi mật khẩu">
-                                                                Đổi mật khẩu
-                                                            </a>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <h5 class="mb-1">{{currentUser.fullName}}</h5>
@@ -120,7 +67,7 @@
                                                         <a [routerLink]="['/']"
                                                             class="mb-1 text-muted d-flex align-items-center text-h-primary">
                                                             <i class="fas fa-phone-alt me-2 f-18"></i>
-                                                            Chưa cập nhật
+                                                            {{currentUser.phone}}
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
@@ -171,9 +118,11 @@
                                 <div class="card-body">
                                     <h6 class="text-white">Code đã thích</h6>
                                     <h3 class="text-end text-white">
-                                        <i class="fas fa-bookmark float-start"></i><span>{{totalFavorite | number}}</span>
+                                        <i class="fas fa-bookmark float-start"></i><span>{{totalFavorite |
+                                            number}}</span>
                                     </h3>
-                                    <p class="m-b-0">Tháng này<span class="float-end">{{totalFavoriteThisMonth | number}}</span></p>
+                                    <p class="m-b-0">Tháng này<span class="float-end">{{totalFavoriteThisMonth |
+                                            number}}</span></p>
                                 </div>
                             </div>
                         </div>

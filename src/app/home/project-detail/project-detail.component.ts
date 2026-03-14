@@ -357,4 +357,17 @@ export class ProjectDetailComponent implements OnDestroy, OnInit {
       behavior: 'smooth'
     });
   }
+  setRating(rating: number, id: string): void {
+    const data = {
+      id: id,
+      star: rating
+    };
+    this.subscription.add(
+      this._project.changeStar_Project(data).subscribe((res: any) => {
+        const star = this.projectRamdom.find(p => p.id === id);
+        star.star = rating;
+        this._notification.showSuccess("1008");
+      })
+    )
+  }
 }

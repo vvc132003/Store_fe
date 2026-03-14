@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { ProjectService } from 'src/app/services/project.service';
 @Component({
   selector: 'app-featuredapplications',
   templateUrl: './featuredapplications.component.html',
@@ -23,7 +24,7 @@ export class FeaturedapplicationsComponent implements OnChanges, OnDestroy {
   pageSize = 10;
   pagedData: any[] = [];
 
-  constructor(private cookieService: CookieService, private _favorite: FavoriteService, private _notification: NotificationService) { }
+  constructor(private cookieService: CookieService,private _project: ProjectService, private _favorite: FavoriteService, private _notification: NotificationService) { }
   private subscription = new Subscription();
 
   ngOnDestroy() {
@@ -161,5 +162,18 @@ export class FeaturedapplicationsComponent implements OnChanges, OnDestroy {
         }
       })
     );
+  }
+  setRating(rating: number, id: string): void {
+    const data = {
+      id: id,
+      star: rating
+    };
+    this.subscription.add(
+      this._project.changeStar_Project(data).subscribe((res: any) => {
+        const star = this.pagedData.find(p => p.id === id);
+        star.star = rating;
+        this._notification.showSuccess("1008");
+      })
+    )
   }
 }

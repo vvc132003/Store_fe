@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadComment() {
     this.subscription.add(
       this._comment.getData().subscribe((res: any) => {
-        this.comments = res;
+        this.comments = res.result;
       })
     );
   }

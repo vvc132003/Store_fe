@@ -219,10 +219,29 @@
                                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                                 </h3>
                                 <div class="rating">
-                                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
-                                        [ngClass]="s <= item.star ? 'fas active' : 'far'">
-                                    </i>
+                                    <div class="stars">
+                                        <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                            [ngClass]="s <= item.star ? 'fas active' : 'far'"
+                                            (click)="setRating(s, item.id)">
+                                        </i>
+                                    </div>
+                                    <span class="prices">
+                                        {{ item.price | number:'1.0-0' }} đ
+                                    </span>
                                 </div>
+                                <style>
+                                    .rating {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                    }
+
+                                    .prices {
+                                        font-weight: 700 !important;
+                                        color: #d5101c !important;
+                                        font-size: 15px !important;
+                                    }
+                                </style>
                                 <div class="bottom-row">
                                     <div class="seller">
                                         <img [src]="avatar" />

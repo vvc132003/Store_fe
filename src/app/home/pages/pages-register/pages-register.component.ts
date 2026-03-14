@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./pages-register.component.scss']
 })
 export class PagesRegisterComponent implements OnInit, OnDestroy {
-stars: { top: string; left: string; size: string; delay: string }[] = [];
+  stars: { top: string; left: string; size: string; delay: string }[] = [];
 
   birdStyles: {
     top: string;
@@ -31,13 +31,13 @@ stars: { top: string; left: string; size: string; delay: string }[] = [];
   ngOnInit(): void {
     this.titleService.setTitle("Đăng ký tài khoản");
     this.loadSetting();
-     this.generateBirds();
+    this.generateBirds();
     this.generateStars();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
- generateStars() {
+  generateStars() {
     const numStars = 100;
     this.stars = [];
 
@@ -82,7 +82,8 @@ stars: { top: string; left: string; size: string; delay: string }[] = [];
 
   passwordRules = {
     minLength: false,
-    symbol: false
+    symbol: false,
+    uppercase: false
   };
   passwordTouched = false;
 
@@ -95,7 +96,8 @@ stars: { top: string; left: string; size: string; delay: string }[] = [];
 
       this.passwordRules = {
         minLength: false,
-        symbol: false
+        symbol: false,
+        uppercase: false
       };
       return;
     }
@@ -105,15 +107,21 @@ stars: { top: string; left: string; size: string; delay: string }[] = [];
     this.securitySettings = this.settings?.data?.SecuritySettings;
     if (!this.securitySettings) return;
 
+    // kiểm tra độ dài
     this.passwordRules.minLength =
       password.length >= this.securitySettings.passwordMinLength;
 
+    // kiểm tra ký tự đặc biệt
     if (this.securitySettings.requireSymbols) {
       const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
       this.passwordRules.symbol = symbolRegex.test(password);
     } else {
       this.passwordRules.symbol = true;
     }
+
+    // kiểm tra chữ hoa
+    const upperRegex = /[A-Z]/;
+    this.passwordRules.uppercase = upperRegex.test(password);
   }
 
   showPassword = false;

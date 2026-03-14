@@ -15,7 +15,7 @@
                     <div class=" left-side-card ">
                         <div class="card-header hot-code p-t-15 p-b-0">
                             <h4 class="mb-2 h4 d-flex align-items-center gap-2">
-                                <i class="fas fa-code"></i>
+                                <i class="fas fa-folder-open text-warning"></i>
                                 <span>{{ categoryname }}</span>
                                 <span class="text-muted" style="font-size: 14px;">({{count}} source code)</span>
                             </h4>
@@ -119,12 +119,30 @@
                                 </div> -->
 
                                     <div class="rating">
-                                        <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
-                                            [ngClass]="s <= item.star ? 'fas active' : 'far'"
-                                            (click)="setRating(s, item.id)">
-                                        </i>
-                                        <!-- <span>1 đánh giá</span> -->
+                                        <div class="stars">
+                                            <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                                [ngClass]="s <= item.star ? 'fas active' : 'far'"
+                                                (click)="setRating(s, item.id)">
+                                            </i>
+                                        </div>
+
+                                        <span class="price">
+                                            {{ item.price | number:'1.0-0' }} đ
+                                        </span>
                                     </div>
+                                    <style>
+                                        .rating {
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+                                        }
+
+                                        .price {
+                                            font-weight: 600;
+                                            color: #d5101c !important;
+                                            font-size: 15px !important;
+                                        }
+                                    </style>
 
                                     <div class="bottom-row">
                                         <div class="seller">
@@ -168,8 +186,12 @@
                                     <h3 class="title">{{ item.title }}</h3>
 
                                     <div class="rating">
-                                        <i *ngFor="let s of [1,2,3,4,5]"
-                                            [ngClass]="s <= item.star ? 'fas fa-star active' : 'far fa-star'"></i>
+                                        <div class="stars">
+                                            <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                                [ngClass]="s <= item.star ? 'fas active' : 'far'"
+                                                (click)="setRating(s, item.id)">
+                                            </i>
+                                        </div>
                                     </div>
 
                                     <div class="details-row">
@@ -257,10 +279,29 @@
                                     <a [routerLink]="['/source-code', item.slug]">{{ item.title }}</a>
                                 </h3>
                                 <div class="rating">
-                                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
-                                        [ngClass]="s <= item.star ? 'fas active' : 'far'">
-                                    </i>
+                                    <div class="stars">
+                                        <i *ngFor="let s of [1,2,3,4,5]" class="fa-star"
+                                            [ngClass]="s <= item.star ? 'fas active' : 'far'"
+                                            (click)="setRating(s, item.id)">
+                                        </i>
+                                    </div>
+                                    <span class="prices">
+                                        {{ item.price | number:'1.0-0' }} đ
+                                    </span>
                                 </div>
+                                <style>
+                                    .rating {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                    }
+
+                                    .prices {
+                                        font-weight: 700 !important;
+                                        color: #d5101c !important;
+                                        font-size: 15px !important;
+                                    }
+                                </style>
                                 <div class="bottom-row">
                                     <div class="seller">
                                         <img [src]="avatar" />

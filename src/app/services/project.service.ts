@@ -80,9 +80,8 @@ export class ProjectService {
     //     return this.http.get<any[]>(`${this.apiUrl}/project-list`);
     // }
 
-    getProject_list(userId?: string): Observable<any> {
-        const url = userId ? `${this.apiUrl}/project-list/${userId}` : `${this.apiUrl}/project-list`;
-
+    getProject_list(): Observable<any> {
+        const url = `${this.apiUrl}/project-list`;
         return this.http.get<any[]>(url);
     }
 

@@ -1,7 +1,7 @@
 <div class="card-header hot-code p-t-15 p-b-0">
     <h4 class="text-danger mb-2 h4">
-        <i class="fab fa-hotjar"></i> Code mới nhất
-    </h4>
+    <i class="fas fa-rocket"></i> Code mới nhất
+</h4>
 </div>
 <div *ngFor="let car of project_list" class="car-item mb-3">
     <div style="margin-bottom: 5px;" class="row justify-content-between">
@@ -11,9 +11,28 @@
         <div class="col-7">
             <h3><a [routerLink]="['/source-code', car.slug]">{{ car.title }}</a></h3>
             <div class="rating">
-                <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= car.star ? 'fas active' : 'far'">
-                </i>
+                <div class="stars">
+                    <i *ngFor="let s of [1,2,3,4,5]" class="fa-star" [ngClass]="s <= car.star ? 'fas active' : 'far'"
+                        >
+                    </i>
+                </div>
+                <span class="prices">
+                    {{ car.price | number:'1.0-0' }} đ
+                </span>
             </div>
+            <style>
+                .rating {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .prices {
+                    font-weight: 700 !important;
+                    color: #d5101c !important;
+                    font-size: 15px !important;
+                }
+            </style>
         </div>
     </div>
     <div class="col-12">

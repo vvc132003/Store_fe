@@ -94,7 +94,6 @@ export class DashboardsComponent implements OnInit, OnDestroy {
       this.revenue_month = data.total;
       this.totalFavorite = data.totalFavorite;
       this.totalFavoriteThisMonth = data.favoriteThisMonth;
-      console.log(data);
       this.onFilter();
     })
   }

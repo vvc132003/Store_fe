@@ -86,15 +86,33 @@ export class UpdateAccountComponent implements OnInit, OnDestroy {
   }
 
   update(): void {
-    if (!this.selectedFile_img) return;
-    this.subscription.add(
-      this._user.uploadImg(this.selectedFile_img, this.currentUser.avatar).subscribe((res: any) => {
-        this.currentUser.avatar = res.thumbnailUrl;
-        this._user.updateUser(this.currentUser.id, this.currentUser).subscribe(() => {
-          this._notification.showSuccess("1030");
-        })
-      })
-    )
+
+    const data = { ...this.currentUser };
+
+    // nếu không chọn ảnh mới thì không gửi avatar
+    if (!this.selectedFile_img) {
+      delete data.avatar;
+    }
+
+    if (this.selectedFile_img) {
+      this.subscription.add(
+        this._user.uploadImg(this.selectedFile_img, this.currentUser.avatar)
+          .subscribe((res: any) => {
+            data.avatar = res.thumbnailUrl;
+            this._user.updateUser(this.currentUser.id, data)
+              .subscribe(() => {
+                this._notification.showSuccess("1030");
+              });
+          })
+      );
+    } else {
+      this.subscription.add(
+        this._user.updateUser(this.currentUser.id, data)
+          .subscribe(() => {
+            this._notification.showSuccess("1030");
+          })
+      );
+    }
   }
 
 

@@ -46,11 +46,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   loadProject_list() {
-    const token = this.cookieService.get('access_token');
-    const payload = this.parseJwt(token);
     // console.log(payload);
     this.subscription.add(
-      this._project.getProject_list(payload?.nameid).subscribe((data: any) => {
+      this._project.getProject_list().subscribe((data: any) => {
         this.project_list = data.sort(
           (a: any, b: any) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
