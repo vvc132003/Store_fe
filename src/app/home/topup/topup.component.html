@@ -33,18 +33,18 @@
                             <div class="qr-container">
                                 <div class="qr-box">
                                     <div class="logo">
-                                        <p>{{settingP?.bank.bankName ?? 'Không có tên ngân hàng' }}</p>
+                                        <p>{{ settingP?.bank?.bankName || 'Không có tên ngân hàng' }}</p>
                                     </div>
-                                    <img [src]="settingP.qrCodes.bankQR" alt="QR Bank" />
-                                    <div class="name">{{settingP.bank.accountHolder}}</div>
+                                    <img [src]="settingP?.qrCodes?.bankQR" alt="QR Bank" />
+                                    <div class="name">{{settingP?.bank?.accountHolder}}</div>
                                 </div>
 
                                 <div class="qr-box">
                                     <div class="logo">
                                         <p>Momo</p>
                                     </div>
-                                    <img [src]="settingP.qrCodes.momoQR" alt="QR Bank" />
-                                    <div class="name">{{settingP.bank.accountHolder}}</div>
+                                    <img [src]="settingP?.qrCodes?.momoQR" alt="QR Bank" />
+                                    <div class="name">{{settingP?.bank?.accountHolder}}</div>
                                 </div>
                             </div>
 
@@ -63,10 +63,10 @@
                                     </li>
                                     <li>
                                         Trường hợp sau 30 phút chưa thấy cộng tiền chụp lại giao dịch gọi qua
-                                        <a href="#">{{settingP.phone}}</a>.
+                                        <a href="#">{{settingP?.phone}}</a>.
                                     </li>
                                     <li>
-                                        Mọi hướng dẫn chi tiết liên hệ qua <a href="#">{{settingP.phone}}</a>.
+                                        Mọi hướng dẫn chi tiết liên hệ qua <a href="#">{{settingP?.phone}}</a>.
                                     </li>
                                 </ul>
                             </div>
@@ -77,8 +77,8 @@
                                 <div class="bank-icon">💳</div>
                                 <div class="bank-info">
                                     <p class="bank-name">{{ settingP?.bank?.bankName ?? 'Không có tên ngân hàng' }}</p>
-                                    <p class="bank-number">{{settingP.bank.accountNumber}}</p>
-                                    <p class="bank-owner">{{settingP.bank.accountHolder}}</p>
+                                    <p class="bank-number">{{settingP?.bank?.accountNumber}}</p>
+                                    <p class="bank-owner">{{settingP?.bank?.accountHolder}}</p>
                                 </div>
                             </div>
                         </div>
