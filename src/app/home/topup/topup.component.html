@@ -33,7 +33,7 @@
                             <div class="qr-container">
                                 <div class="qr-box">
                                     <div class="logo">
-                                        <p>{{settingP.bank.bankName}}</p>
+                                        <p>{{settingP?.bank.bankName}}</p>
                                     </div>
                                     <img [src]="settingP.qrCodes.bankQR" alt="QR Bank" />
                                     <div class="name">{{settingP.bank.accountHolder}}</div>
@@ -75,7 +75,7 @@
                             <div class="bank-card">
                                 <div class="bank-icon">💳</div>
                                 <div class="bank-info">
-                                    <p class="bank-name">{{settingP.bank.bankName}}</p>
+                                    <p class="bank-name">{{settingP?.bank.bankName}}</p>
                                     <p class="bank-number">{{settingP.bank.accountNumber}}</p>
                                     <p class="bank-owner">{{settingP.bank.accountHolder}}</p>
                                 </div>

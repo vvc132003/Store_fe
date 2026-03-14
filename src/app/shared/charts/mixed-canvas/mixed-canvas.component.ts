@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, AfterViewInit, ViewChild, NgZone } from '@angular/core';
-import { Chart, ChartConfiguration } from 'chart.js';
+import { Chart, ChartConfiguration, LinearScale, CategoryScale, BarElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 @Component({
   selector: 'app-mixed-canvas',
@@ -28,6 +28,11 @@ export class MixedCanvasComponent implements OnChanges, AfterViewInit {
   private createChart() {
     this.ngZone.runOutsideAngular(() => {
       const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
+
+      // Đăng ký các component Chart.js (cần thiết cho Chart.js v3+)
+      Chart.register(
+        LinearScale, CategoryScale, BarElement, LineElement, Title, Tooltip, Legend
+      );
 
       this.chart = new Chart(this.mixedCanvas.nativeElement, {
         type: 'bar',
@@ -62,8 +67,9 @@ export class MixedCanvasComponent implements OnChanges, AfterViewInit {
     this.orderCountData.forEach(item => monthlyData[item.month - 1] = item.orderCount);
 
     this.ngZone.runOutsideAngular(() => {
-      this.chart!.data.datasets[0].data.splice(0, 12, ...revenueByMonth);
-      this.chart!.data.datasets[1].data.splice(0, 12, ...monthlyData);
+      // Cập nhật dữ liệu cho các dataset
+      this.chart!.data.datasets[0].data = revenueByMonth;
+      this.chart!.data.datasets[1].data = monthlyData;
       this.chart!.update('none');
     });
   }
