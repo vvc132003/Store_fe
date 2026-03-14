@@ -41,8 +41,7 @@ export class TopupComponent implements OnInit {
   previewImg_momoQR: string | null = null;
 
   paymentSettings(setting: any) {
-    this.settingP = setting;
+    this.settingP = setting || {};
+    this.settingP.bank = this.settingP.bank || {};
   }
-
-
 }
