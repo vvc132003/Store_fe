@@ -51,7 +51,9 @@ export class LayoutHomeComponent implements OnInit, OnDestroy {
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
         this.logo = res?.data?.SiteSettings?.logo ?? "";
-        this.faviconService.setFavicon(this.logo);
+        setTimeout(() => {
+          this.faviconService.setFavicon(this.logo);
+        }, 100);
         this.logoChange.emit(this.logo);
         this.paymentSettings.emit(res?.data?.PaymentSettings ?? "");
       })

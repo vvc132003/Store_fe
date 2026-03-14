@@ -4,12 +4,19 @@ import { Injectable } from "@angular/core";
 export class FaviconService {
 
   setFavicon(iconUrl: string) {
-    const link: HTMLLinkElement | null =
-      document.querySelector("link[rel*='icon']");
+    const head = document.head;
 
-    if (link) {
-      link.href = iconUrl;
+    const oldLink = document.querySelector("link[rel='icon']");
+    if (oldLink) {
+      oldLink.remove();
     }
+
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png";
+    link.href = iconUrl + "?v=" + Date.now(); // tránh cache
+
+    head.appendChild(link);
   }
 
 }
