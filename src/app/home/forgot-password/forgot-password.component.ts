@@ -30,7 +30,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.titleService.setTitle("Đăng nhập");
+    this.titleService.setTitle("Quên mật khẩu");
     this.showWarning = false;
 
     this.route.queryParams.subscribe(params => {

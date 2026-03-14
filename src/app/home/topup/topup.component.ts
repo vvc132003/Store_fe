@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -10,7 +11,7 @@ export class TopupComponent implements OnInit {
   activeTab = 1;
   code: string = "";
   @Output() closed = new EventEmitter<void>();
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private titleService: Title) { }
   // private parseJwt(token: string): any {
   //   const payload = token.split('.')[1];
   //   const decoded = atob(payload);
@@ -26,6 +27,7 @@ export class TopupComponent implements OnInit {
     const token = this.cookieService.get('access_token');
     // const payload = this.parseJwt(token);
     // this.code = payload.code;
+    this.titleService.setTitle("Nạp tiền");
   }
   close() {
     this.closed.emit();

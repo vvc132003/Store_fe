@@ -36,7 +36,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     private _user: UserService, private _setting: SettingsService, private router: Router, private route: ActivatedRoute, private _notification: NotificationService) { }
   private subscription = new Subscription();
   ngOnInit(): void {
-    this.titleService.setTitle("Đăng nhập");
+    this.titleService.setTitle("Mật khâu mới");
     this.generateBirds();
     this.generateStars();
     this.loadSetting();
