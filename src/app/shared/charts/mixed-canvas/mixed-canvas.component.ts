@@ -18,11 +18,11 @@ export class MixedCanvasComponent implements OnChanges, AfterViewInit {
   constructor(private ngZone: NgZone) { }
 
   ngAfterViewInit(): void {
-    this.createChart(); // tạo chart 1 lần sau khi view init
+    this.createChart(); // Tạo chart lần đầu tiên sau khi view đã khởi tạo
   }
 
   ngOnChanges(): void {
-    this.updateChartData(); // chỉ update dữ liệu khi Input thay đổi
+    this.updateChartData(); // Chỉ cập nhật dữ liệu khi Input thay đổi
   }
 
   private createChart() {
@@ -33,6 +33,11 @@ export class MixedCanvasComponent implements OnChanges, AfterViewInit {
       Chart.register(
         LinearScale, CategoryScale, BarElement, LineElement, Title, Tooltip, Legend
       );
+
+      // Nếu chart đã tồn tại, hủy chart cũ trước khi tạo chart mới
+      if (this.chart) {
+        this.chart.destroy();
+      }
 
       this.chart = new Chart(this.mixedCanvas.nativeElement, {
         type: 'bar',
