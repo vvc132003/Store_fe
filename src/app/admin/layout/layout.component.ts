@@ -79,6 +79,7 @@ export class LayoutComponent implements OnChanges, OnInit, OnDestroy {
       this._setting.getData().subscribe((res: any) => {
         this.settings = res;
         this.logo = res?.data?.SiteSettings?.logo ?? "";
+        this.logo = this.logo.replace("http://", "https://");
         this.faviconService.setFavicon(this.logo);
         this.dataEvent.emit(res);
         // console.log(this.settings);
